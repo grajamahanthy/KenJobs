@@ -29,5 +29,19 @@ namespace KenJobs.Dal
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<AppliedJob> AppliedJobs { get; set; }
+        public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<EducationalQualification> EducationalQualifications { get; set; }
+        public virtual DbSet<Experience> Experiences { get; set; }
+        public virtual DbSet<Gender> Genders { get; set; }
+        public virtual DbSet<JobCategory> JobCategories { get; set; }
+        public virtual DbSet<Job> Jobs { get; set; }
+        public virtual DbSet<JobType> JobTypes { get; set; }
+        public virtual DbSet<Profile> Profiles { get; set; }
+        public virtual DbSet<State> States { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<User_Client> User_Client { get; set; }
     }
 }
