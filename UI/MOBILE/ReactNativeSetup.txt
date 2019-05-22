@@ -1,0 +1,37 @@
+Install Choclate
+----------------
+1. Open Cmd
+2. @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+
+Install Dependencies
+--------------------
+1. Open Cmd
+2. choco install -y nodejs.install python2 jdk8
+
+Install react-native-cli
+-----------------------
+npm install -g react-native-cli
+
+Add User Variable(Path) for adb commands
+----------------------------------------
+%USERPROFILE%\AppData\Local\Android\sdk\platform-tools
+
+Connect Mobile using USB
+------------------------
+Enable Developer mode in Android mobile
+Connect using USB
+
+Check Connected devices
+-----------------------
+adb devices
+"We will see our Mobile listed
+
+----------------------------------------------------------------------------------------------------
+
+
+Install Android Studion
+-----------------------
+https://developer.android.com/studio/index.html
+
+-----------------------Environment Setup
+https://facebook.github.io/react-native/docs/getting-started.html
