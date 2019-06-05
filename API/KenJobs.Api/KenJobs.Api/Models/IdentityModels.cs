@@ -21,7 +21,7 @@ namespace KenJobs.Api.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("IdentityDbContextConnection", throwIfV1Schema: false)
         {
         }
         

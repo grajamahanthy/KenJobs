@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KenJobs.Dal.Contracts
 {
-    interface IGenericRepository<T> : IDisposable where T : class
+    public interface IGenericRepository<T> : IDisposable where T : class
     {
         IEnumerable<T> GetAll();
         T GetById(object id);

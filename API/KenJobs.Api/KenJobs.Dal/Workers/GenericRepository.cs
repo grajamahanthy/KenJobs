@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace KenJobs.Dal.Workers
 {
-    class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         private KenJobsEntities _context = null;
         private DbSet<T> table = null;
