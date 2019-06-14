@@ -33,9 +33,9 @@ namespace KenJobs.Dal
         public int Gender_Id { get; set; }
         public short Status { get; set; }
         public string CreatedBy { get; set; }
-        public System.DateTime CreateOn { get; set; }
+        public Nullable<System.DateTime> CreateOn { get; set; }
         public string UpdatedBy { get; set; }
-        public System.DateTime UpdatedOn { get; set; }
+        public Nullable<System.DateTime> UpdatedOn { get; set; }
         public string AspNetUser_Id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

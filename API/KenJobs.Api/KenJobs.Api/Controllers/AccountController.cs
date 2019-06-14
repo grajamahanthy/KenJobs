@@ -16,6 +16,9 @@ using Microsoft.Owin.Security.OAuth;
 using KenJobs.Api.Models;
 using KenJobs.Api.Providers;
 using KenJobs.Api.Results;
+using KenJobs.Bl.Contracts;
+using KenJobs.Bl.Workers;
+using KenJobs.Bo.BusinessObjects;
 
 namespace KenJobs.Api.Controllers
 {
@@ -125,7 +128,7 @@ namespace KenJobs.Api.Controllers
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -258,9 +261,9 @@ namespace KenJobs.Api.Controllers
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    OAuthDefaults.AuthenticationType);
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                   OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
@@ -321,14 +324,20 @@ namespace KenJobs.Api.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
+        public async Task<IHttpActionResult> Register(UserModel model)//(RegisterBindingModel model)//
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, PhoneNumber = model.PhoneNumber };
+
+
+            string userId = user.Id;
+
+
+            //createUser(model);
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -336,10 +345,44 @@ namespace KenJobs.Api.Controllers
             {
                 return GetErrorResult(result);
             }
+            else
+            {
+                UserContract userWorker = new UserWorker();
+                UserBo userBo = new UserBo();
+
+                userBo.FirstName = model.FirstName;
+                userBo.LastName = model.LastName;
+                userBo.ProfilePhoto = model.ProfilePhoto;
+                userBo.Gender_Id = Convert.ToInt32(model.Gender_Id);
+                userBo.AspNetUser_Id = userId;
+                userBo.Status = 1;
+                //userBo.AspNetUser_Id = model.AspNetUser_Id;
+                try{
+                    userWorker.InsertUser(userBo);
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
 
             return Ok();
         }
 
+        public void createUser(UserModel model)
+        {
+            UserContract userWorker = new UserWorker();
+            UserBo userBo = new UserBo();
+
+            userBo.FirstName = model.FirstName;
+            userBo.LastName = model.LastName;
+            userBo.ProfilePhoto = model.ProfilePhoto;
+            userBo.Gender_Id = Convert.ToInt32(model.Gender_Id);
+            userBo.AspNetUser_Id = "ef612be5-1b2b-41a6-b63f-81b7be417974";// userId;
+            userBo.Status = 1;
+            //userBo.AspNetUser_Id = model.AspNetUser_Id;
+            userWorker.InsertUser(userBo);
+        }
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
@@ -368,7 +411,7 @@ namespace KenJobs.Api.Controllers
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result); 
+                return GetErrorResult(result);
             }
             return Ok();
         }
