@@ -31,16 +31,6 @@ import { faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWal
 library.add(faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender)
 
 
-// function NoMatch(location: { location: any }) {
-//   console.log(location);
-//   return (
-//     <div>
-//       <h3>
-//         No match for <code>{location.location.pathname}</code>
-//       </h3>
-//     </div>
-//   );
-// }
 
 class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -103,6 +93,7 @@ class App extends React.Component<any, any> {
     </>
     );
   }
+
 };
 
 const mapStateToProps = (state: AppState) => ({

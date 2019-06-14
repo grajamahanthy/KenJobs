@@ -1,0 +1,12 @@
+create environment for React web 
+
+- npm install -g create-react-app
+- create-react-app <application name> 
+		(or)
+  create-react-app <application name> --typescript // for typescript 
+
+-  npm i node-sass //installing Sass
+
+-  npm install bootstrap --save //Bootstrap
+
+-  npm install react-router-dom //router
