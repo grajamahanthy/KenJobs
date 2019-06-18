@@ -217,6 +217,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -226,6 +227,8 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ConfigModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JobsModel.cs" />
+    <Compile Include="Models\JobTypeModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />

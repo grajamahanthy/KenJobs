@@ -17,7 +17,7 @@ namespace KenJobs.Api.Controllers
         public IEnumerable<UserModel> Get()
         {
             UserContract userWorker = new UserWorker();
-            IEnumerable<UserBo> userBolist = userWorker.GetUser();
+            IEnumerable<UserBo> userBolist = userWorker.GetUsers();
 
             List<UserModel> userModelList = new List<UserModel>();
 
@@ -43,7 +43,7 @@ namespace KenJobs.Api.Controllers
         // GET: api/User/5
         public string Get(int id)
         {
-            return "value";
+          
         }
 
         // POST: api/User
