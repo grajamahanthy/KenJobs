@@ -32,17 +32,46 @@ namespace KenJobs.Bl.Workers
 
         public JobCategoryBo GetJobCategory(int id)
         {
-            throw new NotImplementedException();
+            IGenericRepository<JobCategory> repository=new GenericRepository<JobCategory>();
+            object objid = id;
+            JobCategory jobCategory = repository.GetById(objid);
+
+            JobCategoryBo jobCategoryBo = new JobCategoryBo();
+            jobCategoryBo.Id = jobCategory.Id;
+            jobCategoryBo.Category = jobCategory.Category;
+            jobCategoryBo.Status = jobCategory.Status;
+
+            return jobCategoryBo;
+
         }
 
         public int PostJobCategory(JobCategoryBo jobCategoryBo)
         {
-            throw new NotImplementedException();
+            IGenericRepository<JobCategory> repository=new GenericRepository<JobCategory>();
+
+            JobCategory jobCategory = new JobCategory();
+            jobCategory.Id = jobCategoryBo.Id;
+            jobCategory.Category = jobCategoryBo.Category;
+            jobCategory.Status = jobCategoryBo.Status;
+
+            repository.Insert(jobCategory);
+            repository.Save();
+            return 1;
+
         }
 
         public int UpdateJobCategory(int id, JobCategoryBo jobCategoryBo)
         {
-            throw new NotImplementedException();
+            IGenericRepository<JobCategory> repository=new GenericRepository<JobCategory>();
+
+            JobCategory jobCategory = new JobCategory();
+            jobCategory.Id = jobCategoryBo.Id;
+            jobCategory.Category = jobCategoryBo.Category;
+            jobCategory.Status = jobCategoryBo.Status;
+
+            repository.Update(jobCategory);
+            repository.Save();
+            return 1;
         }
     }
 }
