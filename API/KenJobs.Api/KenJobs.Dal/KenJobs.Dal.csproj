@@ -125,17 +125,18 @@
     <Compile Include="Workers\GenericRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="KenJobs.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>KenJobs.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="KenJobs.edmx.diagram">
       <DependentUpon>KenJobs.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="KenJobs.Context.tt">
@@ -148,9 +149,6 @@
       <DependentUpon>KenJobs.edmx</DependentUpon>
       <LastGenOutput>KenJobs.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -41,10 +41,10 @@ namespace KenJobs.Api.Controllers
         }
 
         // GET: api/User/5
-        public string Get(int id)
-        {
+        //public string Get(int id)
+        //{
           
-        }
+        //}
 
         // POST: api/User
         public void Post([FromBody]string value)

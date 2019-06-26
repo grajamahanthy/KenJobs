@@ -356,6 +356,7 @@ namespace KenJobs.Api.Controllers
                 userBo.Gender_Id = Convert.ToInt32(model.Gender_Id);
                 userBo.AspNetUser_Id = userId;
                 userBo.Status = 1;
+                userBo.Title = "Mr.";
                 //userBo.AspNetUser_Id = model.AspNetUser_Id;
                 try{
                     userWorker.InsertUser(userBo);

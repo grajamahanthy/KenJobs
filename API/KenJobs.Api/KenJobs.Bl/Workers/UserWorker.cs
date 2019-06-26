@@ -76,6 +76,7 @@ namespace KenJobs.Bl.Workers
             user.ProfilePhoto = userBo.ProfilePhoto;
             user.Gender_Id = userBo.Gender_Id;
             user.Status = userBo.Status;
+            user.Title = userBo.Title;
             user.CreatedBy = "Client";
             user.CreateOn = DateTime.Now;
             user.UpdatedBy = userBo.UpdatedBy;

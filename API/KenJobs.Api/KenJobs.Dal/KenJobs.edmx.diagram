@@ -4,42 +4,42 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b70962a50a054a1280e64e0828a048c1" Name="Diagram1">
-        <EntityTypeShape EntityType="KenJobsModel.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="KenJobsModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="KenJobsModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KenJobsModel.AspNetUser" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
-        <AssociationConnector Association="KenJobsModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="KenJobsModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="KenJobsModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="KenJobsModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="6.75" />
-        <EntityTypeShape EntityType="KenJobsModel.AppliedJob" Width="1.5" PointX="13.875" PointY="1.75" />
-        <EntityTypeShape EntityType="KenJobsModel.Client" Width="1.5" PointX="11.625" PointY="8.25" />
-        <EntityTypeShape EntityType="KenJobsModel.Country" Width="1.5" PointX="0.75" PointY="10" />
-        <EntityTypeShape EntityType="KenJobsModel.EducationalQualification" Width="1.5" PointX="10.875" PointY="19.125" />
-        <EntityTypeShape EntityType="KenJobsModel.Experience" Width="1.5" PointX="10.875" PointY="23" />
-        <EntityTypeShape EntityType="KenJobsModel.Gender" Width="1.5" PointX="6.375" PointY="7.25" />
-        <EntityTypeShape EntityType="KenJobsModel.JobCategory" Width="1.5" PointX="9.375" PointY="31.375" />
-        <EntityTypeShape EntityType="KenJobsModel.Job" Width="1.5" PointX="11.625" PointY="28.375" />
-        <EntityTypeShape EntityType="KenJobsModel.JobType" Width="1.5" PointX="9.375" PointY="28.125" />
-        <EntityTypeShape EntityType="KenJobsModel.Profile" Width="1.5" PointX="10.875" PointY="14.5" />
-        <EntityTypeShape EntityType="KenJobsModel.State" Width="1.5" PointX="3" PointY="10" />
-        <EntityTypeShape EntityType="KenJobsModel.User" Width="1.5" PointX="8.625" PointY="1" />
-        <EntityTypeShape EntityType="KenJobsModel.User_Client" Width="1.5" PointX="10.875" PointY="2" />
-        <AssociationConnector Association="KenJobsModel.FK_AppliedJobs_Client" />
-        <AssociationConnector Association="KenJobsModel.FK_AppliedJobs_Jobs" />
-        <AssociationConnector Association="KenJobsModel.FK_AppliedJobs_User" />
-        <AssociationConnector Association="KenJobsModel.FK_User_AspNetUser" />
-        <AssociationConnector Association="KenJobsModel.FK_Jobs_Client" />
-        <AssociationConnector Association="KenJobsModel.FK_User_Client_Client" />
-        <AssociationConnector Association="KenJobsModel.FK_State_Country" />
-        <AssociationConnector Association="KenJobsModel.FK_EducationalQualification_User" />
-        <AssociationConnector Association="KenJobsModel.FK_Experience_User" />
-        <AssociationConnector Association="KenJobsModel.FK_User_Gender" />
-        <AssociationConnector Association="KenJobsModel.FK_Jobs_JobCategory" />
-        <AssociationConnector Association="KenJobsModel.FK_Jobs_JobType" />
-        <AssociationConnector Association="KenJobsModel.FK_Profile_User" />
-        <AssociationConnector Association="KenJobsModel.FK_User_Client_User" />
+      <Diagram DiagramId="2b577de9248e48ffa681037a5b93f3df" Name="Diagram1">
+        <EntityTypeShape EntityType="kenjobsModel.AppliedJob" Width="1.5" PointX="13.5" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="kenjobsModel.AspNetRole" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="kenjobsModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="kenjobsModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="kenjobsModel.AspNetUser" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="kenjobsModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="kenjobsModel.Client" Width="1.5" PointX="11.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="kenjobsModel.Country" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="kenjobsModel.EducationalQualification" Width="1.5" PointX="10.5" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="kenjobsModel.Experience" Width="1.5" PointX="10.5" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="kenjobsModel.Gender" Width="1.5" PointX="6" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="kenjobsModel.JobCategory" Width="1.5" PointX="9" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="kenjobsModel.Job" Width="1.5" PointX="11.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="kenjobsModel.JobType" Width="1.5" PointX="9" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="kenjobsModel.Profile" Width="1.5" PointX="10.5" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="kenjobsModel.State" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="kenjobsModel.User" Width="1.5" PointX="8.25" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="kenjobsModel.User_Client" Width="1.5" PointX="13.5" PointY="9.125" IsExpanded="true" />
+        <AssociationConnector Association="kenjobsModel.FK_AppliedJobs_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="kenjobsModel.FK_AppliedJobs_Jobs" ManuallyRouted="false" />
+        <AssociationConnector Association="kenjobsModel.FK_AppliedJobs_User" ManuallyRouted="false" />
+        <AssociationConnector Association="kenjobsModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="kenjobsModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="kenjobsModel.FK_User_AspNetUser" ManuallyRouted="false" />
+        <AssociationConnector Association="kenjobsModel.FK_Jobs_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="kenjobsModel.FK_User_Client_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="kenjobsModel.FK_State_Country" ManuallyRouted="false" />
+        <AssociationConnector Association="kenjobsModel.FK_EducationalQualification_User" ManuallyRouted="false" />
+        <AssociationConnector Association="kenjobsModel.FK_Experience_User" ManuallyRouted="false" />
+        <AssociationConnector Association="kenjobsModel.FK_User_Gender" ManuallyRouted="false" />
+        <AssociationConnector Association="kenjobsModel.FK_Jobs_JobCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="kenjobsModel.FK_Jobs_JobType" ManuallyRouted="false" />
+        <AssociationConnector Association="kenjobsModel.FK_Profile_User" ManuallyRouted="false" />
+        <AssociationConnector Association="kenjobsModel.FK_User_Client_User" ManuallyRouted="false" />
+        <AssociationConnector Association="kenjobsModel.AspNetUserRoles" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

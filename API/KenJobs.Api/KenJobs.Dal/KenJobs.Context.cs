@@ -13,10 +13,10 @@ namespace KenJobs.Dal
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class KenJobsEntities : DbContext
+    public partial class kenjobsEntities : DbContext
     {
-        public KenJobsEntities()
-            : base("name=KenJobsEntities")
+        public kenjobsEntities()
+            : base("name=kenjobsEntities")
         {
         }
     
@@ -25,12 +25,12 @@ namespace KenJobs.Dal
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AppliedJob> AppliedJobs { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
-        public virtual DbSet<AppliedJob> AppliedJobs { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<EducationalQualification> EducationalQualifications { get; set; }
