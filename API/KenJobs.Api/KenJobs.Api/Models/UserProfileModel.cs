@@ -6,7 +6,7 @@ using System.Web;
 
 namespace KenJobs.Api.Models
 {
-    public class UserModel
+    public class UserProfileModel
     {
         public int Id { get; set; }
         [Required]
@@ -58,6 +58,8 @@ namespace KenJobs.Api.Models
 
         public string AspNetUser_Id { get; set; }
 
-      
+        public List<ProfileModel> Profile { get; set; }
+        public List<ExperienceModel> Experience { get; set; }
+        public List<EducationalQualificationModel> EducationalQualification { get; set; }
     }
 }

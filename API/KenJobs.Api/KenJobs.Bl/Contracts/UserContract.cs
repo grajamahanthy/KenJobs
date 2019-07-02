@@ -10,7 +10,7 @@ namespace KenJobs.Bl.Contracts
    public interface UserContract
     {
         IEnumerable<UserBo> GetUsers();
-        UserBo GetUser(int id);
+        UserBo GetUser(string id);
         int InsertUser(UserBo userBo);
         int UpdateUser(int id, UserBo userBo);
     }

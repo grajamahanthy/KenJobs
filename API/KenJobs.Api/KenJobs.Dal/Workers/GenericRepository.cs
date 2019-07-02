@@ -33,13 +33,10 @@ namespace KenJobs.Dal.Workers
         }
         public void Insert(T obj)
         {
-            try {
+ 
                 table.Add(obj);
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex.Message);
-            }
+                
+           
         }
         public void Update(T obj)
         {

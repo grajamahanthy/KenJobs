@@ -37,6 +37,8 @@ namespace KenJobs.Dal
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public string AspNetUser_Id { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppliedJob> AppliedJobs { get; set; }

@@ -357,8 +357,12 @@ namespace KenJobs.Api.Controllers
                 userBo.AspNetUser_Id = userId;
                 userBo.Status = 1;
                 userBo.Title = "Mr.";
+                userBo.PhoneNumber = user.PhoneNumber;
+                userBo.Email = user.Email;
+
                 //userBo.AspNetUser_Id = model.AspNetUser_Id;
-                try{
+                try
+                {
                     userWorker.InsertUser(userBo);
                 }
                 catch (Exception ex)

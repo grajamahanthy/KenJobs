@@ -91,6 +91,7 @@ namespace KenJobs.Api.Providers
             IDictionary<string, string> data = new Dictionary<string, string>
             {
                 { "userName", userName }
+               
             };
             return new AuthenticationProperties(data);
         }
