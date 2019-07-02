@@ -26,7 +26,37 @@ class Jobs extends React.Component<any, any>{
         this.state = {
             loggedIn
         }
+
+        this.findTheJobs = this.findTheJobs.bind(this);
     }
+
+    findTheJobs = (value: any) => {
+        console.log(value);
+
+
+
+        fetch("http://localhost:50768/api/JobSearch/Get", {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: null,
+        }).then(response => {
+            console.log(response)
+            response.json().then((data) => {
+
+            });
+        })
+            .catch(error => console.log(error))
+
+
+    }
+
+    displayData = (data: any) => {
+
+    }
+
     render() {
         if (this.state.loggedIn === false) {
             return <Redirect to="/login/jobseeker" />
@@ -36,10 +66,10 @@ class Jobs extends React.Component<any, any>{
                 <div className="container mt-3">
                     <h1>
                         Search Job
-                </h1>
+                    </h1>
                     <div className="col-lg-12 ">
                         <div className="text-center text-secondary">
-                            <JobSearch></JobSearch>
+                            <JobSearch GetValues={this.findTheJobs} ></JobSearch>
                         </div>
                         <div className="mt-4">
                             <div className="row">
@@ -57,14 +87,13 @@ class Jobs extends React.Component<any, any>{
                                     <div className="text-center">
                                         <Link className="btn btn-primary btn-block rounded-0" to="/applyjob">
                                             Applied Jobs
-                    </Link>
+                                        </Link>
                                         <Link className="btn btn-primary btn-block rounded-0" to="/Logout">
                                             My favorites
-                    </Link>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
