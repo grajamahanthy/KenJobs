@@ -153,5 +153,18 @@ ALTER TABLE [dbo].[AspNetUserRoles] CHECK CONSTRAINT [FK_dbo.AspNetUserRoles_dbo
 GO
 
 ----------------------------------------------------------------------------------------
+-- Creating table 'C__MigrationHistory'
+CREATE TABLE [dbo].[C__MigrationHistory] (
+    [MigrationId] nvarchar(150)  NOT NULL,
+    [ContextKey] nvarchar(300)  NOT NULL,
+    [Model] varbinary(max)  NOT NULL,
+    [ProductVersion] nvarchar(32)  NOT NULL
+);
+GO
 
+-- Creating primary key on [MigrationId], [ContextKey] in table 'C__MigrationHistory'
+ALTER TABLE [dbo].[C__MigrationHistory]
+ADD CONSTRAINT [PK_C__MigrationHistory]
+    PRIMARY KEY CLUSTERED ([MigrationId], [ContextKey] ASC);
+GO
 
