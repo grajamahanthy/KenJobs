@@ -66,9 +66,6 @@ function Navigation(props: any) {
                                 Home
                              </Link>
 
-                            {/* <Link className="nav-link" to="/Jobs">
-                                Search Job
-                             </Link> */}
 
                             <Link className="nav-link" to="/recdash">
                                 Post Job

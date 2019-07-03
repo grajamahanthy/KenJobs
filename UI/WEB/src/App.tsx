@@ -80,7 +80,7 @@ class App extends React.Component<any, any> {
         <Route exact path="/Jobs" component={Jobs} />
         <Route exact path="/applyjob" component={Applyjob} />
         <Route exact path="/Logout" component={Logout} />
-        <Route exact path="/postjob" component={Postjob} />
+        <Route exact path="/postjobs" component={Postjob} />
         <Route exact path="/profile" component={Userprofile} />
         <Route exact path="/adduser" component={Editprofile} />
         <Route exact path="/recdash" component={Employeedashbord} />

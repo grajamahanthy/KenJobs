@@ -24,7 +24,8 @@ class Jobs extends React.Component<any, any>{
             loggedIn = false;
         }
         this.state = {
-            loggedIn
+            loggedIn,
+            jobdata: ''
         }
 
         this.findTheJobs = this.findTheJobs.bind(this);
@@ -45,7 +46,7 @@ class Jobs extends React.Component<any, any>{
         }).then(response => {
             console.log(response)
             response.json().then((data) => {
-
+                this.displayData(data);
             });
         })
             .catch(error => console.log(error))
@@ -54,13 +55,25 @@ class Jobs extends React.Component<any, any>{
     }
 
     displayData = (data: any) => {
-
+        this.setState({
+            jobdata: data
+        })
+        console.log(this.state.jobdata)
     }
 
     render() {
         if (this.state.loggedIn === false) {
             return <Redirect to="/login/jobseeker" />
         }
+        let prepare_jobs = "";
+        if (this.state.jobdata.length > 0) {
+            prepare_jobs = this.state.jobdata.map((item: any, key: any) =>
+                <Job jobInfo={item}></Job>
+            )
+
+        }
+
+
         return (
             <>
                 <div className="container mt-3">
@@ -77,10 +90,7 @@ class Jobs extends React.Component<any, any>{
                                     <Jobfilter></Jobfilter>
                                 </div>
                                 <div className="col-sm-7">
-                                    <Job></Job>
-                                    <Job></Job>
-                                    <Job></Job>
-                                    <Job></Job>
+                                    {prepare_jobs}
                                 </div>
                                 <div className="col-sm-2 border shadow pt-2">
                                     <h5><u>Quick Links</u></h5>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tabs, Tab, Row, Col } from "react-bootstrap";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
@@ -17,7 +17,8 @@ export default class Registration extends React.Component<any, any> {
             email: "",
             password: "",
             confirmpassword: "",
-            gender: ""
+            gender: "",
+            redirect: false
         };
 
         this.submitForm = this.submitForm.bind(this);
@@ -47,8 +48,12 @@ export default class Registration extends React.Component<any, any> {
             },
             body: body
         }).then(response => {
-            response.json().then((data) => {
-            });
+            this.setState({
+                redirect: true
+            })
+
+            // response.json().then((data) => {
+            // });
         })
             .catch(error => console.log("Error")
             )
@@ -82,7 +87,9 @@ export default class Registration extends React.Component<any, any> {
     }
 
     render() {
-        console.log(this.state);
+        if (this.state.redirect) {
+            return <Redirect to={"/Login/" + this.state.loginType} />;
+        }
 
         return (<>
             <Row className="ml-0 mr-0 h-100">

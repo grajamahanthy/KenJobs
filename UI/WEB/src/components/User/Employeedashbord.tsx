@@ -41,7 +41,9 @@ class Employeedashbord extends React.Component<any, any> {
                         <div className="row mb-2">
                             <div className="col-sm-10"></div>
                             <div className="col-sm-2 right">
-                                <button className="btn btn-primary btn-block rounded-0">Post Job</button>
+                                <Link className="btn btn-primary btn-block rounded-0" to="/postjobs">
+                                    Post Job
+                                </Link>
                             </div>
                         </div>
                         <div className="row mb-5">

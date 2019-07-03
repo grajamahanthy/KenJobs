@@ -73,8 +73,7 @@ class Login extends React.Component<any, any> {
   }
 
   displaydata = (response: any) => {
-    console.log(response);
-    console.log(response.access_token);
+
 
     let accessToken = response.access_token;
     let logedIn = (response.access_token !== '' && response.access_token !== undefined) ? true : false;
@@ -136,7 +135,6 @@ class Login extends React.Component<any, any> {
   }
 
   resize() {
-    console.log(window.innerWidth);
     this.setState({
       mobileResolutions: (window.innerWidth <= 420) ? true : false
     })
