@@ -12,7 +12,6 @@ namespace KenJobs.Api.Models
         public string JobTitle { get; set; }
         public string Description { get; set; }
         public Nullable<int> NoOfVacancies { get; set; }
-        public int Salary { get; set; }
         public string Qualification { get; set; }
         public int State { get; set; }
         public string City { get; set; }
@@ -21,5 +20,11 @@ namespace KenJobs.Api.Models
         public short PostingStatus { get; set; }
         public int JobType_Id { get; set; }
         public int Category_id { get; set; }
+        public Nullable<double> MinSalary { get; set; }
+        public Nullable<double> MinExperience { get; set; }
+        public string Skills { get; set; }
+        public Nullable<double> MaxSalary { get; set; }
+        public Nullable<double> MaxExperience { get; set; }
+        public Nullable<int> User_Id { get; set; }
     }
 }

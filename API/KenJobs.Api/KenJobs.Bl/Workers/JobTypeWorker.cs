@@ -12,7 +12,7 @@ using KenJobs.Dal;
 
 namespace KenJobs.Bl.Workers
 {
-    class JobTypeWorker : JobTypeContract
+  public  class JobTypeWorker : JobTypeContract
     {
         public JobTypeBo GetJobType(int id)
         {

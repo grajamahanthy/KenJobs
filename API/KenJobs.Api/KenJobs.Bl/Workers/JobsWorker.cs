@@ -27,7 +27,6 @@ namespace KenJobs.Bl.Workers
                 jobBo.JobTitle = job.JobTitle;
                 jobBo.Description = job.Description;
                 jobBo.NoOfVacancies = job.NoOfVacancies;
-                jobBo.Salary = job.Salary;
                 jobBo.Qualification = job.Qualification;
                 jobBo.State = job.State;
                 jobBo.City = job.City;
@@ -35,6 +34,12 @@ namespace KenJobs.Bl.Workers
                 jobBo.PostingStatus = job.PostingStatus;
                 jobBo.JobType_Id = job.JobType_Id;
                 jobBo.Category_id = job.Category_id;
+                jobBo.MinSalary = job.MinSalary;
+                jobBo.MaxSalary = job.MaxSalary;
+                jobBo.MinExperience = job.MinExperience;
+                jobBo.MaxExperience = job.MaxExperience;
+                jobBo.Skills = job.Skills;
+                jobBo.User_Id = job.User_Id;
                 jobBolist.Add(jobBo);
             }
             return jobBolist;
@@ -52,7 +57,6 @@ namespace KenJobs.Bl.Workers
             jobBo.JobTitle = job.JobTitle;
             jobBo.Description = job.Description;
             jobBo.NoOfVacancies = job.NoOfVacancies;
-            jobBo.Salary = job.Salary;
             jobBo.Qualification = job.Qualification;
             jobBo.State = job.State;
             jobBo.City = job.City;
@@ -60,6 +64,14 @@ namespace KenJobs.Bl.Workers
             jobBo.PostingStatus = job.PostingStatus;
             jobBo.JobType_Id = job.JobType_Id;
             jobBo.Category_id = job.Category_id;
+            jobBo.MinSalary = job.MinSalary;
+            jobBo.MaxSalary = job.MaxSalary;
+            jobBo.MinExperience = job.MinExperience;
+            jobBo.MaxExperience = job.MaxExperience;
+            jobBo.Skills = job.Skills;
+            jobBo.User_Id = job.User_Id;
+
+
 
             return jobBo;
 
@@ -70,12 +82,11 @@ namespace KenJobs.Bl.Workers
             IGenericRepository<Job> repository = new GenericRepository<Job>();
 
             Job job = new Job();
-            job.Id = jobBo.Id;
+
             job.Client_Id = jobBo.Client_Id;
             job.JobTitle = jobBo.JobTitle;
             job.Description = jobBo.Description;
             job.NoOfVacancies = jobBo.NoOfVacancies;
-            job.Salary = jobBo.Salary;
             job.Qualification = jobBo.Qualification;
             job.State = jobBo.State;
             job.City = jobBo.City;
@@ -83,10 +94,27 @@ namespace KenJobs.Bl.Workers
             job.PostingStatus = jobBo.PostingStatus;
             job.JobType_Id = jobBo.JobType_Id;
             job.Category_id = jobBo.Category_id;
+            job.MaxSalary = jobBo.MaxSalary;
+            job.MinSalary = jobBo.MinSalary;
+            job.MaxExperience = jobBo.MaxExperience;
+            job.MinExperience = jobBo.MinExperience;
+            job.Skills = jobBo.Skills;
+            job.User_Id = jobBo.User_Id;
+            job.PostDate = DateTime.Now;
+            job.CreatedBy = "Admin";
+            job.CreateOn = DateTime.Now;
+            job.UpdatedBy = "Admin";
+            job.UpdatedOn = DateTime.Now;
+
+            try
+            {
+                repository.Insert(job); repository.Save();
+            }
+            catch (Exception ex)
+            {
+            }
 
 
-            repository.Insert(job);
-            repository.Save();
 
 
         }
@@ -100,7 +128,6 @@ namespace KenJobs.Bl.Workers
             job.JobTitle = jobBo.JobTitle;
             job.Description = jobBo.Description;
             job.NoOfVacancies = jobBo.NoOfVacancies;
-            job.Salary = jobBo.Salary;
             job.Qualification = jobBo.Qualification;
             job.State = jobBo.State;
             job.City = jobBo.City;
@@ -108,6 +135,12 @@ namespace KenJobs.Bl.Workers
             job.PostingStatus = jobBo.PostingStatus;
             job.JobType_Id = jobBo.JobType_Id;
             job.Category_id = jobBo.Category_id;
+            job.MaxSalary = jobBo.MaxSalary;
+            job.MinSalary = jobBo.MinSalary;
+            job.MaxExperience = jobBo.MaxExperience;
+            job.MinExperience = jobBo.MinExperience;
+            job.Skills = jobBo.Skills;
+            job.User_Id = jobBo.User_Id;
 
             repository.Update(job);
             repository.Save();

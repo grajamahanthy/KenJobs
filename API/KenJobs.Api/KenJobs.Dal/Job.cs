@@ -25,7 +25,6 @@ namespace KenJobs.Dal
         public string JobTitle { get; set; }
         public string Description { get; set; }
         public Nullable<int> NoOfVacancies { get; set; }
-        public int Salary { get; set; }
         public string Qualification { get; set; }
         public int State { get; set; }
         public string City { get; set; }
@@ -38,6 +37,12 @@ namespace KenJobs.Dal
         public System.DateTime CreateOn { get; set; }
         public string UpdatedBy { get; set; }
         public System.DateTime UpdatedOn { get; set; }
+        public Nullable<double> MinSalary { get; set; }
+        public Nullable<double> MinExperience { get; set; }
+        public string Skills { get; set; }
+        public Nullable<double> MaxSalary { get; set; }
+        public Nullable<double> MaxExperience { get; set; }
+        public Nullable<int> User_Id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppliedJob> AppliedJobs { get; set; }

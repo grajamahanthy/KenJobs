@@ -174,7 +174,7 @@
           <Property Name="JobTitle" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="NoOfVacancies" Type="int" />
-          <Property Name="Salary" Type="int" Nullable="false" />
+          <Property Name="MinSalary" Type="float" />
           <Property Name="Qualification" Type="nvarchar" MaxLength="100" />
           <Property Name="State" Type="int" Nullable="false" />
           <Property Name="City" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -187,6 +187,11 @@
           <Property Name="CreateOn" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="MinExperience" Type="float" />
+          <Property Name="Skills" Type="nvarchar(max)" />
+          <Property Name="MaxSalary" Type="float" />
+          <Property Name="MaxExperience" Type="float" />
+          <Property Name="User_Id" Type="int" />
         </EntityType>
         <EntityType Name="JobType">
           <Key>
@@ -764,7 +769,6 @@
           <Property Name="JobTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NoOfVacancies" Type="Int32" />
-          <Property Name="Salary" Type="Int32" Nullable="false" />
           <Property Name="Qualification" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="State" Type="Int32" Nullable="false" />
           <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
@@ -781,6 +785,12 @@
           <NavigationProperty Name="Client" Relationship="Self.FK_Jobs_Client" FromRole="Jobs" ToRole="Client" />
           <NavigationProperty Name="JobCategory" Relationship="Self.FK_Jobs_JobCategory" FromRole="Jobs" ToRole="JobCategory" />
           <NavigationProperty Name="JobType" Relationship="Self.FK_Jobs_JobType" FromRole="Jobs" ToRole="JobType" />
+          <Property Name="MinSalary" Type="Double" />
+          <Property Name="MinExperience" Type="Double" />
+          <Property Name="Skills" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MaxSalary" Type="Double" />
+          <Property Name="MaxExperience" Type="Double" />
+          <Property Name="User_Id" Type="Int32" />
         </EntityType>
         <EntityType Name="JobType">
           <Key>
@@ -1328,12 +1338,17 @@
           <EntitySetMapping Name="Jobs">
             <EntityTypeMapping TypeName="kenjobsModel.Job">
               <MappingFragment StoreEntitySet="Jobs">
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="MaxExperience" ColumnName="MaxExperience" />
+                <ScalarProperty Name="MaxSalary" ColumnName="MaxSalary" />
+                <ScalarProperty Name="Skills" ColumnName="Skills" />
+                <ScalarProperty Name="MinExperience" ColumnName="MinExperience" />
+                <ScalarProperty Name="MinSalary" ColumnName="MinSalary" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
                 <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="NoOfVacancies" ColumnName="NoOfVacancies" />
-                <ScalarProperty Name="Salary" ColumnName="Salary" />
                 <ScalarProperty Name="Qualification" ColumnName="Qualification" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="City" ColumnName="City" />

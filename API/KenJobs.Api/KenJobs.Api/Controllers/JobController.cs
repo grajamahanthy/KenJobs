@@ -22,24 +22,28 @@ namespace KenJobs.Api.Controllers
 
             List<JobsModel> jobModleList = new List<JobsModel>();
 
-            foreach(JobBo jobbo in jobBoList)
+            foreach(JobBo jobBo in jobBoList)
             {
                 JobsModel jobmodel = new JobsModel();
 
-                jobmodel.Id = jobbo.Id;
-                jobmodel.Client_Id = jobbo.Client_Id;
-                jobmodel.JobTitle = jobbo.JobTitle;
-                jobmodel.Description = jobbo.Description;
-                jobmodel.NoOfVacancies = jobbo.NoOfVacancies;
-                jobmodel.Salary = jobbo.Salary;
-                jobmodel.Qualification = jobbo.Qualification;
-                jobmodel.State = jobbo.State;
-                jobmodel.City = jobbo.City;
-                jobmodel.PostDate = jobbo.PostDate;
-                jobmodel.Status = jobbo.Status;
-                jobmodel.PostingStatus = jobbo.PostingStatus;
-                jobmodel.JobType_Id = jobbo.JobType_Id;
-                jobmodel.Category_id = jobbo.Category_id;
+                jobmodel.Id = jobBo.Id;
+                jobmodel.Client_Id = jobBo.Client_Id;
+                jobmodel.JobTitle = jobBo.JobTitle;
+                jobmodel.Description = jobBo.Description;
+                jobmodel.NoOfVacancies = jobBo.NoOfVacancies;
+                jobmodel.Qualification = jobBo.Qualification;
+                jobmodel.State = jobBo.State;
+                jobmodel.City = jobBo.City;
+                jobmodel.PostDate = jobBo.PostDate;
+                jobmodel.Status = jobBo.Status;
+                jobmodel.PostingStatus = jobBo.PostingStatus;
+                jobmodel.JobType_Id = jobBo.JobType_Id;
+                jobmodel.Category_id = jobBo.Category_id;
+                jobmodel.MinSalary = jobBo.MinSalary;
+                jobmodel.MaxSalary = jobBo.MaxSalary;
+                jobmodel.MinExperience = jobBo.MinExperience;
+                jobmodel.MaxExperience = jobBo.MaxExperience;
+                jobmodel.User_Id = jobBo.User_Id;
                 jobModleList.Add(jobmodel);
             }
             return jobModleList;
@@ -58,7 +62,6 @@ namespace KenJobs.Api.Controllers
             jobmodel.JobTitle = jobBo.JobTitle;
             jobmodel.Description = jobBo.Description;
             jobmodel.NoOfVacancies = jobBo.NoOfVacancies;
-            jobmodel.Salary = jobBo.Salary;
             jobmodel.Qualification = jobBo.Qualification;
             jobmodel.State = jobBo.State;
             jobmodel.City = jobBo.City;
@@ -67,6 +70,11 @@ namespace KenJobs.Api.Controllers
             jobmodel.PostingStatus = jobBo.PostingStatus;
             jobmodel.JobType_Id = jobBo.JobType_Id;
             jobmodel.Category_id = jobBo.Category_id;
+            jobmodel.MinSalary = jobBo.MinSalary;
+            jobmodel.MaxSalary = jobBo.MaxSalary;
+            jobmodel.MinExperience = jobBo.MinExperience;
+            jobmodel.MaxExperience = jobBo.MaxExperience;
+            jobmodel.User_Id = jobBo.User_Id;
 
             return jobmodel;
         }
@@ -86,7 +94,6 @@ namespace KenJobs.Api.Controllers
             jobBo.JobTitle = jobmodel.JobTitle;
             jobBo.Description = jobmodel.Description;
             jobBo.NoOfVacancies = jobmodel.NoOfVacancies;
-            jobBo.Salary = jobmodel.Salary;
             jobBo.Qualification = jobmodel.Qualification;
             jobBo.State = jobmodel.State;
             jobBo.City = jobmodel.City;
@@ -95,6 +102,11 @@ namespace KenJobs.Api.Controllers
             jobBo.PostingStatus = jobmodel.PostingStatus;
             jobBo.JobType_Id = jobmodel.JobType_Id;
             jobBo.Category_id = jobmodel.Category_id;
+            jobBo.MinSalary = jobmodel.MinSalary;
+            jobBo.MaxSalary = jobmodel.MaxSalary;
+            jobBo.MinExperience = jobmodel.MinExperience;
+            jobBo.MaxExperience = jobmodel.MaxExperience;
+            jobBo.User_Id = jobmodel.User_Id;
 
             JobsContract Jobworker = new JobsWorker();
              Jobworker.PostJob(jobBo);
@@ -116,7 +128,6 @@ namespace KenJobs.Api.Controllers
             jobBo.JobTitle = jobmodel.JobTitle;
             jobBo.Description = jobmodel.Description;
             jobBo.NoOfVacancies = jobmodel.NoOfVacancies;
-            jobBo.Salary = jobmodel.Salary;
             jobBo.Qualification = jobmodel.Qualification;
             jobBo.State = jobmodel.State;
             jobBo.City = jobmodel.City;
@@ -125,6 +136,11 @@ namespace KenJobs.Api.Controllers
             jobBo.PostingStatus = jobmodel.PostingStatus;
             jobBo.JobType_Id = jobmodel.JobType_Id;
             jobBo.Category_id = jobmodel.Category_id;
+            jobBo.MinSalary = jobmodel.MinSalary;
+            jobBo.MaxSalary = jobmodel.MaxSalary;
+            jobBo.MinExperience = jobmodel.MinExperience;
+            jobBo.MaxExperience = jobmodel.MaxExperience;
+            jobBo.User_Id = jobmodel.User_Id;
 
             JobsContract Jobworker = new JobsWorker();
 

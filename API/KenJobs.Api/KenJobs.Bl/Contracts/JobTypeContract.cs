@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KenJobs.Bl.Contracts
 {
-    interface JobTypeContract
+   public interface JobTypeContract
     {
         IEnumerable<JobTypeBo> GetJobTypes();
         JobTypeBo GetJobType(int id);

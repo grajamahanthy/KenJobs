@@ -58,6 +58,8 @@ namespace KenJobs.Api.Models
 
         public string AspNetUser_Id { get; set; }
 
+        public string UserRoleId { get; set; }
+
       
     }
 }

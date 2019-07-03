@@ -11,7 +11,7 @@ using KenJobs.Dal.Workers;
 
 namespace KenJobs.Bl.Workers
 {
-    class JobCategoryworker : JobCategoryContract
+   public class JobCategoryworker : JobCategoryContract
     {
         public IEnumerable<JobCategoryBo> GetJobCategories()
         {

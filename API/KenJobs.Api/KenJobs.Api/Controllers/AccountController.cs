@@ -332,7 +332,7 @@ namespace KenJobs.Api.Controllers
             }
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, PhoneNumber = model.PhoneNumber };
-
+            user.Roles.Add(new IdentityUserRole() { RoleId = model.UserRoleId, UserId = user.Id });
 
             string userId = user.Id;
 

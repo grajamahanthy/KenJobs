@@ -217,8 +217,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JobCategoryController.cs" />
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\JobSearchController.cs" />
+    <Compile Include="Controllers\JobTypeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -230,6 +232,7 @@
     <Compile Include="Models\EducationalQualificationModel.cs" />
     <Compile Include="Models\ExperienceModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JobCategoryModel.cs" />
     <Compile Include="Models\JobsModel.cs" />
     <Compile Include="Models\JobTypeModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />
