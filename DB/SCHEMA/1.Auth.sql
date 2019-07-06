@@ -1,16 +1,98 @@
-USE [Master]
---drop database [KenJobs]
-create database [KenJobs]
-USE [KenJobs]
+USE [kenjobs]
 GO
-
-/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 07-05-2019 23:05:50 ******/
+ALTER TABLE [dbo].[AspNetUserRoles] DROP CONSTRAINT [FK_dbo.AspNetUserRoles_dbo.AspNetUsers_UserId]
+GO
+ALTER TABLE [dbo].[AspNetUserRoles] DROP CONSTRAINT [FK_dbo.AspNetUserRoles_dbo.AspNetRoles_RoleId]
+GO
+ALTER TABLE [dbo].[AspNetUserLogins] DROP CONSTRAINT [FK_dbo.AspNetUserLogins_dbo.AspNetUsers_UserId]
+GO
+ALTER TABLE [dbo].[AspNetUserClaims] DROP CONSTRAINT [FK_dbo.AspNetUserClaims_dbo.AspNetUsers_UserId]
+GO
+/****** Object:  Table [dbo].[C__MigrationHistory]    Script Date: 06-07-2019 16:39:00 ******/
+DROP TABLE [dbo].[C__MigrationHistory]
+GO
+/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 06-07-2019 16:39:00 ******/
+DROP TABLE [dbo].[AspNetUsers]
+GO
+/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 06-07-2019 16:39:00 ******/
+DROP TABLE [dbo].[AspNetUserRoles]
+GO
+/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 06-07-2019 16:39:00 ******/
+DROP TABLE [dbo].[AspNetUserLogins]
+GO
+/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 06-07-2019 16:39:00 ******/
+DROP TABLE [dbo].[AspNetUserClaims]
+GO
+/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 06-07-2019 16:39:00 ******/
+DROP TABLE [dbo].[AspNetRoles]
+GO
+/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 06-07-2019 16:39:00 ******/
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
-
+CREATE TABLE [dbo].[AspNetRoles](
+	[Id] [nvarchar](128) NOT NULL,
+	[Name] [nvarchar](256) NOT NULL,
+ CONSTRAINT [PK_dbo.AspNetRoles] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 06-07-2019 16:39:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserClaims](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [nvarchar](128) NOT NULL,
+	[ClaimType] [nvarchar](max) NULL,
+	[ClaimValue] [nvarchar](max) NULL,
+ CONSTRAINT [PK_dbo.AspNetUserClaims] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 06-07-2019 16:39:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserLogins](
+	[LoginProvider] [nvarchar](128) NOT NULL,
+	[ProviderKey] [nvarchar](128) NOT NULL,
+	[UserId] [nvarchar](128) NOT NULL,
+ CONSTRAINT [PK_dbo.AspNetUserLogins] PRIMARY KEY CLUSTERED 
+(
+	[LoginProvider] ASC,
+	[ProviderKey] ASC,
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 06-07-2019 16:39:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserRoles](
+	[UserId] [nvarchar](128) NOT NULL,
+	[RoleId] [nvarchar](128) NOT NULL,
+ CONSTRAINT [PK_dbo.AspNetUserRoles] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC,
+	[RoleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 06-07-2019 16:39:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [dbo].[AspNetUsers](
 	[Id] [nvarchar](128) NOT NULL,
 	[Email] [nvarchar](256) NULL,
@@ -30,141 +112,44 @@ CREATE TABLE [dbo].[AspNetUsers](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
----------------------------------------
-USE [KenJobs]
-GO
-
-/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 07-05-2019 23:04:18 ******/
+/****** Object:  Table [dbo].[C__MigrationHistory]    Script Date: 06-07-2019 16:39:00 ******/
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
-
-CREATE TABLE [dbo].[AspNetRoles](
-	[Id] [nvarchar](128) NOT NULL,
-	[Name] [nvarchar](256) NOT NULL,
- CONSTRAINT [PK_dbo.AspNetRoles] PRIMARY KEY CLUSTERED 
+CREATE TABLE [dbo].[C__MigrationHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ContextKey] [nvarchar](300) NOT NULL,
+	[Model] [varbinary](max) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK_C__MigrationHistory] PRIMARY KEY CLUSTERED 
 (
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
---------------------------------------------------------------
-USE [KenJobs]
-GO
-
-/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 07-05-2019 23:04:46 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [dbo].[AspNetUserClaims](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[UserId] [nvarchar](128) NOT NULL,
-	[ClaimType] [nvarchar](max) NULL,
-	[ClaimValue] [nvarchar](max) NULL,
- CONSTRAINT [PK_dbo.AspNetUserClaims] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
+	[MigrationId] ASC,
+	[ContextKey] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-
 ALTER TABLE [dbo].[AspNetUserClaims]  WITH CHECK ADD  CONSTRAINT [FK_dbo.AspNetUserClaims_dbo.AspNetUsers_UserId] FOREIGN KEY([UserId])
 REFERENCES [dbo].[AspNetUsers] ([Id])
 ON DELETE CASCADE
 GO
-
 ALTER TABLE [dbo].[AspNetUserClaims] CHECK CONSTRAINT [FK_dbo.AspNetUserClaims_dbo.AspNetUsers_UserId]
 GO
-
----------------------------------------------------------------------
-USE [KenJobs]
-GO
-
-/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 07-05-2019 23:05:06 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [dbo].[AspNetUserLogins](
-	[LoginProvider] [nvarchar](128) NOT NULL,
-	[ProviderKey] [nvarchar](128) NOT NULL,
-	[UserId] [nvarchar](128) NOT NULL,
- CONSTRAINT [PK_dbo.AspNetUserLogins] PRIMARY KEY CLUSTERED 
-(
-	[LoginProvider] ASC,
-	[ProviderKey] ASC,
-	[UserId] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
 ALTER TABLE [dbo].[AspNetUserLogins]  WITH CHECK ADD  CONSTRAINT [FK_dbo.AspNetUserLogins_dbo.AspNetUsers_UserId] FOREIGN KEY([UserId])
 REFERENCES [dbo].[AspNetUsers] ([Id])
 ON DELETE CASCADE
 GO
-
 ALTER TABLE [dbo].[AspNetUserLogins] CHECK CONSTRAINT [FK_dbo.AspNetUserLogins_dbo.AspNetUsers_UserId]
 GO
-
---------------------------------------------------------------------------------
-USE [KenJobs]
-GO
-
-/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 07-05-2019 23:05:29 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [dbo].[AspNetUserRoles](
-	[UserId] [nvarchar](128) NOT NULL,
-	[RoleId] [nvarchar](128) NOT NULL,
- CONSTRAINT [PK_dbo.AspNetUserRoles] PRIMARY KEY CLUSTERED 
-(
-	[UserId] ASC,
-	[RoleId] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
 ALTER TABLE [dbo].[AspNetUserRoles]  WITH CHECK ADD  CONSTRAINT [FK_dbo.AspNetUserRoles_dbo.AspNetRoles_RoleId] FOREIGN KEY([RoleId])
 REFERENCES [dbo].[AspNetRoles] ([Id])
 ON DELETE CASCADE
 GO
-
 ALTER TABLE [dbo].[AspNetUserRoles] CHECK CONSTRAINT [FK_dbo.AspNetUserRoles_dbo.AspNetRoles_RoleId]
 GO
-
 ALTER TABLE [dbo].[AspNetUserRoles]  WITH CHECK ADD  CONSTRAINT [FK_dbo.AspNetUserRoles_dbo.AspNetUsers_UserId] FOREIGN KEY([UserId])
 REFERENCES [dbo].[AspNetUsers] ([Id])
 ON DELETE CASCADE
 GO
-
 ALTER TABLE [dbo].[AspNetUserRoles] CHECK CONSTRAINT [FK_dbo.AspNetUserRoles_dbo.AspNetUsers_UserId]
 GO
-
-----------------------------------------------------------------------------------------
--- Creating table 'C__MigrationHistory'
-CREATE TABLE [dbo].[C__MigrationHistory] (
-    [MigrationId] nvarchar(150)  NOT NULL,
-    [ContextKey] nvarchar(300)  NOT NULL,
-    [Model] varbinary(max)  NOT NULL,
-    [ProductVersion] nvarchar(32)  NOT NULL
-);
-GO
-
--- Creating primary key on [MigrationId], [ContextKey] in table 'C__MigrationHistory'
-ALTER TABLE [dbo].[C__MigrationHistory]
-ADD CONSTRAINT [PK_C__MigrationHistory]
-    PRIMARY KEY CLUSTERED ([MigrationId], [ContextKey] ASC);
-GO
-
