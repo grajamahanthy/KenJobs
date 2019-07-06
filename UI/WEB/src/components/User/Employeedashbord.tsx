@@ -15,6 +15,10 @@ import { connect } from 'react-redux';
 class Employeedashbord extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
+        this.state = {
+            ishaveJobs: false,
+            jobsData: []
+        }
         const token = this.props.system.token
         let loggedIn = this.props.system.loggedIn
 
@@ -29,10 +33,69 @@ class Employeedashbord extends React.Component<any, any> {
         }
     }
 
+    componentWillMount() {
+        let body = new URLSearchParams();
+        body.set('UserId', '1');
+        fetch("http://localhost:50768/api/JobSearch/GetJobsByUserId/1", {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: null,
+        }).then(response => {
+            response.json().then((data) => {
+                this.displayData(data);
+            });
+        })
+            .catch(error => console.log(error))
+
+    }
+
+    displayData = (data: any) => {
+
+        this.setState({
+            ishaveJobs: data.length > 0 ? true : false,
+            jobsData: data,
+        })
+    }
+
+
     render() {
         if (this.state.loggedIn === false) {
-            return <Redirect to="/login/employee" />
+            return <Redirect to="/Login/employer" />
         }
+
+        console.log(this.state);
+        let jobslist;
+        if (this.state.ishaveJobs) {
+            jobslist = this.state.jobsData.map((item: any, key: any) =>
+                <div className="col-sm-4 border px-4 py-4 shadow-sm">
+                    <div className="">
+                        <h5>{item.JobTitle}</h5>
+                        <div className="mt-2">
+                            <span className="mr-sm-2"> <FontAwesomeIcon icon="building" size="xs" /> {item.ClientName}</span>
+                            <br /> <span className="mr-sm-2"><FontAwesomeIcon icon="suitcase" size="xs" />{'  ' + item.MinExperience + '-' + item.MaxExperience + ' Years'}</span>
+                            <br /> <span className="mr-sm-2"><FontAwesomeIcon icon="map-marker-alt" size="xs" />  {item.City}</span>
+                            <br />
+                            <div className="row float-sm-right">
+                                {/* <Link className="btn btn-primary btn-sm rounded-0" to='/candidates' >
+                                    View Candidates
+                                </Link> */}
+                                <Link className="btn btn-primary btn-sm rounded-0"
+                                    to={{
+                                        pathname: "/candidates",
+                                        state: { JobId: item.Id }
+                                    }}
+                                >View Candidates</Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+
         return (
             <>
                 <div className="container mt-3">
@@ -41,7 +104,7 @@ class Employeedashbord extends React.Component<any, any> {
                         <div className="row mb-2">
                             <div className="col-sm-10"></div>
                             <div className="col-sm-2 right">
-                                <Link className="btn btn-primary btn-block rounded-0" to="/postjobs">
+                                <Link className="btn btn-primary btn-block rounded-0" to="/postjobs" >
                                     Post Job
                                 </Link>
                             </div>
@@ -49,127 +112,26 @@ class Employeedashbord extends React.Component<any, any> {
                         <div className="row mb-5">
                             <div className="col-sm-9">
                                 <div className="row">
-                                    <div className="col-sm-4 border px-4 py-4 shadow-sm">
-                                        <div className="">
-                                            <h5>System Administrator</h5>
-                                            <div className="mt-2">
-                                                <span className="mr-sm-2"> <FontAwesomeIcon icon="building" size="xs" />  ADD Technologies (India) Limited</span>
-                                                <br /> <span className="mr-sm-2"><FontAwesomeIcon icon="suitcase" size="xs" />  5-10 Years</span>
-                                                <br /> <span className="mr-sm-2"><FontAwesomeIcon icon="map-marker-alt" size="xs" />  Hyderabad, Channai, Bengalore</span>
-                                                <br />
-                                                <div className="row float-sm-right">
-                                                    <Link className="btn btn-primary btn-sm rounded-0" to="/candidates">
-                                                        View Candidates
-                                                         </Link>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-4 border px-4 py-4 shadow-sm">
-                                        <h5>Software developer</h5>
-                                        <div className="mt-2">
-                                            <span className="mr-sm-2"> <FontAwesomeIcon icon="building" size="xs" />  ADD Technologies (India) Limited</span>
-                                            <br />  <span className="mr-sm-2"><FontAwesomeIcon icon="suitcase" size="xs" />  5-10 Years</span>
-                                            <br /> <span className="mr-sm-2"><FontAwesomeIcon icon="map-marker-alt" size="xs" />  Hyderabad, Channai, Bengalore</span>
-                                            <br />
-                                            <div className="row float-sm-right">
-                                                <Link className="btn btn-primary btn-sm rounded-0" to="/candidates">
-                                                    View Candidates
-                                                         </Link> </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-4 border px-4 py-4 shadow-sm">
-                                        <h5>Tester</h5>
-                                        <div className="mt-2">
-                                            <span className="mr-sm-2"> <FontAwesomeIcon icon="building" size="xs" />  ADD Technologies (India) Limited</span>
-                                            <br /> <span className="mr-sm-2"><FontAwesomeIcon icon="suitcase" size="xs" />  5-10 Years</span>
-                                            <br /> <span className="mr-sm-2"><FontAwesomeIcon icon="map-marker-alt" size="xs" />  Hyderabad, Channai, Bengalore</span>
-                                            <br />
-                                            <div className="row float-sm-right">
-                                                <Link className="btn btn-primary btn-sm rounded-0" to="/candidates">
-                                                    View Candidates
-                                                         </Link>  </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-4 border px-4 py-4 shadow-sm">
-                                        <h5>Ui Designer</h5>
-                                        <div className="mt-2">
-                                            <span className="mr-sm-2"> <FontAwesomeIcon icon="building" size="xs" />  ADD Technologies (India) Limited</span>
-                                            <br /> <span className="mr-sm-2"><FontAwesomeIcon icon="suitcase" size="xs" />  5-10 Years</span>
-                                            <br /> <span className="mr-sm-2"><FontAwesomeIcon icon="map-marker-alt" size="xs" />  Hyderabad, Channai, Bengalore</span>
-                                            <br />
-                                            <div className="row float-sm-right">
-                                                <Link className="btn btn-primary btn-sm rounded-0" to="/candidates">
-                                                    View Candidates
-                                                         </Link>   </div></div>
-                                    </div>
-                                    <div className="col-sm-4 border  px-4 py-4 shadow-sm">
-                                        <h5>Developer</h5>
-                                        <div className="mt-2">
-                                            <span className="mr-sm-2"> <FontAwesomeIcon icon="building" size="xs" />  ADD Technologies (India) Limited</span>
-                                            <br /> <span className="mr-sm-2"><FontAwesomeIcon icon="suitcase" size="xs" />  5-10 Years</span>
-                                            <br /> <span className="mr-sm-2"><FontAwesomeIcon icon="map-marker-alt" size="xs" />  Hyderabad, Channai, Bengalore</span>
-                                            <br />
-                                            <div className="row float-sm-right">
-                                                <Link className="btn btn-primary btn-sm rounded-0" to="/candidates">
-                                                    View Candidates
-                                                         </Link>  </div> </div>
-                                    </div>
-                                    <div className="col-sm-4 border   px-4 py-4 shadow-sm">
-                                        <h5>Ui Designer</h5>
-                                        <div className="mt-2">
-                                            <span className="mr-sm-2"> <FontAwesomeIcon icon="building" size="xs" />  ADD Technologies (India) Limited</span>
-                                            <br /> <span className="mr-sm-2"><FontAwesomeIcon icon="suitcase" size="xs" />  5-10 Years</span>
-                                            <br /> <span className="mr-sm-2"><FontAwesomeIcon icon="map-marker-alt" size="xs" />  Hyderabad, Channai, Bengalore</span>
-                                            <br />
-                                            <div className="row float-sm-right">
-                                                <Link className="btn btn-primary btn-sm rounded-0" to="/candidates">
-                                                    View Candidates
-                                                         </Link> </div> </div>
-                                    </div>
-                                    <div className="col-sm-4 border   px-4 py-4 shadow-sm">
-                                        <h5>Java</h5>
-                                        <div className="mt-2">
-                                            <span className="mr-sm-2"> <FontAwesomeIcon icon="building" size="xs" />  ADD Technologies (India) Limited</span>
-                                            <br /><span className="mr-sm-2"><FontAwesomeIcon icon="suitcase" size="xs" />  5-10 Years</span>
-                                            <br /><span className="mr-sm-2"><FontAwesomeIcon icon="map-marker-alt" size="xs" />  Hyderabad, Channai, Bengalore</span>
-                                            <br />
-                                            <div className="row float-sm-right">
-                                                <Link className="btn btn-primary btn-sm rounded-0" to="/candidates">
-                                                    View Candidates
-                                                         </Link> </div> </div>
-                                    </div>
-                                    <div className="col-sm-4 border    px-4 py-4 shadow-sm">
-                                        <h5>HR</h5>
-                                        <div className="mt-2">
-                                            <span className="mr-sm-2"> <FontAwesomeIcon icon="building" size="xs" />  ADD Technologies (India) Limited</span>
-                                            <br /> <span className="mr-sm-2"><FontAwesomeIcon icon="suitcase" size="xs" />  5-10 Years</span>
-                                            <br /> <span className="mr-sm-2"><FontAwesomeIcon icon="map-marker-alt" size="xs" />  Hyderabad, Channai, Bengalore</span>
-                                            <br />
-                                            <div className="row float-sm-right">
-                                                <Link className="btn btn-primary btn-sm rounded-0" to="/candidates">
-                                                    View Candidates
-                                                         </Link>   </div>  </div>
-                                    </div>
-                                    <div className="mt-2">
-                                        <Pagination>
-                                            <Pagination.First />
-                                            <Pagination.Prev />
-                                            <Pagination.Item>{1}</Pagination.Item>
-                                            <Pagination.Ellipsis />
+                                    {jobslist}
+                                </div>
+                                <div className="mt-2">
+                                    <Pagination>
+                                        <Pagination.First />
+                                        <Pagination.Prev />
+                                        <Pagination.Item>{1}</Pagination.Item>
+                                        <Pagination.Ellipsis />
 
-                                            <Pagination.Item>{10}</Pagination.Item>
-                                            <Pagination.Item>{11}</Pagination.Item>
-                                            <Pagination.Item active>{12}</Pagination.Item>
-                                            <Pagination.Item>{13}</Pagination.Item>
-                                            <Pagination.Item disabled>{14}</Pagination.Item>
+                                        <Pagination.Item>{10}</Pagination.Item>
+                                        <Pagination.Item>{11}</Pagination.Item>
+                                        <Pagination.Item active>{12}</Pagination.Item>
+                                        <Pagination.Item>{13}</Pagination.Item>
+                                        <Pagination.Item disabled>{14}</Pagination.Item>
 
-                                            <Pagination.Ellipsis />
-                                            <Pagination.Item>{20}</Pagination.Item>
-                                            <Pagination.Next />
-                                            <Pagination.Last />
-                                        </Pagination>
-                                    </div>
+                                        <Pagination.Ellipsis />
+                                        <Pagination.Item>{20}</Pagination.Item>
+                                        <Pagination.Next />
+                                        <Pagination.Last />
+                                    </Pagination>
                                 </div>
                             </div>
                             <div className="col-sm-3 border mx-auto  bg-light">

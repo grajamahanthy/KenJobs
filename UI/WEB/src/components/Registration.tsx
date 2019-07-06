@@ -18,6 +18,9 @@ export default class Registration extends React.Component<any, any> {
             password: "",
             confirmpassword: "",
             gender: "",
+            isIndividual: '0',
+            companyname: '',
+            userRoleId: '',
             redirect: false
         };
 
@@ -38,6 +41,9 @@ export default class Registration extends React.Component<any, any> {
         body.set('ConfirmPassword', this.state.confirmpassword);
         body.set('PhoneNumber', this.state.phone);
         body.set('Gender_Id', this.state.gender);
+        body.set('IsIndividual', this.state.isIndividual);
+        body.set('CompanyName', this.state.companyname);
+        body.set('UserRoleId', this.state.userRoleId);
         body.set('grant_type', "password");
 
         fetch("http://localhost:50768/api/Account/Register", {
@@ -70,7 +76,8 @@ export default class Registration extends React.Component<any, any> {
         if (this.props.match.params.usertype === "jobseeker" || this.props.match.params.usertype === "employer") {
             this.setState({
                 isJobseekar: (this.props.match.params.usertype === "jobseeker") ? true : false,
-                loginType: this.props.match.params.usertype
+                loginType: this.props.match.params.usertype,
+                userRoleId: (this.props.match.params.usertype === "jobseeker") ? 1 : 2,
             })
         } else {
 
@@ -81,14 +88,48 @@ export default class Registration extends React.Component<any, any> {
         if (nextProps === "jobseeker" || nextProps === "employer")
             this.setState({
                 isJobseekar: (nextProps.match.params.usertype === "jobseeker") ? true : false,
-                loginType: nextProps.match.params.usertype
-
+                loginType: nextProps.match.params.usertype,
+                userRoleId: (this.props.match.params.usertype === "jobseeker") ? 1 : 2,
             })
     }
 
     render() {
+
+        console.log("User Rosle Id: " + this.state.userRoleId)
         if (this.state.redirect) {
             return <Redirect to={"/Login/" + this.state.loginType} />;
+        }
+        let Registeroptions;
+        if (this.state.userRoleId === 2) {
+            Registeroptions = <div className="form-group">
+                <div className="text-left">
+                    <label className="text-dark mr-2 ">Register as :</label>
+                    <div className="custom-control custom-radio custom-control-inline  ">
+                        <input type="radio" id="isIndividual" name="isIndividual" value="0" onChange={this.onChange} className="custom-control-input" />
+                        <label className="custom-control-label text-dark" htmlFor="isIndividual">Individual</label>
+                    </div>
+                    <div className="custom-control custom-radio custom-control-inline  ">
+                        <input type="radio" id="isnotIndividual" name="isIndividual" value="1" onChange={this.onChange} className="custom-control-input" />
+                        <label className="custom-control-label text-dark" htmlFor="isnotIndividual">Company</label>
+                    </div>
+                </div>
+            </div>
+        }
+
+        let companyname;
+        if (this.state.isIndividual == "1") {
+            companyname = <div className="form-group">
+                <label className="sr-only">Company Name</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    name="companyname"
+                    id="companyname"
+                    placeholder="Company Name"
+                    value={this.state.companyname}
+                    onChange={this.onChange}
+                />
+            </div>
         }
 
         return (<>
@@ -176,24 +217,29 @@ export default class Registration extends React.Component<any, any> {
                                                     onChange={this.onChange}
                                                 />
                                             </div>
+                                            {Registeroptions}
+                                            {companyname}
                                             <div className="form-group">
-                                                <div className="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" id="gendermale" name="gender" value="1" onChange={this.onChange} className="custom-control-input" />
-                                                    <label className="custom-control-label text-dark" htmlFor="gendermale">Male</label>
-                                                </div>
-                                                <div className="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" id="genderfemale" name="gender" value="2" onChange={this.onChange} className="custom-control-input" />
-                                                    <label className="custom-control-label text-dark" htmlFor="genderfemale">Female</label>
-                                                </div>
-                                                <div className="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" id="genderother" name="gender" value="3" onChange={this.onChange} className="custom-control-input" />
-                                                    <label className="custom-control-label text-dark" htmlFor="genderother">Others</label>
-                                                </div>
+                                                <div className="text-left">
+                                                    <label className="text-dark mr-2">Gender :</label>
 
+                                                    <div className="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" id="gendermale" name="gender" value="1" onChange={this.onChange} className="custom-control-input" />
+                                                        <label className="custom-control-label text-dark" htmlFor="gendermale">Male</label>
+                                                    </div>
+                                                    <div className="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" id="genderfemale" name="gender" value="2" onChange={this.onChange} className="custom-control-input" />
+                                                        <label className="custom-control-label text-dark" htmlFor="genderfemale">Female</label>
+                                                    </div>
+                                                    <div className="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" id="genderother" name="gender" value="3" onChange={this.onChange} className="custom-control-input" />
+                                                        <label className="custom-control-label text-dark" htmlFor="genderother">Others</label>
+                                                    </div>
+                                                </div>
                                             </div>
-
                                             <input type="submit" value="Register" className="btn btn-primary mb-2" />
                                             <div className="text-primary">Existing User ? <Link to={"/Login/" + this.state.loginType}><u>click here</u></Link> for Log in.</div>
+
                                         </form>
                                     </div>
                                 </div>

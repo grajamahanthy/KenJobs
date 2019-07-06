@@ -6,6 +6,7 @@ class Postjob extends React.Component<any, any> {
         super(props)
         this.state = {
             Client_Id: '',
+            clientName: '',
             jobTitle: '',
             keySkills: '',
             jobDescription: '',
@@ -18,8 +19,9 @@ class Postjob extends React.Component<any, any> {
             currency: '',
             qualification: '',
             noOfVacancies: '',
+            country: '',
             State: '',
-            locations: '',
+            city: '',
             status: '',
             PostingStatus: '',
             jobCategoryList: [],
@@ -41,13 +43,15 @@ class Postjob extends React.Component<any, any> {
         this.success();
         let Jobs = this.state;
         let body = new URLSearchParams();
-        body.set('Client_Id', '1');
+        body.set('Client_Id', '');
+        body.set('ClientName', Jobs.clientName);
         body.set('JobTitle', Jobs.jobTitle);
         body.set('Description', Jobs.jobDescription);
         body.set('NoOfVacancies', Jobs.noOfVacancies);
         body.set('Qualification', Jobs.qualification);
+        body.set('Country', Jobs.country);
         body.set('State', Jobs.State);
-        body.set('City', Jobs.locations);
+        body.set('City', Jobs.city);
         body.set('JobType_Id', Jobs.jobType);
         body.set('Category_id', Jobs.jobCategory);
         body.set('MinSalary', Jobs.minSalary);
@@ -58,6 +62,8 @@ class Postjob extends React.Component<any, any> {
         body.set('PostingStatus', '1');
         body.set('Status', '1');
         body.set('User_Id', '1');
+        body.set('Currency', Jobs.currency);
+        body.set('Country', Jobs.country);
 
         fetch("http://localhost:50768/api/JobSearch", {
             method: "POST",
@@ -169,6 +175,18 @@ class Postjob extends React.Component<any, any> {
                                                 placeholder="Enter Job Title"
                                                 name="jobTitle"
                                                 value={this.state.jobTitle}
+                                                onChange={this.changeValue}
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="inputAddress">Client Name</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                id="jobTitle"
+                                                placeholder="Enter Client Name"
+                                                name="clientName"
+                                                value={this.state.clientName}
                                                 onChange={this.changeValue}
                                             />
                                         </div>
@@ -300,28 +318,42 @@ class Postjob extends React.Component<any, any> {
                                         </div>
 
                                         <div className="form-row">
-                                            <div className="form-group col-md-6">
+
+                                            <div className="form-group col-md-4">
+                                                <label htmlFor="inputZip">City</label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    id="inputZip"
+                                                    placeholder="Location"
+                                                    autoComplete="off"
+                                                    name="city"
+                                                    value={this.state.city}
+                                                    onChange={this.changeValue} />
+                                            </div>
+                                            <div className="form-group col-md-4">
                                                 <label htmlFor="inputZip">State</label>
                                                 <input
                                                     type="text"
                                                     className="form-control"
                                                     id="inputZip"
-                                                    placeholder="Location"
+                                                    placeholder="State"
                                                     autoComplete="off"
                                                     name="State"
                                                     value={this.state.State}
                                                     onChange={this.changeValue} />
                                             </div>
-                                            <div className="form-group col-md-6">
-                                                <label htmlFor="inputZip">Location</label>
+
+                                            <div className="form-group col-md-4">
+                                                <label htmlFor="inputZip">Country</label>
                                                 <input
                                                     type="text"
                                                     className="form-control"
                                                     id="inputZip"
-                                                    placeholder="Location"
+                                                    placeholder="Country"
                                                     autoComplete="off"
-                                                    name="locations"
-                                                    value={this.state.locations}
+                                                    name="country"
+                                                    value={this.state.country}
                                                     onChange={this.changeValue} />
                                             </div>
                                         </div>

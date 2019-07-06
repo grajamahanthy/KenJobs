@@ -29,6 +29,8 @@ class Login extends React.Component<any, any> {
       isJobseekar: true,
       loginType: "",
       mobileResolutions: false,
+      usernameError: "",
+      passwordError: "",
       loggedIn
     };
 
@@ -196,6 +198,9 @@ class Login extends React.Component<any, any> {
                             value={this.state.username}
                             onChange={this.onChange}
                           />
+                          {this.state.usernameError ? (
+                            <div>{this.state.usernameError}</div>
+                          ) : null}
                         </div>
                         <div className="form-group">
                           <label className="sr-only">Password</label>
@@ -208,6 +213,9 @@ class Login extends React.Component<any, any> {
                             value={this.state.password}
                             onChange={this.onChange}
                           />
+                          {this.state.passwordError ? (
+                            <div>{this.state.passwordError}</div>
+                          ) : null}
                         </div>
                         <input type="submit" value="Login" className="btn btn-primary mb-2" />
                         <div className="text-primary">Please <span><Link to={"/Registration/" + this.state.loginType}><u>click here</u></Link> </span> for new user registration.</div>

@@ -1,11 +1,90 @@
 import React from "react";
 import { Pagination } from 'react-bootstrap';
-class CandidateList extends React.Component<any> {
+class CandidateList extends React.Component<any, any> {
     constructor(props: any) {
         super(props)
+        console.log(props.location.state.JobId);
+        this.state = {
+            JobId: props.location.state.JobId,
+            haveCandidate: false,
+            Candidatedata: []
+        }
+    }
 
+    componentWillMount() {
+
+        fetch("http://localhost:50768/api/Job/GetJobseekersByJobId/" + this.state.JobId, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: null,
+        }).then(response => {
+            response.json().then((data) => {
+                this.displayData(data);
+            });
+        })
+            .catch(error => console.log(error))
+    }
+
+    displayData = (data: any) => {
+        this.setState({
+            haveCandidate: data.length > 0 ? true : false,
+            Candidatedata: data
+        })
     }
     render() {
+        let Candidatelist;
+        let Pagenation;
+        if (this.state.haveCandidate) {
+            Candidatelist = this.state.Candidatedata.map((item: any, key: any) =>
+
+                <div className="col-md-6 border  my-1 p-3">
+                    <div className="row">
+                        <div className="col-md-4 ">
+                            <img className="btn-md border" src={require('../../assets/images/profile.png')} width="150" height="150" alt="" />
+                        </div>
+                        <div className="col-md-8">
+                            <h4 className="text-primary">{item.Title + '.' + item.FirstName + ' ' + item.LastName}</h4>
+                            <h6 >Title : Senior Developer</h6>
+                            <h6 >Email : {item.Email} </h6>
+                            <h6 >Phone : {item.PhoneNumber}</h6>
+                            <h6>Key Skills : {} </h6>
+                            <div className="float-sm-right">
+
+                                <button className="btn btn-primary btn-sm rounded-0">Dowanload Resume</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            )
+            Pagenation = <Pagination>
+                <Pagination.First />
+                <Pagination.Prev />
+                <Pagination.Item>{1}</Pagination.Item>
+                <Pagination.Ellipsis />
+
+                <Pagination.Item>{10}</Pagination.Item>
+                <Pagination.Item>{11}</Pagination.Item>
+                <Pagination.Item active>{12}</Pagination.Item>
+                <Pagination.Item>{13}</Pagination.Item>
+                <Pagination.Item disabled>{14}</Pagination.Item>
+
+                <Pagination.Ellipsis />
+                <Pagination.Item>{20}</Pagination.Item>
+                <Pagination.Next />
+                <Pagination.Last />
+            </Pagination>
+
+        } else {
+            Candidatelist =
+                <div className="col-md-6   my-1 p-3">
+                    <div className="row">
+                        <h4>!Oops... No Data Found.</h4>
+                    </div></div>
+        }
         return (
             <>
 
@@ -31,170 +110,10 @@ class CandidateList extends React.Component<any> {
 
 
                         <div className="row">
-                            <div className="col-md-6 border  my-1 p-3">
-                                <div className="row">
-                                    <div className="col-md-4 ">
-                                        <img className="btn-md border" src={require('../../assets/images/profile.png')} width="150" height="150" alt="" />
-                                    </div>
-                                    <div className="col-md-8">
-                                        <h4 className="text-primary">Jacqueline Fernandez</h4>
-                                        <h6 >Title : Senior Developer</h6>
-                                        <h6 >Email : Jacqueline@gmail.com </h6>
-                                        <h6 >Phone : +91 99988 12255</h6>
-                                        <h6>Key Skills : .Net Core, Web API, Angular, React,sql server, html, java script, jquery, angular js </h6>
-                                        <div className="float-sm-right">
-
-                                            <button className="btn btn-primary btn-sm rounded-0">Dowanload Resume</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 border my-1 p-3">
-                                <div className="row">
-                                    <div className="col-md-4 ">
-                                        <img className="btn-md border" src={require('../../assets/images/profile.png')} width="150" height="150" alt="" />
-                                    </div>
-                                    <div className="col-md-8">
-                                        <h4 className="text-primary">Jacqueline Fernandez</h4>
-                                        <h6 >Title : Senior Developer</h6>
-                                        <h6 >Email : Jacqueline@gmail.com </h6>
-                                        <h6 >Phone : +91 99988 12255</h6>
-                                        <h6>Key Skills : .Net Core, Web API, Angular, React </h6>
-                                        <div className="float-sm-right">
-
-                                            <button className="btn btn-primary btn-sm rounded-0">Dowanload Resume</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 border  my-1 p-3">
-                                <div className="row">
-                                    <div className="col-md-4">
-                                        <img className="btn-md border" src={require('../../assets/images/profile.png')} width="150" height="150" alt="" />
-                                    </div>
-                                    <div className="col-md-8">
-                                        <h4 className="text-primary">Jacqueline Fernandez</h4>
-                                        <h6 >Title : Senior Developer</h6>
-                                        <h6 >Email : Jacqueline@gmail.com </h6>
-                                        <h6 >Phone : +91 99988 12255</h6>
-                                        <h6>Key Skills : .Net Core, Web API, Angular, React </h6>
-                                        <div className="float-sm-right">
-
-                                            <button className="btn btn-primary btn-sm rounded-0">Dowanload Resume</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 border  my-1 p-3">
-                                <div className="row">
-                                    <div className="col-md-4 ">
-                                        <img className="btn-md border" src={require('../../assets/images/profile.png')} width="150" height="150" alt="" />
-                                    </div>
-                                    <div className="col-md-8">
-                                        <h4 className="text-primary">Jacqueline Fernandez</h4>
-                                        <h6 >Title : Senior Developer</h6>
-                                        <h6 >Email : Jacqueline@gmail.com </h6>
-                                        <h6 >Phone : +91 99988 12255</h6>
-                                        <h6>Key Skills : .Net Core, Web API, Angular, React </h6>
-                                        <div className="float-sm-right">
-
-                                            <button className="btn btn-primary btn-sm rounded-0">Dowanload Resume</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 border  my-1 p-3">
-                                <div className="row">
-                                    <div className="col-md-4">
-                                        <img className="btn-md border" src={require('../../assets/images/profile.png')} width="150" height="150" alt="" />
-                                    </div>
-                                    <div className="col-md-8">
-                                        <h4 className="text-primary">Jacqueline Fernandez</h4>
-                                        <h6 >Title : Senior Developer</h6>
-                                        <h6 >Email : Jacqueline@gmail.com </h6>
-                                        <h6 >Phone : +91 99988 12255</h6>
-                                        <h6>Key Skills : .Net Core, Web API, Angular, React </h6>
-                                        <div className="float-sm-right">
-
-                                            <button className="btn btn-primary btn-sm rounded-0">Dowanload Resume</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 border  my-1 p-3">
-                                <div className="row">
-                                    <div className="col-md-4 ">
-                                        <img className="btn-md border" src={require('../../assets/images/profile.png')} width="150" height="150" alt="" />
-                                    </div>
-                                    <div className="col-md-8">
-                                        <h4 className="text-primary">Jacqueline Fernandez</h4>
-                                        <h6 >Title : Senior Developer</h6>
-                                        <h6 >Email : Jacqueline@gmail.com </h6>
-                                        <h6 >Phone : +91 99988 12255</h6>
-                                        <h6>Key Skills : .Net Core, Web API, Angular, React </h6>
-                                        <div className="float-sm-right">
-
-                                            <button className="btn btn-primary btn-sm rounded-0">Dowanload Resume</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 border  my-1 p-3">
-                                <div className="row">
-                                    <div className="col-md-4">
-                                        <img className="btn-md border" src={require('../../assets/images/profile.png')} width="150" height="150" alt="" />
-                                    </div>
-                                    <div className="col-md-8">
-                                        <h4 className="text-primary">Jacqueline Fernandez</h4>
-                                        <h6 >Title : Senior Developer</h6>
-                                        <h6 >Email : Jacqueline@gmail.com </h6>
-                                        <h6 >Phone : +91 99988 12255</h6>
-                                        <h6>Key Skills : .Net Core, Web API, Angular, React </h6>
-                                        <div className="float-sm-right">
-
-                                            <button className="btn btn-primary btn-sm rounded-0">Dowanload Resume</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 border  my-1 p-3">
-                                <div className="row">
-                                    <div className="col-md-4 ">
-                                        <img className="btn-md border" src={require('../../assets/images/profile.png')} width="150" height="150" alt="" />
-                                    </div>
-                                    <div className="col-md-8">
-                                        <h4 className="text-primary">Jacqueline Fernandez</h4>
-                                        <h6 >Title : Senior Developer</h6>
-                                        <h6 >Email : Jacqueline@gmail.com </h6>
-                                        <h6 >Phone : +91 99988 12255</h6>
-                                        <h6>Key Skills : .Net Core, Web API, Angular, React </h6>
-                                        <div className="float-sm-right">
-
-                                            <button className="btn btn-primary btn-sm rounded-0">Dowanload Resume</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                            {Candidatelist}
                         </div>
                         <div className="mt-2">
-                            <Pagination>
-                                <Pagination.First />
-                                <Pagination.Prev />
-                                <Pagination.Item>{1}</Pagination.Item>
-                                <Pagination.Ellipsis />
-
-                                <Pagination.Item>{10}</Pagination.Item>
-                                <Pagination.Item>{11}</Pagination.Item>
-                                <Pagination.Item active>{12}</Pagination.Item>
-                                <Pagination.Item>{13}</Pagination.Item>
-                                <Pagination.Item disabled>{14}</Pagination.Item>
-
-                                <Pagination.Ellipsis />
-                                <Pagination.Item>{20}</Pagination.Item>
-                                <Pagination.Next />
-                                <Pagination.Last />
-                            </Pagination>
+                            {Pagenation}
                         </div>
                     </div>
                 </div>
