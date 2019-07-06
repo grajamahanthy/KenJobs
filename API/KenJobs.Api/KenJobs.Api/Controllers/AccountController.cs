@@ -348,6 +348,8 @@ namespace KenJobs.Api.Controllers
             else
             {
                 UserContract userWorker = new UserWorker();
+                OrganizationContract organizationWorker = new OrganizationWorker();
+                User_OrganizationContract user_OrganizationContract = new User_OrganizationWorker();
                 UserBo userBo = new UserBo();
 
                 userBo.FirstName = model.FirstName;
@@ -359,11 +361,28 @@ namespace KenJobs.Api.Controllers
                 userBo.Title = "Mr.";
                 userBo.PhoneNumber = user.PhoneNumber;
                 userBo.Email = user.Email;
+                userBo.IsIndividual = model.IsIndividual;
+
+                OrganizationBo organizationBo = new OrganizationBo();
+
+                organizationBo.Name = (model.IsIndividual==0)?model.FirstName+'_'+model.LastName: model.CompanyName;
+
+                User_OrganizationBo user_OrganizationBo = new User_OrganizationBo();
 
                 //userBo.AspNetUser_Id = model.AspNetUser_Id;
                 try
                 {
-                    userWorker.InsertUser(userBo);
+                  int User_Id=userWorker.PostUser(userBo);
+
+                    if (model.UserRoleId == "2")
+                    {
+                        int Organization_Id = organizationWorker.PostOrganization(organizationBo);
+                        user_OrganizationBo.User_Id = User_Id;
+                        user_OrganizationBo.Organization_Id = Organization_Id;
+                        user_OrganizationContract.PostGetUser_Organizations(user_OrganizationBo);
+
+                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -386,7 +405,7 @@ namespace KenJobs.Api.Controllers
             userBo.AspNetUser_Id = "ef612be5-1b2b-41a6-b63f-81b7be417974";// userId;
             userBo.Status = 1;
             //userBo.AspNetUser_Id = model.AspNetUser_Id;
-            userWorker.InsertUser(userBo);
+            userWorker.PostUser(userBo);
         }
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]

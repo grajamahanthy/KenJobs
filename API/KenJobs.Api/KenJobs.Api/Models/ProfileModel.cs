@@ -8,7 +8,7 @@ namespace KenJobs.Api.Models
     public class ProfileModel
     {
         public int Id { get; set; }
-        public int USer_Id { get; set; }
+        public int User_Id { get; set; }
         public string Resume { get; set; }
         public string skills { get; set; }
         public short TotalExperiance { get; set; }

@@ -12,13 +12,13 @@ namespace KenJobs.Dal
     using System;
     using System.Collections.Generic;
     
-    public partial class Client
+    public partial class Organization
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Client()
+        public Organization()
         {
-            this.AppliedJobs = new HashSet<AppliedJob>();
             this.User_Organization_Client = new HashSet<User_Organization_Client>();
+            this.User_Organization = new HashSet<User_Organization>();
         }
     
         public int Id { get; set; }
@@ -28,16 +28,16 @@ namespace KenJobs.Dal
         public string ContactPerson { get; set; }
         public string Website { get; set; }
         public string Address { get; set; }
-        public short Status { get; set; }
+        public Nullable<short> Status { get; set; }
         public string Logo { get; set; }
         public string CreatedBy { get; set; }
-        public System.DateTime CreatedOn { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
-        public System.DateTime UpdatedOn { get; set; }
+        public Nullable<System.DateTime> UpdatedOn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AppliedJob> AppliedJobs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User_Organization_Client> User_Organization_Client { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User_Organization> User_Organization { get; set; }
     }
 }

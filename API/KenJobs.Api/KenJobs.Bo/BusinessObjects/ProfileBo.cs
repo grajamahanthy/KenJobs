@@ -3,7 +3,7 @@ namespace KenJobs.Bo.BusinessObjects
     public partial class ProfileBo: BusinessBase
     {
         public int Id { get; set; }
-        public int USer_Id { get; set; }
+        public int User_Id { get; set; }
         public string Resume { get; set; }
         public string skills { get; set; }
         public short TotalExperiance { get; set; }

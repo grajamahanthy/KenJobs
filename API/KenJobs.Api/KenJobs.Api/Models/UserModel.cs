@@ -50,7 +50,7 @@ namespace KenJobs.Api.Models
 
         public string CreatedBy { get; set; }
 
-        public Nullable<System.DateTime> CreateOn { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
 
         public string UpdatedBy { get; set; }
 
@@ -60,6 +60,12 @@ namespace KenJobs.Api.Models
 
         public string UserRoleId { get; set; }
 
-      
+
+        public Nullable<short> IsIndividual { get; set; }
+
+
+        public string CompanyName { get; set; }
+
+
     }
 }

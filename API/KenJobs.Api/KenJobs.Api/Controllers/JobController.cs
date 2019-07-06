@@ -44,6 +44,15 @@ namespace KenJobs.Api.Controllers
                 jobmodel.MinExperience = jobBo.MinExperience;
                 jobmodel.MaxExperience = jobBo.MaxExperience;
                 jobmodel.User_Id = jobBo.User_Id;
+                jobmodel.ClientName = jobBo.ClientName;
+                jobmodel.Currency = jobBo.Currency;
+                jobmodel.Country = jobBo.Country;
+                jobmodel.AddressLine = jobBo.AddressLine;
+
+
+
+
+
                 jobModleList.Add(jobmodel);
             }
             return jobModleList;
@@ -75,6 +84,10 @@ namespace KenJobs.Api.Controllers
             jobmodel.MinExperience = jobBo.MinExperience;
             jobmodel.MaxExperience = jobBo.MaxExperience;
             jobmodel.User_Id = jobBo.User_Id;
+            jobmodel.ClientName = jobBo.ClientName;
+            jobmodel.Currency = jobBo.Currency;
+            jobmodel.Country = jobBo.Country;
+            jobmodel.AddressLine = jobBo.AddressLine;
 
             return jobmodel;
         }
@@ -152,6 +165,101 @@ namespace KenJobs.Api.Controllers
         // DELETE: api/Job/5
         public void Delete(int id)
         {
+        }
+
+        [HttpGet]
+        [Route("api/Job/GetJobseekersByJobId/{JobId}")]
+        public IEnumerable<UserProfileModel> GetJobseekersByJobId(int JobId)
+        {
+            JobsContract jobsWorker = new JobsWorker();
+            IEnumerable<UserBo> userBoList = jobsWorker.GetJobseekersByJobId(JobId);
+
+            List<UserProfileModel> userProfileModelList = new List<UserProfileModel>();
+
+            foreach(UserBo userBo in userBoList)
+            {
+                UserProfileModel userProfileModel = new UserProfileModel();
+
+                userProfileModel.Id = userBo.Id;
+                userProfileModel.Title = userBo.Title;
+
+                userProfileModel.FirstName = userBo.FirstName;
+                userProfileModel.MiddleName = userBo.MiddleName;
+                userProfileModel.LastName = userBo.LastName;
+                userProfileModel.PhoneNumber = userBo.PhoneNumber;
+                userProfileModel.Email = userBo.Email;
+                userProfileModel.ProfilePhoto = userBo.ProfilePhoto;
+                userProfileModel.Gender_Id = userBo.Gender_Id;
+                userProfileModel.Status = userBo.Status;
+                userProfileModel.AspNetUser_Id = userBo.AspNetUser_Id;
+                //userProfileModel.Profile = profileModelMapper(userBo.Profile);
+                //userProfileModel.Experience = experienceModelMapper(userBo.Experience);
+                //userProfileModel.EducationalQualification = educationalQualificationModelMapper(userBo.EducationalQualification);
+                userProfileModelList.Add(userProfileModel);
+            }
+            return userProfileModelList;
+
+        }
+        public List<ProfileModel> profileModelMapper(List<ProfileBo> profileBoList)
+        {
+            List<ProfileModel> profileModlList = new List<ProfileModel>();
+            foreach (ProfileBo profile in profileBoList)
+            {
+                ProfileModel profileModel = new ProfileModel();
+                profileModel.Id = profile.Id;
+                profileModel.User_Id = profile.User_Id;
+                profileModel.Resume = profile.Resume;
+                profileModel.skills = profile.skills;
+                profileModel.TotalExperiance = profile.TotalExperiance;
+                profileModel.HeighestQualification = profile.HeighestQualification;
+                profileModel.PreferredLocation = profile.PreferredLocation;
+                profileModel.CurrentSalary = profile.CurrentSalary;
+                profileModel.ExpectedSalary = profile.ExpectedSalary;
+                profileModel.Languages = profile.Languages;
+
+                profileModlList.Add(profileModel);
+            }
+            return profileModlList;
+        }
+
+
+        List<ExperienceModel> experienceModelMapper(List<ExperienceBo> experienceBoList)
+        {
+            List<ExperienceModel> experienceModelList = new List<ExperienceModel>();
+            foreach (ExperienceBo experienceBo in experienceBoList)
+            {
+                ExperienceModel experienceModel = new ExperienceModel();
+                experienceModel.Id = experienceBo.Id;
+                experienceModel.User_Id = experienceBo.User_Id;
+                experienceModel.CompanyName = experienceBo.CompanyName;
+                experienceModel.Technology = experienceBo.Technology;
+                experienceModel.Role = experienceBo.Role;
+                experienceModel.StartDate = experienceBo.StartDate;
+                experienceModel.EndDate = experienceBo.EndDate;
+                experienceModel.Description = experienceBo.Description;
+                experienceModelList.Add(experienceModel);
+            }
+
+            return experienceModelList;
+        }
+
+        List<EducationalQualificationModel> educationalQualificationModelMapper(List<EducationalQualificationBo> educationalQualificationBoList)
+        {
+            List<EducationalQualificationModel> educationalQualificationModelList = new List<EducationalQualificationModel>();
+            foreach (EducationalQualificationBo educationalQualificationBo in educationalQualificationBoList)
+            {
+                EducationalQualificationModel educationalQualificationModel = new EducationalQualificationModel();
+
+                educationalQualificationModel.Id = educationalQualificationBo.Id;
+                educationalQualificationModel.User_Id = educationalQualificationBo.User_Id;
+                educationalQualificationModel.Institute = educationalQualificationBo.Institute;
+                educationalQualificationModel.Qualification = educationalQualificationBo.Qualification;
+                educationalQualificationModel.YearOfPass = educationalQualificationBo.YearOfPass;
+                educationalQualificationModel.Percentage = educationalQualificationBo.Percentage;
+                educationalQualificationModelList.Add(educationalQualificationModel);
+            }
+
+            return educationalQualificationModelList;
         }
     }
 }

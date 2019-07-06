@@ -50,16 +50,19 @@
     <Compile Include="BusinessObjects\Class1.cs" />
     <Compile Include="BusinessObjects\ClientBo.cs" />
     <Compile Include="BusinessObjects\CountryBo.cs" />
+    <Compile Include="BusinessObjects\CurrencyBo.cs" />
     <Compile Include="BusinessObjects\EducationalQualificationBo.cs" />
     <Compile Include="BusinessObjects\ExperienceBo.cs" />
     <Compile Include="BusinessObjects\GenderBo.cs" />
     <Compile Include="BusinessObjects\JobBo.cs" />
     <Compile Include="BusinessObjects\JobCategoryBo.cs" />
     <Compile Include="BusinessObjects\JobTypeBo.cs" />
+    <Compile Include="BusinessObjects\OrganizationBo.cs" />
     <Compile Include="BusinessObjects\ProfileBo.cs" />
     <Compile Include="BusinessObjects\StateBo.cs" />
     <Compile Include="BusinessObjects\UserBo.cs" />
     <Compile Include="BusinessObjects\User_ClientBo.cs" />
+    <Compile Include="BusinessObjects\User_OrganizationBo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

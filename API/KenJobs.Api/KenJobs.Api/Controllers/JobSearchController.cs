@@ -19,7 +19,7 @@ namespace KenJobs.Api.Controllers
             JobsContract jobsWorker = new JobsWorker();
             IEnumerable<JobBo> jobBoList = jobsWorker.GetJobs();
             List<JobsModel> jobModelList = new List<JobsModel>();
-            foreach(JobBo jobBo in jobBoList)
+            foreach (JobBo jobBo in jobBoList)
             {
                 JobsModel jobsModel = new JobsModel();
                 jobsModel.Id = jobBo.Id;
@@ -39,12 +39,54 @@ namespace KenJobs.Api.Controllers
                 jobsModel.MinExperience = jobBo.MinExperience;
                 jobsModel.MaxExperience = jobBo.MaxExperience;
                 jobsModel.User_Id = jobBo.User_Id;
+                jobsModel.ClientName = jobBo.ClientName;
+                jobsModel.Currency = jobBo.Currency;
+                jobsModel.Country = jobBo.Country;
+                jobsModel.AddressLine = jobBo.AddressLine;
 
                 jobModelList.Add(jobsModel);
             }
             return jobModelList;
         }
+       [HttpGet]
+        [Route("api/JobSearch/GetJobsByUserId/{UserId}")]
+        public List<JobsModel> Get(int UserId)
+        {
+            JobsContract jobsWorker = new JobsWorker();
+            IEnumerable<JobBo> jobBoList = jobsWorker.GetJobsByUserId(UserId);
 
+            List<JobsModel> jobModelList = new List<JobsModel>();
+
+            foreach (JobBo jobBo in jobBoList)
+            {
+                JobsModel jobsModel = new JobsModel();
+                jobsModel.Id = jobBo.Id;
+                jobsModel.Client_Id = jobBo.Client_Id;
+                jobsModel.JobTitle = jobBo.JobTitle;
+                jobsModel.Description = jobBo.Description;
+                jobsModel.NoOfVacancies = jobBo.NoOfVacancies;
+                jobsModel.Qualification = jobBo.Qualification;
+                jobsModel.State = jobBo.State;
+                jobsModel.City = jobBo.City;
+                jobsModel.PostDate = jobBo.PostDate;
+                jobsModel.PostingStatus = jobBo.PostingStatus;
+                jobsModel.JobType_Id = jobBo.JobType_Id;
+                jobsModel.Category_id = jobBo.Category_id;
+                jobsModel.MinSalary = jobBo.MinSalary;
+                jobsModel.MaxSalary = jobBo.MaxSalary;
+                jobsModel.MinExperience = jobBo.MinExperience;
+                jobsModel.MaxExperience = jobBo.MaxExperience;
+                jobsModel.User_Id = jobBo.User_Id;
+                jobsModel.ClientName = jobBo.ClientName;
+                jobsModel.Currency = jobBo.Currency;
+                jobsModel.Country = jobBo.Country;
+                jobsModel.AddressLine = jobBo.AddressLine;
+
+
+                jobModelList.Add(jobsModel);
+            }
+            return jobModelList;
+        }
         // GET: api/JobSearch/5
         //public List<JobsModel> Get(string Keyword,string location)
         //{
@@ -77,6 +119,9 @@ namespace KenJobs.Api.Controllers
             jobBo.MinExperience = jobModel.MinExperience;
             jobBo.MaxExperience = jobModel.MaxExperience;
             jobBo.User_Id = jobModel.User_Id;
+            jobBo.ClientName = jobModel.ClientName;
+            jobBo.Currency = jobModel.Currency;
+            jobBo.Country = jobModel.Country;
 
             jobsWorker.PostJob(jobBo);
         }
@@ -89,6 +134,8 @@ namespace KenJobs.Api.Controllers
         // DELETE: api/JobSearch/5
         public void Delete(int id)
         {
+
         }
+    
     }
 }

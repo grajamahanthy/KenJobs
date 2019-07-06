@@ -22,7 +22,7 @@ namespace KenJobs.Bl.Workers
             ProfileBo profileBo = new ProfileBo();
 
             profileBo.Id = profileList.Id;
-            profileBo.USer_Id = profileList.USer_Id;
+            profileBo.User_Id = profileList.User_Id;
             profileBo.Resume = profileList.Resume;
             profileBo.skills = profileList.skills;
             profileBo.TotalExperiance = profileList.TotalExperiance;

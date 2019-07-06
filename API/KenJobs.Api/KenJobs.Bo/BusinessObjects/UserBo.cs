@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace KenJobs.Bo.BusinessObjects
@@ -15,6 +16,7 @@ namespace KenJobs.Bo.BusinessObjects
         public string AspNetUser_Id { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
+        public Nullable<short> IsIndividual { get; set; }
         public List<ProfileBo> Profile { get; set; }
         public List<ExperienceBo> Experience { get; set; }
         public List<EducationalQualificationBo> EducationalQualification { get; set; }
@@ -25,6 +27,6 @@ namespace KenJobs.Bo.BusinessObjects
         public virtual ICollection<ExperienceBo> Experiences { get; set; }
         public virtual GenderBo Gender { get; set; }
         public virtual ICollection<ProfileBo> Profiles { get; set; }
-        public virtual ICollection<User_ClientBo> User_Client { get; set; }
+        public virtual ICollection<User_Organization_ClientBo> User_Client { get; set; }
     }
 }

@@ -6,12 +6,12 @@ namespace KenJobs.Bo.BusinessObjects
     public partial class JobBo : BusinessBase
     {
         public int Id { get; set; }
-        public int Client_Id { get; set; }
+        public Nullable<int> Client_Id { get; set; }
         public string JobTitle { get; set; }
         public string Description { get; set; }
         public Nullable<int> NoOfVacancies { get; set; }
         public string Qualification { get; set; }
-        public int State { get; set; }
+        public string State { get; set; }
         public string City { get; set; }
         public System.DateTime PostDate { get; set; }
         public short Status { get; set; }
@@ -24,6 +24,11 @@ namespace KenJobs.Bo.BusinessObjects
         public Nullable<double> MaxSalary { get; set; }
         public Nullable<double> MaxExperience { get; set; }
         public Nullable<int> User_Id { get; set; }
+        public Nullable<int> Currency { get; set; }
+        public string ClientName { get; set; }
+        public string Country { get; set; }
+        public string AddressLine { get; set; }
+
 
         public ICollection<AppliedJobBo> AppliedJobs { get; set; }
         public ClientBo Client { get; set; }

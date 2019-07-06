@@ -32,7 +32,7 @@ namespace KenJobs.Api.Controllers
                 userModel.Status = userBo.Status;
                 userModel.AspNetUser_Id = userBo.AspNetUser_Id;
                 userModel.CreatedBy = userBo.CreatedBy;
-                userModel.CreateOn = userBo.CreateOn;
+                userModel.CreatedOn = userBo.CreatedOn;
                 userModelList.Add(userModel);
             }
 
@@ -62,7 +62,7 @@ namespace KenJobs.Api.Controllers
             userProfileModel.EducationalQualification = educationalQualificationModelMapper(userBo.EducationalQualification);
 
             userProfileModel.CreatedBy = userBo.CreatedBy;
-            userProfileModel.CreateOn = userBo.CreateOn;
+            userProfileModel.CreatedOn = userBo.CreatedOn;
 
             return userProfileModel;
 
@@ -90,7 +90,7 @@ namespace KenJobs.Api.Controllers
             {
                 ProfileModel profileModel = new ProfileModel();
                 profileModel.Id = profile.Id;
-                profileModel.USer_Id = profile.USer_Id;
+                profileModel.User_Id = profile.User_Id;
                 profileModel.Resume = profile.Resume;
                 profileModel.skills = profile.skills;
                 profileModel.TotalExperiance = profile.TotalExperiance;

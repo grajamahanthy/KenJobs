@@ -33,7 +33,7 @@ namespace KenJobs.Bl.Workers
                     ProfileBo profileBo = new ProfileBo();
 
                     profileBo.Id = profile.Id;
-                    profileBo.USer_Id = profile.USer_Id;
+                    profileBo.User_Id = profile.User_Id;
                     profileBo.Resume = profile.Resume;
                     profileBo.skills = profile.skills;
                     profileBo.TotalExperiance = profile.TotalExperiance;
@@ -88,7 +88,7 @@ namespace KenJobs.Bl.Workers
                 userBo.Gender_Id = user.Gender_Id;
                 userBo.Status = user.Status;
                 userBo.CreatedBy = user.CreatedBy;
-                userBo.CreateOn = user.CreateOn;
+                userBo.CreatedOn = user.CreatedOn;
                 userBo.UpdatedBy = user.UpdatedBy;
                 userBo.UpdatedOn = user.UpdatedOn;
                 userBo.AspNetUser_Id = user.AspNetUser_Id;
@@ -126,7 +126,7 @@ namespace KenJobs.Bl.Workers
                     userBo.Gender_Id = user.Gender_Id;
                     userBo.Status = user.Status;
                     userBo.CreatedBy = user.CreatedBy;
-                    userBo.CreateOn = user.CreateOn;
+                    userBo.CreatedOn = user.CreatedOn;
                     userBo.UpdatedBy = user.UpdatedBy;
                     userBo.UpdatedOn = user.UpdatedOn;
                     userBo.AspNetUser_Id = user.AspNetUser_Id;
@@ -141,7 +141,7 @@ namespace KenJobs.Bl.Workers
             
         }
 
-        public int InsertUser(UserBo userBo)
+        public int PostUser(UserBo userBo)
         {
             IGenericRepository<User> repository = new GenericRepository<User>();
 
@@ -155,7 +155,7 @@ namespace KenJobs.Bl.Workers
             user.Status = userBo.Status;
             user.Title = userBo.Title;
             user.CreatedBy = "Client";
-            user.CreateOn = DateTime.Now;
+            user.CreatedOn = DateTime.Now;
             user.UpdatedBy = userBo.UpdatedBy;
             user.UpdatedOn = userBo.UpdatedOn;
             user.AspNetUser_Id = userBo.AspNetUser_Id;
@@ -165,7 +165,7 @@ namespace KenJobs.Bl.Workers
             {
                 repository.Insert(user);
                 repository.Save();
-                return 1;
+                return user.Id;
             }
             catch(Exception ex)
             {
@@ -187,7 +187,7 @@ namespace KenJobs.Bl.Workers
             user.Gender_Id = userBo.Gender_Id;
             user.Status = userBo.Status;
             user.CreatedBy = userBo.CreatedBy;
-            user.CreateOn = userBo.CreateOn;
+            user.CreatedOn = userBo.CreatedOn;
             user.UpdatedBy = userBo.UpdatedBy;
             user.UpdatedOn = userBo.UpdatedOn;
             user.AspNetUser_Id = userBo.AspNetUser_Id;

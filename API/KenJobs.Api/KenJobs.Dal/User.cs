@@ -21,7 +21,8 @@ namespace KenJobs.Dal
             this.EducationalQualifications = new HashSet<EducationalQualification>();
             this.Experiences = new HashSet<Experience>();
             this.Profiles = new HashSet<Profile>();
-            this.User_Client = new HashSet<User_Client>();
+            this.User_Organization_Client = new HashSet<User_Organization_Client>();
+            this.User_Organization = new HashSet<User_Organization>();
         }
     
         public int Id { get; set; }
@@ -33,12 +34,13 @@ namespace KenJobs.Dal
         public int Gender_Id { get; set; }
         public short Status { get; set; }
         public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreateOn { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public string AspNetUser_Id { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
+        public Nullable<short> IsIndividual { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppliedJob> AppliedJobs { get; set; }
@@ -51,6 +53,8 @@ namespace KenJobs.Dal
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Profile> Profiles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User_Client> User_Client { get; set; }
+        public virtual ICollection<User_Organization_Client> User_Organization_Client { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User_Organization> User_Organization { get; set; }
     }
 }

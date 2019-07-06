@@ -21,5 +21,9 @@ namespace KenJobs.Bl.Contracts
 
         //
         void UpdateJob(int Id,JobBo jobBo);
+
+        //
+        IEnumerable<JobBo> GetJobsByUserId(int UserId);
+        IEnumerable<UserBo> GetJobseekersByJobId(int jobId);
     }
 }

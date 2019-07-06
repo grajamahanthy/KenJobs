@@ -28,7 +28,7 @@ namespace KenJobs.Bl.Workers
             educationalQualificationBo.YearOfPass = educationalQualification.YearOfPass;
             educationalQualificationBo.Percentage = educationalQualification.Percentage;
             educationalQualificationBo.CreatedBy = educationalQualification.CreatedBy;
-            educationalQualificationBo.CreateOn = educationalQualification.CreateOn;
+            educationalQualificationBo.CreatedOn = educationalQualification.CreatedOn;
             educationalQualificationBo.UpdatedBy = educationalQualification.UpdatedBy;
             educationalQualificationBo.UpdatedOn = educationalQualification.UpdatedOn;
 

@@ -12,17 +12,17 @@ namespace KenJobs.Dal
     using System;
     using System.Collections.Generic;
     
-    public partial class User_Client
+    public partial class User_Organization
     {
         public int Id { get; set; }
         public int User_Id { get; set; }
-        public int Client_Id { get; set; }
+        public int Organization_Id { get; set; }
         public string CreatedBy { get; set; }
-        public System.DateTime CreateOn { get; set; }
+        public System.DateTime CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public System.DateTime UpdatedOn { get; set; }
     
-        public virtual Client Client { get; set; }
+        public virtual Organization Organization { get; set; }
         public virtual User User { get; set; }
     }
 }

@@ -12,23 +12,19 @@ namespace KenJobs.Dal
     using System;
     using System.Collections.Generic;
     
-    public partial class Profile
+    public partial class User_Organization_Client
     {
         public int Id { get; set; }
         public int User_Id { get; set; }
-        public string Resume { get; set; }
-        public string skills { get; set; }
-        public short TotalExperiance { get; set; }
-        public string HeighestQualification { get; set; }
-        public string PreferredLocation { get; set; }
-        public int CurrentSalary { get; set; }
-        public int ExpectedSalary { get; set; }
-        public string Languages { get; set; }
+        public int Client_Id { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public System.DateTime UpdatedOn { get; set; }
+        public Nullable<int> Organization_Id { get; set; }
     
+        public virtual Client Client { get; set; }
+        public virtual Organization Organization { get; set; }
         public virtual User User { get; set; }
     }
 }

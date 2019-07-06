@@ -12,19 +12,12 @@ namespace KenJobs.Dal
     using System;
     using System.Collections.Generic;
     
-    public partial class EducationalQualification
+    public partial class Currency
     {
         public int Id { get; set; }
-        public int User_Id { get; set; }
-        public string Institute { get; set; }
-        public string Qualification { get; set; }
-        public string YearOfPass { get; set; }
-        public double Percentage { get; set; }
-        public string CreatedBy { get; set; }
-        public System.DateTime CreatedOn { get; set; }
-        public string UpdatedBy { get; set; }
-        public System.DateTime UpdatedOn { get; set; }
-    
-        public virtual User User { get; set; }
+        public string code { get; set; }
+        public string value { get; set; }
+        public Nullable<short> status { get; set; }
+        public string symbol { get; set; }
     }
 }

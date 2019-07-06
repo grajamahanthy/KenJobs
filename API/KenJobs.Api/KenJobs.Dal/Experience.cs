@@ -23,7 +23,7 @@ namespace KenJobs.Dal
         public System.DateTime EndDate { get; set; }
         public string Description { get; set; }
         public string CreatedBy { get; set; }
-        public System.DateTime CreateOn { get; set; }
+        public System.DateTime CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public System.DateTime UpdatedOn { get; set; }
     

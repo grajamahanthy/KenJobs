@@ -9,9 +9,9 @@ namespace KenJobs.Bl.Contracts
 {
     interface UserClientContract
     {
-        IEnumerable<User_ClientBo> GetUserClients();
-        User_ClientBo GetUserClient(int id);
-        int PostUserClient(User_ClientBo userClientBo);
-        int UpdateUserClient(int id, User_ClientBo userClientBo);
+        IEnumerable<User_Organization_ClientBo> GetUserClients();
+        User_Organization_ClientBo GetUserClient(int id);
+        int PostUserClient(User_Organization_ClientBo userClientBo);
+        int UpdateUserClient(int id, User_Organization_ClientBo userClientBo);
     }
 }

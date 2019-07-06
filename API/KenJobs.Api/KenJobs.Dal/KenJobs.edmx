@@ -15,7 +15,7 @@
           <Property Name="Job_Id" Type="int" Nullable="false" />
           <Property Name="AppliedDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
         </EntityType>
@@ -94,7 +94,7 @@
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="Logo" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
         </EntityType>
@@ -106,9 +106,19 @@
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="nvarchar" MaxLength="10" />
+          <Property Name="value" Type="nvarchar" MaxLength="50" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="symbol" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="EducationalQualification">
           <Key>
@@ -121,7 +131,7 @@
           <Property Name="YearOfPass" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Percentage" Type="float" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
         </EntityType>
@@ -138,7 +148,7 @@
           <Property Name="EndDate" Type="datetime" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
         </EntityType>
@@ -149,7 +159,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
         </EntityType>
@@ -161,7 +171,7 @@
           <Property Name="Category" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
         </EntityType>
@@ -170,21 +180,21 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Client_Id" Type="int" Nullable="false" />
+          <Property Name="Client_Id" Type="int" />
           <Property Name="JobTitle" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="NoOfVacancies" Type="int" />
           <Property Name="MinSalary" Type="float" />
           <Property Name="Qualification" Type="nvarchar" MaxLength="100" />
-          <Property Name="State" Type="int" Nullable="false" />
-          <Property Name="City" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="200" />
+          <Property Name="City" Type="nvarchar" MaxLength="200" />
           <Property Name="PostDate" Type="datetime" Nullable="false" />
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="PostingStatus" Type="smallint" Nullable="false" />
           <Property Name="JobType_Id" Type="int" Nullable="false" />
           <Property Name="Category_id" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
           <Property Name="MinExperience" Type="float" />
@@ -192,6 +202,10 @@
           <Property Name="MaxSalary" Type="float" />
           <Property Name="MaxExperience" Type="float" />
           <Property Name="User_Id" Type="int" />
+          <Property Name="Currency" Type="int" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Country" Type="nvarchar" MaxLength="200" />
+          <Property Name="AddressLine" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="JobType">
           <Key>
@@ -201,16 +215,34 @@
           <Property Name="JobType" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Organization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactPerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="Website" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Status" Type="smallint" />
+          <Property Name="Logo" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="UpdatedOn" Type="datetime" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="USer_Id" Type="int" Nullable="false" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
           <Property Name="Resume" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="skills" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="TotalExperiance" Type="smallint" Nullable="false" />
@@ -220,7 +252,7 @@
           <Property Name="ExpectedSalary" Type="int" Nullable="false" />
           <Property Name="Languages" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
         </EntityType>
@@ -233,7 +265,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
         </EntityType>
@@ -250,14 +282,27 @@
           <Property Name="Gender_Id" Type="int" Nullable="false" />
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
-          <Property Name="CreateOn" Type="datetime" />
+          <Property Name="CreatedOn" Type="datetime" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" />
           <Property Name="UpdatedOn" Type="datetime" />
           <Property Name="AspNetUser_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar(max)" />
           <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="IsIndividual" Type="smallint" />
         </EntityType>
-        <EntityType Name="User_Client">
+        <EntityType Name="User_Organization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="Organization_Id" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User_Organization_Client">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -265,9 +310,10 @@
           <Property Name="User_Id" Type="int" Nullable="false" />
           <Property Name="Client_Id" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="Organization_Id" Type="int" />
         </EntityType>
         <Association Name="FK_AppliedJobs_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
@@ -385,18 +431,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Jobs_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Jobs">
-              <PropertyRef Name="Client_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Jobs_JobCategory">
           <End Role="JobCategory" Type="Self.JobCategory" Multiplicity="1" />
           <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
@@ -429,7 +463,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Profile">
-              <PropertyRef Name="USer_Id" />
+              <PropertyRef Name="User_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -459,24 +493,36 @@
         </Association>
         <Association Name="FK_User_Client_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="User_Client" Type="Self.User_Client" Multiplicity="*" />
+          <End Role="User_Organization_Client" Type="Self.User_Organization_Client" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="User_Client">
+            <Dependent Role="User_Organization_Client">
               <PropertyRef Name="Client_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Client_Organization">
+          <End Role="Organization" Type="Self.Organization" Multiplicity="0..1" />
+          <End Role="User_Organization_Client" Type="Self.User_Organization_Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Organization_Client">
+              <PropertyRef Name="Organization_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Client_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="User_Client" Type="Self.User_Client" Multiplicity="*" />
+          <End Role="User_Organization_Client" Type="Self.User_Organization_Client" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="User_Client">
+            <Dependent Role="User_Organization_Client">
               <PropertyRef Name="User_Id" />
             </Dependent>
           </ReferentialConstraint>
@@ -493,6 +539,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_Organization_Organization">
+          <End Role="Organization" Type="Self.Organization" Multiplicity="1" />
+          <End Role="User_Organization" Type="Self.User_Organization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Organization">
+              <PropertyRef Name="Organization_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Organization_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User_Organization" Type="Self.User_Organization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Organization">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="kenjobsModelStoreContainer">
           <EntitySet Name="AppliedJobs" EntityType="Self.AppliedJobs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -503,16 +573,19 @@
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Currency" EntityType="Self.Currency" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EducationalQualification" EntityType="Self.EducationalQualification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Experience" EntityType="Self.Experience" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobCategory" EntityType="Self.JobCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Jobs" EntityType="Self.Jobs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobType" EntityType="Self.JobType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profile" EntityType="Self.Profile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User_Client" EntityType="Self.User_Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Organization" EntityType="Self.User_Organization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Organization_Client" EntityType="Self.User_Organization_Client" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AppliedJobs_Client" Association="Self.FK_AppliedJobs_Client">
             <End Role="Client" EntitySet="Client" />
             <End Role="AppliedJobs" EntitySet="AppliedJobs" />
@@ -549,10 +622,6 @@
             <End Role="User" EntitySet="User" />
             <End Role="Experience" EntitySet="Experience" />
           </AssociationSet>
-          <AssociationSet Name="FK_Jobs_Client" Association="Self.FK_Jobs_Client">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="Jobs" EntitySet="Jobs" />
-          </AssociationSet>
           <AssociationSet Name="FK_Jobs_JobCategory" Association="Self.FK_Jobs_JobCategory">
             <End Role="JobCategory" EntitySet="JobCategory" />
             <End Role="Jobs" EntitySet="Jobs" />
@@ -575,21 +644,132 @@
           </AssociationSet>
           <AssociationSet Name="FK_User_Client_Client" Association="Self.FK_User_Client_Client">
             <End Role="Client" EntitySet="Client" />
-            <End Role="User_Client" EntitySet="User_Client" />
+            <End Role="User_Organization_Client" EntitySet="User_Organization_Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Client_Organization" Association="Self.FK_User_Client_Organization">
+            <End Role="Organization" EntitySet="Organization" />
+            <End Role="User_Organization_Client" EntitySet="User_Organization_Client" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Client_User" Association="Self.FK_User_Client_User">
             <End Role="User" EntitySet="User" />
-            <End Role="User_Client" EntitySet="User_Client" />
+            <End Role="User_Organization_Client" EntitySet="User_Organization_Client" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Gender" Association="Self.FK_User_Gender">
             <End Role="Gender" EntitySet="Gender" />
             <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Organization_Organization" Association="Self.FK_User_Organization_Organization">
+            <End Role="Organization" EntitySet="Organization" />
+            <End Role="User_Organization" EntitySet="User_Organization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Organization_User" Association="Self.FK_User_Organization_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="User_Organization" EntitySet="User_Organization" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="kenjobsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="kenjobsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AppliedJobs" EntityType="kenjobsModel.AppliedJob" />
+          <EntitySet Name="AspNetRoles" EntityType="kenjobsModel.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="kenjobsModel.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="kenjobsModel.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="kenjobsModel.AspNetUser" />
+          <EntitySet Name="C__MigrationHistory" EntityType="kenjobsModel.C__MigrationHistory" />
+          <EntitySet Name="Clients" EntityType="kenjobsModel.Client" />
+          <EntitySet Name="Countries" EntityType="kenjobsModel.Country" />
+          <EntitySet Name="Currencies" EntityType="kenjobsModel.Currency" />
+          <EntitySet Name="EducationalQualifications" EntityType="kenjobsModel.EducationalQualification" />
+          <EntitySet Name="Experiences" EntityType="kenjobsModel.Experience" />
+          <EntitySet Name="Genders" EntityType="kenjobsModel.Gender" />
+          <EntitySet Name="JobCategories" EntityType="kenjobsModel.JobCategory" />
+          <EntitySet Name="Jobs" EntityType="kenjobsModel.Job" />
+          <EntitySet Name="JobTypes" EntityType="kenjobsModel.JobType" />
+          <EntitySet Name="Organizations" EntityType="kenjobsModel.Organization" />
+          <EntitySet Name="Profiles" EntityType="kenjobsModel.Profile" />
+          <EntitySet Name="States" EntityType="kenjobsModel.State" />
+          <EntitySet Name="Users" EntityType="kenjobsModel.User" />
+          <EntitySet Name="User_Organization" EntityType="kenjobsModel.User_Organization" />
+          <EntitySet Name="User_Organization_Client" EntityType="kenjobsModel.User_Organization_Client" />
+          <AssociationSet Name="FK_AppliedJobs_Client" Association="kenjobsModel.FK_AppliedJobs_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="AppliedJob" EntitySet="AppliedJobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AppliedJobs_Jobs" Association="kenjobsModel.FK_AppliedJobs_Jobs">
+            <End Role="Job" EntitySet="Jobs" />
+            <End Role="AppliedJob" EntitySet="AppliedJobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AppliedJobs_User" Association="kenjobsModel.FK_AppliedJobs_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="AppliedJob" EntitySet="AppliedJobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="kenjobsModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="kenjobsModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_AspNetUser" Association="kenjobsModel.FK_User_AspNetUser">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Client_Client" Association="kenjobsModel.FK_User_Client_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="User_Organization_Client" EntitySet="User_Organization_Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_State_Country" Association="kenjobsModel.FK_State_Country">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="State" EntitySet="States" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EducationalQualification_User" Association="kenjobsModel.FK_EducationalQualification_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="EducationalQualification" EntitySet="EducationalQualifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Experience_User" Association="kenjobsModel.FK_Experience_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Experience" EntitySet="Experiences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Gender" Association="kenjobsModel.FK_User_Gender">
+            <End Role="Gender" EntitySet="Genders" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jobs_JobCategory" Association="kenjobsModel.FK_Jobs_JobCategory">
+            <End Role="JobCategory" EntitySet="JobCategories" />
+            <End Role="Job" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jobs_JobType" Association="kenjobsModel.FK_Jobs_JobType">
+            <End Role="JobType" EntitySet="JobTypes" />
+            <End Role="Job" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Client_Organization" Association="kenjobsModel.FK_User_Client_Organization">
+            <End Role="Organization" EntitySet="Organizations" />
+            <End Role="User_Organization_Client" EntitySet="User_Organization_Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Organization_Organization" Association="kenjobsModel.FK_User_Organization_Organization">
+            <End Role="Organization" EntitySet="Organizations" />
+            <End Role="User_Organization" EntitySet="User_Organization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_User" Association="kenjobsModel.FK_Profile_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Profile" EntitySet="Profiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Client_User" Association="kenjobsModel.FK_User_Client_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="User_Organization_Client" EntitySet="User_Organization_Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Organization_User" Association="kenjobsModel.FK_User_Organization_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="User_Organization" EntitySet="User_Organization" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="kenjobsModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="AppliedJob">
           <Key>
             <PropertyRef Name="Id" />
@@ -599,31 +779,31 @@
           <Property Name="Client_Id" Type="Int32" Nullable="false" />
           <Property Name="Job_Id" Type="Int32" Nullable="false" />
           <Property Name="AppliedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_AppliedJobs_Client" FromRole="AppliedJobs" ToRole="Client" />
-          <NavigationProperty Name="Job" Relationship="Self.FK_AppliedJobs_Jobs" FromRole="AppliedJobs" ToRole="Jobs" />
-          <NavigationProperty Name="User" Relationship="Self.FK_AppliedJobs_User" FromRole="AppliedJobs" ToRole="User" />
+          <NavigationProperty Name="Client" Relationship="kenjobsModel.FK_AppliedJobs_Client" FromRole="AppliedJob" ToRole="Client" />
+          <NavigationProperty Name="Job" Relationship="kenjobsModel.FK_AppliedJobs_Jobs" FromRole="AppliedJob" ToRole="Job" />
+          <NavigationProperty Name="User" Relationship="kenjobsModel.FK_AppliedJobs_User" FromRole="AppliedJob" ToRole="User" />
         </EntityType>
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="kenjobsModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="AspNetUserClaim">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser" Relationship="kenjobsModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="AspNetUserLogin">
           <Key>
@@ -631,16 +811,16 @@
             <PropertyRef Name="ProviderKey" />
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="kenjobsModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="AspNetUser">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -651,55 +831,64 @@
           <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
-          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_User_AspNetUser" FromRole="AspNetUsers" ToRole="User" />
-          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="kenjobsModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="kenjobsModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="Users" Relationship="kenjobsModel.FK_User_AspNetUser" FromRole="AspNetUser" ToRole="User" />
+          <NavigationProperty Name="AspNetRoles" Relationship="kenjobsModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
         </EntityType>
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
             <PropertyRef Name="ContextKey" />
           </Key>
-          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContactPerson" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactPerson" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Website" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Int16" Nullable="false" />
-          <Property Name="Logo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Logo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="AppliedJobs" Relationship="Self.FK_AppliedJobs_Client" FromRole="Client" ToRole="AppliedJobs" />
-          <NavigationProperty Name="Jobs" Relationship="Self.FK_Jobs_Client" FromRole="Client" ToRole="Jobs" />
-          <NavigationProperty Name="User_Client" Relationship="Self.FK_User_Client_Client" FromRole="Client" ToRole="User_Client" />
+          <NavigationProperty Name="AppliedJobs" Relationship="kenjobsModel.FK_AppliedJobs_Client" FromRole="Client" ToRole="AppliedJob" />
+          <NavigationProperty Name="User_Organization_Client" Relationship="kenjobsModel.FK_User_Client_Client" FromRole="Client" ToRole="User_Organization_Client" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Int16" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="States" Relationship="Self.FK_State_Country" FromRole="Country" ToRole="State" />
+          <NavigationProperty Name="States" Relationship="kenjobsModel.FK_State_Country" FromRole="Country" ToRole="State" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="symbol" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="EducationalQualification">
           <Key>
@@ -707,15 +896,15 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="User_Id" Type="Int32" Nullable="false" />
-          <Property Name="Institute" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Qualification" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="YearOfPass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Institute" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Qualification" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="YearOfPass" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Percentage" Type="Double" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="User" Relationship="Self.FK_EducationalQualification_User" FromRole="EducationalQualification" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="kenjobsModel.FK_EducationalQualification_User" FromRole="EducationalQualification" ToRole="User" />
         </EntityType>
         <EntityType Name="Experience">
           <Key>
@@ -723,107 +912,130 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="User_Id" Type="Int32" Nullable="false" />
-          <Property Name="CompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Technology" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Role" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Technology" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Experience_User" FromRole="Experience" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="kenjobsModel.FK_Experience_User" FromRole="Experience" ToRole="User" />
         </EntityType>
         <EntityType Name="Gender">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_User_Gender" FromRole="Gender" ToRole="User" />
+          <NavigationProperty Name="Users" Relationship="kenjobsModel.FK_User_Gender" FromRole="Gender" ToRole="User" />
         </EntityType>
         <EntityType Name="JobCategory">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Int16" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Jobs" Relationship="Self.FK_Jobs_JobCategory" FromRole="JobCategory" ToRole="Jobs" />
+          <NavigationProperty Name="Jobs" Relationship="kenjobsModel.FK_Jobs_JobCategory" FromRole="JobCategory" ToRole="Job" />
         </EntityType>
         <EntityType Name="Job">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Client_Id" Type="Int32" Nullable="false" />
-          <Property Name="JobTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Client_Id" Type="Int32" />
+          <Property Name="JobTitle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="NoOfVacancies" Type="Int32" />
+          <Property Name="MinSalary" Type="Double" />
           <Property Name="Qualification" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="State" Type="Int32" Nullable="false" />
-          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="PostDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="Int16" Nullable="false" />
           <Property Name="PostingStatus" Type="Int16" Nullable="false" />
           <Property Name="JobType_Id" Type="Int32" Nullable="false" />
           <Property Name="Category_id" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="AppliedJobs" Relationship="Self.FK_AppliedJobs_Jobs" FromRole="Jobs" ToRole="AppliedJobs" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_Jobs_Client" FromRole="Jobs" ToRole="Client" />
-          <NavigationProperty Name="JobCategory" Relationship="Self.FK_Jobs_JobCategory" FromRole="Jobs" ToRole="JobCategory" />
-          <NavigationProperty Name="JobType" Relationship="Self.FK_Jobs_JobType" FromRole="Jobs" ToRole="JobType" />
-          <Property Name="MinSalary" Type="Double" />
           <Property Name="MinExperience" Type="Double" />
           <Property Name="Skills" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MaxSalary" Type="Double" />
           <Property Name="MaxExperience" Type="Double" />
           <Property Name="User_Id" Type="Int32" />
+          <Property Name="Currency" Type="Int32" />
+          <Property Name="ClientName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AppliedJobs" Relationship="kenjobsModel.FK_AppliedJobs_Jobs" FromRole="Job" ToRole="AppliedJob" />
+          <NavigationProperty Name="JobCategory" Relationship="kenjobsModel.FK_Jobs_JobCategory" FromRole="Job" ToRole="JobCategory" />
+          <NavigationProperty Name="JobType" Relationship="kenjobsModel.FK_Jobs_JobType" FromRole="Job" ToRole="JobType" />
         </EntityType>
         <EntityType Name="JobType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="JobType1" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JobType1" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Int16" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Jobs" Relationship="Self.FK_Jobs_JobType" FromRole="JobType" ToRole="Jobs" />
+          <NavigationProperty Name="Jobs" Relationship="kenjobsModel.FK_Jobs_JobType" FromRole="JobType" ToRole="Job" />
+        </EntityType>
+        <EntityType Name="Organization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactPerson" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int16" />
+          <Property Name="Logo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User_Organization_Client" Relationship="kenjobsModel.FK_User_Client_Organization" FromRole="Organization" ToRole="User_Organization_Client" />
+          <NavigationProperty Name="User_Organization" Relationship="kenjobsModel.FK_User_Organization_Organization" FromRole="Organization" ToRole="User_Organization" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="USer_Id" Type="Int32" Nullable="false" />
-          <Property Name="Resume" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="skills" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Resume" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="skills" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="TotalExperiance" Type="Int16" Nullable="false" />
-          <Property Name="HeighestQualification" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PreferredLocation" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HeighestQualification" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PreferredLocation" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CurrentSalary" Type="Int32" Nullable="false" />
           <Property Name="ExpectedSalary" Type="Int32" Nullable="false" />
-          <Property Name="Languages" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Languages" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Profile_User" FromRole="Profile" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="kenjobsModel.FK_Profile_User" FromRole="Profile" ToRole="User" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -831,124 +1043,142 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Country_Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Int16" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Country" Relationship="Self.FK_State_Country" FromRole="State" ToRole="Country" />
+          <NavigationProperty Name="Country" Relationship="kenjobsModel.FK_State_Country" FromRole="State" ToRole="Country" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ProfilePhoto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Gender_Id" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Int16" Nullable="false" />
           <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreateOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="AspNetUser_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AppliedJobs" Relationship="Self.FK_AppliedJobs_User" FromRole="User" ToRole="AppliedJobs" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_User_AspNetUser" FromRole="User" ToRole="AspNetUsers" />
-          <NavigationProperty Name="EducationalQualifications" Relationship="Self.FK_EducationalQualification_User" FromRole="User" ToRole="EducationalQualification" />
-          <NavigationProperty Name="Experiences" Relationship="Self.FK_Experience_User" FromRole="User" ToRole="Experience" />
-          <NavigationProperty Name="Gender" Relationship="Self.FK_User_Gender" FromRole="User" ToRole="Gender" />
-          <NavigationProperty Name="Profiles" Relationship="Self.FK_Profile_User" FromRole="User" ToRole="Profile" />
-          <NavigationProperty Name="User_Client" Relationship="Self.FK_User_Client_User" FromRole="User" ToRole="User_Client" />
+          <Property Name="AspNetUser_Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IsIndividual" Type="Int16" />
+          <NavigationProperty Name="AppliedJobs" Relationship="kenjobsModel.FK_AppliedJobs_User" FromRole="User" ToRole="AppliedJob" />
+          <NavigationProperty Name="AspNetUser" Relationship="kenjobsModel.FK_User_AspNetUser" FromRole="User" ToRole="AspNetUser" />
+          <NavigationProperty Name="EducationalQualifications" Relationship="kenjobsModel.FK_EducationalQualification_User" FromRole="User" ToRole="EducationalQualification" />
+          <NavigationProperty Name="Experiences" Relationship="kenjobsModel.FK_Experience_User" FromRole="User" ToRole="Experience" />
+          <NavigationProperty Name="Gender" Relationship="kenjobsModel.FK_User_Gender" FromRole="User" ToRole="Gender" />
+          <NavigationProperty Name="Profiles" Relationship="kenjobsModel.FK_Profile_User" FromRole="User" ToRole="Profile" />
+          <NavigationProperty Name="User_Organization_Client" Relationship="kenjobsModel.FK_User_Client_User" FromRole="User" ToRole="User_Organization_Client" />
+          <NavigationProperty Name="User_Organization" Relationship="kenjobsModel.FK_User_Organization_User" FromRole="User" ToRole="User_Organization" />
         </EntityType>
-        <EntityType Name="User_Client">
+        <EntityType Name="User_Organization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Organization_Id" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Organization" Relationship="kenjobsModel.FK_User_Organization_Organization" FromRole="User_Organization" ToRole="Organization" />
+          <NavigationProperty Name="User" Relationship="kenjobsModel.FK_User_Organization_User" FromRole="User_Organization" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User_Organization_Client">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="User_Id" Type="Int32" Nullable="false" />
           <Property Name="Client_Id" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreateOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_User_Client_Client" FromRole="User_Client" ToRole="Client" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_Client_User" FromRole="User_Client" ToRole="User" />
+          <Property Name="Organization_Id" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="kenjobsModel.FK_User_Client_Client" FromRole="User_Organization_Client" ToRole="Client" />
+          <NavigationProperty Name="Organization" Relationship="kenjobsModel.FK_User_Client_Organization" FromRole="User_Organization_Client" ToRole="Organization" />
+          <NavigationProperty Name="User" Relationship="kenjobsModel.FK_User_Client_User" FromRole="User_Organization_Client" ToRole="User" />
         </EntityType>
         <Association Name="FK_AppliedJobs_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="AppliedJobs" Type="Self.AppliedJob" Multiplicity="*" />
+          <End Type="kenjobsModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="kenjobsModel.AppliedJob" Role="AppliedJob" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AppliedJobs">
+            <Dependent Role="AppliedJob">
               <PropertyRef Name="Client_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AppliedJobs_Jobs">
-          <End Role="Jobs" Type="Self.Job" Multiplicity="1" />
-          <End Role="AppliedJobs" Type="Self.AppliedJob" Multiplicity="*" />
+          <End Type="kenjobsModel.Job" Role="Job" Multiplicity="1" />
+          <End Type="kenjobsModel.AppliedJob" Role="AppliedJob" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Jobs">
+            <Principal Role="Job">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AppliedJobs">
+            <Dependent Role="AppliedJob">
               <PropertyRef Name="Job_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AppliedJobs_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="AppliedJobs" Type="Self.AppliedJob" Multiplicity="*" />
+          <End Type="kenjobsModel.User" Role="User" Multiplicity="1" />
+          <End Type="kenjobsModel.AppliedJob" Role="AppliedJob" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AppliedJobs">
+            <Dependent Role="AppliedJob">
               <PropertyRef Name="User_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+          <End Type="kenjobsModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <End Type="kenjobsModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
+            <Principal Role="AspNetUser">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AspNetUserClaims">
+            <Dependent Role="AspNetUserClaim">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+          <End Type="kenjobsModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <End Type="kenjobsModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
+            <Principal Role="AspNetUser">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AspNetUserLogins">
+            <Dependent Role="AspNetUserLogin">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_AspNetUser">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Type="kenjobsModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="kenjobsModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
+            <Principal Role="AspNetUser">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="User">
@@ -956,33 +1186,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Jobs_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="Jobs" Type="Self.Job" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Jobs">
-              <PropertyRef Name="Client_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_User_Client_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="User_Client" Type="Self.User_Client" Multiplicity="*" />
+          <End Type="kenjobsModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="kenjobsModel.User_Organization_Client" Role="User_Organization_Client" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="User_Client">
+            <Dependent Role="User_Organization_Client">
               <PropertyRef Name="Client_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_State_Country">
-          <End Role="Country" Type="Self.Country" Multiplicity="1" />
-          <End Role="State" Type="Self.State" Multiplicity="*" />
+          <End Type="kenjobsModel.Country" Role="Country" Multiplicity="1" />
+          <End Type="kenjobsModel.State" Role="State" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Country">
               <PropertyRef Name="Id" />
@@ -993,8 +1211,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EducationalQualification_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="EducationalQualification" Type="Self.EducationalQualification" Multiplicity="*" />
+          <End Type="kenjobsModel.User" Role="User" Multiplicity="1" />
+          <End Type="kenjobsModel.EducationalQualification" Role="EducationalQualification" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
@@ -1005,8 +1223,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Experience_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Experience" Type="Self.Experience" Multiplicity="*" />
+          <End Type="kenjobsModel.User" Role="User" Multiplicity="1" />
+          <End Type="kenjobsModel.Experience" Role="Experience" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
@@ -1017,8 +1235,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Gender">
-          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Type="kenjobsModel.Gender" Role="Gender" Multiplicity="1" />
+          <End Type="kenjobsModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gender">
               <PropertyRef Name="Id" />
@@ -1029,146 +1247,94 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Jobs_JobCategory">
-          <End Role="JobCategory" Type="Self.JobCategory" Multiplicity="1" />
-          <End Role="Jobs" Type="Self.Job" Multiplicity="*" />
+          <End Type="kenjobsModel.JobCategory" Role="JobCategory" Multiplicity="1" />
+          <End Type="kenjobsModel.Job" Role="Job" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="JobCategory">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Jobs">
+            <Dependent Role="Job">
               <PropertyRef Name="Category_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Jobs_JobType">
-          <End Role="JobType" Type="Self.JobType" Multiplicity="1" />
-          <End Role="Jobs" Type="Self.Job" Multiplicity="*" />
+          <End Type="kenjobsModel.JobType" Role="JobType" Multiplicity="1" />
+          <End Type="kenjobsModel.Job" Role="Job" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="JobType">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Jobs">
+            <Dependent Role="Job">
               <PropertyRef Name="JobType_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_Client_Organization">
+          <End Type="kenjobsModel.Organization" Role="Organization" Multiplicity="0..1" />
+          <End Type="kenjobsModel.User_Organization_Client" Role="User_Organization_Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Organization_Client">
+              <PropertyRef Name="Organization_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Organization_Organization">
+          <End Type="kenjobsModel.Organization" Role="Organization" Multiplicity="1" />
+          <End Type="kenjobsModel.User_Organization" Role="User_Organization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Organization">
+              <PropertyRef Name="Organization_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Profile_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Profile" Type="Self.Profile" Multiplicity="*" />
+          <End Type="kenjobsModel.User" Role="User" Multiplicity="1" />
+          <End Type="kenjobsModel.Profile" Role="Profile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Profile">
-              <PropertyRef Name="USer_Id" />
+              <PropertyRef Name="User_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Client_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="User_Client" Type="Self.User_Client" Multiplicity="*" />
+          <End Type="kenjobsModel.User" Role="User" Multiplicity="1" />
+          <End Type="kenjobsModel.User_Organization_Client" Role="User_Organization_Client" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="User_Client">
+            <Dependent Role="User_Organization_Client">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Organization_User">
+          <End Type="kenjobsModel.User" Role="User" Multiplicity="1" />
+          <End Type="kenjobsModel.User_Organization" Role="User_Organization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Organization">
               <PropertyRef Name="User_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="AspNetUserRoles">
-          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+          <End Type="kenjobsModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="kenjobsModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="kenjobsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AppliedJobs" EntityType="Self.AppliedJob" />
-          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
-          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
-          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
-          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
-          <EntitySet Name="Clients" EntityType="Self.Client" />
-          <EntitySet Name="Countries" EntityType="Self.Country" />
-          <EntitySet Name="EducationalQualifications" EntityType="Self.EducationalQualification" />
-          <EntitySet Name="Experiences" EntityType="Self.Experience" />
-          <EntitySet Name="Genders" EntityType="Self.Gender" />
-          <EntitySet Name="JobCategories" EntityType="Self.JobCategory" />
-          <EntitySet Name="Jobs" EntityType="Self.Job" />
-          <EntitySet Name="JobTypes" EntityType="Self.JobType" />
-          <EntitySet Name="Profiles" EntityType="Self.Profile" />
-          <EntitySet Name="States" EntityType="Self.State" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="User_Client" EntityType="Self.User_Client" />
-          <AssociationSet Name="FK_AppliedJobs_Client" Association="Self.FK_AppliedJobs_Client">
-            <End Role="Client" EntitySet="Clients" />
-            <End Role="AppliedJobs" EntitySet="AppliedJobs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AppliedJobs_Jobs" Association="Self.FK_AppliedJobs_Jobs">
-            <End Role="Jobs" EntitySet="Jobs" />
-            <End Role="AppliedJobs" EntitySet="AppliedJobs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AppliedJobs_User" Association="Self.FK_AppliedJobs_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="AppliedJobs" EntitySet="AppliedJobs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_AspNetUser" Association="Self.FK_User_AspNetUser">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Jobs_Client" Association="Self.FK_Jobs_Client">
-            <End Role="Client" EntitySet="Clients" />
-            <End Role="Jobs" EntitySet="Jobs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Client_Client" Association="Self.FK_User_Client_Client">
-            <End Role="Client" EntitySet="Clients" />
-            <End Role="User_Client" EntitySet="User_Client" />
-          </AssociationSet>
-          <AssociationSet Name="FK_State_Country" Association="Self.FK_State_Country">
-            <End Role="Country" EntitySet="Countries" />
-            <End Role="State" EntitySet="States" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EducationalQualification_User" Association="Self.FK_EducationalQualification_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="EducationalQualification" EntitySet="EducationalQualifications" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Experience_User" Association="Self.FK_Experience_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Experience" EntitySet="Experiences" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Gender" Association="Self.FK_User_Gender">
-            <End Role="Gender" EntitySet="Genders" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Jobs_JobCategory" Association="Self.FK_Jobs_JobCategory">
-            <End Role="JobCategory" EntitySet="JobCategories" />
-            <End Role="Jobs" EntitySet="Jobs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Jobs_JobType" Association="Self.FK_Jobs_JobType">
-            <End Role="JobType" EntitySet="JobTypes" />
-            <End Role="Jobs" EntitySet="Jobs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Profile_User" Association="Self.FK_Profile_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Profile" EntitySet="Profiles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Client_User" Association="Self.FK_User_Client_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="User_Client" EntitySet="User_Client" />
-          </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1177,280 +1343,329 @@
           <EntitySetMapping Name="AppliedJobs">
             <EntityTypeMapping TypeName="kenjobsModel.AppliedJob">
               <MappingFragment StoreEntitySet="AppliedJobs">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
-                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
-                <ScalarProperty Name="Job_Id" ColumnName="Job_Id" />
-                <ScalarProperty Name="AppliedDate" ColumnName="AppliedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="AppliedDate" ColumnName="AppliedDate" />
+                <ScalarProperty Name="Job_Id" ColumnName="Job_Id" />
+                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="kenjobsModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
             <EntityTypeMapping TypeName="kenjobsModel.AspNetUserClaim">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
                 <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
             <EntityTypeMapping TypeName="kenjobsModel.AspNetUserLogin">
               <MappingFragment StoreEntitySet="AspNetUserLogins">
-                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="kenjobsModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="C__MigrationHistory">
             <EntityTypeMapping TypeName="kenjobsModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="C__MigrationHistory">
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Clients">
             <EntityTypeMapping TypeName="kenjobsModel.Client">
               <MappingFragment StoreEntitySet="Client">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
-                <ScalarProperty Name="Website" ColumnName="Website" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Logo" ColumnName="Logo" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Countries">
             <EntityTypeMapping TypeName="kenjobsModel.Country">
               <MappingFragment StoreEntitySet="Country">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Currencies">
+            <EntityTypeMapping TypeName="kenjobsModel.Currency">
+              <MappingFragment StoreEntitySet="Currency">
+                <ScalarProperty Name="symbol" ColumnName="symbol" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EducationalQualifications">
             <EntityTypeMapping TypeName="kenjobsModel.EducationalQualification">
               <MappingFragment StoreEntitySet="EducationalQualification">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
-                <ScalarProperty Name="Institute" ColumnName="Institute" />
-                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
-                <ScalarProperty Name="YearOfPass" ColumnName="YearOfPass" />
-                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="YearOfPass" ColumnName="YearOfPass" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+                <ScalarProperty Name="Institute" ColumnName="Institute" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Experiences">
             <EntityTypeMapping TypeName="kenjobsModel.Experience">
               <MappingFragment StoreEntitySet="Experience">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="Technology" ColumnName="Technology" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Technology" ColumnName="Technology" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Genders">
             <EntityTypeMapping TypeName="kenjobsModel.Gender">
               <MappingFragment StoreEntitySet="Gender">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="JobCategories">
             <EntityTypeMapping TypeName="kenjobsModel.JobCategory">
               <MappingFragment StoreEntitySet="JobCategory">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Jobs">
             <EntityTypeMapping TypeName="kenjobsModel.Job">
               <MappingFragment StoreEntitySet="Jobs">
+                <ScalarProperty Name="AddressLine" ColumnName="AddressLine" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
                 <ScalarProperty Name="User_Id" ColumnName="User_Id" />
                 <ScalarProperty Name="MaxExperience" ColumnName="MaxExperience" />
                 <ScalarProperty Name="MaxSalary" ColumnName="MaxSalary" />
                 <ScalarProperty Name="Skills" ColumnName="Skills" />
                 <ScalarProperty Name="MinExperience" ColumnName="MinExperience" />
-                <ScalarProperty Name="MinSalary" ColumnName="MinSalary" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
-                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="NoOfVacancies" ColumnName="NoOfVacancies" />
-                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="PostingStatus" ColumnName="PostingStatus" />
-                <ScalarProperty Name="JobType_Id" ColumnName="JobType_Id" />
-                <ScalarProperty Name="Category_id" ColumnName="Category_id" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Category_id" ColumnName="Category_id" />
+                <ScalarProperty Name="JobType_Id" ColumnName="JobType_Id" />
+                <ScalarProperty Name="PostingStatus" ColumnName="PostingStatus" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+                <ScalarProperty Name="MinSalary" ColumnName="MinSalary" />
+                <ScalarProperty Name="NoOfVacancies" ColumnName="NoOfVacancies" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="JobTypes">
             <EntityTypeMapping TypeName="kenjobsModel.JobType">
               <MappingFragment StoreEntitySet="JobType">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="JobType1" ColumnName="JobType" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="JobType1" ColumnName="JobType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Organizations">
+            <EntityTypeMapping TypeName="kenjobsModel.Organization">
+              <MappingFragment StoreEntitySet="Organization">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Profiles">
             <EntityTypeMapping TypeName="kenjobsModel.Profile">
               <MappingFragment StoreEntitySet="Profile">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="USer_Id" ColumnName="USer_Id" />
-                <ScalarProperty Name="Resume" ColumnName="Resume" />
-                <ScalarProperty Name="skills" ColumnName="skills" />
-                <ScalarProperty Name="TotalExperiance" ColumnName="TotalExperiance" />
-                <ScalarProperty Name="HeighestQualification" ColumnName="HeighestQualification" />
-                <ScalarProperty Name="PreferredLocation" ColumnName="PreferredLocation" />
-                <ScalarProperty Name="CurrentSalary" ColumnName="CurrentSalary" />
-                <ScalarProperty Name="ExpectedSalary" ColumnName="ExpectedSalary" />
-                <ScalarProperty Name="Languages" ColumnName="Languages" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Languages" ColumnName="Languages" />
+                <ScalarProperty Name="ExpectedSalary" ColumnName="ExpectedSalary" />
+                <ScalarProperty Name="CurrentSalary" ColumnName="CurrentSalary" />
+                <ScalarProperty Name="PreferredLocation" ColumnName="PreferredLocation" />
+                <ScalarProperty Name="HeighestQualification" ColumnName="HeighestQualification" />
+                <ScalarProperty Name="TotalExperiance" ColumnName="TotalExperiance" />
+                <ScalarProperty Name="skills" ColumnName="skills" />
+                <ScalarProperty Name="Resume" ColumnName="Resume" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="States">
             <EntityTypeMapping TypeName="kenjobsModel.State">
               <MappingFragment StoreEntitySet="State">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Country_Id" ColumnName="Country_Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Country_Id" ColumnName="Country_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="kenjobsModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="IsIndividual" ColumnName="IsIndividual" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
-                <ScalarProperty Name="Gender_Id" ColumnName="Gender_Id" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="AspNetUser_Id" ColumnName="AspNetUser_Id" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Gender_Id" ColumnName="Gender_Id" />
+                <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="User_Client">
-            <EntityTypeMapping TypeName="kenjobsModel.User_Client">
-              <MappingFragment StoreEntitySet="User_Client">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
-                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <EntitySetMapping Name="User_Organization">
+            <EntityTypeMapping TypeName="kenjobsModel.User_Organization">
+              <MappingFragment StoreEntitySet="User_Organization">
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Organization_Id" ColumnName="Organization_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Organization_Client">
+            <EntityTypeMapping TypeName="kenjobsModel.User_Organization_Client">
+              <MappingFragment StoreEntitySet="User_Organization_Client">
+                <ScalarProperty Name="Organization_Id" ColumnName="Organization_Id" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <AssociationSetMapping Name="AspNetUserRoles" TypeName="kenjobsModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetRoles">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-            <EndProperty Name="AspNetUsers">
+            <EndProperty Name="AspNetUser">
               <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

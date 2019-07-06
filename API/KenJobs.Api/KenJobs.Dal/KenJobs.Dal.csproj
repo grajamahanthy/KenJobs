@@ -70,7 +70,11 @@
       <DependentUpon>KenJobs.tt</DependentUpon>
     </Compile>
     <Compile Include="Contracts\IGenericRepository.cs" />
+    <Compile Include="Contracts\ICustomRepository.cs" />
     <Compile Include="Country.cs">
+      <DependentUpon>KenJobs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Currency.cs">
       <DependentUpon>KenJobs.tt</DependentUpon>
     </Compile>
     <Compile Include="C__MigrationHistory.cs">
@@ -109,6 +113,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>KenJobs.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Organization.cs">
+      <DependentUpon>KenJobs.tt</DependentUpon>
+    </Compile>
     <Compile Include="Profile.cs">
       <DependentUpon>KenJobs.tt</DependentUpon>
     </Compile>
@@ -119,10 +126,14 @@
     <Compile Include="User.cs">
       <DependentUpon>KenJobs.tt</DependentUpon>
     </Compile>
-    <Compile Include="User_Client.cs">
+    <Compile Include="User_Organization.cs">
+      <DependentUpon>KenJobs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User_Organization_Client.cs">
       <DependentUpon>KenJobs.tt</DependentUpon>
     </Compile>
     <Compile Include="Workers\GenericRepository.cs" />
+    <Compile Include="Workers\CustomRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

@@ -1,8 +1,12 @@
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace KenJobs.Bo.BusinessObjects
-{   
-    public partial class ClientBo : BusinessBase
+{
+   public class OrganizationBo
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -11,10 +15,7 @@ namespace KenJobs.Bo.BusinessObjects
         public string ContactPerson { get; set; }
         public string Website { get; set; }
         public string Address { get; set; }
-        public short Status { get; set; }
-        public string Logo { get; set; }    
-        public ICollection<AppliedJobBo> AppliedJobs { get; set; }
-        public ICollection<JobBo> Jobs { get; set; }
-        public ICollection<User_Organization_ClientBo> User_Client { get; set; }
+        public Nullable<short> Status { get; set; }
+        public string Logo { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace KenJobs.Dal
         public int Job_Id { get; set; }
         public System.DateTime AppliedDate { get; set; }
         public string CreatedBy { get; set; }
-        public System.DateTime CreateOn { get; set; }
+        public System.DateTime CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public System.DateTime UpdatedOn { get; set; }
     

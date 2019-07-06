@@ -1,6 +1,6 @@
 namespace KenJobs.Bo.BusinessObjects
 {
-    public partial class User_ClientBo:BusinessBase
+    public partial class User_Organization_ClientBo : BusinessBase
     {
         public int Id { get; set; }
         public int User_Id { get; set; }

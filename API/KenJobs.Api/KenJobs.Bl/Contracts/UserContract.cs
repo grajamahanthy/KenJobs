@@ -11,7 +11,7 @@ namespace KenJobs.Bl.Contracts
     {
         IEnumerable<UserBo> GetUsers();
         UserBo GetUser(string id);
-        int InsertUser(UserBo userBo);
+        int PostUser(UserBo userBo);
         int UpdateUser(int id, UserBo userBo);
     }
 }

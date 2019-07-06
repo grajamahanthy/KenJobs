@@ -11,7 +11,7 @@ namespace KenJobs.Dal.Workers
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private kenjobsEntities _context = null;
+        public kenjobsEntities _context = null;
         private DbSet<T> table = null;
         public GenericRepository()
         {
