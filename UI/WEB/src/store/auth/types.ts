@@ -3,6 +3,7 @@ export interface IsessionState {
     loggedIn: boolean;
     token: string;
     userName: string;
+    appProps: any;
 }
 
 // Describing the different ACTION NAMES available

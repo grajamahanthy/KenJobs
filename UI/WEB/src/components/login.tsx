@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import { Redirect } from "react-router-dom";
 // import axios from 'axios';
 import { AppState } from "../store/index";
@@ -129,11 +129,20 @@ class Login extends React.Component<any, any> {
       isJobseekar: (this.props.match.params.usertype === "jobseeker") ? true : false,
       loginType: this.props.match.params.usertype
     })
+  }  
+
+  componentWillUnmount(){
+    this.props.updateSession({
+      appProps: {showNav : true}
+    });
   }
 
   componentDidMount() {
     window.addEventListener("resize", this.resize.bind(this));
     this.resize();
+    this.props.updateSession({
+      appProps: {showNav : false}
+    });
   }
 
   resize() {
@@ -174,9 +183,16 @@ class Login extends React.Component<any, any> {
         <Row className="ml-0 mr-0 h-100">
           {leftbar}
           <Col className="bg-white h-100 d-table">
-            <div className="text-center d-table-cell align-middle">
+            <div className="text-center d-table-cell align-middle h-100">
+              <div className="mb-5" style={styles.userFriendlyNav}>
+              
+                <Link to="/" className="mr-5" style={styles.roundedCorners}>Home</Link>
+                {this.state.loginType == "employer" ? 
+                <Link to="/" className="mr-5" style={styles.roundedCorners}>Post Job</Link>
+                : <Link to="/" className="mr-5" style={styles.roundedCorners}>Search for Jobs</Link>}
+              </div>
               <div id="container" className="">
-                <h4 className="text-uppercase">{this.state.loginType + ' Login'}</h4>
+                <h4 className="text-uppercase mt-20">{this.state.loginType + ' Login'}</h4>
                 <div className="row text-white pt-4 pb-4 ">
                   <div className="col-sm-11 mx-auto pt-4 pb-4">
 
@@ -221,6 +237,7 @@ class Login extends React.Component<any, any> {
                         <div className="text-primary">Please <span><Link to={"/Registration/" + this.state.loginType}><u>click here</u></Link> </span> for new user registration.</div>
 
                       </form>
+                      {this.state.loginType == "employer" ? "" :
                       <div className="row mt-2">
                         <div className="col">
                           <button className="btn  btn-block rounded-0 bg-danger border text-white">Google</button>
@@ -228,6 +245,7 @@ class Login extends React.Component<any, any> {
                           <button className="btn  btn-block rounded-0 bg-primary border text-white">Facebook</button>
                         </div>
                       </div>
+                      }
                     </div>
                   </div>
                 </div>
@@ -240,6 +258,19 @@ class Login extends React.Component<any, any> {
     );
   }
 }
+
+const styles = {
+  userFriendlyNav: {
+    position: "absolute",
+    top: "20px",
+    right: "20px"
+  } as CSSProperties,
+  roundedCorners: {
+    borderRadius: "50px"
+  } as CSSProperties
+
+};
+
 const mapStateToProps = (state: AppState) => ({
   system: state.system
 });

@@ -5,15 +5,15 @@ import { Navbar, Nav, NavItem, NavDropdown } from 'react-bootstrap';
 function Navigation(props: any) {
 
     let loginInfo;
-    let Title = (props.login_state.loggedIn === true) ? "Ken Jobs" : "";
+    let Title = (props.app_prop.loggedIn === true) ? "Ken Jobs" : "";
     let UserName;
 
-    if (props.login_state.loggedIn === true) {
+    if (props.app_prop.loggedIn === true) {
         loginInfo = (<>
             <Link className="nav-link" to="/Jobs">
                 Search Job
          </Link>
-            <NavDropdown title={props.login_state.userName} id="nav-dropdown">
+            <NavDropdown title={props.app_prop.userName} id="nav-dropdown">
                 <NavDropdown.Item eventKey="4.1">
                     <Link className="nav-link" to="/Logout">
                         Log Out
@@ -53,7 +53,7 @@ function Navigation(props: any) {
     }
 
     return (<>
-        <div className="bg-primary">
+        <div className={props.app_prop.appProps.showNav ? "bg-primary": "d-none"}>
             <div className="container">
                 <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
                     <Navbar.Brand href="/">{Title}</Navbar.Brand>

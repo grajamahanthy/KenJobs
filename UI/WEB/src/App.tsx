@@ -66,15 +66,15 @@ class App extends React.Component<any, any> {
     // console.log(this.props);
     // let login_page;
     // if (this.props.system.loggedIn == true) {
-    //   login_page = < Navigation login_state={this.props.system}></Navigation>;
+    //   login_page = < Navigation app_prop={this.props.system}></Navigation>;
     // } else {
-    //   login_page = < Navigation login_state={this.props.system}></Navigation>;
+    //   login_page = < Navigation app_prop={this.props.system}></Navigation>;
     // }
 
     return (<>
       <Router>
         {/* {login_page} */}
-        < Navigation login_state={this.props.system}></Navigation>
+        < Navigation app_prop={this.props.system}></Navigation>
         <Route exact path="/login/:usertype" name="usertype" component={Login} />
         <Route exact path="/" component={Home} />
         <Route exact path="/Jobs" component={Jobs} />

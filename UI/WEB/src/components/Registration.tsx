@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { Tabs, Tab, Row, Col } from "react-bootstrap";
 import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { AppState } from "../store/index";
+import { connect } from 'react-redux';
+import { updateSession } from "../store/auth/actions";
 
 
-export default class Registration extends React.Component<any, any> {
+class Registration extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
 
@@ -79,10 +82,20 @@ export default class Registration extends React.Component<any, any> {
                 loginType: this.props.match.params.usertype,
                 userRoleId: (this.props.match.params.usertype === "jobseeker") ? 1 : 2,
             })
-        } else {
-
         }
     }
+
+    componentDidMount(){
+        this.props.updateSession({
+            appProps: {showNav : false}
+          });
+    }
+
+    componentWillUnmount(){
+        this.props.updateSession({
+          appProps: {showNav : true}
+        });
+      }
 
     componentWillReceiveProps(nextProps: any) {
         if (nextProps === "jobseeker" || nextProps === "employer")
@@ -139,9 +152,16 @@ export default class Registration extends React.Component<any, any> {
                 </Col>
                 <Col className="h-100 d-table">
                     <div className="text-center d-table-cell align-middle">
-                        <div id="container" className="">
-                            <h4 className="text-uppercase">{'Register as ' + this.state.loginType}</h4>
-                            <div className="row text-white pt-5 pb-5 ">
+                        <div className="mb-5" style={styles.userFriendlyNav}>
+                    
+                            <Link to="/" className="mr-5" style={styles.roundedCorners}>Home</Link>
+                            {this.state.loginType == "employer" ? 
+                            <Link to="/" className=" mr-5" style={styles.roundedCorners}>Post Job</Link>
+                            : <Link to="/" className="mr-5" style={styles.roundedCorners}>Search for Jobs</Link>}
+                        </div>
+                        <div id="container" className="pt-5">
+                            <h4 className="text-uppercase  mt-5">{'Register as ' + this.state.loginType}</h4>
+                            <div className="row text-white pb-5 ">
                                 <div className="col-sm-11 mx-auto pt-5 pb-5">
                                     <div className="info-form">
                                         <form onSubmit={this.submitForm} className="">
@@ -239,7 +259,6 @@ export default class Registration extends React.Component<any, any> {
                                             </div>
                                             <input type="submit" value="Register" className="btn btn-primary mb-2" />
                                             <div className="text-primary">Existing User ? <Link to={"/Login/" + this.state.loginType}><u>click here</u></Link> for Log in.</div>
-
                                         </form>
                                     </div>
                                 </div>
@@ -251,3 +270,25 @@ export default class Registration extends React.Component<any, any> {
         </>)
     }
 }
+
+  const styles = {
+    userFriendlyNav: {
+      position: "absolute",
+      top: "20px",
+      right: "20px"
+    } as CSSProperties,
+    roundedCorners: {
+      borderRadius: "50px"
+    } as CSSProperties
+  
+  };
+
+  const mapStateToProps = (state: AppState) => ({
+    system: state.system
+  });
+  
+  export default connect(
+    mapStateToProps,
+    { updateSession }
+  )(Registration)
+  
