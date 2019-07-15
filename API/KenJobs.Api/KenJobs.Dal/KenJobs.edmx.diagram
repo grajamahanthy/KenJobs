@@ -21,7 +21,6 @@
         <EntityTypeShape EntityType="kenjobsModel.Job" Width="1.5" PointX="8.25" PointY="0.875" />
         <EntityTypeShape EntityType="kenjobsModel.JobType" Width="1.5" PointX="6" PointY="1.375" />
         <EntityTypeShape EntityType="kenjobsModel.Organization" Width="1.5" PointX="5.25" PointY="8.75" />
-        <EntityTypeShape EntityType="kenjobsModel.Profile" Width="1.5" PointX="7.5" PointY="22.125" />
         <EntityTypeShape EntityType="kenjobsModel.State" Width="1.5" PointX="12" PointY="9" />
         <EntityTypeShape EntityType="kenjobsModel.User" Width="1.5" PointX="5.25" PointY="13.875" />
         <EntityTypeShape EntityType="kenjobsModel.User_Organization" Width="1.5" PointX="7.5" PointY="11.25" />
@@ -41,10 +40,11 @@
         <AssociationConnector Association="kenjobsModel.FK_Jobs_JobType" />
         <AssociationConnector Association="kenjobsModel.FK_User_Client_Organization" />
         <AssociationConnector Association="kenjobsModel.FK_User_Organization_Organization" />
-        <AssociationConnector Association="kenjobsModel.FK_Profile_User" />
         <AssociationConnector Association="kenjobsModel.FK_User_Client_User" />
         <AssociationConnector Association="kenjobsModel.FK_User_Organization_User" />
         <AssociationConnector Association="kenjobsModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="kenjobsModel.Profile" Width="1.5" PointX="7.5" PointY="19.875" />
+        <AssociationConnector Association="kenjobsModel.FK_Profile_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

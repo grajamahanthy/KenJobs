@@ -16,6 +16,8 @@ namespace KenJobs.Bo.BusinessObjects
         public string AspNetUser_Id { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
+        public string ResetPasswordCode { get; set; }
+        public string EmailActivationCode { get; set; }        
         public Nullable<short> IsIndividual { get; set; }
         public List<ProfileBo> Profile { get; set; }
         public List<ExperienceBo> Experience { get; set; }

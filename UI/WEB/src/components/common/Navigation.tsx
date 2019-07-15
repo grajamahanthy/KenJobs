@@ -10,9 +10,6 @@ function Navigation(props: any) {
 
     if (props.app_prop.loggedIn === true) {
         loginInfo = (<>
-            <Link className="nav-link" to="/Jobs">
-                Search Job
-         </Link>
             <NavDropdown title={props.app_prop.userName} id="nav-dropdown">
                 <NavDropdown.Item eventKey="4.1">
                     <Link className="nav-link" to="/Logout">
@@ -21,20 +18,10 @@ function Navigation(props: any) {
                 </NavDropdown.Item>
 
                 <NavDropdown.Divider />
-                <NavDropdown.Item eventKey="4.2">
-                    <Link className="nav-link" to="/profile">
-                        Profile
-                </Link>
-                </NavDropdown.Item>
                 <NavDropdown.Item eventKey="4.3">
                     <Link className="nav-link" to="/Adduser">
                         Edit Profile
                     </Link>
-                </NavDropdown.Item>
-                <NavDropdown.Item eventKey="4.4">
-                    <Link className="nav-link" to="/postjob">
-                        Post Job
-                            </Link>
                 </NavDropdown.Item>
             </NavDropdown>
         </>)
@@ -66,10 +53,14 @@ function Navigation(props: any) {
                                 Home
                              </Link>
 
-
-                            <Link className="nav-link" to="/recdash">
-                                Post Job
-                             </Link>
+                            {/* {props.app_prop.state.loginType == "employer" ? */}
+                                <Link className="nav-link" to="/recdash">
+                                    Post Job
+                                </Link>
+                                <Link className="nav-link" to="/Jobs">
+                                    Search Job
+                                </Link>}
+                            
 
                             {loginInfo}
                         </Nav>

@@ -19,10 +19,12 @@ using KenJobs.Api.Results;
 using KenJobs.Bl.Contracts;
 using KenJobs.Bl.Workers;
 using KenJobs.Bo.BusinessObjects;
+using System.Net.Mail;
+using System.Net;
+using System.Linq;
 
 namespace KenJobs.Api.Controllers
 {
-    [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
@@ -138,6 +140,28 @@ namespace KenJobs.Api.Controllers
         }
 
         // POST api/Account/SetPassword
+        [Route("ResetPassword")]
+        public async Task<IHttpActionResult> ResetPassword(ResetPasswordBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            UserContract userWorker = new UserWorker();
+            UserBo u = userWorker.GetUserByEmail(model.Email);
+            string pwdResetToken = await UserManager.GeneratePasswordResetTokenAsync(u.AspNetUser_Id);
+            IdentityResult result = await UserManager.ResetPasswordAsync(u.AspNetUser_Id, pwdResetToken, model.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+
+        // POST api/Account/SetPassword
         [Route("SetPassword")]
         public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
         {
@@ -154,7 +178,7 @@ namespace KenJobs.Api.Controllers
             }
 
             return Ok();
-        }
+        }        
 
         // POST api/Account/AddExternalLogin
         [Route("AddExternalLogin")]

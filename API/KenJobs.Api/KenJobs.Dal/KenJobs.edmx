@@ -289,6 +289,8 @@
           <Property Name="PhoneNumber" Type="nvarchar(max)" />
           <Property Name="Email" Type="nvarchar" MaxLength="256" />
           <Property Name="IsIndividual" Type="smallint" />
+          <Property Name="EmailActivationCode" Type="nvarchar" MaxLength="200" />
+          <Property Name="ResetPasswordCode" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="User_Organization">
           <Key>
@@ -688,7 +690,6 @@
           <EntitySet Name="Jobs" EntityType="kenjobsModel.Job" />
           <EntitySet Name="JobTypes" EntityType="kenjobsModel.JobType" />
           <EntitySet Name="Organizations" EntityType="kenjobsModel.Organization" />
-          <EntitySet Name="Profiles" EntityType="kenjobsModel.Profile" />
           <EntitySet Name="States" EntityType="kenjobsModel.State" />
           <EntitySet Name="Users" EntityType="kenjobsModel.User" />
           <EntitySet Name="User_Organization" EntityType="kenjobsModel.User_Organization" />
@@ -753,10 +754,6 @@
             <End Role="Organization" EntitySet="Organizations" />
             <End Role="User_Organization" EntitySet="User_Organization" />
           </AssociationSet>
-          <AssociationSet Name="FK_Profile_User" Association="kenjobsModel.FK_Profile_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Profile" EntitySet="Profiles" />
-          </AssociationSet>
           <AssociationSet Name="FK_User_Client_User" Association="kenjobsModel.FK_User_Client_User">
             <End Role="User" EntitySet="Users" />
             <End Role="User_Organization_Client" EntitySet="User_Organization_Client" />
@@ -768,6 +765,11 @@
           <AssociationSet Name="AspNetUserRoles" Association="kenjobsModel.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="Profiles" EntityType="kenjobsModel.Profile" />
+          <AssociationSet Name="FK_Profile_User" Association="kenjobsModel.FK_Profile_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Profile" EntitySet="Profiles" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AppliedJob">
@@ -1017,26 +1019,6 @@
           <NavigationProperty Name="User_Organization_Client" Relationship="kenjobsModel.FK_User_Client_Organization" FromRole="Organization" ToRole="User_Organization_Client" />
           <NavigationProperty Name="User_Organization" Relationship="kenjobsModel.FK_User_Organization_Organization" FromRole="Organization" ToRole="User_Organization" />
         </EntityType>
-        <EntityType Name="Profile">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="User_Id" Type="Int32" Nullable="false" />
-          <Property Name="Resume" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="skills" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="TotalExperiance" Type="Int16" Nullable="false" />
-          <Property Name="HeighestQualification" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PreferredLocation" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CurrentSalary" Type="Int32" Nullable="false" />
-          <Property Name="ExpectedSalary" Type="Int32" Nullable="false" />
-          <Property Name="Languages" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="User" Relationship="kenjobsModel.FK_Profile_User" FromRole="Profile" ToRole="User" />
-        </EntityType>
         <EntityType Name="State">
           <Key>
             <PropertyRef Name="Id" />
@@ -1076,9 +1058,11 @@
           <NavigationProperty Name="EducationalQualifications" Relationship="kenjobsModel.FK_EducationalQualification_User" FromRole="User" ToRole="EducationalQualification" />
           <NavigationProperty Name="Experiences" Relationship="kenjobsModel.FK_Experience_User" FromRole="User" ToRole="Experience" />
           <NavigationProperty Name="Gender" Relationship="kenjobsModel.FK_User_Gender" FromRole="User" ToRole="Gender" />
-          <NavigationProperty Name="Profiles" Relationship="kenjobsModel.FK_Profile_User" FromRole="User" ToRole="Profile" />
           <NavigationProperty Name="User_Organization_Client" Relationship="kenjobsModel.FK_User_Client_User" FromRole="User" ToRole="User_Organization_Client" />
           <NavigationProperty Name="User_Organization" Relationship="kenjobsModel.FK_User_Organization_User" FromRole="User" ToRole="User_Organization" />
+          <Property Name="EmailActivationCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ResetPasswordCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Profiles" Relationship="kenjobsModel.FK_Profile_User" FromRole="User" ToRole="Profile" />
         </EntityType>
         <EntityType Name="User_Organization">
           <Key>
@@ -1294,18 +1278,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Profile_User">
-          <End Type="kenjobsModel.User" Role="User" Multiplicity="1" />
-          <End Type="kenjobsModel.Profile" Role="Profile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Profile">
-              <PropertyRef Name="User_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_User_Client_User">
           <End Type="kenjobsModel.User" Role="User" Multiplicity="1" />
           <End Type="kenjobsModel.User_Organization_Client" Role="User_Organization_Client" Multiplicity="*" />
@@ -1333,6 +1305,38 @@
         <Association Name="AspNetUserRoles">
           <End Type="kenjobsModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="kenjobsModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Resume" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="skills" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TotalExperiance" Type="Int16" Nullable="false" />
+          <Property Name="HeighestQualification" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PreferredLocation" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentSalary" Type="Int32" Nullable="false" />
+          <Property Name="ExpectedSalary" Type="Int32" Nullable="false" />
+          <Property Name="Languages" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="kenjobsModel.FK_Profile_User" FromRole="Profile" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Profile_User">
+          <End Type="kenjobsModel.User" Role="User" Multiplicity="1" />
+          <End Type="kenjobsModel.Profile" Role="Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -1577,26 +1581,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Profiles">
-            <EntityTypeMapping TypeName="kenjobsModel.Profile">
-              <MappingFragment StoreEntitySet="Profile">
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Languages" ColumnName="Languages" />
-                <ScalarProperty Name="ExpectedSalary" ColumnName="ExpectedSalary" />
-                <ScalarProperty Name="CurrentSalary" ColumnName="CurrentSalary" />
-                <ScalarProperty Name="PreferredLocation" ColumnName="PreferredLocation" />
-                <ScalarProperty Name="HeighestQualification" ColumnName="HeighestQualification" />
-                <ScalarProperty Name="TotalExperiance" ColumnName="TotalExperiance" />
-                <ScalarProperty Name="skills" ColumnName="skills" />
-                <ScalarProperty Name="Resume" ColumnName="Resume" />
-                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="States">
             <EntityTypeMapping TypeName="kenjobsModel.State">
               <MappingFragment StoreEntitySet="State">
@@ -1614,6 +1598,8 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="kenjobsModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ResetPasswordCode" ColumnName="ResetPasswordCode" />
+                <ScalarProperty Name="EmailActivationCode" ColumnName="EmailActivationCode" />
                 <ScalarProperty Name="IsIndividual" ColumnName="IsIndividual" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
@@ -1668,6 +1654,26 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Profiles">
+            <EntityTypeMapping TypeName="kenjobsModel.Profile">
+              <MappingFragment StoreEntitySet="Profile">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Languages" ColumnName="Languages" />
+                <ScalarProperty Name="ExpectedSalary" ColumnName="ExpectedSalary" />
+                <ScalarProperty Name="CurrentSalary" ColumnName="CurrentSalary" />
+                <ScalarProperty Name="PreferredLocation" ColumnName="PreferredLocation" />
+                <ScalarProperty Name="HeighestQualification" ColumnName="HeighestQualification" />
+                <ScalarProperty Name="TotalExperiance" ColumnName="TotalExperiance" />
+                <ScalarProperty Name="skills" ColumnName="skills" />
+                <ScalarProperty Name="Resume" ColumnName="Resume" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

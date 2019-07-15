@@ -16,6 +16,9 @@ import { AppState } from "./store/index";
 import Employeedashbord from "./components/User/Employeedashbord";
 import Jobdescription from "./components/Jobs/JobDescription";
 import Registration from "./components/Registration";
+import ForgotPassword from "./components/ForgotPassword";
+import ChangePassword from "./components/ChangePassword";
+// import ConfirmVerification from "./components/ConfirmVerification";
 import CandidateList from "./components/User/Candidatelist";
 // import { IsessionState } from "./store/auth/types";
 import { updateSession } from "./store/auth/actions";
@@ -76,6 +79,9 @@ class App extends React.Component<any, any> {
         {/* {login_page} */}
         < Navigation app_prop={this.props.system}></Navigation>
         <Route exact path="/login/:usertype" name="usertype" component={Login} />
+        <Route exact path="/ForgotPassword/:usertype" name="usertype" component={ForgotPassword} />
+        <Route exact path="/ChangePassword/:usertype/:email/:key" name="usertype" component={ChangePassword} />
+        {/* <Route exact path="/ConfirmVerification/:usertype" name="usertype" component={ConfirmVerification} /> */}
         <Route exact path="/" component={Home} />
         <Route exact path="/Jobs" component={Jobs} />
         <Route exact path="/applyjob" component={Applyjob} />

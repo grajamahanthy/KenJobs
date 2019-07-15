@@ -15,6 +15,35 @@ namespace KenJobs.Bl.Workers
 {
     public class UserWorker : UserContract
     {
+        public AspNetUserBo GetAspNetUser(string id)
+        {
+            IGenericRepository<AspNetUser> repository = new GenericRepository<AspNetUser>();
+            AspNetUserBo aspnetUserBo = new AspNetUserBo();
+            AspNetUser aspnetUser = repository.GetById(id);
+
+            aspnetUserBo.Id = aspnetUser.Id;
+            aspnetUserBo.LockoutEnabled = aspnetUser.LockoutEnabled;
+            aspnetUserBo.LockoutEndDateUtc = aspnetUser.LockoutEndDateUtc;
+            aspnetUserBo.PasswordHash = aspnetUser.PasswordHash;
+            aspnetUserBo.PhoneNumber = aspnetUser.PhoneNumber;
+            aspnetUserBo.PhoneNumberConfirmed = aspnetUser.PhoneNumberConfirmed;
+            aspnetUserBo.SecurityStamp = aspnetUser.SecurityStamp;
+            aspnetUserBo.TwoFactorEnabled = aspnetUser.TwoFactorEnabled;
+            aspnetUserBo.UserName = aspnetUser.UserName;
+            aspnetUserBo.AccessFailedCount = aspnetUser.AccessFailedCount;
+            aspnetUserBo.Email = aspnetUser.Email;
+            aspnetUserBo.EmailConfirmed = aspnetUser.EmailConfirmed;
+
+            aspnetUserBo.AspNetRoles = new List<AspNetRoleBo>();
+            aspnetUserBo.AspNetRoles.Add(new AspNetRoleBo()
+                                    {
+                                        Id = aspnetUser.AspNetRoles.ToList()[0].Id,
+                                        Name = aspnetUser.AspNetRoles.ToList()[0].Name
+                                    });
+
+            return aspnetUserBo;
+
+        }
         public UserBo GetUser(string userid)
         {
 
@@ -97,7 +126,8 @@ namespace KenJobs.Bl.Workers
                 userBo.Profile = profileBoList;
                 userBo.Experience = experienceBoList;
                 userBo.EducationalQualification = educationalQualificationBoList;
-
+                userBo.ResetPasswordCode = user.ResetPasswordCode;
+                userBo.EmailActivationCode = user.EmailActivationCode;
 
                 return userBo;
             }
@@ -139,6 +169,32 @@ namespace KenJobs.Bl.Workers
                 return new List<UserBo>();
             }
             
+        }
+
+        public UserBo GetUserByEmail(string email)
+        {
+            ICustomRepository<User> repository = new CustomRepository<User>();
+            User user = repository.GetUserByEmail(email);
+
+            UserBo userBo = new UserBo();
+            userBo.Id = user.Id;
+            userBo.FirstName = user.FirstName;
+            userBo.MiddleName = user.MiddleName;
+            userBo.LastName = user.LastName;
+            userBo.ProfilePhoto = user.ProfilePhoto;
+            userBo.Gender_Id = user.Gender_Id;
+            userBo.Status = user.Status;
+            userBo.CreatedBy = user.CreatedBy;
+            userBo.CreatedOn = user.CreatedOn;
+            userBo.UpdatedBy = user.UpdatedBy;
+            userBo.UpdatedOn = user.UpdatedOn;
+            userBo.AspNetUser_Id = user.AspNetUser_Id;
+            userBo.PhoneNumber = user.PhoneNumber;
+            userBo.ResetPasswordCode = user.ResetPasswordCode;
+            userBo.EmailActivationCode = user.EmailActivationCode;
+            userBo.Email = user.Email;
+
+            return userBo;
         }
 
         public int PostUser(UserBo userBo)
@@ -193,6 +249,8 @@ namespace KenJobs.Bl.Workers
             user.AspNetUser_Id = userBo.AspNetUser_Id;
             user.PhoneNumber = userBo.PhoneNumber;
             user.Email = userBo.Email;
+            user.EmailActivationCode = userBo.EmailActivationCode;
+            user.ResetPasswordCode = userBo.ResetPasswordCode;
 
             repository.Update(user);
             repository.Save();
@@ -200,6 +258,23 @@ namespace KenJobs.Bl.Workers
             return 1;
         }
 
-
+        public int UpdatePartialUserProps(UserBo userBo)
+        {
+            try
+            {
+                IGenericRepository<User> repository = new GenericRepository<User>();
+                User user = new User();
+                user = repository.GetById(userBo.Id);
+                user.ResetPasswordCode = userBo.ResetPasswordCode;
+                user.EmailActivationCode = userBo.EmailActivationCode;
+                repository.Update(user);
+                repository.Save();
+            }
+            catch
+            {
+                return 0;
+            }
+            return 1;
+        }
     }
 }

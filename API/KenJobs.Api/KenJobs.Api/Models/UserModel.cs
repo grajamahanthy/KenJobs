@@ -68,4 +68,9 @@ namespace KenJobs.Api.Models
 
 
     }
+
+    public class EmailInfo
+    {
+        public string Email { get; set; }
+    }
 }

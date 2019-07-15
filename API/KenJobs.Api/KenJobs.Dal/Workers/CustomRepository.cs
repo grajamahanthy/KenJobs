@@ -28,5 +28,13 @@ namespace KenJobs.Dal.Workers
                            select u).ToList();
             return jobseekerList;
         }
+
+        public User GetUserByEmail(string email)
+        {
+            var user = (from u in _context.Users
+                                 where u.Email == email
+                                 select u).ToList();
+            return user == null ? null : user[0];
+        }
     }
 }

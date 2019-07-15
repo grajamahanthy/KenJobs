@@ -234,17 +234,25 @@ class Login extends React.Component<any, any> {
                           ) : null}
                         </div>
                         <input type="submit" value="Login" className="btn btn-primary mb-2" />
+                       
+                        <div className="text-primary">
+
+                          <Link className="" to={"/ForgotPassword/" + this.state.loginType}>
+                            Forgot Password
+                                </Link>
+                          </div>
+
                         <div className="text-primary">Please <span><Link to={"/Registration/" + this.state.loginType}><u>click here</u></Link> </span> for new user registration.</div>
 
                       </form>
                       {this.state.loginType == "employer" ? "" :
-                      <div className="row mt-2">
-                        <div className="col">
-                          <button className="btn  btn-block rounded-0 bg-danger border text-white">Google</button>
-                        </div><div className="col">
-                          <button className="btn  btn-block rounded-0 bg-primary border text-white">Facebook</button>
+                        <div className="row mt-2">
+                          <div className="col">
+                            <button className="btn  btn-block rounded-0 bg-danger border text-white">Google</button>
+                          </div><div className="col">
+                            <button className="btn  btn-block rounded-0 bg-primary border text-white">Facebook</button>
+                          </div>
                         </div>
-                      </div>
                       }
                     </div>
                   </div>

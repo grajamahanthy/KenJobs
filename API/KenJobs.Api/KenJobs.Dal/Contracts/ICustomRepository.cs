@@ -10,5 +10,6 @@ namespace KenJobs.Dal.Contracts
     {
         IEnumerable<Job> GetJobsByUserId(int userId);
         IEnumerable<User> GetJobseekersByJobId(int userId);
+        User GetUserByEmail(string email);
     }
 }
