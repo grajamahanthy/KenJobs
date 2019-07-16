@@ -152,7 +152,7 @@ namespace KenJobs.Api.Controllers
         public void SendVerificationLinkEmail(string email, string activationCode, string role, string emailFor = "VerifyAccount")
         {
             var verifyUrl = "/" + emailFor + "/" + role + "/" + email + "/" + activationCode;
-            var link = Request.RequestUri.AbsoluteUri.Replace(Request.RequestUri.PathAndQuery, verifyUrl);
+            var link = Request.Headers.Referrer.AbsoluteUri.Replace(Request.Headers.Referrer.PathAndQuery, verifyUrl);
 
             var fromEmail = new MailAddress("info.kensuite@gmail.com", "Kensuite Technologies Pvt Ltd.");
             var toEmail = new MailAddress(email);

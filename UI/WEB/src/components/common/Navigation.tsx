@@ -40,7 +40,7 @@ function Navigation(props: any) {
     }
 
     return (<>
-        <div className={props.app_prop.appProps.showNav ? "bg-primary": "d-none"}>
+        <div className={props.app_prop.appProps.showNav ? "bg-primary" : "d-none"}>
             <div className="container">
                 <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
                     <Navbar.Brand href="/">{Title}</Navbar.Brand>
@@ -53,14 +53,21 @@ function Navigation(props: any) {
                                 Home
                              </Link>
 
-                            {/* {props.app_prop.state.loginType == "employer" ? */}
-                                <Link className="nav-link" to="/recdash">
-                                    Post Job
+                            {/* {
+                                props.app_prop.state.loginType == "employer" ?
+                                    <Link className="nav-link" to="/recdash">
+                                        Post Job
                                 </Link>
-                                <Link className="nav-link" to="/Jobs">
-                                    Search Job
-                                </Link>}
-                            
+                                    : <Link className="nav-link" to="/Jobs">
+                                        Search Job
+                                </Link>
+                            } */}
+                            <Link className="nav-link" to="/recdash">
+                                Post Job
+                                </Link>
+                            <Link className="nav-link" to="/Jobs">
+                                Search Job
+                                </Link>
 
                             {loginInfo}
                         </Nav>

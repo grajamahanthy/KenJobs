@@ -32,9 +32,9 @@ class ChangePassword extends React.Component<any, any> {
         title: "Thank You",
         body: "Your Password Changed Successfully",
         clickEvent: this.clickEvent,
-        buttons: [{id: 1, value: "Save"},{id: 2, value: "Close"}],
+        buttons: [{ id: 1, value: "Save" }, { id: 2, value: "Close" }],
         showModal: false,
-        onHide: () => {this.setState({alert:{showModal: false}})}
+        onHide: () => { this.setState({ alert: { showModal: false } }) }
       }
     };
 
@@ -44,34 +44,34 @@ class ChangePassword extends React.Component<any, any> {
     this.resize = this.resize.bind(this);
   }
 
-  clickEvent(e: any, idx: number){
-    if(this.props.match.params.usertype !== "jobseeker"){
+  clickEvent(e: any, idx: number) {
+    if (this.props.match.params.usertype !== "jobseeker") {
       this.setState({
         isJobseeker: false
       })
-    }    
-   }
-  
-  validateKey = function(that: any, email: string, key: string){
+    }
+  }
+
+  validateKey = function (that: any, email: string, key: string) {
     //debugger;
-        fetch("http://localhost:50768/api/User/ValidateKey?email=" + email + "&key=" + key + "&codeFor=changepassword", {
-          method: "GET",
-          headers: {
-            "Accept": "application/json",
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
-        }).then(response => {
-          response.json().then((data) => {
-            if(data == 1)
-              that.setState(
-              {
-                isValidKey: true
-              })
-            else
-              console.log("This link is expired. Please try again.");
-          });
-        }).catch(error => console.log("There is some technical issue. Please try again later."))
+    fetch("http://localhost:50768/api/User/ValidateKey?email=" + email + "&key=" + key + "&codeFor=changepassword", {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        'Content-Type': 'application/x-www-form-urlencoded'
       }
+    }).then(response => {
+      response.json().then((data) => {
+        if (data == 1)
+          that.setState(
+            {
+              isValidKey: true
+            })
+        else
+          console.log("This link is expired. Please try again.");
+      });
+    }).catch(error => console.log("There is some technical issue. Please try again later."))
+  }
 
   submitForm(e: any) {
     let that: any = this;
@@ -111,9 +111,9 @@ class ChangePassword extends React.Component<any, any> {
               title: "Success",
               body: "Your Password Changed Successfully",
               clickEvent: this.clickEvent,
-              buttons: [{id: 1, value: "Ok"}],
+              buttons: [{ id: 1, value: "Ok" }],
               showModal: true
-            }      
+            }
           });
         })
           .catch(error => console.log("There is some technical issue. Please try again later."))
@@ -157,13 +157,14 @@ class ChangePassword extends React.Component<any, any> {
 
 
   render() {
-    return this.state.isJobseeker && this.isPasswordSetSuccessfully? <Redirect to="/Login/jobseeker"/> : <Redirect to="/Login/employer"/>;
+    if (this.isPasswordSetSuccessfully)
+      return this.state.isJobseeker ? <Redirect to="/Login/jobseeker" /> : <Redirect to="/Login/employer" />;
 
     //debugger;
-    if(!this.state.isValidKey)
-      return(<>This link is expired. Please try again.</>)
+    if (!this.state.isValidKey)
+      return (<>This link is expired. Please try again.</>)
 
-    let modalClose = () => {this.setState({showModal: false})};
+    let modalClose = () => { this.setState({ showModal: false }) };
     let errormessage = !this.state.matchpassword ?
       <div className="alert alert-danger mt-1" role="alert">
         Password and Confirm Password does not match

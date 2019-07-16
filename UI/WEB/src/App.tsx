@@ -4,6 +4,7 @@ import "./scss/styles.scss";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from "./components/login";
 import Home from "./components/Home";
+import Dashboard from "./components/dashbord";
 // import { Registration } from "./components/Registration";
 import Logout from "./components/Logout";
 import Jobs from "./components/Jobs/Jobs";
@@ -34,9 +35,9 @@ import { updateSession } from "./store/auth/actions";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { fab, faFacebook } from '@fortawesome/free-brands-svg-icons'
-import { faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender, faGlobe, faNetworkWired,faTrashAlt,faPlusSquare } from '@fortawesome/free-solid-svg-icons'
+import { faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender, faGlobe, faNetworkWired, faTrashAlt, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender, faGlobe, faNetworkWired,faTrashAlt,faPlusSquare)
+library.add(faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender, faGlobe, faNetworkWired, faTrashAlt, faPlusSquare)
 
 
 
@@ -88,6 +89,7 @@ class App extends React.Component<any, any> {
         <Route exact path="/ChangePassword/:usertype/:email/:key" name="usertype" component={ChangePassword} />
         {/* <Route exact path="/ConfirmVerification/:usertype" name="usertype" component={ConfirmVerification} /> */}
         <Route exact path="/" component={Home} />
+        <Route exact path="/Dashboard" component={Dashboard} />
         <Route exact path="/Jobs" component={Jobs} />
         <Route exact path="/applyjob" component={Applyjob} />
         <Route exact path="/Logout" component={Logout} />
