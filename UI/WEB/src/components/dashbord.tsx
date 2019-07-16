@@ -1,4 +1,5 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 class Dashboard extends React.Component<any, any>{
     constructor(props: any) {
         super(props);
@@ -10,28 +11,66 @@ class Dashboard extends React.Component<any, any>{
 
     render() {
         return (<>
-            <div className="container">
+            <div className="container mt-5">
                 <div className="card-deck text-light">
-                    <div className="card bg-primary">
-                        <div className="card-body text-center">
-                            <p className="card-text">Some text inside the first card</p>
+                    <div className="card bg-primary rounded-0" >
+
+                        <div className="card-body">
+                            <div className="row">
+                                <span className="col-sm-4">
+                                    <FontAwesomeIcon icon="file-alt" size="5x" />
+                                </span>
+                                <span className="col-sm-8">
+                                    Some text inside the first card
+                            </span>
+                            </div>
                         </div>
+
+
                     </div>
-                    <div className="card bg-warning">
-                        <div className="card-body text-center">
-                            <p className="card-text">Some text inside the second card</p>
+                    <div className="card bg-primary rounded-0">
+                        <div className="card-body">
+                            <div className="row">
+                                <span className="col-sm-4">
+                                    <FontAwesomeIcon icon="user" size="5x" />
+                                </span>
+                                <span className="col-sm-8">
+                                    Some text inside the first card
+                            </span>
+                            </div>
                         </div>
+
+
                     </div>
-                    <div className="card bg-success">
-                        <div className="card-body text-center">
-                            <p className="card-text">Some text inside the third card</p>
+                    <div className="card bg-primary rounded-0">
+
+                        <div className="card-body">
+                            <div className="row">
+                                <span className="col-sm-4">
+                                    <FontAwesomeIcon icon="building" size="5x" />
+                                </span>
+                                <span className="col-sm-8">
+                                    Some text inside the first card
+                            </span>
+                            </div>
                         </div>
+
+
                     </div>
-                    <div className="card bg-danger">
-                        <div className="card-body text-center">
-                            <p className="card-text">Some text inside the fourth card</p>
+                    {/* <div className="card bg-danger rounded-0">
+                        <div className="card-body">
+                            <div className="row">
+                                <span className="col-sm-4">
+                                    <FontAwesomeIcon icon="file-alt" size="5x" />
+                                </span>
+                                <span className="col-sm-8">
+                                    Some text inside the first card
+                            </span>
+                            </div>
                         </div>
-                    </div>
+
+
+                    </div> */}
                 </div>
             </div>
 

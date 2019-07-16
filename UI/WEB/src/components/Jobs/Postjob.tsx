@@ -1,5 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router';
+//services
+import Apiservices from '../services/Apiservices';
 
 class Postjob extends React.Component<any, any> {
     constructor(props: any) {
@@ -22,7 +24,7 @@ class Postjob extends React.Component<any, any> {
             country: '',
             State: '',
             city: '',
-            status: '',
+            status: '0',
             PostingStatus: '',
             jobCategoryList: [],
             jobTypeList: [],
@@ -71,25 +73,31 @@ class Postjob extends React.Component<any, any> {
             body.set('MaxExperience', Jobs.maxExperience);
             body.set('Skills', Jobs.keySkills);
             body.set('PostingStatus', '1');
-            body.set('Status', '1');
+            body.set('Status', Jobs.status);
             body.set('User_Id', '1');
             body.set('Currency', Jobs.currency);
             body.set('Country', Jobs.country);
 
-            fetch("http://localhost:50768/api/JobSearch", {
-                method: "POST",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: body,
-            }).then(response => {
-                this.success();
+            let Servicecall = new Apiservices;
+            let Header = new Headers({ "Accept": "application/json", "Content-Type": "application/x-www-form-urlencoded" });
 
-                // response.json().then((data) => {
-                // });
-            })
-                .catch(error => console.log(error))
+            let responce = Servicecall.GET_CALL('JobSearch', body, Header, this.success)
+
+            // fetch("http://localhost:50768/api/JobSearch", {
+            //     method: "POST",
+            //     headers: {
+            //         "Accept": "application/json",
+            //         "Content-Type": "application/x-www-form-urlencoded"
+            //     },
+            //     body: body,
+            // }).then(response => {
+            //     this.success();
+
+            //     // response.json().then((data) => {
+            //     // });
+            // })
+            //     .catch(error => console.log(error))
+
         }
     }
     success = () => {
@@ -159,7 +167,7 @@ class Postjob extends React.Component<any, any> {
         }
         if (this.state.jobTypeList.length > 0) {
             jobtypelist = this.state.jobTypeList.map((item: any, key: any) =>
-                <option key={item.Id} value={item.Id}> {item.JobType1}</option>
+                <option key={item.Id} value={item.Id}> {item.Name}</option>
             )
         }
         if (this.state.currencyList.length > 0) {
@@ -191,6 +199,12 @@ class Postjob extends React.Component<any, any> {
                                             />
                                             <div className="invalid-feedback text-left">
                                                 Please Enter Job Title.
+                                            </div>
+                                        </div>
+                                        <div className="form-group">
+                                            <div className="custom-control custom-switch">
+                                                <input type="checkbox" name="status" value={(this.state.status == 0) ? '1' : '0'} defaultChecked={this.state.status} onChange={this.changeValue} className="custom-control-input" id="switch1" />
+                                                <label className="custom-control-label" htmlFor="switch1">{(this.state.status == 0) ? 'In Active' : 'Active'}</label>
                                             </div>
                                         </div>
                                         <div className="form-group">

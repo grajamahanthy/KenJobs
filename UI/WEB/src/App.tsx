@@ -35,9 +35,13 @@ import { updateSession } from "./store/auth/actions";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { fab, faFacebook } from '@fortawesome/free-brands-svg-icons'
-import { faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender, faGlobe, faNetworkWired, faTrashAlt, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
+import {
+  faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender,
+  faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser
+} from '@fortawesome/free-solid-svg-icons'
 
-library.add(faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender, faGlobe, faNetworkWired, faTrashAlt, faPlusSquare)
+library.add(faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender,
+  faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser)
 
 
 

@@ -1,10 +1,15 @@
 export default class Apiservices {
+    UrlPath: string;
+    constructor() {
 
+        this.UrlPath = 'http://localhost:50768/api/';
+    }
     //Regular Service Call
     GET_CALL(URL: string, DATA: any, HEADERS: any, successCallback: any): any {
+        this.UrlPath = this.UrlPath + URL;
+        // debugger;
 
-
-        fetch(URL, {
+        fetch(this.UrlPath, {
             method: "GET",
             headers: HEADERS,
             body: DATA,

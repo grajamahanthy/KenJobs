@@ -1,5 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router';
+//services
+import Apiservices from '../services/Apiservices';
 
 class Editjob extends React.Component<any, any>{
     constructor(props: any) {
@@ -75,6 +77,11 @@ class Editjob extends React.Component<any, any>{
             body.set('Country', this.state.country);
 
 
+            // let Servicecall = new Apiservices;
+            // let Header = new Headers({ "Accept": "application/json", "Content-Type": "application/x-www-form-urlencoded" });
+
+            // let responce = Servicecall.GET_CALL('Job/Updatejob', body, Header, this.success)
+
 
             fetch("http://localhost:50768/api/Job/Updatejob", {
                 method: "POST",
@@ -93,7 +100,15 @@ class Editjob extends React.Component<any, any>{
 
         }
     }
+    success = () => {
+        debugger;
+        alert();
+        this.setState({
+            redirect: true
+        })
 
+
+    }
     componentDidMount() {
         fetch("http://localhost:50768/api/JobCategory", {
             method: "GET",
@@ -104,7 +119,6 @@ class Editjob extends React.Component<any, any>{
             body: null,
         }).then(response => {
             response.json().then((data) => {
-
                 this.setState({
                     jobCategoryList: data
                 })
@@ -151,7 +165,7 @@ class Editjob extends React.Component<any, any>{
         }
         if (this.state.jobTypeList.length > 0) {
             jobtypelist = this.state.jobTypeList.map((item: any, key: any) =>
-                <option key={item.Id} value={item.Id}> {item.JobType1}</option>
+                <option key={item.Id} value={item.Id}> {item.Name}</option>
             )
         }
         if (this.state.currencyList.length > 0) {
