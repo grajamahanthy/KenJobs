@@ -13,10 +13,10 @@ namespace KenJobs.Dal
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class kenjobsEntities : DbContext
+    public partial class KenJobsEntities : DbContext
     {
-        public kenjobsEntities()
-            : base("name=kenjobsEntities")
+        public KenJobsEntities()
+            : base("name=KenJobsEntities")
         {
         }
     
@@ -41,10 +41,10 @@ namespace KenJobs.Dal
         public virtual DbSet<Job> Jobs { get; set; }
         public virtual DbSet<JobType> JobTypes { get; set; }
         public virtual DbSet<Organization> Organizations { get; set; }
+        public virtual DbSet<Profile> Profiles { get; set; }
         public virtual DbSet<State> States { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<User_Organization> User_Organization { get; set; }
         public virtual DbSet<User_Organization_Client> User_Organization_Client { get; set; }
-        public virtual DbSet<Profile> Profiles { get; set; }
     }
 }

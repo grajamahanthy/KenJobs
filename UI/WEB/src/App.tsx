@@ -20,8 +20,13 @@ import ForgotPassword from "./components/ForgotPassword";
 import ChangePassword from "./components/ChangePassword";
 // import ConfirmVerification from "./components/ConfirmVerification";
 import CandidateList from "./components/User/Candidatelist";
+import Postjobdescription from "./components/Jobs/PostedJobDescription";
+import Editjob from "./components/Jobs/EditJob";
+import Candidate from "./components/User/Candidate";
+import CandidateProfile from "./components/User/candidateprofile";
 // import { IsessionState } from "./store/auth/types";
 import { updateSession } from "./store/auth/actions";
+
 
 
 
@@ -29,9 +34,9 @@ import { updateSession } from "./store/auth/actions";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { fab, faFacebook } from '@fortawesome/free-brands-svg-icons'
-import { faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender } from '@fortawesome/free-solid-svg-icons'
+import { faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender, faGlobe, faNetworkWired,faTrashAlt,faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender)
+library.add(faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender, faGlobe, faNetworkWired,faTrashAlt,faPlusSquare)
 
 
 
@@ -88,11 +93,15 @@ class App extends React.Component<any, any> {
         <Route exact path="/Logout" component={Logout} />
         <Route exact path="/postjobs" component={Postjob} />
         <Route exact path="/profile" component={Userprofile} />
-        <Route exact path="/adduser" component={Editprofile} />
+        <Route exact path="/adduser" component={CandidateProfile} />
         <Route exact path="/recdash" component={Employeedashbord} />
         <Route exact path="/Jobresult" component={Jobdescription} />
         <Route exact path="/Registration/:usertype" name="usertype" component={Registration} />
         <Route exact path="/candidates" component={CandidateList} />
+        <Route exact path="/Jobdetails" component={Postjobdescription} />
+        <Route exact path="/Editjob" component={Editjob} />
+        <Route exact path="/candidate" component={Candidate} />
+
         {/* <Route component={NoMatch} /> */}
 
       </Router>

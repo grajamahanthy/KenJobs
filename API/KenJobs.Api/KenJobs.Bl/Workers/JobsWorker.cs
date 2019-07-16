@@ -8,6 +8,7 @@ using KenJobs.Bo.BusinessObjects;
 using KenJobs.Dal.Contracts;
 using KenJobs.Dal.Workers;
 using KenJobs.Dal;
+using System.Globalization;
 
 namespace KenJobs.Bl.Workers
 {
@@ -43,6 +44,25 @@ namespace KenJobs.Bl.Workers
                 jobBo.Currency = job.Currency;
                 jobBo.ClientName = job.ClientName;
                 jobBo.Country = job.Country;
+
+                JobType jobType = job.JobType;
+                JobTypeBo jobTypeBo = new JobTypeBo();
+                jobTypeBo.Id = jobType.Id;
+                jobTypeBo.Name = jobType.Name;
+                jobTypeBo.Status = jobType.Status;
+
+                jobBo.JobType = jobTypeBo;
+
+                JobCategory jobCategory = job.JobCategory;
+                JobCategoryBo jobCategoryBo = new JobCategoryBo();
+
+                jobCategoryBo.Id = jobCategory.Id;
+                jobCategoryBo.Category = jobCategory.Category;
+                jobCategoryBo.Status = jobCategory.Status;
+                jobBo.JobCategory = jobCategoryBo;
+
+
+
                 jobBolist.Add(jobBo);
             }
             return jobBolist;
@@ -114,6 +134,23 @@ namespace KenJobs.Bl.Workers
                 jobBo.Currency = job.Currency;
                 jobBo.ClientName = job.ClientName;
                 jobBo.Country = job.Country;
+
+                JobType jobType = job.JobType;
+                JobTypeBo jobTypeBo = new JobTypeBo();
+                jobTypeBo.Id = jobType.Id;
+                jobTypeBo.Name = jobType.Name;
+                jobTypeBo.Status = jobType.Status;
+
+                jobBo.JobType = jobTypeBo;
+
+                JobCategory jobCategory = job.JobCategory;
+                JobCategoryBo jobCategoryBo = new JobCategoryBo();
+
+                jobCategoryBo.Id = jobCategory.Id;
+                jobCategoryBo.Category = jobCategory.Category;
+                jobCategoryBo.Status = jobCategory.Status;
+                jobBo.JobCategory = jobCategoryBo;
+
                 jobBolist.Add(jobBo);
             }
             return jobBolist;
@@ -187,9 +224,30 @@ namespace KenJobs.Bl.Workers
             job.Skills = jobBo.Skills;
             job.User_Id = jobBo.User_Id;
             job.Currency = jobBo.Currency;
+            job.ClientName = jobBo.ClientName;
+            job.Country = jobBo.Country;
 
-            repository.Update(job);
-            repository.Save();
+            job.UpdatedBy = "Admin";
+            job.UpdatedOn = new DateTime(DateTime.UtcNow.Ticks);
+            job.CreatedBy = "Admin";
+            job.CreatedOn = new DateTime(DateTime.UtcNow.Ticks);
+
+
+            //JobTypeContract jobTypeWorker = new JobTypeWorker();
+            //jobTypeWorker.UpdateJobtype(jobBo.JobType.Id, jobBo.JobType);
+
+
+            //JobCategoryContract jobCategoryContract = new JobCategoryworker();
+            //jobCategoryContract.UpdateJobCategory(jobBo.JobCategory.Id, jobBo.JobCategory);
+
+            try
+            {
+                repository.Update(job);
+                repository.Save();
+            }catch(Exception ex)
+            {
+
+            }
         }
 
 
@@ -202,6 +260,7 @@ namespace KenJobs.Bl.Workers
 
             foreach(User user in jobseekerList)
             {
+                UserWorker userWorker = new UserWorker();
                 UserBo userBo = new UserBo();
                 userBo.Id = user.Id;
                 userBo.Title = user.Title;
@@ -218,6 +277,10 @@ namespace KenJobs.Bl.Workers
                 userBo.AspNetUser_Id = user.AspNetUser_Id;
                 userBo.PhoneNumber = user.PhoneNumber;
                 userBo.Email = user.Email;
+                userBo.Profile = userWorker.GenerateProfileBo(user.Profiles);
+                userBo.Experience = userWorker.GenerateExperienceBo(user.Experiences);
+                userBo.EducationalQualification = userWorker.GenerateEducationalQualificationBo(user.EducationalQualifications);
+
                 userBoList.Add(userBo);
             }
 

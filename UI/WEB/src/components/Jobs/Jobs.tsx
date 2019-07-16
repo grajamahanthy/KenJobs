@@ -10,55 +10,87 @@ import { connect } from 'react-redux';
 import JobSearch from './JobSearchComponent';
 import Job from './Job';
 import Jobfilter from '../util/JobFilter';
+//services
+import Apiservices from '../services/Apiservices';
 
 class Jobs extends React.Component<any, any>{
     constructor(props: any) {
         super(props);
+
         const token = this.props.system.token
         let loggedIn = this.props.system.loggedIn
-
-        // console.log('token ' + token);
-        // console.log(loggedIn)
 
         if (token == null) {
             loggedIn = false;
         }
         this.state = {
             loggedIn,
-            jobdata: ''
+            jobdata: '',
+            keyword: '',
+            location: ''
         }
 
         this.findTheJobs = this.findTheJobs.bind(this);
     }
 
+    onSubmit = (e: any) => {
+        e.preventDefault();
+        this.findTheJobs(this.state);
+    }
+
+    changevalue = (e: any) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+
+    }
+    componentWillMount() {
+        let keyword = '';
+        let location = '';
+        if (this.props.location.state != undefined) {
+            let keyword = this.props.location.state.keyword;
+            let location = this.props.location.state.location;
+            this.setState({
+                keyword: keyword,
+                location: location
+            })
+            this.findTheJobs(this.state);
+        } else {
+
+        }
+    }
+
     findTheJobs = (value: any) => {
-        console.log(value);
 
+        let Servicecall = new Apiservices;
+        let Hea = new Headers({ "Accept": "application/json", "Content-Type": "application/x-www-form-urlencoded" });
 
+        let responce = Servicecall.GET_CALL('http://localhost:50768/api/JobSearch/Get', null, Hea, this.displayData)
 
-        fetch("http://localhost:50768/api/JobSearch/Get", {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: null,
-        }).then(response => {
-            console.log(response)
-            response.json().then((data) => {
-                this.displayData(data);
-            });
-        })
-            .catch(error => console.log(error))
+        // console.log(value);
+        // fetch("http://localhost:50768/api/JobSearch/Get", {
+        //     method: "GET",
+        //     headers: {
+        //         "Accept": "application/json",
+        //         "Content-Type": "application/x-www-form-urlencoded"
+        //     },
+        //     body: null,
+        // }).then(response => {
+        //     console.log(response)
+        //     response.json().then((data) => {
+        //         this.displayData(data);
+        //     });
+        // })
+        //     .catch(error => console.log(error))
 
 
     }
 
     displayData = (data: any) => {
+
         this.setState({
             jobdata: data
         })
-        console.log(this.state.jobdata)
     }
 
     render() {
@@ -66,9 +98,9 @@ class Jobs extends React.Component<any, any>{
             return <Redirect to="/login/jobseeker" />
         }
         let prepare_jobs = "";
-        if (this.state.jobdata.length > 0) {
+        if (this.state.jobdata != undefined && this.state.jobdata.length > 0) {
             prepare_jobs = this.state.jobdata.map((item: any, key: any) =>
-                <Job jobInfo={item}></Job>
+                <Job key={key} jobInfo={item}></Job>
             )
 
         }
@@ -82,7 +114,43 @@ class Jobs extends React.Component<any, any>{
                     </h1>
                     <div className="col-lg-12 ">
                         <div className="text-center text-secondary">
-                            <JobSearch GetValues={this.findTheJobs} ></JobSearch>
+                            {/* <JobSearch GetValues={this.findTheJobs} ></JobSearch> */}
+                            <div className="col-sm-8 mx-auto  mt-3">
+                                <form onSubmit={this.onSubmit}>
+                                    <div className="form-row">
+                                        <div className="form-group col-md-5">
+                                            <input
+                                                type="text"
+                                                id="tptcat"
+                                                placeholder="Enter Keyword"
+                                                className="form-control  rounded-0  "
+                                                name="keyword"
+                                                value={this.state.keyword}
+                                                onChange={this.changevalue}
+                                            />
+                                        </div>
+                                        <div className="form-group col-md-5">
+                                            <input
+                                                type="text"
+                                                id="tptloc"
+                                                placeholder="Enter Location"
+                                                className="form-control   rounded-0 "
+                                                name="location"
+                                                value={this.state.location}
+                                                onChange={this.changevalue}
+                                            />
+                                        </div>
+                                        <div className="form-group col-md-2">
+                                            <input
+                                                type="submit"
+                                                id="search"
+                                                className="btn btn-primary btn-block rounded-0 "
+                                                value="Search"
+                                            />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                         <div className="mt-4">
                             <div className="row">

@@ -1,28 +1,34 @@
 import React from 'react';
 import { Redirect } from 'react-router';
 
-class Postjob extends React.Component<any, any> {
+class Editjob extends React.Component<any, any>{
     constructor(props: any) {
-        super(props)
+        super(props);
+
+        let job = props.location.state.Job;
+        // console.log(job);
         this.state = {
-            Client_Id: '',
-            clientName: '',
-            jobTitle: '',
-            keySkills: '',
-            jobDescription: '',
-            jobType: '',
-            jobCategory: '',
-            minExperience: '',
-            maxExperience: '',
-            minSalary: '',
-            maxSalary: '',
-            currency: '',
-            qualification: '',
-            noOfVacancies: '',
-            country: '',
-            State: '',
-            city: '',
-            status: '',
+            Id: job.Id,
+            Client_Id: job.Client_Id,
+            clientName: job.ClientName,
+            jobTitle: job.JobTitle,
+            keySkills: job.Skills,
+            jobDescription: job.Description,
+            jobType: job.JobType.Id,
+            jobCategory: job.JobCategory.Id,
+            minExperience: job.MinExperience,
+            maxExperience: job.MaxExperience,
+            minSalary: job.MinSalary,
+            maxSalary: job.MaxSalary,
+            currency: job.Currency,
+            qualification: job.Qualification,
+            noOfVacancies: job.NoOfVacancies,
+            country: job.Country,
+            State: job.State,
+            city: job.City,
+            status: job.Status,
+            userId: job.User_Id,
+            addressline: "",
             PostingStatus: '',
             jobCategoryList: [],
             jobTypeList: [],
@@ -33,14 +39,11 @@ class Postjob extends React.Component<any, any> {
             ],
             redirect: false
         }
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.changeValue = this.changeValue.bind(this);
-    }
 
+    }
 
     handleSubmit = (e: any) => {
         e.preventDefault();
-
         var form = document.forms[0];
         if (form.checkValidity() === false) {
             e.stopPropagation();
@@ -48,35 +51,32 @@ class Postjob extends React.Component<any, any> {
             return false;
         }
         else {
-
-            form.classList.add('was-validated');
-
-            this.success();
-            let Jobs = this.state;
             let body = new URLSearchParams();
-            body.set('Client_Id', '');
-            body.set('ClientName', Jobs.clientName);
-            body.set('JobTitle', Jobs.jobTitle);
-            body.set('Description', Jobs.jobDescription);
-            body.set('NoOfVacancies', Jobs.noOfVacancies);
-            body.set('Qualification', Jobs.qualification);
-            body.set('Country', Jobs.country);
-            body.set('State', Jobs.State);
-            body.set('City', Jobs.city);
-            body.set('JobType_Id', Jobs.jobType);
-            body.set('Category_id', Jobs.jobCategory);
-            body.set('MinSalary', Jobs.minSalary);
-            body.set('MaxSalary', Jobs.maxSalary);
-            body.set('MinExperience', Jobs.minExperience);
-            body.set('MaxExperience', Jobs.maxExperience);
-            body.set('Skills', Jobs.keySkills);
-            body.set('PostingStatus', '1');
-            body.set('Status', '1');
-            body.set('User_Id', '1');
-            body.set('Currency', Jobs.currency);
-            body.set('Country', Jobs.country);
+            body.set('Id', this.state.Id);
+            body.set('Client_Id', this.state.Client_Id);
+            body.set('JobTitle', this.state.jobTitle);
+            body.set('clientName', this.state.clientName);
+            body.set('Description', this.state.jobDescription);
+            body.set('NoOfVacancies', this.state.noOfVacancies);
+            body.set('Qualification', this.state.qualification);
+            body.set('State', this.state.State);
+            body.set('City', this.state.city);
+            body.set('Status', this.state.status);
+            body.set('JobType_Id', this.state.jobType);
+            body.set('Category_id', this.state.jobCategory);
+            body.set('MinSalary', this.state.minSalary);
+            body.set('MinExperience', this.state.minExperience);
+            body.set('Skills', this.state.keySkills);
+            body.set('MaxSalary', this.state.maxSalary);
+            body.set('MaxExperience', this.state.maxExperience);
+            body.set('User_Id', this.state.userId);
+            body.set('Currency', this.state.currency);
+            body.set('AddressLine', this.state.AddressLine);
+            body.set('Country', this.state.country);
 
-            fetch("http://localhost:50768/api/JobSearch", {
+
+
+            fetch("http://localhost:50768/api/Job/Updatejob", {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",
@@ -84,26 +84,14 @@ class Postjob extends React.Component<any, any> {
                 },
                 body: body,
             }).then(response => {
-                this.success();
+                response.json().then((data) => {
 
-                // response.json().then((data) => {
-                // });
+                });
             })
                 .catch(error => console.log(error))
+
+
         }
-    }
-    success = () => {
-
-        this.setState({
-            redirect: true
-        })
-
-
-    }
-    changeValue = (e: any) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
     }
 
     componentDidMount() {
@@ -115,7 +103,6 @@ class Postjob extends React.Component<any, any> {
             },
             body: null,
         }).then(response => {
-            console.log(response)
             response.json().then((data) => {
 
                 this.setState({
@@ -144,6 +131,11 @@ class Postjob extends React.Component<any, any> {
 
     }
 
+    changeValue = (e: any) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
 
     render() {
         if (this.state.redirect) {
@@ -167,16 +159,19 @@ class Postjob extends React.Component<any, any> {
                 <option key={item.Id} value={item.Id}> {item.value}</option>
             )
         }
+
         return (
             <>
                 <div className="container mt-3">
-                    <h1>Post New Job</h1>
+                    <h1>Update Job</h1>
 
                     <div className="col-lg-12 mt-3">
                         <div className="card  border rounded pt-2 mb-2 shadow-sm p-3 ">
                             <div className="card-text mb-2">
                                 <form onSubmit={this.handleSubmit} className="needs-validation" noValidate>
+
                                     <div className="form-group">
+
                                         <div className="form-group">
                                             <label htmlFor="inputAddress">Job Title</label>
                                             <input
@@ -191,6 +186,12 @@ class Postjob extends React.Component<any, any> {
                                             />
                                             <div className="invalid-feedback text-left">
                                                 Please Enter Job Title.
+                                        </div>
+                                        </div>
+                                        <div className="form-group">
+                                            <div className="custom-control custom-switch">
+                                                <input type="checkbox" name="status" value={(this.state.status == 0) ? '1' : '0'} defaultChecked={this.state.status} onChange={this.changeValue} className="custom-control-input" id="switch1" />
+                                                <label className="custom-control-label" htmlFor="switch1">{(this.state.status == 0) ? 'In Active' : 'Active'}</label>
                                             </div>
                                         </div>
                                         <div className="form-group">
@@ -207,7 +208,7 @@ class Postjob extends React.Component<any, any> {
                                             />
                                             <div className="invalid-feedback text-left">
                                                 Please Enter Client Name.
-                                            </div>
+                                        </div>
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="inputAddress">Key Skills</label>
@@ -223,7 +224,7 @@ class Postjob extends React.Component<any, any> {
                                             />
                                             <div className="invalid-feedback text-left">
                                                 Please Enter Key Skills
-                                            </div>
+                                        </div>
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="inputAddress">Job Description</label>
@@ -235,7 +236,7 @@ class Postjob extends React.Component<any, any> {
                                             ></textarea>
                                             <div className="invalid-feedback text-left">
                                                 Please Select Job Description.
-                                                </div>
+                                            </div>
                                         </div>
 
                                         <div className="form-row">
@@ -248,7 +249,7 @@ class Postjob extends React.Component<any, any> {
                                                 </select>
                                                 <div className="invalid-feedback text-left">
                                                     Please Select Job Type.
-                                                </div>
+                                            </div>
                                             </div>
                                             <div className="form-group col-md-6">
                                                 <label htmlFor="btnsubmit">Job Category</label>
@@ -259,7 +260,7 @@ class Postjob extends React.Component<any, any> {
                                                 </select>
                                                 <div className="invalid-feedback text-left">
                                                     Please Select Job Category.
-                                                </div>
+                                            </div>
                                             </div>
                                         </div>
 
@@ -287,7 +288,7 @@ class Postjob extends React.Component<any, any> {
                                                         required />
                                                     <div className="invalid-feedback text-left">
                                                         Please Enter Experience.
-                                                </div>
+                                            </div>
                                                 </div>
                                             </div>
                                             <div className="form-group col-md-5">
@@ -313,7 +314,7 @@ class Postjob extends React.Component<any, any> {
                                                         required />
                                                     <div className="invalid-feedback text-left">
                                                         Please Enter salary.
-                                                </div>
+                                            </div>
                                                 </div>
                                             </div>
                                             <div className="form-group col-md-2">
@@ -326,7 +327,7 @@ class Postjob extends React.Component<any, any> {
                                                     </select>
                                                     <div className="invalid-feedback text-left">
                                                         Please Enter salary.
-                                                </div>
+                                            </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -349,7 +350,7 @@ class Postjob extends React.Component<any, any> {
                                                     required />
                                                 <div className="invalid-feedback text-left">
                                                     Please Enter Qualification.
-                                                </div>
+                                            </div>
                                             </div>
                                             <div className="form-group col-md-6">
                                                 <label htmlFor="btnsubmit">No Of Vacancies</label>
@@ -365,7 +366,7 @@ class Postjob extends React.Component<any, any> {
                                                     required />
                                                 <div className="invalid-feedback text-left">
                                                     Please Enter No Of Vacancies.
-                                                </div>
+                                            </div>
                                             </div>
                                         </div>
 
@@ -385,7 +386,7 @@ class Postjob extends React.Component<any, any> {
                                                     required />
                                                 <div className="invalid-feedback text-left">
                                                     Please Enter City.
-                                                </div>
+                                            </div>
                                             </div>
                                             <div className="form-group col-md-4">
                                                 <label htmlFor="inputZip">State</label>
@@ -401,7 +402,7 @@ class Postjob extends React.Component<any, any> {
                                                     required />
                                                 <div className="invalid-feedback text-left">
                                                     Please Enter State.
-                                                </div>
+                                            </div>
                                             </div>
 
                                             <div className="form-group col-md-4">
@@ -418,10 +419,10 @@ class Postjob extends React.Component<any, any> {
                                                     required />
                                                 <div className="invalid-feedback text-left">
                                                     Please Enter Country.
-                                                </div>
+                                            </div>
                                             </div>
                                         </div>
-                                        <button type="submit" className="btn btn-primary mt-4" id="btnsubmit">Submit</button>
+                                        <button type="submit" className="btn btn-primary mt-4" id="btnsubmit">Update Job</button>
                                     </div>
                                 </form>
                             </div>
@@ -431,5 +432,7 @@ class Postjob extends React.Component<any, any> {
             </>
         )
     }
+
 }
-export default Postjob 
+
+export default Editjob;

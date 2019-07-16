@@ -34,22 +34,25 @@ class Employeedashbord extends React.Component<any, any> {
     }
 
     componentWillMount() {
-        let body = new URLSearchParams();
-        body.set('UserId', '1');
-        fetch("http://localhost:50768/api/JobSearch/GetJobsByUserId/1", {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: null,
-        }).then(response => {
-            response.json().then((data) => {
-                this.displayData(data);
-            });
-        })
-            .catch(error => console.log(error))
+        if (this.state.loggedIn) {
+            let body = new URLSearchParams();
+            body.set('UserId', '1');
+            fetch("http://localhost:50768/api/Job/GetJobsByUserId/1", {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: null,
+            }).then(response => {
+                response.json().then((data) => {
+                    this.displayData(data);
+                });
+            })
+                .catch(error => console.log(error))
 
+
+        }
     }
 
     displayData = (data: any) => {
@@ -66,13 +69,19 @@ class Employeedashbord extends React.Component<any, any> {
             return <Redirect to="/Login/employer" />
         }
 
-        console.log(this.state);
         let jobslist;
         if (this.state.ishaveJobs) {
             jobslist = this.state.jobsData.map((item: any, key: any) =>
-                <div className="col-sm-4 border px-4 py-4 shadow-sm">
+                <div className="col-sm-4 border px-4 py-4 shadow-sm" key={key}>
                     <div className="">
-                        <h5>{item.JobTitle}</h5>
+                        <Link className=""
+                            to={{
+                                pathname: "/Jobdetails",
+                                state: { JobData: item }
+                            }}
+                        ><h5>{item.JobTitle}</h5></Link>
+
+
                         <div className="mt-2">
                             <span className="mr-sm-2"> <FontAwesomeIcon icon="building" size="xs" /> {item.ClientName}</span>
                             <br /> <span className="mr-sm-2"><FontAwesomeIcon icon="suitcase" size="xs" />{'  ' + item.MinExperience + '-' + item.MaxExperience + ' Years'}</span>
@@ -82,7 +91,7 @@ class Employeedashbord extends React.Component<any, any> {
                                 {/* <Link className="btn btn-primary btn-sm rounded-0" to='/candidates' >
                                     View Candidates
                                 </Link> */}
-                                <Link className="btn btn-primary btn-sm rounded-0"
+                                <Link className="btn btn-primary btn-sm rounded-0 align-self-end"
                                     to={{
                                         pathname: "/candidates",
                                         state: { JobId: item.Id }
@@ -93,6 +102,12 @@ class Employeedashbord extends React.Component<any, any> {
                     </div>
                 </div>
             )
+        } else {
+            jobslist =
+                <div className="col-sm-12  px-4 py-4 ">
+                    <div className="row">
+                        <h4>!Oops... No Data Found.</h4>
+                    </div></div>
         }
 
 
@@ -114,7 +129,7 @@ class Employeedashbord extends React.Component<any, any> {
                                 <div className="row">
                                     {jobslist}
                                 </div>
-                                <div className="mt-2">
+                                {/* <div className="mt-2">
                                     <Pagination>
                                         <Pagination.First />
                                         <Pagination.Prev />
@@ -132,7 +147,7 @@ class Employeedashbord extends React.Component<any, any> {
                                         <Pagination.Next />
                                         <Pagination.Last />
                                     </Pagination>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="col-sm-3 border mx-auto  bg-light">
                                 <div className="mt-2">

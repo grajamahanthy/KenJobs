@@ -54,59 +54,11 @@ namespace KenJobs.Bl.Workers
                 AspNetUser aspNetUser = repository.GetById(userid);
 
                 User user = aspNetUser.Users.ToList()[0];
-                List<ProfileBo> profileBoList = new List<ProfileBo>();
 
-                //ICollection<ProfileBo> IprofileBo = new ICollection<ProfileBo>();
-                foreach (Profile profile in user.Profiles)
-                {
-                    ProfileBo profileBo = new ProfileBo();
 
-                    profileBo.Id = profile.Id;
-                    profileBo.User_Id = profile.User_Id;
-                    profileBo.Resume = profile.Resume;
-                    profileBo.skills = profile.skills;
-                    profileBo.TotalExperiance = profile.TotalExperiance;
-                    profileBo.HeighestQualification = profile.HeighestQualification;
-                    profileBo.PreferredLocation = profile.PreferredLocation;
-                    profileBo.CurrentSalary = profile.CurrentSalary;
-                    profileBo.ExpectedSalary = profile.ExpectedSalary;
-                    profileBo.Languages = profile.Languages;
-                    profileBoList.Add(profileBo);
-                }
 
-                List<ExperienceBo> experienceBoList = new List<ExperienceBo>();
 
-                //ICollection<ProfileBo> IprofileBo = new ICollection<ProfileBo>();
-                foreach (Experience experience in user.Experiences)
-                {
-                    ExperienceBo experienceBo = new ExperienceBo();
 
-                    experienceBo.Id = experience.Id;
-                    experienceBo.User_Id = experience.User_Id;
-                    experienceBo.CompanyName = experience.CompanyName;
-                    experienceBo.Technology = experience.Technology;
-                    experienceBo.Role = experience.Role;
-                    experienceBo.StartDate = experience.StartDate;
-                    experienceBo.EndDate = experience.EndDate;
-                    experienceBo.Description = experience.Description;
-                    experienceBoList.Add(experienceBo);
-                }
-
-                List<EducationalQualificationBo> educationalQualificationBoList = new List<EducationalQualificationBo>();
-
-                //ICollection<ProfileBo> IprofileBo = new ICollection<ProfileBo>();
-                foreach (EducationalQualification educationalQualification in user.EducationalQualifications)
-                {
-                    EducationalQualificationBo educationalQualificationBo = new EducationalQualificationBo();
-
-                    educationalQualificationBo.Id = educationalQualification.Id;
-                    educationalQualificationBo.User_Id = educationalQualification.User_Id;
-                    educationalQualificationBo.Institute = educationalQualification.Institute;
-                    educationalQualificationBo.Qualification = educationalQualification.Qualification;
-                    educationalQualificationBo.YearOfPass = educationalQualification.YearOfPass;
-                    educationalQualificationBo.Percentage = educationalQualification.Percentage;
-                    educationalQualificationBoList.Add(educationalQualificationBo);
-                }
 
                 UserBo userBo = new UserBo();
                 userBo.Id = user.Id;
@@ -123,11 +75,12 @@ namespace KenJobs.Bl.Workers
                 userBo.AspNetUser_Id = user.AspNetUser_Id;
                 userBo.PhoneNumber = user.PhoneNumber;
                 userBo.Email = user.Email;
-                userBo.Profile = profileBoList;
-                userBo.Experience = experienceBoList;
-                userBo.EducationalQualification = educationalQualificationBoList;
+
                 userBo.ResetPasswordCode = user.ResetPasswordCode;
                 userBo.EmailActivationCode = user.EmailActivationCode;
+                userBo.Profile = GenerateProfileBo(user.Profiles);
+                userBo.Experience = GenerateExperienceBo(user.Experiences);
+                userBo.EducationalQualification = GenerateEducationalQualificationBo(user.EducationalQualifications);
 
                 return userBo;
             }
@@ -140,7 +93,8 @@ namespace KenJobs.Bl.Workers
         public IEnumerable<UserBo> GetUsers()
         {
             IGenericRepository<User> repository = new GenericRepository<User>();
-            try {
+            try
+            {
                 IEnumerable<User> userList = repository.GetAll();
 
                 List<UserBo> UserBoList = new List<UserBo>();
@@ -165,10 +119,12 @@ namespace KenJobs.Bl.Workers
                     UserBoList.Add(userBo);
                 }
                 return UserBoList;
-            } catch(Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 return new List<UserBo>();
             }
-            
+
         }
 
         public UserBo GetUserByEmail(string email)
@@ -223,7 +179,7 @@ namespace KenJobs.Bl.Workers
                 repository.Save();
                 return user.Id;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return -1;
             }
@@ -275,6 +231,71 @@ namespace KenJobs.Bl.Workers
                 return 0;
             }
             return 1;
+        }
+
+        public List<ProfileBo> GenerateProfileBo(ICollection<Profile> profileList)
+        {
+            List<ProfileBo> profileBoList = new List<ProfileBo>();
+            //ICollection<ProfileBo> IprofileBo = new ICollection<ProfileBo>();
+            foreach (Profile profile in profileList)
+            {
+                ProfileBo profileBo = new ProfileBo();
+                profileBo.Id = profile.Id;
+                profileBo.User_Id = profile.User_Id;
+                profileBo.Resume = profile.Resume;
+                profileBo.skills = profile.skills;
+                profileBo.TotalExperiance = profile.TotalExperiance;
+                profileBo.HeighestQualification = profile.HeighestQualification;
+                profileBo.PreferredLocation = profile.PreferredLocation;
+                profileBo.CurrentSalary = profile.CurrentSalary;
+                profileBo.ExpectedSalary = profile.ExpectedSalary;
+                profileBo.Languages = profile.Languages;
+                profileBoList.Add(profileBo);
+            }
+
+            return profileBoList;
+
+
+        }
+
+        public List<ExperienceBo> GenerateExperienceBo(ICollection<Experience> ExperienceList)
+        {
+            List<ExperienceBo> experienceBoList = new List<ExperienceBo>();
+
+            //ICollection<ProfileBo> IprofileBo = new ICollection<ProfileBo>();
+            foreach (Experience experience in ExperienceList)
+            {
+                ExperienceBo experienceBo = new ExperienceBo();
+                experienceBo.Id = experience.Id;
+                experienceBo.User_Id = experience.User_Id;
+                experienceBo.CompanyName = experience.CompanyName;
+                experienceBo.Technology = experience.Technology;
+                experienceBo.Role = experience.Role;
+                experienceBo.StartDate = experience.StartDate;
+                experienceBo.EndDate = experience.EndDate;
+                experienceBo.Description = experience.Description;
+                experienceBoList.Add(experienceBo);
+            }
+            return experienceBoList;
+        }
+
+        public List<EducationalQualificationBo> GenerateEducationalQualificationBo(ICollection<EducationalQualification> educationalQualificationList)
+        {
+            List<EducationalQualificationBo> educationalQualificationBoList = new List<EducationalQualificationBo>();
+
+            //ICollection<ProfileBo> IprofileBo = new ICollection<ProfileBo>();
+            foreach (EducationalQualification educationalQualification in educationalQualificationList)
+            {
+                EducationalQualificationBo educationalQualificationBo = new EducationalQualificationBo();
+                educationalQualificationBo.Id = educationalQualification.Id;
+                educationalQualificationBo.User_Id = educationalQualification.User_Id;
+                educationalQualificationBo.Institute = educationalQualification.Institute;
+                educationalQualificationBo.Qualification = educationalQualification.Qualification;
+                educationalQualificationBo.YearOfPass = educationalQualification.YearOfPass;
+                educationalQualificationBo.Percentage = educationalQualification.Percentage;
+                educationalQualificationBoList.Add(educationalQualificationBo);
+            }
+            return educationalQualificationBoList;
         }
     }
 }

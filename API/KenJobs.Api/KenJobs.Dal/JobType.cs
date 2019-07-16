@@ -21,7 +21,7 @@ namespace KenJobs.Dal
         }
     
         public int Id { get; set; }
-        public string JobType1 { get; set; }
+        public string Name { get; set; }
         public short Status { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }

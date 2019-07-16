@@ -23,7 +23,7 @@ namespace KenJobs.Bl.Workers
             JobTypeBo jobTypeBo = new JobTypeBo();
 
             jobTypeBo.Id = jobType.Id;
-            jobTypeBo.JobType1 = jobType.JobType1;
+            jobTypeBo.Name = jobType.Name;
             jobTypeBo.Status = jobType.Status;
 
             return jobTypeBo;
@@ -39,7 +39,7 @@ namespace KenJobs.Bl.Workers
             {
                 JobTypeBo jobTypeBo = new JobTypeBo();
                 jobTypeBo.Id = jobType.Id;
-                jobTypeBo.JobType1 = jobType.JobType1;
+                jobTypeBo.Name = jobType.Name;
                 jobTypeBo.Status = jobType.Status;
                 jobTypeBoList.Add(jobTypeBo);
             }
@@ -52,7 +52,7 @@ namespace KenJobs.Bl.Workers
 
             JobType jobtype = new JobType();
             jobtype.Id = jobtypeBo.Id;
-            jobtype.JobType1 = jobtypeBo.JobType1;
+            jobtype.Name = jobtypeBo.Name;
             jobtype.Status = jobtypeBo.Status;
             repository.Insert(jobtype);
             repository.Save();
@@ -65,7 +65,7 @@ namespace KenJobs.Bl.Workers
             IGenericRepository<JobType> repository = new GenericRepository<JobType>();
             JobType jobtype = new JobType();
             jobtype.Id = jobtypeBo.Id;
-            jobtype.JobType1 = jobtypeBo.JobType1;
+            jobtype.Name = jobtypeBo.Name;
             jobtype.Status = jobtypeBo.Status;
             repository.Update(jobtype);
             repository.Save();

@@ -26,7 +26,7 @@ namespace KenJobs.Api.Controllers
                 jobsModel.Client_Id = jobBo.Client_Id;
                 jobsModel.JobTitle = jobBo.JobTitle;
                 jobsModel.Description = jobBo.Description;
-                jobsModel.NoOfVacancies = jobBo.NoOfVacancies;
+                jobsModel.NoOfVacancies = jobBo.NoOfVacancies; 
                 jobsModel.Qualification = jobBo.Qualification;
                 jobsModel.State = jobBo.State;
                 jobsModel.City = jobBo.City;
@@ -42,7 +42,25 @@ namespace KenJobs.Api.Controllers
                 jobsModel.ClientName = jobBo.ClientName;
                 jobsModel.Currency = jobBo.Currency;
                 jobsModel.Country = jobBo.Country;
+                jobsModel.Skills = jobBo.Skills;
                 jobsModel.AddressLine = jobBo.AddressLine;
+
+                JobTypeModel jobTypeModel = new JobTypeModel();
+                JobTypeBo jobTypeBo = jobBo.JobType;
+                jobTypeModel.Id = jobTypeBo.Id;
+                jobTypeModel.Name = jobTypeBo.Name;
+                jobTypeModel.Status = jobTypeBo.Status;
+
+                jobsModel.JobType = jobTypeModel;
+
+                JobCategoryModel jobCategoryModel = new JobCategoryModel();
+                JobCategoryBo jobCategoryBo = jobBo.JobCategory;
+
+                jobCategoryModel.Id = jobCategoryBo.Id;
+                jobCategoryModel.Category = jobCategoryBo.Category;
+                jobCategoryModel.Status = jobCategoryBo.Status;
+
+                jobsModel.JobCategory = jobCategoryModel;
 
                 jobModelList.Add(jobsModel);
             }
@@ -80,7 +98,25 @@ namespace KenJobs.Api.Controllers
                 jobsModel.ClientName = jobBo.ClientName;
                 jobsModel.Currency = jobBo.Currency;
                 jobsModel.Country = jobBo.Country;
+                jobsModel.Skills = jobBo.Skills;
                 jobsModel.AddressLine = jobBo.AddressLine;
+
+                JobTypeModel jobTypeModel = new JobTypeModel();
+                JobTypeBo jobTypeBo = jobBo.JobType;
+                jobTypeModel.Id = jobTypeBo.Id;
+                jobTypeModel.Name = jobTypeBo.Name;
+                jobTypeModel.Status = jobTypeBo.Status;
+
+                jobsModel.JobType = jobTypeModel;
+
+                JobCategoryModel jobCategoryModel = new JobCategoryModel();
+                JobCategoryBo jobCategoryBo = jobBo.JobCategory;
+
+                jobCategoryModel.Id = jobCategoryBo.Id;
+                jobCategoryModel.Category = jobCategoryBo.Category;
+                jobCategoryModel.Status = jobCategoryBo.Status;
+
+                jobsModel.JobCategory = jobCategoryModel;
 
 
                 jobModelList.Add(jobsModel);

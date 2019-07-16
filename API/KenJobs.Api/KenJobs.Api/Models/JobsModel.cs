@@ -30,5 +30,8 @@ namespace KenJobs.Api.Models
         public string ClientName { get; set; }
         public string AddressLine { get; set; }
         public string Country { get; set; }
+
+        public JobCategoryModel JobCategory { get; set; }
+        public JobTypeModel JobType { get; set; }
     }
 }

@@ -33,40 +33,54 @@ class Registration extends React.Component<any, any> {
 
     submitForm(e: any) {
         e.preventDefault();
+        var form = document.forms[0];
+        if (form.checkValidity() === false) {
+            e.stopPropagation();
+            form.classList.add('was-validated');
+            return false;
+        }
+        else {
+            // let body = JSON.stringify(this.state)
+            form.classList.add('was-validated');
+
+            if (this.state.password === this.state.confirmpassword) {
+
+                let body = new URLSearchParams();
+                body.set('FirstName', this.state.firstName);
+                body.set('LastName', this.state.lastName);
+                body.set('Email', this.state.email);
+                body.set('Password', this.state.password);
+                body.set('ConfirmPassword', this.state.confirmpassword);
+                body.set('PhoneNumber', this.state.phone);
+                body.set('Gender_Id', this.state.gender);
+                body.set('IsIndividual', this.state.isIndividual);
+                body.set('CompanyName', this.state.companyname);
+                body.set('UserRoleId', this.state.userRoleId);
+                body.set('grant_type', "password");
+
+                fetch("http://localhost:50768/api/Account/Register", {
+                    method: "POST",
+                    headers: {
+                        "Accept": "application/json",
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: body
+                }).then(response => {
+                    this.setState({
+                        redirect: true
+                    })
+
+                    // response.json().then((data) => {
+                    // });
+                })
+                    .catch(error => console.log("Error")
+                    )
+            } else {
+                return false;
+            }
 
 
-        // let body = JSON.stringify(this.state)
-        let body = new URLSearchParams();
-        body.set('FirstName', this.state.firstName);
-        body.set('LastName', this.state.lastName);
-        body.set('Email', this.state.email);
-        body.set('Password', this.state.password);
-        body.set('ConfirmPassword', this.state.confirmpassword);
-        body.set('PhoneNumber', this.state.phone);
-        body.set('Gender_Id', this.state.gender);
-        body.set('IsIndividual', this.state.isIndividual);
-        body.set('CompanyName', this.state.companyname);
-        body.set('UserRoleId', this.state.userRoleId);
-        body.set('grant_type', "password");
-
-        fetch("http://localhost:50768/api/Account/Register", {
-            method: "POST",
-            headers: {
-                "Accept": "application/json",
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: body
-        }).then(response => {
-            this.setState({
-                redirect: true
-            })
-
-            // response.json().then((data) => {
-            // });
-        })
-            .catch(error => console.log("Error")
-            )
-
+        }
 
     }
     onChange = (e: any) => {
@@ -117,13 +131,16 @@ class Registration extends React.Component<any, any> {
             Registeroptions = <div className="form-group">
                 <div className="text-left">
                     <label className="text-dark mr-2 ">Register as :</label>
-                    <div className="custom-control custom-radio custom-control-inline  ">
-                        <input type="radio" id="isIndividual" name="isIndividual" value="0" onChange={this.onChange} className="custom-control-input" />
+                    <div className="custom-control custom-radio custom-control-inline ">
+                        <input type="radio" id="isIndividual" name="isIndividual" value="0" onChange={this.onChange} className="custom-control-input" required />
                         <label className="custom-control-label text-dark" htmlFor="isIndividual">Individual</label>
                     </div>
-                    <div className="custom-control custom-radio custom-control-inline  ">
-                        <input type="radio" id="isnotIndividual" name="isIndividual" value="1" onChange={this.onChange} className="custom-control-input" />
+                    <div className="custom-control custom-radio custom-control-inline ">
+                        <input type="radio" id="isnotIndividual" name="isIndividual" value="1" onChange={this.onChange} className="custom-control-input" required />
                         <label className="custom-control-label text-dark" htmlFor="isnotIndividual">Company</label>
+                        <div className="invalid-feedback ml-5">
+                            <h6> Required</h6>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -141,7 +158,13 @@ class Registration extends React.Component<any, any> {
                     placeholder="Company Name"
                     value={this.state.companyname}
                     onChange={this.onChange}
+                    required
                 />
+                <div className="invalid-feedback text-left">
+                    <h6>
+                        Please Provide Company Name.
+                                                    </h6>
+                </div>
             </div>
         }
 
@@ -164,7 +187,7 @@ class Registration extends React.Component<any, any> {
                             <div className="row text-white pb-5 ">
                                 <div className="col-sm-11 mx-auto pt-5 pb-5">
                                     <div className="info-form">
-                                        <form onSubmit={this.submitForm} className="">
+                                        <form onSubmit={this.submitForm} className="needs-validation" noValidate>
                                             <div className="form-group">
                                                 <label className="sr-only">Firs tName</label>
                                                 <input
@@ -175,7 +198,13 @@ class Registration extends React.Component<any, any> {
                                                     name="firstName"
                                                     value={this.state.firstName}
                                                     onChange={this.onChange}
+                                                    required
                                                 />
+                                                <div className="invalid-feedback text-left">
+                                                    <h6>
+                                                        Please Provide First Name.
+                                                    </h6>
+                                                </div>
                                             </div>
                                             <div className="form-group">
                                                 <label className="sr-only">Lastt Name</label>
@@ -187,7 +216,13 @@ class Registration extends React.Component<any, any> {
                                                     name="lastName"
                                                     value={this.state.lastName}
                                                     onChange={this.onChange}
+                                                    required
                                                 />
+                                                <div className="invalid-feedback text-left">
+                                                    <h6>
+                                                        Please Provide Last Name.
+                                                    </h6>
+                                                </div>
                                             </div>
                                             <div className="form-group">
                                                 <label className="sr-only">Phone number</label>
@@ -199,7 +234,14 @@ class Registration extends React.Component<any, any> {
                                                     name="phone"
                                                     value={this.state.phone}
                                                     onChange={this.onChange}
+                                                    required
+                                                    pattern="(?=.*[0-9])(?=.{10,}).*"
                                                 />
+                                                <div className="invalid-feedback text-left">
+                                                    <h6>
+                                                        Please Provide Phone number.
+                                                    </h6>
+                                                </div>
                                             </div>
                                             <div className="form-group">
                                                 <label className="sr-only">Email</label>
@@ -211,7 +253,13 @@ class Registration extends React.Component<any, any> {
                                                     name="email"
                                                     value={this.state.username}
                                                     onChange={this.onChange}
+                                                    required
                                                 />
+                                                <div className="invalid-feedback text-left">
+                                                    <h6>
+                                                        Please Provide Email.
+                                                    </h6>
+                                                </div>
                                             </div>
                                             <div className="form-group">
                                                 <label className="sr-only">Password</label>
@@ -223,7 +271,15 @@ class Registration extends React.Component<any, any> {
                                                     name="password"
                                                     value={this.state.password}
                                                     onChange={this.onChange}
+                                                    pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,}).*"
+
+                                                    required
                                                 />
+                                                <div className="invalid-feedback text-left">
+                                                    <h6> Please Provide Valid Password.</h6>
+                                                    <div>* Password Must Contain at least one number and one uppercase and lowercase letter and Special Character,
+                                                         and  at least 8 or more characters</div>
+                                                </div>
                                             </div>
                                             <div className="form-group">
                                                 <label className="sr-only">Confirm Password</label>
@@ -235,7 +291,15 @@ class Registration extends React.Component<any, any> {
                                                     placeholder="Confirm Password"
                                                     value={this.state.confirmpassword}
                                                     onChange={this.onChange}
+                                                    pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,}).*"
+                                                    required
                                                 />
+                                                <div className="invalid-feedback text-left">
+                                                    <h6>
+                                                        {(this.state.password === this.state.confirmpassword) ? '' : 'Password and Confim Password not matched'}
+                                                        Please Provide Confirm Password.
+                                                    </h6>
+                                                </div>
                                             </div>
                                             {Registeroptions}
                                             {companyname}
@@ -244,18 +308,23 @@ class Registration extends React.Component<any, any> {
                                                     <label className="text-dark mr-2">Gender :</label>
 
                                                     <div className="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" id="gendermale" name="gender" value="1" onChange={this.onChange} className="custom-control-input" />
+                                                        <input type="radio" id="gendermale" name="gender" value="1" onChange={this.onChange} className="custom-control-input" required />
                                                         <label className="custom-control-label text-dark" htmlFor="gendermale">Male</label>
                                                     </div>
                                                     <div className="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" id="genderfemale" name="gender" value="2" onChange={this.onChange} className="custom-control-input" />
+                                                        <input type="radio" id="genderfemale" name="gender" value="2" onChange={this.onChange} className="custom-control-input" required />
                                                         <label className="custom-control-label text-dark" htmlFor="genderfemale">Female</label>
                                                     </div>
                                                     <div className="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" id="genderother" name="gender" value="3" onChange={this.onChange} className="custom-control-input" />
+                                                        <input type="radio" id="genderother" name="gender" value="3" onChange={this.onChange} className="custom-control-input" required />
                                                         <label className="custom-control-label text-dark" htmlFor="genderother">Others</label>
+                                                        <div className="invalid-feedback ml-5">
+                                                            <h6> Required</h6>
+                                                        </div>
                                                     </div>
+
                                                 </div>
+
                                             </div>
                                             <input type="submit" value="Register" className="btn btn-primary mb-2" />
                                             <div className="text-primary">Existing User ? <Link to={"/Login/" + this.state.loginType}><u>click here</u></Link> for Log in.</div>

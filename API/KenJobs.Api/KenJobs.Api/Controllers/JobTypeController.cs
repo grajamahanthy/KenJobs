@@ -26,7 +26,7 @@ namespace KenJobs.Api.Controllers
             {
                 JobTypeModel jobTypeModel = new JobTypeModel();
                 jobTypeModel.Id = jobTypeBo.Id;
-                jobTypeModel.JobType1 = jobTypeBo.JobType1;
+                jobTypeModel.Name = jobTypeBo.Name;
                 jobTypeModel.Status = jobTypeBo.Status;
                 jobTypeModellist.Add(jobTypeModel);
             }

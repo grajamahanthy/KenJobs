@@ -13,11 +13,11 @@
           <Property Name="User_Id" Type="int" Nullable="false" />
           <Property Name="Client_Id" Type="int" Nullable="false" />
           <Property Name="Job_Id" Type="int" Nullable="false" />
-          <Property Name="AppliedDate" Type="datetime" Nullable="false" />
+          <Property Name="AppliedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -94,9 +94,9 @@
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="Logo" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
@@ -106,9 +106,9 @@
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Currency">
           <Key>
@@ -131,9 +131,9 @@
           <Property Name="YearOfPass" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Percentage" Type="float" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Experience">
           <Key>
@@ -148,9 +148,9 @@
           <Property Name="EndDate" Type="datetime" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Gender">
           <Key>
@@ -159,9 +159,9 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="JobCategory">
           <Key>
@@ -171,9 +171,9 @@
           <Property Name="Category" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Jobs">
           <Key>
@@ -188,15 +188,15 @@
           <Property Name="Qualification" Type="nvarchar" MaxLength="100" />
           <Property Name="State" Type="nvarchar" MaxLength="200" />
           <Property Name="City" Type="nvarchar" MaxLength="200" />
-          <Property Name="PostDate" Type="datetime" Nullable="false" />
+          <Property Name="PostDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="PostingStatus" Type="smallint" Nullable="false" />
           <Property Name="JobType_Id" Type="int" Nullable="false" />
           <Property Name="Category_id" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="MinExperience" Type="float" />
           <Property Name="Skills" Type="nvarchar(max)" />
           <Property Name="MaxSalary" Type="float" />
@@ -212,12 +212,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="JobType" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Organization">
           <Key>
@@ -233,9 +233,9 @@
           <Property Name="Status" Type="smallint" />
           <Property Name="Logo" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
-          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" />
-          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
@@ -252,9 +252,9 @@
           <Property Name="ExpectedSalary" Type="int" Nullable="false" />
           <Property Name="Languages" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -265,9 +265,9 @@
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -282,15 +282,15 @@
           <Property Name="Gender_Id" Type="int" Nullable="false" />
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
-          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" />
-          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="AspNetUser_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar(max)" />
           <Property Name="Email" Type="nvarchar" MaxLength="256" />
           <Property Name="IsIndividual" Type="smallint" />
-          <Property Name="EmailActivationCode" Type="nvarchar" MaxLength="200" />
-          <Property Name="ResetPasswordCode" Type="nvarchar" MaxLength="200" />
+          <Property Name="EmailActivationCode" Type="nvarchar" MaxLength="400" />
+          <Property Name="ResetPasswordCode" Type="nvarchar" MaxLength="400" />
         </EntityType>
         <EntityType Name="User_Organization">
           <Key>
@@ -300,9 +300,9 @@
           <Property Name="User_Id" Type="int" Nullable="false" />
           <Property Name="Organization_Id" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="User_Organization_Client">
           <Key>
@@ -312,9 +312,9 @@
           <Property Name="User_Id" Type="int" Nullable="false" />
           <Property Name="Client_Id" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Organization_Id" Type="int" />
         </EntityType>
         <Association Name="FK_AppliedJobs_Client">
@@ -690,6 +690,7 @@
           <EntitySet Name="Jobs" EntityType="kenjobsModel.Job" />
           <EntitySet Name="JobTypes" EntityType="kenjobsModel.JobType" />
           <EntitySet Name="Organizations" EntityType="kenjobsModel.Organization" />
+          <EntitySet Name="Profiles" EntityType="kenjobsModel.Profile" />
           <EntitySet Name="States" EntityType="kenjobsModel.State" />
           <EntitySet Name="Users" EntityType="kenjobsModel.User" />
           <EntitySet Name="User_Organization" EntityType="kenjobsModel.User_Organization" />
@@ -754,6 +755,10 @@
             <End Role="Organization" EntitySet="Organizations" />
             <End Role="User_Organization" EntitySet="User_Organization" />
           </AssociationSet>
+          <AssociationSet Name="FK_Profile_User" Association="kenjobsModel.FK_Profile_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Profile" EntitySet="Profiles" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_Client_User" Association="kenjobsModel.FK_User_Client_User">
             <End Role="User" EntitySet="Users" />
             <End Role="User_Organization_Client" EntitySet="User_Organization_Client" />
@@ -766,11 +771,6 @@
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="Profiles" EntityType="kenjobsModel.Profile" />
-          <AssociationSet Name="FK_Profile_User" Association="kenjobsModel.FK_Profile_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Profile" EntitySet="Profiles" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AppliedJob">
           <Key>
@@ -780,11 +780,11 @@
           <Property Name="User_Id" Type="Int32" Nullable="false" />
           <Property Name="Client_Id" Type="Int32" Nullable="false" />
           <Property Name="Job_Id" Type="Int32" Nullable="false" />
-          <Property Name="AppliedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AppliedDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="Client" Relationship="kenjobsModel.FK_AppliedJobs_Client" FromRole="AppliedJob" ToRole="Client" />
           <NavigationProperty Name="Job" Relationship="kenjobsModel.FK_AppliedJobs_Jobs" FromRole="AppliedJob" ToRole="Job" />
           <NavigationProperty Name="User" Relationship="kenjobsModel.FK_AppliedJobs_User" FromRole="AppliedJob" ToRole="User" />
@@ -863,9 +863,9 @@
           <Property Name="Status" Type="Int16" Nullable="false" />
           <Property Name="Logo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="AppliedJobs" Relationship="kenjobsModel.FK_AppliedJobs_Client" FromRole="Client" ToRole="AppliedJob" />
           <NavigationProperty Name="User_Organization_Client" Relationship="kenjobsModel.FK_User_Client_Client" FromRole="Client" ToRole="User_Organization_Client" />
         </EntityType>
@@ -877,9 +877,9 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Int16" Nullable="false" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="States" Relationship="kenjobsModel.FK_State_Country" FromRole="Country" ToRole="State" />
         </EntityType>
         <EntityType Name="Currency">
@@ -903,9 +903,9 @@
           <Property Name="YearOfPass" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Percentage" Type="Double" Nullable="false" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="User" Relationship="kenjobsModel.FK_EducationalQualification_User" FromRole="EducationalQualification" ToRole="User" />
         </EntityType>
         <EntityType Name="Experience">
@@ -921,9 +921,9 @@
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="User" Relationship="kenjobsModel.FK_Experience_User" FromRole="Experience" ToRole="User" />
         </EntityType>
         <EntityType Name="Gender">
@@ -933,9 +933,9 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="Users" Relationship="kenjobsModel.FK_User_Gender" FromRole="Gender" ToRole="User" />
         </EntityType>
         <EntityType Name="JobCategory">
@@ -946,9 +946,9 @@
           <Property Name="Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Int16" Nullable="false" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="Jobs" Relationship="kenjobsModel.FK_Jobs_JobCategory" FromRole="JobCategory" ToRole="Job" />
         </EntityType>
         <EntityType Name="Job">
@@ -964,15 +964,15 @@
           <Property Name="Qualification" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="State" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="PostDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PostDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Status" Type="Int16" Nullable="false" />
           <Property Name="PostingStatus" Type="Int16" Nullable="false" />
           <Property Name="JobType_Id" Type="Int32" Nullable="false" />
           <Property Name="Category_id" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="MinExperience" Type="Double" />
           <Property Name="Skills" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MaxSalary" Type="Double" />
@@ -991,12 +991,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="JobType1" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Int16" Nullable="false" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="Jobs" Relationship="kenjobsModel.FK_Jobs_JobType" FromRole="JobType" ToRole="Job" />
         </EntityType>
         <EntityType Name="Organization">
@@ -1013,11 +1013,31 @@
           <Property Name="Status" Type="Int16" />
           <Property Name="Logo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="User_Organization_Client" Relationship="kenjobsModel.FK_User_Client_Organization" FromRole="Organization" ToRole="User_Organization_Client" />
           <NavigationProperty Name="User_Organization" Relationship="kenjobsModel.FK_User_Organization_Organization" FromRole="Organization" ToRole="User_Organization" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Resume" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="skills" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TotalExperiance" Type="Int16" Nullable="false" />
+          <Property Name="HeighestQualification" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PreferredLocation" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentSalary" Type="Int32" Nullable="false" />
+          <Property Name="ExpectedSalary" Type="Int32" Nullable="false" />
+          <Property Name="Languages" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="User" Relationship="kenjobsModel.FK_Profile_User" FromRole="Profile" ToRole="User" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -1028,9 +1048,9 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Int16" Nullable="false" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="Country" Relationship="kenjobsModel.FK_State_Country" FromRole="State" ToRole="Country" />
         </EntityType>
         <EntityType Name="User">
@@ -1046,23 +1066,23 @@
           <Property Name="Gender_Id" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Int16" Nullable="false" />
           <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="AspNetUser_Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="IsIndividual" Type="Int16" />
+          <Property Name="EmailActivationCode" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="ResetPasswordCode" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AppliedJobs" Relationship="kenjobsModel.FK_AppliedJobs_User" FromRole="User" ToRole="AppliedJob" />
           <NavigationProperty Name="AspNetUser" Relationship="kenjobsModel.FK_User_AspNetUser" FromRole="User" ToRole="AspNetUser" />
           <NavigationProperty Name="EducationalQualifications" Relationship="kenjobsModel.FK_EducationalQualification_User" FromRole="User" ToRole="EducationalQualification" />
           <NavigationProperty Name="Experiences" Relationship="kenjobsModel.FK_Experience_User" FromRole="User" ToRole="Experience" />
           <NavigationProperty Name="Gender" Relationship="kenjobsModel.FK_User_Gender" FromRole="User" ToRole="Gender" />
+          <NavigationProperty Name="Profiles" Relationship="kenjobsModel.FK_Profile_User" FromRole="User" ToRole="Profile" />
           <NavigationProperty Name="User_Organization_Client" Relationship="kenjobsModel.FK_User_Client_User" FromRole="User" ToRole="User_Organization_Client" />
           <NavigationProperty Name="User_Organization" Relationship="kenjobsModel.FK_User_Organization_User" FromRole="User" ToRole="User_Organization" />
-          <Property Name="EmailActivationCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="ResetPasswordCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Profiles" Relationship="kenjobsModel.FK_Profile_User" FromRole="User" ToRole="Profile" />
         </EntityType>
         <EntityType Name="User_Organization">
           <Key>
@@ -1072,9 +1092,9 @@
           <Property Name="User_Id" Type="Int32" Nullable="false" />
           <Property Name="Organization_Id" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="Organization" Relationship="kenjobsModel.FK_User_Organization_Organization" FromRole="User_Organization" ToRole="Organization" />
           <NavigationProperty Name="User" Relationship="kenjobsModel.FK_User_Organization_User" FromRole="User_Organization" ToRole="User" />
         </EntityType>
@@ -1086,9 +1106,9 @@
           <Property Name="User_Id" Type="Int32" Nullable="false" />
           <Property Name="Client_Id" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Organization_Id" Type="Int32" />
           <NavigationProperty Name="Client" Relationship="kenjobsModel.FK_User_Client_Client" FromRole="User_Organization_Client" ToRole="Client" />
           <NavigationProperty Name="Organization" Relationship="kenjobsModel.FK_User_Client_Organization" FromRole="User_Organization_Client" ToRole="Organization" />
@@ -1278,6 +1298,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Profile_User">
+          <End Type="kenjobsModel.User" Role="User" Multiplicity="1" />
+          <End Type="kenjobsModel.Profile" Role="Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Client_User">
           <End Type="kenjobsModel.User" Role="User" Multiplicity="1" />
           <End Type="kenjobsModel.User_Organization_Client" Role="User_Organization_Client" Multiplicity="*" />
@@ -1305,38 +1337,6 @@
         <Association Name="AspNetUserRoles">
           <End Type="kenjobsModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="kenjobsModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
-        </Association>
-        <EntityType Name="Profile">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="User_Id" Type="Int32" Nullable="false" />
-          <Property Name="Resume" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="skills" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="TotalExperiance" Type="Int16" Nullable="false" />
-          <Property Name="HeighestQualification" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PreferredLocation" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CurrentSalary" Type="Int32" Nullable="false" />
-          <Property Name="ExpectedSalary" Type="Int32" Nullable="false" />
-          <Property Name="Languages" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="User" Relationship="kenjobsModel.FK_Profile_User" FromRole="Profile" ToRole="User" />
-        </EntityType>
-        <Association Name="FK_Profile_User">
-          <End Type="kenjobsModel.User" Role="User" Multiplicity="1" />
-          <End Type="kenjobsModel.Profile" Role="Profile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Profile">
-              <PropertyRef Name="User_Id" />
-            </Dependent>
-          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -1557,7 +1557,7 @@
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="JobType1" ColumnName="JobType" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1577,6 +1577,26 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profiles">
+            <EntityTypeMapping TypeName="kenjobsModel.Profile">
+              <MappingFragment StoreEntitySet="Profile">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Languages" ColumnName="Languages" />
+                <ScalarProperty Name="ExpectedSalary" ColumnName="ExpectedSalary" />
+                <ScalarProperty Name="CurrentSalary" ColumnName="CurrentSalary" />
+                <ScalarProperty Name="PreferredLocation" ColumnName="PreferredLocation" />
+                <ScalarProperty Name="HeighestQualification" ColumnName="HeighestQualification" />
+                <ScalarProperty Name="TotalExperiance" ColumnName="TotalExperiance" />
+                <ScalarProperty Name="skills" ColumnName="skills" />
+                <ScalarProperty Name="Resume" ColumnName="Resume" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1654,26 +1674,6 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="Profiles">
-            <EntityTypeMapping TypeName="kenjobsModel.Profile">
-              <MappingFragment StoreEntitySet="Profile">
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Languages" ColumnName="Languages" />
-                <ScalarProperty Name="ExpectedSalary" ColumnName="ExpectedSalary" />
-                <ScalarProperty Name="CurrentSalary" ColumnName="CurrentSalary" />
-                <ScalarProperty Name="PreferredLocation" ColumnName="PreferredLocation" />
-                <ScalarProperty Name="HeighestQualification" ColumnName="HeighestQualification" />
-                <ScalarProperty Name="TotalExperiance" ColumnName="TotalExperiance" />
-                <ScalarProperty Name="skills" ColumnName="skills" />
-                <ScalarProperty Name="Resume" ColumnName="Resume" />
-                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

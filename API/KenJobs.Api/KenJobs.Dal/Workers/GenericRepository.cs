@@ -11,14 +11,14 @@ namespace KenJobs.Dal.Workers
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        public kenjobsEntities _context = null;
+        public KenJobsEntities _context = null;
         private DbSet<T> table = null;
         public GenericRepository()
         {
-            this._context = new kenjobsEntities();
+            this._context = new KenJobsEntities();
             table = _context.Set<T>();
         }
-        public GenericRepository(kenjobsEntities _context)
+        public GenericRepository(KenJobsEntities _context)
         {
             this._context = _context;
             table = _context.Set<T>();

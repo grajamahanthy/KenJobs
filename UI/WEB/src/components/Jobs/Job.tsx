@@ -13,14 +13,14 @@ class Job extends React.Component<any, any>{
         let job = props.jobInfo;
         this.state = {
             jobTitle: job.JobTitle,
-            clientId: job.Client_Id,
+            clientname: job.ClientName,
             city: job.City,
             description: job.Description,
             Salary: job.Salary,
             Qualification: job.Qualification,
             contactPerson: 'admin',
             skills: '',
-            experience: '5-6',
+            experience: job.MinExperience + '-' + job.MaxExperience,
             posteddate: job.PostDate,
         }
         this.handleclick = this.handleclick.bind(this);
@@ -38,13 +38,19 @@ class Job extends React.Component<any, any>{
 
 
                         <h6 className="card-title text-primary" onClick={this.handleclick}>
-                            {this.state.jobTitle}
+                            <Link className=""
+                                to={{
+                                    pathname: "/Jobresult",
+                                    state: { JobInfo: this.state }
+                                }}
+                            > {this.state.jobTitle}</Link>
+
                         </h6>
                         <div className="card-text mb-2">
 
 
                             <div className="mt-2">
-                                <span className="mr-sm-2"><FontAwesomeIcon icon="building" size="xs" />  {this.state.clientId}</span>
+                                <span className="mr-sm-2"><FontAwesomeIcon icon="building" size="xs" />  {this.state.clientname}</span>
                                 <span className="mr-sm-2"><FontAwesomeIcon icon="suitcase" size="xs" />  {this.state.experience + ' Years'} </span>
                                 <span className="mr-sm-2"><FontAwesomeIcon icon="map-marker-alt" size="xs" />  {this.state.city}</span>
                             </div>

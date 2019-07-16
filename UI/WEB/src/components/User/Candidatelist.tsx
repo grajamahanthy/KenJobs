@@ -1,9 +1,9 @@
 import React from "react";
 import { Pagination } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 class CandidateList extends React.Component<any, any> {
     constructor(props: any) {
         super(props)
-        console.log(props.location.state.JobId);
         this.state = {
             JobId: props.location.state.JobId,
             haveCandidate: false,
@@ -33,6 +33,7 @@ class CandidateList extends React.Component<any, any> {
             haveCandidate: data.length > 0 ? true : false,
             Candidatedata: data
         })
+
     }
     render() {
         let Candidatelist;
@@ -46,14 +47,23 @@ class CandidateList extends React.Component<any, any> {
                             <img className="btn-md border" src={require('../../assets/images/profile.png')} width="150" height="150" alt="" />
                         </div>
                         <div className="col-md-8">
-                            <h4 className="text-primary">{item.Title + '.' + item.FirstName + ' ' + item.LastName}</h4>
+
+                            <h4 className="text-primary">
+                                <Link className=""
+                                    to={{
+                                        pathname: "/candidate",
+                                        state: { User: item }
+                                    }}
+                                >{item.Title + ' ' + item.FirstName + ' ' + item.LastName}</Link>
+                            </h4>
+
                             <h6 >Title : Senior Developer</h6>
                             <h6 >Email : {item.Email} </h6>
                             <h6 >Phone : {item.PhoneNumber}</h6>
                             <h6>Key Skills : {} </h6>
                             <div className="float-sm-right">
 
-                                <button className="btn btn-primary btn-sm rounded-0">Dowanload Resume</button>
+                                <button className="btn btn-primary btn-sm rounded-0">Download Resume</button>
                             </div>
                         </div>
                     </div>
@@ -112,9 +122,9 @@ class CandidateList extends React.Component<any, any> {
                         <div className="row">
                             {Candidatelist}
                         </div>
-                        <div className="mt-2">
+                        {/* <div className="mt-2">
                             {Pagenation}
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </>

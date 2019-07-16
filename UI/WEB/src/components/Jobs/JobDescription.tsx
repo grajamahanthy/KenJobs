@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 class Jobdescription extends React.Component<any, any>{
     constructor(props: any) {
         super(props);
+
+        this.state = props.location.state.JobInfo
     }
     render() {
         return (
@@ -13,19 +15,19 @@ class Jobdescription extends React.Component<any, any>{
 
 
                         <h4 className="card-title text-primary" >
-                            System Administrator
-                            </h4>
+                            {this.state.jobTitle}
+                        </h4>
                         <div className="card-text mb-2">
 
 
                             <div className="mt-2">
-                                <span className="mr-sm-2"> <FontAwesomeIcon icon="building" size="xs" />  ADD Technologies (India) Limited</span>
-                                <span className="mr-sm-2"><FontAwesomeIcon icon="suitcase" size="xs" />  5-10 Years</span>
-                                <span className="mr-sm-2"><FontAwesomeIcon icon="map-marker-alt" size="xs" />  Hyderabad, Channai, Bengalore</span>
+                                <span className="mr-sm-2"><FontAwesomeIcon icon="building" size="xs" />  {this.state.clientname}</span>
+                                <span className="mr-sm-2"><FontAwesomeIcon icon="suitcase" size="xs" />  {this.state.experience + ' Years'} </span>
+                                <span className="mr-sm-2"><FontAwesomeIcon icon="map-marker-alt" size="xs" />  {this.state.city}</span>
                             </div>
                             <div className="mt-2">
                                 <span className="mr-sm-2"> <FontAwesomeIcon icon="chess-king" size="xs" className="mr-2" />
-                                    LAN, Troubleshooting, System Administration, system admin...
+                                    {this.state.skills}
                                 </span>
                             </div>
                             <div className=" row mt-2 ">
@@ -34,29 +36,28 @@ class Jobdescription extends React.Component<any, any>{
                                         <FontAwesomeIcon icon="newspaper" size="xs" />
                                     </span>
                                     <span className="col-sm-10 pull-right text-wrap text-justify">
-                                        Should have excellent knowledge in Trouble shooting of all desktops/laptops, LAN configuration, operating system &amp; software installation,Should have excellent knowledge in Trouble shooting of all desktops/laptops, LAN configuration, operating system &amp; software installation,
-                                </span>
+                                        {this.state.description}
+                                    </span>
                                 </span>
                             </div>
 
                             <div className="mt-2">
                                 <span className="mr-sm-2"><FontAwesomeIcon icon="wallet" size="xs" /> :
-                                        50,000 - 70,000
-                            </span>
+                                       {this.state.salary}
+                                </span>
                                 <span className="mr-sm-2 pull-right">Posted By
                                 <FontAwesomeIcon icon="user-tie" size="xs" className="ml-2" /> :
-                                                          Vamsi Krishna(Chari)
+                               {this.state.contactPerson}
                                 </span>
-                                <span className="mr-sm-2">1 day ago
-                            </span>
+                                <span className="mr-sm-2">{this.state.postdate}
+                                </span>
                             </div>
                             <div className="row float-sm-right">
 
-                                <button className="btn btn-primary btn-sm rounded-0 mr-2" >Add to Favorite  </button>
-                                <button className="btn btn-primary btn-sm  rounded-0 mr-2" >Save  </button>
-                                <button className="btn btn-primary btn-sm rounded-0  mr-2" >Apply  </button>
+                                <button className="btn btn-primary btn-sm rounded-0 mr-2" >Add to Favorites  </button>
+                                {/* <button className="btn btn-primary btn-sm  rounded-0 mr-2" >Save Job </button> */}
+                                <button className="btn btn-primary btn-sm rounded-0  mr-2" >Apply for Job </button>
                             </div>
-
 
                         </div>
 

@@ -93,7 +93,7 @@ namespace KenJobs.Api.Controllers
         }
 
         // POST: api/Job
-        public async Task<IHttpActionResult> Post(JobsModel jobmodel)
+        public async Task<IHttpActionResult> Post(JobsModel jobModel)
         {
             if (!ModelState.IsValid)
             {
@@ -102,24 +102,26 @@ namespace KenJobs.Api.Controllers
 
             JobBo jobBo = new JobBo();
 
-            jobBo.Id = jobmodel.Id;
-            jobBo.Client_Id = jobmodel.Client_Id;
-            jobBo.JobTitle = jobmodel.JobTitle;
-            jobBo.Description = jobmodel.Description;
-            jobBo.NoOfVacancies = jobmodel.NoOfVacancies;
-            jobBo.Qualification = jobmodel.Qualification;
-            jobBo.State = jobmodel.State;
-            jobBo.City = jobmodel.City;
-            jobBo.PostDate = jobmodel.PostDate;
-            jobBo.Status = jobmodel.Status;
-            jobBo.PostingStatus = jobmodel.PostingStatus;
-            jobBo.JobType_Id = jobmodel.JobType_Id;
-            jobBo.Category_id = jobmodel.Category_id;
-            jobBo.MinSalary = jobmodel.MinSalary;
-            jobBo.MaxSalary = jobmodel.MaxSalary;
-            jobBo.MinExperience = jobmodel.MinExperience;
-            jobBo.MaxExperience = jobmodel.MaxExperience;
-            jobBo.User_Id = jobmodel.User_Id;
+            jobBo.Client_Id = jobModel.Client_Id;
+            jobBo.JobTitle = jobModel.JobTitle;
+            jobBo.Description = jobModel.Description;
+            jobBo.NoOfVacancies = jobModel.NoOfVacancies;
+            jobBo.Qualification = jobModel.Qualification;
+            jobBo.State = jobModel.State;
+            jobBo.City = jobModel.City;
+            jobBo.Status = jobModel.Status;
+            jobBo.PostingStatus = jobModel.PostingStatus;
+            jobBo.JobType_Id = jobModel.JobType_Id;
+            jobBo.Category_id = jobModel.Category_id;
+            jobBo.Skills = jobModel.Skills;
+            jobBo.MinSalary = jobModel.MinSalary;
+            jobBo.MaxSalary = jobModel.MaxSalary;
+            jobBo.MinExperience = jobModel.MinExperience;
+            jobBo.MaxExperience = jobModel.MaxExperience;
+            jobBo.User_Id = jobModel.User_Id;
+            jobBo.ClientName = jobModel.ClientName;
+            jobBo.Currency = jobModel.Currency;
+            jobBo.Country = jobModel.Country;
 
             JobsContract Jobworker = new JobsWorker();
              Jobworker.PostJob(jobBo);
@@ -166,6 +168,120 @@ namespace KenJobs.Api.Controllers
         public void Delete(int id)
         {
         }
+        [HttpPost]
+        [Route("api/Job/Updatejob")]
+        public int Updatejob(JobsModel jobModel)
+        {
+            JobsContract jobsWorker = new JobsWorker();
+            JobBo jobBo = new JobBo();
+            jobBo.Id = jobModel.Id;
+            jobBo.Client_Id = jobModel.Client_Id;
+            jobBo.JobTitle = jobModel.JobTitle;
+            jobBo.Description = jobModel.Description;
+            jobBo.NoOfVacancies = jobModel.NoOfVacancies;
+            jobBo.Qualification = jobModel.Qualification;
+            jobBo.State = jobModel.State;
+            jobBo.City = jobModel.City;
+            jobBo.Status = jobModel.Status;
+            jobBo.PostingStatus = jobModel.PostingStatus;
+            jobBo.JobType_Id = jobModel.JobType_Id;
+            jobBo.Category_id = jobModel.Category_id;
+            jobBo.Skills = jobModel.Skills;
+            jobBo.MinSalary = jobModel.MinSalary;
+            jobBo.MaxSalary = jobModel.MaxSalary;
+            jobBo.MinExperience = jobModel.MinExperience;
+            jobBo.MaxExperience = jobModel.MaxExperience;
+            jobBo.User_Id = jobModel.User_Id;
+            jobBo.ClientName = jobModel.ClientName;
+            jobBo.Currency = jobModel.Currency;
+            jobBo.Country = jobModel.Country;
+            jobBo.AddressLine = jobModel.AddressLine;
+
+
+            JobTypeBo jobTypeBo = new JobTypeBo();
+            JobTypeModel jobTypeModel = jobModel.JobType;
+            jobTypeBo.Id = jobTypeBo.Id;
+            jobTypeBo.Name = jobTypeBo.Name;
+            jobTypeBo.Status = jobTypeBo.Status;
+            jobBo.JobType = jobTypeBo;
+
+
+
+            //JobCategoryBo jobCategoryBo = new JobCategoryBo();
+            //JobCategoryModel jobCategoryModel = jobModel.JobCategory;
+            //jobCategoryBo.Id = jobCategoryModel.Id;
+            //jobCategoryBo.Category = jobCategoryModel.Category;
+            //jobCategoryBo.Status = jobCategoryModel.Status;
+            //jobBo.JobCategory = jobCategoryBo;
+
+
+
+            jobsWorker.UpdateJob(jobBo.Id, jobBo);
+
+
+            return 1;
+        }
+
+
+
+        [HttpGet]
+        [Route("api/Job/GetJobsByUserId/{UserId}")]
+        public List<JobsModel> GetJobsByUserId(int UserId)
+        {
+            JobsContract jobsWorker = new JobsWorker();
+            IEnumerable<JobBo> jobBoList = jobsWorker.GetJobsByUserId(UserId);
+
+            List<JobsModel> jobModelList = new List<JobsModel>();
+
+            foreach (JobBo jobBo in jobBoList)
+            {
+                JobsModel jobsModel = new JobsModel();
+                jobsModel.Id = jobBo.Id;
+                jobsModel.Client_Id = jobBo.Client_Id;
+                jobsModel.JobTitle = jobBo.JobTitle;
+                jobsModel.Description = jobBo.Description;
+                jobsModel.NoOfVacancies = jobBo.NoOfVacancies;
+                jobsModel.Qualification = jobBo.Qualification;
+                jobsModel.State = jobBo.State;
+                jobsModel.City = jobBo.City;
+                jobsModel.PostDate = jobBo.PostDate;
+                jobsModel.PostingStatus = jobBo.PostingStatus;
+                jobsModel.JobType_Id = jobBo.JobType_Id;
+                jobsModel.Category_id = jobBo.Category_id;
+                jobsModel.MinSalary = jobBo.MinSalary;
+                jobsModel.MaxSalary = jobBo.MaxSalary;
+                jobsModel.MinExperience = jobBo.MinExperience;
+                jobsModel.MaxExperience = jobBo.MaxExperience;
+                jobsModel.User_Id = jobBo.User_Id;
+                jobsModel.ClientName = jobBo.ClientName;
+                jobsModel.Currency = jobBo.Currency;
+                jobsModel.Country = jobBo.Country;
+                jobsModel.Skills = jobBo.Skills;
+                jobsModel.AddressLine = jobBo.AddressLine;
+                jobsModel.Status= jobBo.Status;
+
+                JobTypeModel jobTypeModel = new JobTypeModel();
+                JobTypeBo jobTypeBo = jobBo.JobType;
+                jobTypeModel.Id = jobTypeBo.Id;
+                jobTypeModel.Name = jobTypeBo.Name;
+                jobTypeModel.Status = jobTypeBo.Status;
+
+                jobsModel.JobType = jobTypeModel;
+
+                JobCategoryModel jobCategoryModel = new JobCategoryModel();
+                JobCategoryBo jobCategoryBo = jobBo.JobCategory;
+
+                jobCategoryModel.Id = jobCategoryBo.Id;
+                jobCategoryModel.Category = jobCategoryBo.Category;
+                jobCategoryModel.Status = jobCategoryBo.Status;
+
+                jobsModel.JobCategory = jobCategoryModel;
+
+
+                jobModelList.Add(jobsModel);
+            }
+            return jobModelList;
+        }
 
         [HttpGet]
         [Route("api/Job/GetJobseekersByJobId/{JobId}")]
@@ -192,9 +308,9 @@ namespace KenJobs.Api.Controllers
                 userProfileModel.Gender_Id = userBo.Gender_Id;
                 userProfileModel.Status = userBo.Status;
                 userProfileModel.AspNetUser_Id = userBo.AspNetUser_Id;
-                //userProfileModel.Profile = profileModelMapper(userBo.Profile);
-                //userProfileModel.Experience = experienceModelMapper(userBo.Experience);
-                //userProfileModel.EducationalQualification = educationalQualificationModelMapper(userBo.EducationalQualification);
+                userProfileModel.Profile = profileModelMapper(userBo.Profile);
+                userProfileModel.Experience = experienceModelMapper(userBo.Experience);
+                userProfileModel.EducationalQualification = educationalQualificationModelMapper(userBo.EducationalQualification);
                 userProfileModelList.Add(userProfileModel);
             }
             return userProfileModelList;
