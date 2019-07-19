@@ -57,6 +57,7 @@
     <Compile Include="BusinessObjects\JobBo.cs" />
     <Compile Include="BusinessObjects\JobCategoryBo.cs" />
     <Compile Include="BusinessObjects\JobTypeBo.cs" />
+    <Compile Include="BusinessObjects\KenJobsSession.cs" />
     <Compile Include="BusinessObjects\OrganizationBo.cs" />
     <Compile Include="BusinessObjects\ProfileBo.cs" />
     <Compile Include="BusinessObjects\StateBo.cs" />

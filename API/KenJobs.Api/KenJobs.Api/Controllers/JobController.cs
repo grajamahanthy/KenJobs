@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace KenJobs.Api.Controllers
 {
-    public class JobController : ApiController
+    public class JobController : BaseController
     {
         // GET: api/Job
         public IEnumerable<JobsModel> Get()
@@ -222,12 +222,12 @@ namespace KenJobs.Api.Controllers
             return 1;
         }
 
-
-
+        [Authorize]
         [HttpGet]
         [Route("api/Job/GetJobsByUserId/{UserId}")]
         public List<JobsModel> GetJobsByUserId(int UserId)
         {
+            KenJobsSession s = GetKenJobsSession();
             JobsContract jobsWorker = new JobsWorker();
             IEnumerable<JobBo> jobBoList = jobsWorker.GetJobsByUserId(UserId);
 

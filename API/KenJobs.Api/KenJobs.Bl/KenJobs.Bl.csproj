@@ -50,6 +50,7 @@
     <Compile Include="Contracts\JobCategoryContract.cs" />
     <Compile Include="Contracts\JobsContract.cs" />
     <Compile Include="Contracts\JobTypeContract.cs" />
+    <Compile Include="Contracts\KenJobsSessionContractor.cs" />
     <Compile Include="Contracts\OrganizationContract.cs" />
     <Compile Include="Contracts\ProfileContract.cs" />
     <Compile Include="Contracts\UserClientContract.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Workers\JobCategoryWorker.cs" />
     <Compile Include="Workers\JobsWorker.cs" />
     <Compile Include="Workers\JobTypeWorker.cs" />
+    <Compile Include="Workers\KenJobsSessionWorker.cs" />
     <Compile Include="Workers\OrganizationWorker.cs" />
     <Compile Include="Workers\ProfileWorker.cs" />
     <Compile Include="Workers\UserClientWorker.cs" />

@@ -6,6 +6,10 @@ using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using System.Web.Http.Cors;
+using KenJobs.Api.Common;
+using System.Web.Routing;
+using System.Web.Http.WebHost;
+using System.Reflection;
 
 namespace KenJobs.Api
 {
@@ -24,13 +28,19 @@ namespace KenJobs.Api
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
             // Web API routes
+            var httpControllerRouteHandler = typeof(HttpControllerRouteHandler).GetField("_instance", BindingFlags.Static | BindingFlags.NonPublic);
+
+            if (httpControllerRouteHandler != null)
+            {
+                httpControllerRouteHandler.SetValue(null, new Lazy<HttpControllerRouteHandler>(() => new SessionRouteHandler(), true));
+            }
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            //RouteTable.Routes.MapHttpRoute(
+            //    name: "DefaultApi",
+            //    routeTemplate: "api/{controller}/{id}",
+            //    defaults: new { id = RouteParameter.Optional }
+            //);
 
 
             config.Formatters.JsonFormatter.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;

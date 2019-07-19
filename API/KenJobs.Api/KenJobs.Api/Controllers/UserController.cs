@@ -14,7 +14,7 @@ using Microsoft.AspNet.Identity;
 
 namespace KenJobs.Api.Controllers
 {
-    public class UserController : ApiController
+    public class UserController : BaseController
     {
         // GET: api/User
         public IEnumerable<UserModel> Get()
