@@ -61,27 +61,9 @@ class Jobs extends React.Component<any, any>{
     }
 
     findTheJobs = (value: any) => {
-        let Servicecall = new Apiservices;
-        let Header = new Headers({ "Accept": "application/json", "Content-Type": "application/x-www-form-urlencoded" });
-
-        let responce = Servicecall.GET_CALL('JobSearch/Get', null, Header, this.displayData)
-
-        // console.log(value);
-        // fetch("http://localhost:50768/api/JobSearch/Get", {
-        //     method: "GET",
-        //     headers: {
-        //         "Accept": "application/json",
-        //         "Content-Type": "application/x-www-form-urlencoded"
-        //     },
-        //     body: null,
-        // }).then(response => {
-        //     console.log(response)
-        //     response.json().then((data) => {
-        //         this.displayData(data);
-        //     });
-        // })
-        //     .catch(error => console.log(error))
-
+        let body = new URLSearchParams();
+        let Servicecall = new Apiservices();
+        let responce = Servicecall.GET_CALL('JobSearch/Get', null, this.displayData)
 
     }
 

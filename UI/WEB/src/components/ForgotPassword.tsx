@@ -6,6 +6,7 @@ import { Row, Col } from "react-bootstrap";
 import { AppState } from "../store";
 import { connect } from 'react-redux';
 import CModal from "./util/Modal";
+import Apiservices from "./services/Apiservices";
 
 class ForgotPassword extends React.Component<any, any> {
   constructor(props: any) {
@@ -27,9 +28,9 @@ class ForgotPassword extends React.Component<any, any> {
         title: "Thank You",
         body: "Please use the link sent to your email for setting the password.",
         clickEvent: this.clickEvent,
-        buttons: [{id: 1, value: "OK"}],
+        buttons: [{ id: 1, value: "OK" }],
         showModal: false,
-        onHide: () => {this.setState({alert:{showModal: false}})}
+        onHide: () => { this.setState({ alert: { showModal: false } }) }
       }
     }
     //UI Elements State End
@@ -38,9 +39,9 @@ class ForgotPassword extends React.Component<any, any> {
 
 
   //Custom Functions Start-------------------------------------------------------------
-  clickEvent(e: any, idx: number){
-       
-   }
+  clickEvent(e: any, idx: number) {
+
+  }
   onChange = (e: any) => {
     this.setState({
       [e.target.name]: e.target.value
@@ -62,34 +63,28 @@ class ForgotPassword extends React.Component<any, any> {
         let body = new URLSearchParams();
         body.set('Email', username);
 
-        fetch("http://localhost:50768/api/User/ForgotPassword", {
-          method: "POST",
-          headers: {
-            "Accept": "application/json",
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: body
-        }).then(response => {
-          response.json().then((data) => {
-            this.setState({
-              alert: {
-                type: "success",
-                title: "Success",
-                body: "Please use the link sent to your email for setting the password.",
-                clickEvent: this.clickEvent,
-                buttons: [{id: 1, value: "Ok"}],
-                showModal: true
-              }      
-            });
-          });
-        })
-          .catch(error => console.log("There is some technical issue. Please try again later."))
+        let Servicecall = new Apiservices();
+
+
+        let url = 'User/ForgotPassword';
+        let responce = Servicecall.POST_CALL(url, body, this.Success)
       }
       else {
         console.log("Please provide your email for resetting the password.");
       }
     }
-
+  }
+  Success = () => {
+    this.setState({
+      alert: {
+        type: "success",
+        title: "Success",
+        body: "Please use the link sent to your email for setting the password.",
+        clickEvent: this.clickEvent,
+        buttons: [{ id: 1, value: "Ok" }],
+        showModal: true
+      }
+    });
   }
 
   resize() {
@@ -164,7 +159,7 @@ class ForgotPassword extends React.Component<any, any> {
                             required
                           />
                           <div className="invalid-feedback text-left">
-                           Please Enter Valid Email Id
+                            Please Enter Valid Email Id
                           </div>
 
                         </div>

@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace KenJobs.Api.Controllers
 {
+    [RoutePrefix("api/Job")]
     public class JobController : BaseController
     {
         // GET: api/Job
@@ -169,7 +170,7 @@ namespace KenJobs.Api.Controllers
         {
         }
         [HttpPost]
-        [Route("api/Job/Updatejob")]
+        [Route("Updatejob")]
         public int Updatejob(JobsModel jobModel)
         {
             JobsContract jobsWorker = new JobsWorker();
@@ -224,7 +225,7 @@ namespace KenJobs.Api.Controllers
 
         [Authorize]
         [HttpGet]
-        [Route("api/Job/GetJobsByUserId/{UserId}")]
+        [Route("GetJobsByUserId/{UserId}")]
         public List<JobsModel> GetJobsByUserId(int UserId)
         {
             KenJobsSession s = GetKenJobsSession();

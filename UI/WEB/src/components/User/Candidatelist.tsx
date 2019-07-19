@@ -1,6 +1,9 @@
 import React from "react";
 import { Pagination } from 'react-bootstrap';
 import { Link } from "react-router-dom";
+import Apiservices from "../services/Apiservices";
+const Servicecall = new Apiservices();
+
 class CandidateList extends React.Component<any, any> {
     constructor(props: any) {
         super(props)
@@ -13,19 +16,8 @@ class CandidateList extends React.Component<any, any> {
 
     componentWillMount() {
 
-        fetch("http://localhost:50768/api/Job/GetJobseekersByJobId/" + this.state.JobId, {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: null,
-        }).then(response => {
-            response.json().then((data) => {
-                this.displayData(data);
-            });
-        })
-            .catch(error => console.log(error))
+        let url = 'Job/GetJobseekersByJobId/' + this.state.JobId;
+        let responce = Servicecall.GET_CALL(url, null, this.displayData)
     }
 
     displayData = (data: any) => {

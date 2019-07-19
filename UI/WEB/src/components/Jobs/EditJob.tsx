@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router';
 //services
 import Apiservices from '../services/Apiservices';
+const Servicecall = new Apiservices();
 
 class Editjob extends React.Component<any, any>{
     constructor(props: any) {
@@ -75,75 +76,33 @@ class Editjob extends React.Component<any, any>{
             body.set('Currency', this.state.currency);
             body.set('AddressLine', this.state.AddressLine);
             body.set('Country', this.state.country);
-
-
-            // let Servicecall = new Apiservices;
-            // let Header = new Headers({ "Accept": "application/json", "Content-Type": "application/x-www-form-urlencoded" });
-
-            // let responce = Servicecall.GET_CALL('Job/Updatejob', body, Header, this.success)
-
-
-            fetch("http://localhost:50768/api/Job/Updatejob", {
-                method: "POST",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: body,
-            }).then(response => {
-                response.json().then((data) => {
-
-                });
-            })
-                .catch(error => console.log(error))
-
-
+            //service call
+            let responce = Servicecall.POST_CALL('Job/Updatejob', body, this.success)
         }
     }
     success = () => {
-        debugger;
-        alert();
         this.setState({
             redirect: true
         })
-
-
     }
     componentDidMount() {
-        fetch("http://localhost:50768/api/JobCategory", {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: null,
-        }).then(response => {
-            response.json().then((data) => {
-                this.setState({
-                    jobCategoryList: data
-                })
-            });
-        })
-            .catch(error => console.log(error))
 
-        fetch("http://localhost:50768/api/JobType", {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: null,
-        }).then(response => {
-            response.json().then((data) => {
-                this.setState({
-                    jobTypeList: data
-                })
-            });
-        })
-            .catch(error => console.log(error))
+        Servicecall.GET_CALL('JobCategory', null, this.getJobCategory)
 
-
+        Servicecall.GET_CALL('JobType', null, this.getJobType)
     }
+    getJobCategory = (data: any) => {
+        this.setState({
+            jobCategoryList: data
+        })
+    }
+
+    getJobType = (data: any) => {
+        this.setState({
+            jobTypeList: data
+        })
+    }
+
 
     changeValue = (e: any) => {
         this.setState({

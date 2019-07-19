@@ -10,6 +10,7 @@ import { AppState } from "../../store/index";
 // import { IsessionState } from "../../store/auth/types";
 import { updateSession } from "../../store/auth/actions";
 import { connect } from 'react-redux';
+import Apiservices from '../services/Apiservices';
 
 
 class Employeedashbord extends React.Component<any, any> {
@@ -35,23 +36,11 @@ class Employeedashbord extends React.Component<any, any> {
 
     componentWillMount() {
         if (this.state.loggedIn) {
+            const Servicecall = new Apiservices();
+
             let body = new URLSearchParams();
             body.set('UserId', '1');
-            fetch("http://localhost:50768/api/Job/GetJobsByUserId/1", {
-                method: "GET",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: null,
-            }).then(response => {
-                response.json().then((data) => {
-                    this.displayData(data);
-                });
-            })
-                .catch(error => console.log(error))
-
-
+            let responce = Servicecall.GET_SECURE_CALL('Job/GetJobsByUserId/1', null, this.displayData)
         }
     }
 
