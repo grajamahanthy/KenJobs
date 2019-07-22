@@ -16,7 +16,7 @@ namespace KenJobs.Api
 
             routes.MapRoute(
                 name: "Default",
-                url: "api/{controller}/{action}/{id}",
+                url: "api/{controller}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             ).RouteHandler = new SessionRouteHandler();
         }
