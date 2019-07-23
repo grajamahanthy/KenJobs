@@ -37,11 +37,11 @@ SET IDENTITY_INSERT [dbo].[Gender] OFF
 GO
 SET IDENTITY_INSERT [dbo].[JobCategory] ON 
 GO
-INSERT [dbo].[JobCategory] ([Id], [Category], [Status], [CreatedBy], [CreatedOn], [UpdatedBy], [UpdatedOn]) VALUES (2, N'Accounting', 1, N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime), N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime))
+INSERT [dbo].[JobCategory] ([Id], [Category], [Status], [CreatedBy], [CreatedOn], [UpdatedBy], [UpdatedOn]) VALUES (1, N'Accounting', 1, N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime), N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime))
 GO
-INSERT [dbo].[JobCategory] ([Id], [Category], [Status], [CreatedBy], [CreatedOn], [UpdatedBy], [UpdatedOn]) VALUES (3, N'Bank', 1, N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime), N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime))
+INSERT [dbo].[JobCategory] ([Id], [Category], [Status], [CreatedBy], [CreatedOn], [UpdatedBy], [UpdatedOn]) VALUES (2, N'Bank', 1, N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime), N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime))
 GO
-INSERT [dbo].[JobCategory] ([Id], [Category], [Status], [CreatedBy], [CreatedOn], [UpdatedBy], [UpdatedOn]) VALUES (4, N'IT', 1, N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime), N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime))
+INSERT [dbo].[JobCategory] ([Id], [Category], [Status], [CreatedBy], [CreatedOn], [UpdatedBy], [UpdatedOn]) VALUES (3, N'IT', 1, N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime), N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime))
 GO
 SET IDENTITY_INSERT [dbo].[JobCategory] OFF
 GO

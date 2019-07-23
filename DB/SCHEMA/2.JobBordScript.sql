@@ -1,86 +1,6 @@
 USE [kenjobs]
 GO
-ALTER TABLE [dbo].[User_Organization_Client] DROP CONSTRAINT [FK_User_Client_User]
-GO
-ALTER TABLE [dbo].[User_Organization_Client] DROP CONSTRAINT [FK_User_Client_Organization]
-GO
-ALTER TABLE [dbo].[User_Organization_Client] DROP CONSTRAINT [FK_User_Client_Client]
-GO
-ALTER TABLE [dbo].[User_Organization] DROP CONSTRAINT [FK_User_Organization_User]
-GO
-ALTER TABLE [dbo].[User_Organization] DROP CONSTRAINT [FK_User_Organization_Organization]
-GO
-ALTER TABLE [dbo].[User] DROP CONSTRAINT [FK_User_Gender]
-GO
-ALTER TABLE [dbo].[User] DROP CONSTRAINT [FK_User_AspNetUser]
-GO
-ALTER TABLE [dbo].[State] DROP CONSTRAINT [FK_State_Country]
-GO
-ALTER TABLE [dbo].[Profile] DROP CONSTRAINT [FK_Profile_User]
-GO
-ALTER TABLE [dbo].[Jobs] DROP CONSTRAINT [FK_Jobs_JobType]
-GO
-ALTER TABLE [dbo].[Jobs] DROP CONSTRAINT [FK_Jobs_JobCategory]
-GO
-ALTER TABLE [dbo].[Experience] DROP CONSTRAINT [FK_Experience_User]
-GO
-ALTER TABLE [dbo].[EducationalQualification] DROP CONSTRAINT [FK_EducationalQualification_User]
-GO
-ALTER TABLE [dbo].[AppliedJobs] DROP CONSTRAINT [FK_AppliedJobs_User]
-GO
-ALTER TABLE [dbo].[AppliedJobs] DROP CONSTRAINT [FK_AppliedJobs_Jobs]
-GO
-ALTER TABLE [dbo].[AppliedJobs] DROP CONSTRAINT [FK_AppliedJobs_Client]
-GO
-/****** Object:  Table [dbo].[User_Organization_Client]    Script Date: 06-07-2019 16:37:05 ******/
-DROP TABLE [dbo].[User_Organization_Client]
-GO
-/****** Object:  Table [dbo].[User_Organization]    Script Date: 06-07-2019 16:37:05 ******/
-DROP TABLE [dbo].[User_Organization]
-GO
-/****** Object:  Table [dbo].[User]    Script Date: 06-07-2019 16:37:05 ******/
-DROP TABLE [dbo].[User]
-GO
-/****** Object:  Table [dbo].[State]    Script Date: 06-07-2019 16:37:05 ******/
-DROP TABLE [dbo].[State]
-GO
-/****** Object:  Table [dbo].[Profile]    Script Date: 06-07-2019 16:37:05 ******/
-DROP TABLE [dbo].[Profile]
-GO
-/****** Object:  Table [dbo].[Organization]    Script Date: 06-07-2019 16:37:05 ******/
-DROP TABLE [dbo].[Organization]
-GO
-/****** Object:  Table [dbo].[JobType]    Script Date: 06-07-2019 16:37:05 ******/
-DROP TABLE [dbo].[JobType]
-GO
-/****** Object:  Table [dbo].[Jobs]    Script Date: 06-07-2019 16:37:05 ******/
-DROP TABLE [dbo].[Jobs]
-GO
-/****** Object:  Table [dbo].[JobCategory]    Script Date: 06-07-2019 16:37:05 ******/
-DROP TABLE [dbo].[JobCategory]
-GO
-/****** Object:  Table [dbo].[Gender]    Script Date: 06-07-2019 16:37:05 ******/
-DROP TABLE [dbo].[Gender]
-GO
-/****** Object:  Table [dbo].[Experience]    Script Date: 06-07-2019 16:37:05 ******/
-DROP TABLE [dbo].[Experience]
-GO
-/****** Object:  Table [dbo].[EducationalQualification]    Script Date: 06-07-2019 16:37:05 ******/
-DROP TABLE [dbo].[EducationalQualification]
-GO
-/****** Object:  Table [dbo].[Currency]    Script Date: 06-07-2019 16:37:05 ******/
-DROP TABLE [dbo].[Currency]
-GO
-/****** Object:  Table [dbo].[Country]    Script Date: 06-07-2019 16:37:05 ******/
-DROP TABLE [dbo].[Country]
-GO
-/****** Object:  Table [dbo].[Client]    Script Date: 06-07-2019 16:37:05 ******/
-DROP TABLE [dbo].[Client]
-GO
-/****** Object:  Table [dbo].[AppliedJobs]    Script Date: 06-07-2019 16:37:05 ******/
-DROP TABLE [dbo].[AppliedJobs]
-GO
-/****** Object:  Table [dbo].[AppliedJobs]    Script Date: 06-07-2019 16:37:05 ******/
+/****** Object:  Table [dbo].[AppliedJobs]    Script Date: 23-07-2019 18:50:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -90,18 +10,18 @@ CREATE TABLE [dbo].[AppliedJobs](
 	[User_Id] [int] NOT NULL,
 	[Client_Id] [int] NOT NULL,
 	[Job_Id] [int] NOT NULL,
-	[AppliedDate] [datetime] NOT NULL,
+	[AppliedDate] [datetime2](7) NOT NULL,
 	[CreatedBy] [nvarchar](100) NOT NULL,
-	[CreatedOn] [datetime] NOT NULL,
+	[CreatedOn] [datetime2](7) NOT NULL,
 	[UpdatedBy] [nvarchar](100) NOT NULL,
-	[UpdatedOn] [datetime] NOT NULL,
+	[UpdatedOn] [datetime2](7) NOT NULL,
  CONSTRAINT [PK_AppliedJobs] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Client]    Script Date: 06-07-2019 16:37:06 ******/
+/****** Object:  Table [dbo].[Client]    Script Date: 23-07-2019 18:50:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -117,16 +37,16 @@ CREATE TABLE [dbo].[Client](
 	[Status] [smallint] NOT NULL,
 	[Logo] [nvarchar](50) NOT NULL,
 	[CreatedBy] [nvarchar](100) NOT NULL,
-	[CreatedOn] [datetime] NOT NULL,
+	[CreatedOn] [datetime2](7) NOT NULL,
 	[UpdatedBy] [nvarchar](100) NOT NULL,
-	[UpdatedOn] [datetime] NOT NULL,
+	[UpdatedOn] [datetime2](7) NOT NULL,
  CONSTRAINT [PK_Client] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Country]    Script Date: 06-07-2019 16:37:06 ******/
+/****** Object:  Table [dbo].[Country]    Script Date: 23-07-2019 18:50:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -136,16 +56,16 @@ CREATE TABLE [dbo].[Country](
 	[Name] [nvarchar](100) NOT NULL,
 	[Status] [smallint] NOT NULL,
 	[CreatedBy] [nvarchar](100) NOT NULL,
-	[CreatedOn] [datetime] NOT NULL,
+	[CreatedOn] [datetime2](7) NOT NULL,
 	[UpdatedBy] [nvarchar](100) NOT NULL,
-	[UpdatedOn] [datetime] NOT NULL,
+	[UpdatedOn] [datetime2](7) NOT NULL,
  CONSTRAINT [PK_Country] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Currency]    Script Date: 06-07-2019 16:37:06 ******/
+/****** Object:  Table [dbo].[Currency]    Script Date: 23-07-2019 18:50:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -162,7 +82,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[EducationalQualification]    Script Date: 06-07-2019 16:37:06 ******/
+/****** Object:  Table [dbo].[EducationalQualification]    Script Date: 23-07-2019 18:50:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -175,16 +95,16 @@ CREATE TABLE [dbo].[EducationalQualification](
 	[YearOfPass] [nvarchar](50) NOT NULL,
 	[Percentage] [float] NOT NULL,
 	[CreatedBy] [nvarchar](100) NOT NULL,
-	[CreatedOn] [datetime] NOT NULL,
+	[CreatedOn] [datetime2](7) NOT NULL,
 	[UpdatedBy] [nvarchar](100) NOT NULL,
-	[UpdatedOn] [datetime] NOT NULL,
+	[UpdatedOn] [datetime2](7) NOT NULL,
  CONSTRAINT [PK_EducationalQualification] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Experience]    Script Date: 06-07-2019 16:37:06 ******/
+/****** Object:  Table [dbo].[Experience]    Script Date: 23-07-2019 18:50:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -199,16 +119,16 @@ CREATE TABLE [dbo].[Experience](
 	[EndDate] [datetime] NOT NULL,
 	[Description] [nvarchar](max) NULL,
 	[CreatedBy] [nvarchar](100) NOT NULL,
-	[CreatedOn] [datetime] NOT NULL,
+	[CreatedOn] [datetime2](7) NOT NULL,
 	[UpdatedBy] [nvarchar](100) NOT NULL,
-	[UpdatedOn] [datetime] NOT NULL,
+	[UpdatedOn] [datetime2](7) NOT NULL,
  CONSTRAINT [PK_Experience] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Gender]    Script Date: 06-07-2019 16:37:06 ******/
+/****** Object:  Table [dbo].[Gender]    Script Date: 23-07-2019 18:50:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -217,16 +137,16 @@ CREATE TABLE [dbo].[Gender](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](20) NOT NULL,
 	[CreatedBy] [nvarchar](100) NOT NULL,
-	[CreatedOn] [datetime] NOT NULL,
+	[CreatedOn] [datetime2](7) NOT NULL,
 	[UpdatedBy] [nvarchar](100) NOT NULL,
-	[UpdatedOn] [datetime] NOT NULL,
+	[UpdatedOn] [datetime2](7) NOT NULL,
  CONSTRAINT [PK_Gender] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[JobCategory]    Script Date: 06-07-2019 16:37:06 ******/
+/****** Object:  Table [dbo].[JobCategory]    Script Date: 23-07-2019 18:50:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -236,16 +156,16 @@ CREATE TABLE [dbo].[JobCategory](
 	[Category] [nvarchar](50) NOT NULL,
 	[Status] [smallint] NOT NULL,
 	[CreatedBy] [nvarchar](100) NOT NULL,
-	[CreatedOn] [datetime] NOT NULL,
+	[CreatedOn] [datetime2](7) NOT NULL,
 	[UpdatedBy] [nvarchar](100) NOT NULL,
-	[UpdatedOn] [datetime] NOT NULL,
+	[UpdatedOn] [datetime2](7) NOT NULL,
  CONSTRAINT [PK_JobCategory] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Jobs]    Script Date: 06-07-2019 16:37:06 ******/
+/****** Object:  Table [dbo].[Jobs]    Script Date: 23-07-2019 18:50:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -260,15 +180,15 @@ CREATE TABLE [dbo].[Jobs](
 	[Qualification] [nvarchar](100) NULL,
 	[State] [nvarchar](200) NULL,
 	[City] [nvarchar](200) NULL,
-	[PostDate] [datetime] NOT NULL,
+	[PostDate] [datetime2](7) NOT NULL,
 	[Status] [smallint] NOT NULL,
 	[PostingStatus] [smallint] NOT NULL,
 	[JobType_Id] [int] NOT NULL,
 	[Category_id] [int] NOT NULL,
 	[CreatedBy] [nvarchar](100) NOT NULL,
-	[CreatedOn] [datetime] NOT NULL,
+	[CreatedOn] [datetime2](7) NOT NULL,
 	[UpdatedBy] [nvarchar](100) NOT NULL,
-	[UpdatedOn] [datetime] NOT NULL,
+	[UpdatedOn] [datetime2](7) NOT NULL,
 	[MinExperience] [float] NULL,
 	[Skills] [nvarchar](max) NULL,
 	[MaxSalary] [float] NULL,
@@ -284,26 +204,26 @@ CREATE TABLE [dbo].[Jobs](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[JobType]    Script Date: 06-07-2019 16:37:06 ******/
+/****** Object:  Table [dbo].[JobType]    Script Date: 23-07-2019 18:50:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[JobType](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[JobType] [nvarchar](30) NOT NULL,
+	[Name] [nvarchar](30) NOT NULL,
 	[Status] [smallint] NOT NULL,
 	[CreatedBy] [nvarchar](100) NOT NULL,
-	[CreatedOn] [datetime] NOT NULL,
+	[CreatedOn] [datetime2](7) NOT NULL,
 	[UpdatedBy] [nvarchar](100) NOT NULL,
-	[UpdatedOn] [datetime] NOT NULL,
+	[UpdatedOn] [datetime2](7) NOT NULL,
  CONSTRAINT [PK_JobType] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Organization]    Script Date: 06-07-2019 16:37:06 ******/
+/****** Object:  Table [dbo].[Organization]    Script Date: 23-07-2019 18:50:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -319,23 +239,23 @@ CREATE TABLE [dbo].[Organization](
 	[Status] [smallint] NULL,
 	[Logo] [nvarchar](50) NULL,
 	[CreatedBy] [nvarchar](100) NULL,
-	[CreatedOn] [datetime] NULL,
+	[CreatedOn] [datetime2](7) NOT NULL,
 	[UpdatedBy] [nvarchar](100) NULL,
-	[UpdatedOn] [datetime] NULL,
+	[UpdatedOn] [datetime2](7) NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Profile]    Script Date: 06-07-2019 16:37:06 ******/
+/****** Object:  Table [dbo].[Profile]    Script Date: 23-07-2019 18:50:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Profile](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[USer_Id] [int] NOT NULL,
+	[User_Id] [int] NOT NULL,
 	[Resume] [nvarchar](100) NOT NULL,
 	[skills] [nvarchar](200) NOT NULL,
 	[TotalExperiance] [smallint] NOT NULL,
@@ -345,16 +265,16 @@ CREATE TABLE [dbo].[Profile](
 	[ExpectedSalary] [int] NOT NULL,
 	[Languages] [nvarchar](200) NOT NULL,
 	[CreatedBy] [nvarchar](100) NOT NULL,
-	[CreatedOn] [datetime] NOT NULL,
+	[CreatedOn] [datetime2](7) NOT NULL,
 	[UpdatedBy] [nvarchar](100) NOT NULL,
-	[UpdatedOn] [datetime] NOT NULL,
+	[UpdatedOn] [datetime2](7) NOT NULL,
  CONSTRAINT [PK_Profile] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[State]    Script Date: 06-07-2019 16:37:06 ******/
+/****** Object:  Table [dbo].[State]    Script Date: 23-07-2019 18:50:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -365,16 +285,16 @@ CREATE TABLE [dbo].[State](
 	[Name] [nvarchar](100) NOT NULL,
 	[Status] [smallint] NOT NULL,
 	[CreatedBy] [nvarchar](100) NOT NULL,
-	[CreatedOn] [datetime] NOT NULL,
+	[CreatedOn] [datetime2](7) NOT NULL,
 	[UpdatedBy] [nvarchar](100) NOT NULL,
-	[UpdatedOn] [datetime] NOT NULL,
+	[UpdatedOn] [datetime2](7) NOT NULL,
  CONSTRAINT [PK_State] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[User]    Script Date: 06-07-2019 16:37:06 ******/
+/****** Object:  Table [dbo].[User]    Script Date: 23-07-2019 18:50:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -389,20 +309,22 @@ CREATE TABLE [dbo].[User](
 	[Gender_Id] [int] NOT NULL,
 	[Status] [smallint] NOT NULL,
 	[CreatedBy] [nvarchar](100) NULL,
-	[CreatedOn] [datetime] NULL,
+	[CreatedOn] [datetime2](7) NOT NULL,
 	[UpdatedBy] [nvarchar](100) NULL,
-	[UpdatedOn] [datetime] NULL,
+	[UpdatedOn] [datetime2](7) NOT NULL,
 	[AspNetUser_Id] [nvarchar](128) NOT NULL,
 	[PhoneNumber] [nvarchar](max) NULL,
 	[Email] [nvarchar](256) NULL,
 	[IsIndividual] [smallint] NULL,
+	[EmailActivationCode] [nvarchar](400) NULL,
+	[ResetPasswordCode] [nvarchar](400) NULL,
  CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[User_Organization]    Script Date: 06-07-2019 16:37:06 ******/
+/****** Object:  Table [dbo].[User_Organization]    Script Date: 23-07-2019 18:50:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -412,16 +334,16 @@ CREATE TABLE [dbo].[User_Organization](
 	[User_Id] [int] NOT NULL,
 	[Organization_Id] [int] NOT NULL,
 	[CreatedBy] [nvarchar](100) NOT NULL,
-	[CreatedOn] [datetime] NOT NULL,
+	[CreatedOn] [datetime2](7) NOT NULL,
 	[UpdatedBy] [nvarchar](100) NOT NULL,
-	[UpdatedOn] [datetime] NOT NULL,
+	[UpdatedOn] [datetime2](7) NOT NULL,
  CONSTRAINT [PK_User_Organization] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[User_Organization_Client]    Script Date: 06-07-2019 16:37:06 ******/
+/****** Object:  Table [dbo].[User_Organization_Client]    Script Date: 23-07-2019 18:50:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -431,9 +353,9 @@ CREATE TABLE [dbo].[User_Organization_Client](
 	[User_Id] [int] NOT NULL,
 	[Client_Id] [int] NOT NULL,
 	[CreatedBy] [nvarchar](100) NOT NULL,
-	[CreatedOn] [datetime] NOT NULL,
+	[CreatedOn] [datetime2](7) NOT NULL,
 	[UpdatedBy] [nvarchar](100) NOT NULL,
-	[UpdatedOn] [datetime] NOT NULL,
+	[UpdatedOn] [datetime2](7) NOT NULL,
 	[Organization_Id] [int] NULL,
  CONSTRAINT [PK_User_Client] PRIMARY KEY CLUSTERED 
 (
@@ -476,7 +398,7 @@ REFERENCES [dbo].[JobType] ([Id])
 GO
 ALTER TABLE [dbo].[Jobs] CHECK CONSTRAINT [FK_Jobs_JobType]
 GO
-ALTER TABLE [dbo].[Profile]  WITH CHECK ADD  CONSTRAINT [FK_Profile_User] FOREIGN KEY([USer_Id])
+ALTER TABLE [dbo].[Profile]  WITH CHECK ADD  CONSTRAINT [FK_Profile_User] FOREIGN KEY([User_Id])
 REFERENCES [dbo].[User] ([Id])
 GO
 ALTER TABLE [dbo].[Profile] CHECK CONSTRAINT [FK_Profile_User]

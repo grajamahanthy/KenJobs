@@ -1,32 +1,6 @@
 USE [kenjobs]
 GO
-ALTER TABLE [dbo].[AspNetUserRoles] DROP CONSTRAINT [FK_dbo.AspNetUserRoles_dbo.AspNetUsers_UserId]
-GO
-ALTER TABLE [dbo].[AspNetUserRoles] DROP CONSTRAINT [FK_dbo.AspNetUserRoles_dbo.AspNetRoles_RoleId]
-GO
-ALTER TABLE [dbo].[AspNetUserLogins] DROP CONSTRAINT [FK_dbo.AspNetUserLogins_dbo.AspNetUsers_UserId]
-GO
-ALTER TABLE [dbo].[AspNetUserClaims] DROP CONSTRAINT [FK_dbo.AspNetUserClaims_dbo.AspNetUsers_UserId]
-GO
-/****** Object:  Table [dbo].[C__MigrationHistory]    Script Date: 06-07-2019 16:39:00 ******/
-DROP TABLE [dbo].[C__MigrationHistory]
-GO
-/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 06-07-2019 16:39:00 ******/
-DROP TABLE [dbo].[AspNetUsers]
-GO
-/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 06-07-2019 16:39:00 ******/
-DROP TABLE [dbo].[AspNetUserRoles]
-GO
-/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 06-07-2019 16:39:00 ******/
-DROP TABLE [dbo].[AspNetUserLogins]
-GO
-/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 06-07-2019 16:39:00 ******/
-DROP TABLE [dbo].[AspNetUserClaims]
-GO
-/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 06-07-2019 16:39:00 ******/
-DROP TABLE [dbo].[AspNetRoles]
-GO
-/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 06-07-2019 16:39:00 ******/
+/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 23-07-2019 18:48:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -40,7 +14,7 @@ CREATE TABLE [dbo].[AspNetRoles](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 06-07-2019 16:39:00 ******/
+/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 23-07-2019 18:48:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -56,7 +30,7 @@ CREATE TABLE [dbo].[AspNetUserClaims](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 06-07-2019 16:39:00 ******/
+/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 23-07-2019 18:48:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -73,7 +47,7 @@ CREATE TABLE [dbo].[AspNetUserLogins](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 06-07-2019 16:39:00 ******/
+/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 23-07-2019 18:48:18 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -88,7 +62,7 @@ CREATE TABLE [dbo].[AspNetUserRoles](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 06-07-2019 16:39:00 ******/
+/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 23-07-2019 18:48:18 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -112,7 +86,7 @@ CREATE TABLE [dbo].[AspNetUsers](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[C__MigrationHistory]    Script Date: 06-07-2019 16:39:00 ******/
+/****** Object:  Table [dbo].[C__MigrationHistory]    Script Date: 23-07-2019 18:48:18 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
