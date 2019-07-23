@@ -11,6 +11,7 @@ import { updateSession } from "../store/auth/actions";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { connect } from 'react-redux';
 import { Tabs, Tab, Row, Col } from "react-bootstrap";
+import Apiservices from "./services/Apiservices";
 // import { ValidationForm, TextInput, TextInputGroup, FileInput, SelectGroup, Checkbox } from "react-bootstrap4-form-validation";
 
 
@@ -69,21 +70,10 @@ class Login extends React.Component<any, any> {
         this.setState({
           loading: true
         })
-        fetch("http://localhost:50768/token", {
-          method: "POST",
-          headers: {
-            "Accept": "application/json",
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: body
-        }).then(response => {
-          response.json().then((data) => {
+        const Servicecall = new Apiservices();
 
-            this.displaydata(data)
+        let response = Servicecall.LOGIN_CALL("token", body, this.displaydata)
 
-          });
-        })
-          .catch(error => this.displayError(error))
       }
     }
   }

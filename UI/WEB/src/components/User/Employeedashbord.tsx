@@ -18,6 +18,7 @@ class Employeedashbord extends React.Component<any, any> {
         super(props);
         this.state = {
             ishaveJobs: false,
+            showContent: false,
             jobsData: []
         }
         const token = this.props.system.token
@@ -40,7 +41,9 @@ class Employeedashbord extends React.Component<any, any> {
 
             let body = new URLSearchParams();
             body.set('UserId', '1');
-            let responce = Servicecall.GET_SECURE_CALL('Job/GetJobsByUserId/1', null, this.displayData)
+
+            //Get jobs bu user id, User id is assigned by server 
+            let responce = Servicecall.GET_SECURE_CALL('Job/GetJobsByUserId', null, this.displayData)
         }
     }
 
@@ -49,6 +52,7 @@ class Employeedashbord extends React.Component<any, any> {
         this.setState({
             ishaveJobs: data.length > 0 ? true : false,
             jobsData: data,
+            showContent: true
         })
     }
 
@@ -58,8 +62,10 @@ class Employeedashbord extends React.Component<any, any> {
             return <Redirect to="/Login/employer" />
         }
 
+
+
         let jobslist;
-        if (this.state.ishaveJobs) {
+        if (this.state.ishaveJobs && this.state.showContent) {
             jobslist = this.state.jobsData.map((item: any, key: any) =>
                 <div className="col-sm-4 border px-4 py-4 shadow-sm" key={key}>
                     <div className="">
@@ -91,11 +97,17 @@ class Employeedashbord extends React.Component<any, any> {
                     </div>
                 </div>
             )
-        } else {
+        } else if (this.state.showContent) {
             jobslist =
                 <div className="col-sm-12  px-4 py-4 ">
                     <div className="row">
                         <h4>!Oops... No Data Found.</h4>
+                    </div></div>
+        } else if (!this.state.showContent) {
+            jobslist =
+                <div className="col-sm-12  px-4 py-4 ">
+                    <div className="row">
+                        <h4>Loading....!</h4>
                     </div></div>
         }
 

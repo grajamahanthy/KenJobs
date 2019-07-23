@@ -11,9 +11,10 @@ using KenJobs.Api.Models;
 
 namespace KenJobs.Api.Controllers
 {
-    public class JobTypeController : ApiController
+    public class JobTypeController : BaseController
     {
         // GET: api/JobType
+        [Authorize]
         public IEnumerable<JobTypeModel> Get()
         {
             JobTypeContract jobTypeContract = new JobTypeWorker();

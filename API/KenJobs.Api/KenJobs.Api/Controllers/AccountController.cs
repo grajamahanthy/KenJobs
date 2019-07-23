@@ -158,7 +158,7 @@ namespace KenJobs.Api.Controllers
                 return GetErrorResult(result);
             }
 
-            return Ok();
+            return Ok(1);
         }
 
         // POST api/Account/SetPassword

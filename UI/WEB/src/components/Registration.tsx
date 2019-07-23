@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AppState } from "../store/index";
 import { connect } from 'react-redux';
 import { updateSession } from "../store/auth/actions";
+import Apiservices from './services/Apiservices';
 
 
 class Registration extends React.Component<any, any> {
@@ -58,30 +59,20 @@ class Registration extends React.Component<any, any> {
                 body.set('UserRoleId', this.state.userRoleId);
                 body.set('grant_type', "password");
 
-                fetch("http://localhost:50768/api/Account/Register", {
-                    method: "POST",
-                    headers: {
-                        "Accept": "application/json",
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: body
-                }).then(response => {
-                    this.setState({
-                        redirect: true
-                    })
+                const Servicecall = new Apiservices();
 
-                    // response.json().then((data) => {
-                    // });
-                })
-                    .catch(error => console.log("Error")
-                    )
+                let responce = Servicecall.POST_CALL('Account/Register', body, this.success)
+
+
             } else {
                 return false;
             }
-
-
         }
-
+    }
+    success = (data: any) => {
+        this.setState({
+            redirect: true
+        })
     }
     onChange = (e: any) => {
         this.setState({
@@ -99,17 +90,17 @@ class Registration extends React.Component<any, any> {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.updateSession({
-            appProps: {showNav : false}
-          });
+            appProps: { showNav: false }
+        });
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.props.updateSession({
-          appProps: {showNav : true}
+            appProps: { showNav: true }
         });
-      }
+    }
 
     componentWillReceiveProps(nextProps: any) {
         if (nextProps === "jobseeker" || nextProps === "employer")
@@ -176,11 +167,11 @@ class Registration extends React.Component<any, any> {
                 <Col className="h-100 d-table">
                     <div className="text-center d-table-cell align-middle">
                         <div className="mb-5" style={styles.userFriendlyNav}>
-                    
+
                             <Link to="/" className="mr-5" style={styles.roundedCorners}>Home</Link>
-                            {this.state.loginType == "employer" ? 
-                            <Link to="/" className=" mr-5" style={styles.roundedCorners}>Post Job</Link>
-                            : <Link to="/" className="mr-5" style={styles.roundedCorners}>Search for Jobs</Link>}
+                            {this.state.loginType == "employer" ?
+                                <Link to="/" className=" mr-5" style={styles.roundedCorners}>Post Job</Link>
+                                : <Link to="/" className="mr-5" style={styles.roundedCorners}>Search for Jobs</Link>}
                         </div>
                         <div id="container" className="pt-5">
                             <h4 className="text-uppercase  mt-5">{'Register as ' + this.state.loginType}</h4>
@@ -340,24 +331,23 @@ class Registration extends React.Component<any, any> {
     }
 }
 
-  const styles = {
+const styles = {
     userFriendlyNav: {
-      position: "absolute",
-      top: "20px",
-      right: "20px"
+        position: "absolute",
+        top: "20px",
+        right: "20px"
     } as CSSProperties,
     roundedCorners: {
-      borderRadius: "50px"
+        borderRadius: "50px"
     } as CSSProperties
-  
-  };
 
-  const mapStateToProps = (state: AppState) => ({
+};
+
+const mapStateToProps = (state: AppState) => ({
     system: state.system
-  });
-  
-  export default connect(
+});
+
+export default connect(
     mapStateToProps,
     { updateSession }
-  )(Registration)
-  
+)(Registration)

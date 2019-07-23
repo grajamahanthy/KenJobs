@@ -77,7 +77,7 @@ class Editjob extends React.Component<any, any>{
             body.set('AddressLine', this.state.AddressLine);
             body.set('Country', this.state.country);
             //service call
-            let responce = Servicecall.POST_CALL('Job/Updatejob', body, this.success)
+            let responce = Servicecall.POST_SECURE_CALL('Job/Updatejob', body, this.success)
         }
     }
     success = () => {
@@ -87,9 +87,9 @@ class Editjob extends React.Component<any, any>{
     }
     componentDidMount() {
 
-        Servicecall.GET_CALL('JobCategory', null, this.getJobCategory)
+        Servicecall.GET_SECURE_CALL('JobCategory', null, this.getJobCategory)
 
-        Servicecall.GET_CALL('JobType', null, this.getJobType)
+        Servicecall.GET_SECURE_CALL('JobType', null, this.getJobType)
     }
     getJobCategory = (data: any) => {
         this.setState({

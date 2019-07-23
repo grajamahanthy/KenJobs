@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 
 namespace KenJobs.Api.Controllers
 {
-    [RoutePrefix("api/Job")]
     public class JobController : BaseController
     {
         // GET: api/Job
+
         public IEnumerable<JobsModel> Get()
         {
             JobsContract Jobworker = new JobsWorker();
@@ -94,12 +94,17 @@ namespace KenJobs.Api.Controllers
         }
 
         // POST: api/Job
-        public async Task<IHttpActionResult> Post(JobsModel jobModel)
+        [Authorize]
+        [HttpPost]
+        [Route("api/Job")]
+        public IHttpActionResult Post(JobsModel jobModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            KenJobsSession s = GetKenJobsSession();
+            JobsContract Jobworker = new JobsWorker();
 
             JobBo jobBo = new JobBo();
 
@@ -119,15 +124,14 @@ namespace KenJobs.Api.Controllers
             jobBo.MaxSalary = jobModel.MaxSalary;
             jobBo.MinExperience = jobModel.MinExperience;
             jobBo.MaxExperience = jobModel.MaxExperience;
-            jobBo.User_Id = jobModel.User_Id;
+            jobBo.User_Id = s.User.Id;
             jobBo.ClientName = jobModel.ClientName;
             jobBo.Currency = jobModel.Currency;
             jobBo.Country = jobModel.Country;
 
-            JobsContract Jobworker = new JobsWorker();
              Jobworker.PostJob(jobBo);
 
-            return Ok();
+            return Ok(1);
         }
 
         // PUT: api/Job/5
@@ -162,15 +166,17 @@ namespace KenJobs.Api.Controllers
 
             Jobworker.UpdateJob(id, jobBo);
 
-            return Ok();
+            return Ok(1);
         }
 
         // DELETE: api/Job/5
         public void Delete(int id)
         {
         }
+
+        [Authorize]
         [HttpPost]
-        [Route("Updatejob")]
+        [Route("api/Job/Updatejob")]
         public int Updatejob(JobsModel jobModel)
         {
             JobsContract jobsWorker = new JobsWorker();
@@ -225,12 +231,12 @@ namespace KenJobs.Api.Controllers
 
         [Authorize]
         [HttpGet]
-        [Route("GetJobsByUserId/{UserId}")]
-        public List<JobsModel> GetJobsByUserId(int UserId)
+        [Route("api/Job/GetJobsByUserId")]
+        public List<JobsModel> GetJobsByUserId()
         {
             KenJobsSession s = GetKenJobsSession();
             JobsContract jobsWorker = new JobsWorker();
-            IEnumerable<JobBo> jobBoList = jobsWorker.GetJobsByUserId(UserId);
+            IEnumerable<JobBo> jobBoList = jobsWorker.GetJobsByUserId(s.User.Id);
 
             List<JobsModel> jobModelList = new List<JobsModel>();
 
@@ -284,6 +290,7 @@ namespace KenJobs.Api.Controllers
             return jobModelList;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("api/Job/GetJobseekersByJobId/{JobId}")]
         public IEnumerable<UserProfileModel> GetJobseekersByJobId(int JobId)
@@ -317,6 +324,8 @@ namespace KenJobs.Api.Controllers
             return userProfileModelList;
 
         }
+
+
         public List<ProfileModel> profileModelMapper(List<ProfileBo> profileBoList)
         {
             List<ProfileModel> profileModlList = new List<ProfileModel>();

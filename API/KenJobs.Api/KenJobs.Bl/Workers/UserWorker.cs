@@ -35,11 +35,23 @@ namespace KenJobs.Bl.Workers
             aspnetUserBo.EmailConfirmed = aspnetUser.EmailConfirmed;
 
             aspnetUserBo.AspNetRoles = new List<AspNetRoleBo>();
-            aspnetUserBo.AspNetRoles.Add(new AspNetRoleBo()
-                                    {
-                                        Id = aspnetUser.AspNetRoles.ToList()[0].Id,
-                                        Name = aspnetUser.AspNetRoles.ToList()[0].Name
-                                    });
+
+            if (aspnetUserBo.AspNetRoles.Count > 0)
+            {
+                aspnetUserBo.AspNetRoles.Add(new AspNetRoleBo()
+                {
+                    Id = aspnetUser.AspNetRoles.ToList()[0].Id,
+                    Name = aspnetUser.AspNetRoles.ToList()[0].Name
+                });
+            }
+            else
+            {
+                aspnetUserBo.AspNetRoles.Add(new AspNetRoleBo()
+                {
+                    Id = "1",
+                    Name = "JobSeeker"
+                });
+            }
 
             return aspnetUserBo;
 

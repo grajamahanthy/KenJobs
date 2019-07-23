@@ -17,6 +17,7 @@ namespace KenJobs.Api.Controllers
     public class UserController : BaseController
     {
         // GET: api/User
+        [Authorize]
         public IEnumerable<UserModel> Get()
         {
             UserContract userWorker = new UserWorker();
@@ -44,6 +45,7 @@ namespace KenJobs.Api.Controllers
         }
 
         // GET: api/User/5
+        [Authorize]
         public UserProfileModel Get(string id)
         {
             UserContract userWorker = new UserWorker();
@@ -85,6 +87,7 @@ namespace KenJobs.Api.Controllers
         public void Delete(int id)
         {
         }
+
 
         public List<ProfileModel> profileModelMapper(List<ProfileBo> profileBoList)
         {

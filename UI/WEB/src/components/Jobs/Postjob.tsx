@@ -3,7 +3,6 @@ import { Redirect } from 'react-router';
 //services
 import Apiservices from '../services/Apiservices';
 
-const Servicecall = new Apiservices();
 
 class Postjob extends React.Component<any, any> {
     constructor(props: any) {
@@ -26,7 +25,7 @@ class Postjob extends React.Component<any, any> {
             country: '',
             State: '',
             city: '',
-            status: '0',
+            status: 0,
             PostingStatus: '',
             jobCategoryList: [],
             jobTypeList: [],
@@ -57,8 +56,9 @@ class Postjob extends React.Component<any, any> {
 
             this.success();
             let Jobs = this.state;
+            console.log(Jobs);
             let body = new URLSearchParams();
-            body.set('Client_Id', '');
+            // body.set('Client_Id', '');
             body.set('ClientName', Jobs.clientName);
             body.set('JobTitle', Jobs.jobTitle);
             body.set('Description', Jobs.jobDescription);
@@ -76,13 +76,13 @@ class Postjob extends React.Component<any, any> {
             body.set('Skills', Jobs.keySkills);
             body.set('PostingStatus', '1');
             body.set('Status', Jobs.status);
-            body.set('User_Id', '1');
+            // body.set('User_Id', '1'); //userId is assigning from server side
             body.set('Currency', Jobs.currency);
             body.set('Country', Jobs.country);
 
             let Servicecall = new Apiservices();
 
-            let responce = Servicecall.POST_CALL('JobSearch', body, this.success)
+            let responce = Servicecall.POST_SECURE_CALL('Job', body, this.success)
 
         }
     }
@@ -95,15 +95,20 @@ class Postjob extends React.Component<any, any> {
 
     }
     changeValue = (e: any) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
+        if (e.target.name != "status")
+            this.setState({
+                [e.target.name]: e.target.value
+            });
+        else
+            this.setState({
+                status: (this.state.status == 0 ? 1 : 0)
+            });
     }
 
     componentDidMount() {
-        Servicecall.GET_CALL('JobCategory', null, this.getJobCategory)
-        Servicecall.GET_CALL('JobType', null, this.getJobType)
-
+        const Servicecall = new Apiservices();
+        Servicecall.GET_SECURE_CALL('JobType', null, this.getJobType)
+        Servicecall.GET_SECURE_CALL('JobCategory', null, this.getJobCategory)
     }
     getJobCategory = (data: any) => {
         this.setState({
@@ -118,6 +123,7 @@ class Postjob extends React.Component<any, any> {
     }
 
     render() {
+        console.log(this.state.status);
         if (this.state.redirect) {
             return <Redirect to={"/recdash"} />;
         }
@@ -167,8 +173,11 @@ class Postjob extends React.Component<any, any> {
                                         </div>
                                         <div className="form-group">
                                             <div className="custom-control custom-switch">
-                                                <input type="checkbox" name="status" value={(this.state.status == 0) ? '1' : '0'} defaultChecked={this.state.status} onChange={this.changeValue} className="custom-control-input" id="switch1" />
-                                                <label className="custom-control-label" htmlFor="switch1">{(this.state.status == 0) ? 'In Active' : 'Active'}</label>
+                                                <input type="checkbox" name="status"
+                                                    value='0'
+                                                    defaultChecked={this.state.status}
+                                                    onChange={this.changeValue} className="custom-control-input" id="switch1" />
+                                                <label className="custom-control-label" htmlFor="switch1">{this.state.status == 0 ? 'Inactive' : 'Active'}</label>
                                             </div>
                                         </div>
                                         <div className="form-group">

@@ -10,6 +10,7 @@ class CandidateList extends React.Component<any, any> {
         this.state = {
             JobId: props.location.state.JobId,
             haveCandidate: false,
+            showContent: false,
             Candidatedata: []
         }
     }
@@ -17,20 +18,20 @@ class CandidateList extends React.Component<any, any> {
     componentWillMount() {
 
         let url = 'Job/GetJobseekersByJobId/' + this.state.JobId;
-        let responce = Servicecall.GET_CALL(url, null, this.displayData)
+        let responce = Servicecall.GET_SECURE_CALL(url, null, this.displayData)
     }
 
     displayData = (data: any) => {
         this.setState({
             haveCandidate: data.length > 0 ? true : false,
-            Candidatedata: data
+            Candidatedata: data,
+            showContent: true
         })
-
     }
     render() {
         let Candidatelist;
         let Pagenation;
-        if (this.state.haveCandidate) {
+        if (this.state.haveCandidate && this.state.showContent) {
             Candidatelist = this.state.Candidatedata.map((item: any, key: any) =>
 
                 <div className="col-md-6 border  my-1 p-3">
@@ -80,16 +81,21 @@ class CandidateList extends React.Component<any, any> {
                 <Pagination.Last />
             </Pagination>
 
-        } else {
+        } else if (this.state.showContent) {
             Candidatelist =
                 <div className="col-md-6   my-1 p-3">
                     <div className="row">
                         <h4>!Oops... No Data Found.</h4>
                     </div></div>
+        } else if (!this.state.showContent) {
+            Candidatelist =
+                <div className="col-md-6   my-1 p-3">
+                    <div className="row">
+                        <h4>Loading.....!</h4>
+                    </div></div>
         }
         return (
             <>
-
                 <div className="container mt-3">
                     <h1>Candidate List</h1>
                     <div className="container mt-2">

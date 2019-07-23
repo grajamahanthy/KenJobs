@@ -29,6 +29,7 @@ namespace KenJobs.Api.Common
             _kenJobsSessionService = service;
         }
 
+        [NonAction]
         public KenJobsSession GetKenJobsSession()
         {
             KenJobsSession s = _kenJobsSessionStorage.ObjectValue;

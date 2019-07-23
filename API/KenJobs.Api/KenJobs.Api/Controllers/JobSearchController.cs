@@ -66,7 +66,8 @@ namespace KenJobs.Api.Controllers
             }
             return jobModelList;
         }
-       [HttpGet]
+
+        [HttpGet]
         [Route("api/JobSearch/GetJobsByUserId/{UserId}")]
         public List<JobsModel> Get(int UserId)
         {

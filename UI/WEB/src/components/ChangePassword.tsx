@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Row, Col } from "react-bootstrap";
 import CModal from "./util/Modal";
 import { identifier } from "@babel/types";
+import Apiservices from "./services/Apiservices";
 
 class ChangePassword extends React.Component<any, any> {
   email: string = "";
@@ -27,6 +28,7 @@ class ChangePassword extends React.Component<any, any> {
       matchpassword: true,
       message: false,
       isValidKey: false,
+      showcontent: false,
       alert: {
         type: "success",
         title: "Thank You",
@@ -54,24 +56,27 @@ class ChangePassword extends React.Component<any, any> {
 
   validateKey = function (that: any, email: string, key: string) {
     //debugger;
-    fetch("http://localhost:50768/api/User/ValidateKey?email=" + email + "&key=" + key + "&codeFor=changepassword", {
-      method: "GET",
-      headers: {
-        "Accept": "application/json",
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    }).then(response => {
-      response.json().then((data) => {
-        if (data == 1)
-          that.setState(
-            {
-              isValidKey: true
-            })
-        else
-          console.log("This link is expired. Please try again.");
-      });
-    }).catch(error => console.log("There is some technical issue. Please try again later."))
+    const Servicecall = new Apiservices();
+
+    let responce = Servicecall.GET_CALL("User/ValidateKey?email=" + email + "&key=" + key + "&codeFor=changepassword", null, that.isvalid)
+
   }
+
+  isvalid = (data: any) => {
+    if (data == 1)
+      this.setState(
+        {
+          isValidKey: true,
+          showcontent: true
+        })
+    else
+      this.setState(
+        {
+          isValidKey: false,
+          showcontent: true
+        })
+  }
+
 
   submitForm(e: any) {
     let that: any = this;
@@ -96,27 +101,11 @@ class ChangePassword extends React.Component<any, any> {
         body.set('NewPassword', password);
         body.set('ConfirmPassword', confirmpassword);
 
-        fetch("http://localhost:50768/api/account/ResetPassword", {
-          method: "POST",
-          headers: {
-            "Accept": "application/json",
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: body
-        }).then(data => {
-          that.isPasswordSetSuccessfully = true;
-          this.setState({
-            alert: {
-              type: "success",
-              title: "Success",
-              body: "Your Password Changed Successfully",
-              clickEvent: this.clickEvent,
-              buttons: [{ id: 1, value: "Ok" }],
-              showModal: true
-            }
-          });
-        })
-          .catch(error => console.log("There is some technical issue. Please try again later."))
+        const Servicecall = new Apiservices();
+
+        let responce = Servicecall.POST_CALL("account/ResetPassword", body, that.success)
+
+
       }
       else {
         this.setState(
@@ -126,7 +115,20 @@ class ChangePassword extends React.Component<any, any> {
       }
 
     }
+  }
 
+  success = (data: any) => {
+    this.isPasswordSetSuccessfully = true;
+    this.setState({
+      alert: {
+        type: "success",
+        title: "Success",
+        body: "Your Password Changed Successfully",
+        clickEvent: this.clickEvent,
+        buttons: [{ id: 1, value: "Ok" }],
+        showModal: true
+      }
+    })
   }
 
   onChange = (e: any) => {
@@ -157,11 +159,14 @@ class ChangePassword extends React.Component<any, any> {
 
 
   render() {
+    if (!this.state.showcontent)
+      return (<>Loading....</>);
+
     if (this.isPasswordSetSuccessfully)
       return this.state.isJobseeker ? <Redirect to="/Login/jobseeker" /> : <Redirect to="/Login/employer" />;
 
     //debugger;
-    if (!this.state.isValidKey)
+    if (!this.state.isValidKey && this.state.showcontent)
       return (<>This link is expired. Please try again.</>)
 
     let modalClose = () => { this.setState({ showModal: false }) };
@@ -183,76 +188,78 @@ class ChangePassword extends React.Component<any, any> {
     }
 
 
+    if (this.state.showcontent)
+      return (
+        <>
+          <Row className="ml-0 mr-0 h-100">
+            {leftbar}
+            <Col className="bg-white h-100 d-table">
 
-    return (
-      <>
-        <Row className="ml-0 mr-0 h-100">
-          {leftbar}
-          <Col className="bg-white h-100 d-table">
-
-            <div className=" row text-center d-table-cell align-middle h-100">
-              <div className="row">
-                {/* {this.state.showModal?<CModal message={this.state.alert} show={this.state.showModal} onHide={modalClose}></CModal>:""} */}
-                <CModal message={this.state.alert}></CModal>
-              </div>
-              <div className="mb-5" style={styles.userFriendlyNav}>
-              </div>
-              <div id="container" className="">
-                <h4 className="text-uppercase mt-20">Please Reset Password</h4>
-                <div className="row text-white pt-4 pb-4 ">
-                  <div className="col-sm-11 mx-auto pt-4 pb-4">
-                    <div className="info-form">
-                      <form onSubmit={this.submitForm} className="needs-validation" noValidate>
-                        <div className="form-group">
-                          <label className="sr-only">Password</label>
-                          <input
-                            type="text"
-                            id="Password"
-                            className="form-control"
-                            placeholder="Password"
-                            name="password"
-                            value={this.state.password}
-                            onChange={this.onChange}
-                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,}).*"
-                            required
-                          />
-                          <div className="invalid-feedback text-left">
-                            {this.state.password.length < 1 ? 'Please Enter Password' : "Please Enter Valid Password"}
+              <div className=" row text-center d-table-cell align-middle h-100">
+                <div className="row">
+                  {/* {this.state.showModal?<CModal message={this.state.alert} show={this.state.showModal} onHide={modalClose}></CModal>:""} */}
+                  <CModal message={this.state.alert}></CModal>
+                </div>
+                <div className="mb-5" style={styles.userFriendlyNav}>
+                </div>
+                <div id="container" className="">
+                  <h4 className="text-uppercase mt-20">Please Reset Password</h4>
+                  <div className="row text-white pt-4 pb-4 ">
+                    <div className="col-sm-11 mx-auto pt-4 pb-4">
+                      <div className="info-form">
+                        <form onSubmit={this.submitForm} className="needs-validation" noValidate>
+                          <div className="form-group">
+                            <label className="sr-only">Password</label>
+                            <input
+                              type="text"
+                              id="Password"
+                              className="form-control"
+                              placeholder="Password"
+                              name="password"
+                              value={this.state.password}
+                              onChange={this.onChange}
+                              pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,}).*"
+                              required
+                            />
+                            <div className="invalid-feedback text-left">
+                              {this.state.password.length < 1 ? 'Please Enter Password' : "Please Enter Valid Password"}
+                            </div>
                           </div>
-                        </div>
-                        <div className="form-group">
-                          <label className="sr-only">Confirm Password</label>
-                          <input
-                            type="text"
-                            id="confirmPassword"
-                            className="form-control"
-                            placeholder="Confirm Password"
-                            name="confirmpassword"
-                            value={this.state.confirmpassword}
-                            onChange={this.onChange}
-                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,}).*"
-                            required
-                          />
-                          <div className="invalid-feedback text-left">
-                            {this.state.confirmpassword.length < 1 ? 'Please Enter Confirm Password' : "Please Enter Valid Confirm Password"}
+                          <div className="form-group">
+                            <label className="sr-only">Confirm Password</label>
+                            <input
+                              type="text"
+                              id="confirmPassword"
+                              className="form-control"
+                              placeholder="Confirm Password"
+                              name="confirmpassword"
+                              value={this.state.confirmpassword}
+                              onChange={this.onChange}
+                              pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,}).*"
+                              required
+                            />
+                            <div className="invalid-feedback text-left">
+                              {this.state.confirmpassword.length < 1 ? 'Please Enter Confirm Password' : "Please Enter Valid Confirm Password"}
+                            </div>
+                            {errormessage}
                           </div>
-                          {errormessage}
-                        </div>
 
-                        <input type="submit" value="Reset Password" className="btn btn-primary mb-2" />
+                          <input type="submit" value="Reset Password" className="btn btn-primary mb-2" />
 
-                      </form>
+                        </form>
 
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </Col>
-        </Row>
+            </Col>
+          </Row>
 
-      </>
-    );
+        </>
+      );
+    else
+      return (<></>)
   }
 }
 
