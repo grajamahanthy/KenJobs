@@ -34,7 +34,7 @@ namespace KenJobs.Dal.Workers
             var user = (from u in _context.Users
                                  where u.Email == email
                                  select u).ToList();
-            return user == null ? null : user[0];
+            return (user == null || user.Count == 0) ? null : user[0];
         }
     }
 }

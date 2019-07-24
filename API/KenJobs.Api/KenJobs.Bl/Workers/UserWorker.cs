@@ -144,25 +144,29 @@ namespace KenJobs.Bl.Workers
             ICustomRepository<User> repository = new CustomRepository<User>();
             User user = repository.GetUserByEmail(email);
 
-            UserBo userBo = new UserBo();
-            userBo.Id = user.Id;
-            userBo.FirstName = user.FirstName;
-            userBo.MiddleName = user.MiddleName;
-            userBo.LastName = user.LastName;
-            userBo.ProfilePhoto = user.ProfilePhoto;
-            userBo.Gender_Id = user.Gender_Id;
-            userBo.Status = user.Status;
-            userBo.CreatedBy = user.CreatedBy;
-            userBo.CreatedOn = user.CreatedOn;
-            userBo.UpdatedBy = user.UpdatedBy;
-            userBo.UpdatedOn = user.UpdatedOn;
-            userBo.AspNetUser_Id = user.AspNetUser_Id;
-            userBo.PhoneNumber = user.PhoneNumber;
-            userBo.ResetPasswordCode = user.ResetPasswordCode;
-            userBo.EmailActivationCode = user.EmailActivationCode;
-            userBo.Email = user.Email;
-
-            return userBo;
+            if (user != null)
+            {
+                UserBo userBo = new UserBo();
+                userBo.Id = user.Id;
+                userBo.FirstName = user.FirstName;
+                userBo.MiddleName = user.MiddleName;
+                userBo.LastName = user.LastName;
+                userBo.ProfilePhoto = user.ProfilePhoto;
+                userBo.Gender_Id = user.Gender_Id;
+                userBo.Status = user.Status;
+                userBo.CreatedBy = user.CreatedBy;
+                userBo.CreatedOn = user.CreatedOn;
+                userBo.UpdatedBy = user.UpdatedBy;
+                userBo.UpdatedOn = user.UpdatedOn;
+                userBo.AspNetUser_Id = user.AspNetUser_Id;
+                userBo.PhoneNumber = user.PhoneNumber;
+                userBo.ResetPasswordCode = user.ResetPasswordCode;
+                userBo.EmailActivationCode = user.EmailActivationCode;
+                userBo.Email = user.Email;
+                return userBo;
+            }
+            return null;
+            
         }
 
         public int PostUser(UserBo userBo)
