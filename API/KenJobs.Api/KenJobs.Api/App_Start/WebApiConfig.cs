@@ -28,14 +28,6 @@ namespace KenJobs.Api
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
             // Web API routes
-            var httpControllerRouteHandler = typeof(HttpControllerRouteHandler).GetField("_instance", BindingFlags.Static | BindingFlags.NonPublic);
-
-            if (httpControllerRouteHandler != null)
-            {
-                httpControllerRouteHandler.SetValue(null, new Lazy<HttpControllerRouteHandler>(() => new SessionRouteHandler(), true));
-            }
-            config.MapHttpAttributeRoutes();
-
             //RouteTable.Routes.MapHttpRoute(
             //    name: "DefaultApi",
             //    routeTemplate: "api/{controller}/{id}",
