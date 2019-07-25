@@ -13,8 +13,8 @@ export default class Apiservices {
     local: any;
     token: any;
     constructor() {
-        // this.UrlPath = 'http://localhost:50768/api/';
-        this.UrlPath = 'http://api.kenjobs.com/api/';
+        this.UrlPath = 'http://localhost:50768/api/';
+        // this.UrlPath = 'http://api.kenjobs.com/api/';
     }
     //Regular Service Call
     GET_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any): any {
@@ -131,7 +131,9 @@ export default class Apiservices {
     }
 
     LOGIN_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any): any {
-        let currentUrl = 'http://api.kenjobs.com/' + URL;
+        let currentUrl = 'http://localhost:50768/' + URL;
+        // let currentUrl = 'http://api.kenjobs.com/' + URL;
+
         this.Header = new Headers();
         this.Header.append("Accept", "application/json");
         this.Header.append("Content-Type", "application/x-www-form-urlencoded");

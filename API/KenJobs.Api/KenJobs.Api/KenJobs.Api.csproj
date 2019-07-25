@@ -220,6 +220,7 @@
     <Compile Include="Common\SessionRouteHandler.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Common\BaseController.cs" />
+    <Compile Include="Controllers\ApplyJobController.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobCategoryController.cs" />
@@ -282,6 +283,7 @@
     <None Include=".dockerignore">
       <DependentUpon>Dockerfile</DependentUpon>
     </None>
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

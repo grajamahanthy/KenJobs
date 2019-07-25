@@ -9,6 +9,15 @@ namespace KenJobs.Dal.Workers
 {
     public class CustomRepository<T>: GenericRepository<T>,ICustomRepository<T> where T : class
     {
+        public IEnumerable<Job> GetAppliedJobByUserId(int userId)
+        {
+            var jobList = (from j in _context.Jobs
+                           join a in _context.AppliedJobs on j.Id equals a.Job_Id
+                           where a.User_Id == userId
+                           select j).ToList();
+            return jobList;
+        }
+
         public IEnumerable<Job> GetJobsByUserId(int userId)
         {
             var jobList = (from j in _context.Jobs

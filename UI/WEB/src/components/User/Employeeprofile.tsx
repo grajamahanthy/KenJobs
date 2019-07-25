@@ -1,6 +1,6 @@
 import React from "react"
 
-class Editprofile extends React.Component<any, any>{
+class Employeeprofile extends React.Component<any, any>{
     constructor(props: any) {
         super(props);
         this.state = {
@@ -33,7 +33,7 @@ class Editprofile extends React.Component<any, any>{
                     <div className="text-center text-secondary">
                     </div>
                     <div className="mt-0">
-                        <h4 className="card-title text-primary">User Profile</h4>
+                        <h4 className="card-title text-primary">Employee Profile</h4>
                         <div className="col-lg-12">
                             <div className="card  border rounded pt-2 mb-2 shadow-sm p-3 ">
                                 <div className="card-text mb-2">
@@ -151,4 +151,4 @@ class Editprofile extends React.Component<any, any>{
         )
     }
 }
-export default Editprofile;
+export default Employeeprofile;

@@ -350,71 +350,84 @@ namespace KenJobs.Api.Controllers
         [Route("Register")]
         public async Task<IHttpActionResult> Register(UserModel model)//(RegisterBindingModel model)//
         {
+            UserContract userWorker = new UserWorker();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, PhoneNumber = model.PhoneNumber };
-            user.Roles.Add(new IdentityUserRole() { RoleId = model.UserRoleId, UserId = user.Id });
-
-            string userId = user.Id;
-
-
-            //createUser(model);
-
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-
-            if (!result.Succeeded)
+            /*
+             Message Type
+             1: success
+             2: Email already Exists
+             3: Error Occured
+             */
+            int responceValue=0;
+            UserBo userBoByEmail = userWorker.GetUserByEmail(model.Email);
+            if (userBoByEmail == null)
             {
-                return GetErrorResult(result);
-            }
-            else
-            {
-                UserContract userWorker = new UserWorker();
-                OrganizationContract organizationWorker = new OrganizationWorker();
-                User_OrganizationContract user_OrganizationContract = new User_OrganizationWorker();
-                UserBo userBo = new UserBo();
+                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, PhoneNumber = model.PhoneNumber };
+                user.Roles.Add(new IdentityUserRole() { RoleId = model.UserRoleId, UserId = user.Id });
 
-                userBo.FirstName = model.FirstName;
-                userBo.LastName = model.LastName;
-                userBo.ProfilePhoto = model.ProfilePhoto;
-                userBo.Gender_Id = Convert.ToInt32(model.Gender_Id);
-                userBo.AspNetUser_Id = userId;
-                userBo.Status = 1;
-                userBo.Title = "Mr.";
-                userBo.PhoneNumber = user.PhoneNumber;
-                userBo.Email = user.Email;
-                userBo.IsIndividual = model.IsIndividual;
+                string userId = user.Id;
+                //createUser(model);
 
-                OrganizationBo organizationBo = new OrganizationBo();
-
-                organizationBo.Name = (model.IsIndividual==0)?model.FirstName+'_'+model.LastName: model.CompanyName;
-
-                User_OrganizationBo user_OrganizationBo = new User_OrganizationBo();
-
-                //userBo.AspNetUser_Id = model.AspNetUser_Id;
-                try
+                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+                if (!result.Succeeded)
                 {
-                  int User_Id=userWorker.PostUser(userBo);
+                    return GetErrorResult(result);
+                }
+                else
+                {
+                    OrganizationContract organizationWorker = new OrganizationWorker();
+                    User_OrganizationContract user_OrganizationContract = new User_OrganizationWorker();
+                    UserBo userBo = new UserBo();
 
-                    if (model.UserRoleId == "2")
+                    userBo.FirstName = model.FirstName;
+                    userBo.LastName = model.LastName;
+                    userBo.ProfilePhoto = model.ProfilePhoto;
+                    userBo.Gender_Id = Convert.ToInt32(model.Gender_Id);
+                    userBo.AspNetUser_Id = userId;
+                    userBo.Status = 1;
+                    userBo.Title = "Mr.";
+                    userBo.PhoneNumber = user.PhoneNumber;
+                    userBo.Email = user.Email;
+                    userBo.IsIndividual = model.IsIndividual;
+
+                    OrganizationBo organizationBo = new OrganizationBo();
+
+                    organizationBo.Name = (model.IsIndividual == 0) ? model.FirstName + '_' + model.LastName : model.CompanyName;
+
+                    User_OrganizationBo user_OrganizationBo = new User_OrganizationBo();
+
+                    //userBo.AspNetUser_Id = model.AspNetUser_Id;
+                    try
                     {
-                        int Organization_Id = organizationWorker.PostOrganization(organizationBo);
-                        user_OrganizationBo.User_Id = User_Id;
-                        user_OrganizationBo.Organization_Id = Organization_Id;
-                        user_OrganizationContract.PostGetUser_Organizations(user_OrganizationBo);
+                        int User_Id = userWorker.PostUser(userBo);
 
+                        if (model.UserRoleId == "2")
+                        {
+                            int Organization_Id = organizationWorker.PostOrganization(organizationBo);
+                            user_OrganizationBo.User_Id = User_Id;
+                            user_OrganizationBo.Organization_Id = Organization_Id;
+                            user_OrganizationContract.PostGetUser_Organizations(user_OrganizationBo);
+
+                        }
+                        responceValue = 1;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        responceValue = 3;
                     }
 
                 }
-                catch (Exception ex)
-                {
-
-                }
+            }
+            else
+            {
+                responceValue = 2;
             }
 
-            return Ok();
+            return Ok(responceValue);
         }
 
         public void createUser(UserModel model)

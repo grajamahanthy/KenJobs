@@ -10,7 +10,7 @@ import Logout from "./components/Logout";
 import Jobs from "./components/Jobs/Jobs";
 import Postjob from "./components/Jobs/Postjob";
 import Userprofile from "./components/User/Userprofile"
-import Editprofile from "./components/User/Editprofile"
+import Employeeprofile from "./components/User/Employeeprofile"
 import Applyjob from "./components/Jobs/Applyjob";
 import Navigation from './components/common/Navigation';
 import { AppState } from "./store/index";
@@ -94,12 +94,13 @@ class App extends React.Component<any, any> {
         {/* <Route exact path="/ConfirmVerification/:usertype" name="usertype" component={ConfirmVerification} /> */}
         <Route exact path="/" component={Home} />
         <Route exact path="/Dashboard" component={Dashboard} />
+        <Route exact path="/editemployee" component={Employeeprofile} />
         <Route exact path="/Jobs" component={Jobs} />
         <Route exact path="/applyjob" component={Applyjob} />
         <Route exact path="/Logout" component={Logout} />
         <Route exact path="/postjobs" component={Postjob} />
         <Route exact path="/profile" component={Userprofile} />
-        <Route exact path="/adduser" component={CandidateProfile} />
+        <Route exact path="/edituser" component={CandidateProfile} />
         <Route exact path="/recdash" component={Employeedashbord} />
         <Route exact path="/Jobresult" component={Jobdescription} />
         <Route exact path="/Registration/:usertype" name="usertype" component={Registration} />

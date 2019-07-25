@@ -75,9 +75,9 @@ class Jobs extends React.Component<any, any>{
     }
 
     render() {
-        if (this.state.loggedIn === false) {
-            return <Redirect to="/login/jobseeker" />
-        }
+        // if (this.state.loggedIn === false) {
+        //     return <Redirect to="/login/jobseeker" />
+        // }
         let prepare_jobs = "";
         if (this.state.jobdata != undefined && this.state.jobdata.length > 0) {
             prepare_jobs = this.state.jobdata.map((item: any, key: any) =>

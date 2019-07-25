@@ -7,9 +7,10 @@ using KenJobs.Bo.BusinessObjects;
 
 namespace KenJobs.Bl.Contracts
 {
-    interface AppliedJobsContract
+  public  interface AppliedJobsContract
     {
         IEnumerable<AppliedJobBo> GetAppliedJobs();
+        IEnumerable<JobBo> GetAppliedJobsByUserId(int userId);
         AppliedJobBo GetAppliedJob(int id);
         int PostAppliedJob(AppliedJobBo appliedJobBo);
         int UpdateAppliedJob(int id, AppliedJobBo appliedJobBo);

@@ -11,7 +11,7 @@ using KenJobs.Dal.Workers;
 
 namespace KenJobs.Bl.Workers
 {
-    class AppliedJobsWorker : AppliedJobsContract
+  public  class AppliedJobsWorker : AppliedJobsContract
     {
         public AppliedJobBo GetAppliedJob(int id)
         {
@@ -47,6 +47,58 @@ namespace KenJobs.Bl.Workers
                 appliedJobsBoList.Add(appliedJobBo);
             }
             return appliedJobsBoList;
+        }
+
+        public IEnumerable<JobBo> GetAppliedJobsByUserId(int userId)
+        {
+            ICustomRepository<Job> repository = new CustomRepository<Job>();
+            IEnumerable<Job> jobList = repository.GetAppliedJobByUserId(userId);
+
+            List<JobBo> jobBoList = new List<JobBo>();
+            foreach (Job job in jobList)
+            {
+                JobBo jobBo = new JobBo();
+                jobBo.Id = job.Id;
+                jobBo.Client_Id = job.Client_Id;
+                jobBo.JobTitle = job.JobTitle;
+                jobBo.Description = job.Description;
+                jobBo.NoOfVacancies = job.NoOfVacancies;
+                jobBo.Qualification = job.Qualification;
+                jobBo.State = job.State;
+                jobBo.City = job.City;
+                jobBo.Status = job.Status;
+                jobBo.PostingStatus = job.PostingStatus;
+                jobBo.JobType_Id = job.JobType_Id;
+                jobBo.Category_id = job.Category_id;
+                jobBo.MinSalary = job.MinSalary;
+                jobBo.MaxSalary = job.MaxSalary;
+                jobBo.MinExperience = job.MinExperience;
+                jobBo.MaxExperience = job.MaxExperience;
+                jobBo.Skills = job.Skills;
+                jobBo.User_Id = job.User_Id;
+                jobBo.Currency = job.Currency;
+                jobBo.ClientName = job.ClientName;
+                jobBo.Country = job.Country;
+
+                JobType jobType = job.JobType;
+                JobTypeBo jobTypeBo = new JobTypeBo();
+                jobTypeBo.Id = jobType.Id;
+                jobTypeBo.Name = jobType.Name;
+                jobTypeBo.Status = jobType.Status;
+
+                jobBo.JobType = jobTypeBo;
+
+                JobCategory jobCategory = job.JobCategory;
+                JobCategoryBo jobCategoryBo = new JobCategoryBo();
+
+                jobCategoryBo.Id = jobCategory.Id;
+                jobCategoryBo.Category = jobCategory.Category;
+                jobCategoryBo.Status = jobCategory.Status;
+                jobBo.JobCategory = jobCategoryBo;
+
+                jobBoList.Add(jobBo);
+            }
+            return jobBoList;
         }
 
         public int PostAppliedJob(AppliedJobBo appliedJobBo)

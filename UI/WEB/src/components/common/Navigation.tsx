@@ -19,7 +19,7 @@ function Navigation(props: any) {
 
                 <NavDropdown.Divider />
                 <NavDropdown.Item eventKey="4.3">
-                    <Link className="nav-link" to="/Adduser">
+                    <Link className="nav-link" to="/edituser">
                         Edit Profile
                     </Link>
                 </NavDropdown.Item>

@@ -1,7 +1,12 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { updateSession } from "../../store/auth/actions";
 import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { AppState } from '../../store';
+import Apiservices from '../services/Apiservices';
 
 
 
@@ -9,35 +14,72 @@ class Job extends React.Component<any, any>{
     constructor(props: any) {
 
         super(props);
-        console.log(props);
         let job = props.jobInfo;
+        const token = this.props.system.token
+        let loggedIn = this.props.system.loggedIn
+
+        // console.log(job);
         this.state = {
+            loggedIn,
+            jobId: job.Id,
             jobTitle: job.JobTitle,
             clientname: job.ClientName,
             city: job.City,
             description: job.Description,
-            Salary: job.Salary,
+            minsalary: job.MinSalary,
+            maxsalary: job.MaxSalary,
             Qualification: job.Qualification,
             contactPerson: 'admin',
-            skills: '',
+            skills: job.Skills,
             experience: job.MinExperience + '-' + job.MaxExperience,
             posteddate: job.PostDate,
+            redirect: false
         }
-        this.handleclick = this.handleclick.bind(this);
+        this.addtofavorites = this.addtofavorites.bind(this);
+        this.applyjob = this.applyjob.bind(this);
     }
 
-    handleclick = (e: any) => {
-        return <Redirect to="/Jobresult" />;
+
+    addtofavorites = (e: any) => {
+        if (this.state.loggedIn) {
+
+        } else {
+            this.setState({
+                redirect: true
+            })
+        }
     }
+    applyjob = (e: any) => {
+        if (this.state.loggedIn) {
+
+            const Servicecall = new Apiservices();
+
+            //Get jobs bu user id, User id is assigned by server 
+            let responce = Servicecall.GET_CALL('ApplyJob/Get', null, this.success)
+
+        } else {
+            this.setState({
+                redirect: true
+            })
+        }
+    }
+
+    success = () => {
+
+    }
+
 
     render() {
+        if (!this.state.loggedIn && this.state.redirect) {
+            return <Redirect to="/login/jobseeker" />
+        }
         return (
             <>
                 <div className="">
                     <div className="card  border rounded-0 pt-2 mb-2 shadow-sm p-3 ">
 
 
-                        <h6 className="card-title text-primary" onClick={this.handleclick}>
+                        <h6 className="card-title text-primary" >
                             <Link className=""
                                 to={{
                                     pathname: "/Jobresult",
@@ -72,7 +114,7 @@ class Job extends React.Component<any, any>{
 
                             <div className="mt-2">
                                 <span className="mr-sm-2"><FontAwesomeIcon icon="wallet" size="xs" /> :
-                                       {this.state.salary}
+                                     Salary -  {this.state.minsalary + '-' + this.state.maxsalary}
                                 </span>
                                 <span className="mr-sm-2 pull-right">Posted By
                                 <FontAwesomeIcon icon="user-tie" size="xs" className="ml-2" /> :
@@ -83,9 +125,9 @@ class Job extends React.Component<any, any>{
                             </div>
                             <div className="row float-sm-right">
 
-                                <button className="btn btn-primary btn-sm rounded-0 mr-2" >Add to Favorites  </button>
+                                <button className="btn btn-primary btn-sm rounded-0 mr-2" onClick={this.addtofavorites} >Add to Favorites  </button>
                                 {/* <button className="btn btn-primary btn-sm  rounded-0 mr-2" >Save Job </button> */}
-                                <button className="btn btn-primary btn-sm rounded-0  mr-2" >Apply for Job </button>
+                                <button className="btn btn-primary btn-sm rounded-0  mr-2" onClick={this.applyjob} >Apply for Job </button>
                             </div>
 
 
@@ -99,4 +141,11 @@ class Job extends React.Component<any, any>{
     }
 }
 
-export default Job
+const mapStateToProps = (state: AppState) => ({
+    system: state.system
+});
+
+export default connect(
+    mapStateToProps,
+    { updateSession }
+)(Job)

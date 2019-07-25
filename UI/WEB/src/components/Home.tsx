@@ -38,6 +38,7 @@ class Home extends React.Component<any, any> {
   render() {
 
     const { keyword, location, redirect } = this.state;
+
     if (redirect)
       return (<Redirect to={{
         pathname: '/Jobs',

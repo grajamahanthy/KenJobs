@@ -25,7 +25,8 @@ class Registration extends React.Component<any, any> {
             isIndividual: '0',
             companyname: '',
             userRoleId: '',
-            redirect: false
+            redirect: false,
+            validemail: true,
         };
 
         this.submitForm = this.submitForm.bind(this);
@@ -70,9 +71,15 @@ class Registration extends React.Component<any, any> {
         }
     }
     success = (data: any) => {
-        this.setState({
-            redirect: true
-        })
+        if (data == 1) {
+            this.setState({
+                redirect: true
+            })
+        } else if (data == 2) {
+            this.setState({
+                validemail: false,
+            })
+        }
     }
     onChange = (e: any) => {
         this.setState({
@@ -154,7 +161,7 @@ class Registration extends React.Component<any, any> {
                 <div className="invalid-feedback text-left">
                     <h6>
                         Please Provide Company Name.
-                                                    </h6>
+                    </h6>
                 </div>
             </div>
         }
@@ -251,6 +258,14 @@ class Registration extends React.Component<any, any> {
                                                         Please Provide Email.
                                                     </h6>
                                                 </div>
+                                                {
+                                                    this.state.validemail ? "" :
+                                                        <div className="has-error mt-2 text-left text-danger">
+                                                            <h6>
+                                                                Email Already Exists, Please Try Another.
+                                                    </h6>
+                                                        </div>
+                                                }
                                             </div>
                                             <div className="form-group">
                                                 <label className="sr-only">Password</label>
