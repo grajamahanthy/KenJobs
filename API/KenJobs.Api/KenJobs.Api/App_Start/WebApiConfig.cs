@@ -5,11 +5,9 @@ using System.Net.Http;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
-using System.Web.Http.Cors;
 using KenJobs.Api.Common;
-using System.Web.Routing;
 using System.Web.Http.WebHost;
-using System.Reflection;
+using System.Web.Routing;
 
 namespace KenJobs.Api
 {
@@ -17,24 +15,27 @@ namespace KenJobs.Api
     {
         public static void Register(HttpConfiguration config)
         {
-            //Enable cors
-
-            //EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
-            //config.EnableCors(cors);
-
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
             // Web API routes
-            //RouteTable.Routes.MapHttpRoute(
-            //    name: "DefaultApi",
-            //    routeTemplate: "api/{controller}/{id}",
-            //    defaults: new { id = RouteParameter.Optional }
-            //);
+            config.MapHttpAttributeRoutes();
+            var httpControllerRouteHandler = typeof(HttpControllerRouteHandler).GetField("_instance",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
 
+            if (httpControllerRouteHandler != null)
+            {
+                httpControllerRouteHandler.SetValue(null,
+                    new Lazy<HttpControllerRouteHandler>(() => new SessionRouteHandler(), true));
+            }
 
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
             config.Formatters.JsonFormatter.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
         }
     }
