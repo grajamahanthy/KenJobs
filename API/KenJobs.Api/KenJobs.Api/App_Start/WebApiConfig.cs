@@ -21,7 +21,6 @@ namespace KenJobs.Api
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
             // Web API routes
-            config.MapHttpAttributeRoutes();
             var httpControllerRouteHandler = typeof(HttpControllerRouteHandler).GetField("_instance",
             System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
 
@@ -31,9 +30,10 @@ namespace KenJobs.Api
                     new Lazy<HttpControllerRouteHandler>(() => new SessionRouteHandler(), true));
             }
 
+            config.MapHttpAttributeRoutes();
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{action}/{id}",
+                routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
             config.Formatters.JsonFormatter.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
