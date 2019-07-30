@@ -11,10 +11,12 @@ const Logout = (props: any) => {
     props.updateSession({
         loggedIn: false,
         token: "",
+        loginType:"",
         userName: ""
     })
 
-    return <Redirect to={"/login/" + usertype} />;
+    // return <Redirect to={"/login/" + usertype} />;
+    return <Redirect to={"/"} />;
 };
 
 const mapStateToProps = (state: AppState) => ({

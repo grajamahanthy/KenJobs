@@ -31,12 +31,22 @@ namespace KenJobs.Api.Providers
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
+            bool isComingFromEmployerUrl = Convert.ToString(context.Request.Headers["Referer"]).ToLower().Contains("employer");
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
                 return;
+            }
+            else
+            {
+                bool isEmplyerCreds = user.Roles.ToList()[0].RoleId.Contains("2");
+                if (!((isComingFromEmployerUrl && isEmplyerCreds) || (!isComingFromEmployerUrl && !isEmplyerCreds)))
+                {
+                    context.SetError("invalid_grant", "The user name or password is incorrect.");
+                    return;
+                }
             }
 
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,

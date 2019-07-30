@@ -38,22 +38,6 @@ class Userprofile extends React.Component<any, any> {
         const Servicecall = new Apiservices();
 
         Servicecall.GET_SECURE_CALL('User/GetUser?id=43613fd3-1074-46f3-96c2-b448b709bbd6', null, this.displaydata)
-
-
-        // fetch("http://localhost:50768/api/User/GetUser?id=43613fd3-1074-46f3-96c2-b448b709bbd6", {
-        //     method: "GET",
-        //     headers: {
-        //         "Accept": "application/json",
-        //         'Content-Type': 'application/x-www-form-urlencoded'
-        //     }
-        // }).then(response => {
-        //     console.log(response);
-        //     response.json().then((data) => {
-        //         this.displaydata(data);
-
-        //     });
-        // })
-        //     .catch(error => console.log("error" + error))
     }
 
     displaydata = (response: any) => {

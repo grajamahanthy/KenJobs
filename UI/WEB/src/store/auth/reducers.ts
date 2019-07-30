@@ -4,6 +4,7 @@ const initialState: IsessionState = {
     loggedIn: false,
     token: "",
     userName: "",
+    loginType:"",
     appProps: {showNav : true}
 };
 

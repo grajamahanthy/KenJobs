@@ -11,6 +11,7 @@ import { AppState } from "../../store/index";
 import { updateSession } from "../../store/auth/actions";
 import { connect } from 'react-redux';
 import Apiservices from '../services/Apiservices';
+import LoaderModal from '../util/LoaderModal';
 
 
 class Employeedashbord extends React.Component<any, any> {
@@ -105,10 +106,7 @@ class Employeedashbord extends React.Component<any, any> {
                     </div></div>
         } else if (!this.state.showContent) {
             jobslist =
-                <div className="col-sm-12  px-4 py-4 ">
-                    <div className="row">
-                        <h4>Loading....!</h4>
-                    </div></div>
+            <LoaderModal></LoaderModal>
         }
 
 
