@@ -25,6 +25,7 @@ import Postjobdescription from "./components/Jobs/PostedJobDescription";
 import Editjob from "./components/Jobs/EditJob";
 import Candidate from "./components/User/Candidate";
 import CandidateProfile from "./components/User/candidateprofile";
+import EmployerHome from "./components/EmployerHome";
 // import { IsessionState } from "./store/auth/types";
 import { updateSession } from "./store/auth/actions";
 
@@ -108,6 +109,7 @@ class App extends React.Component<any, any> {
         <Route exact path="/Jobdetails" component={Postjobdescription} />
         <Route exact path="/Editjob" component={Editjob} />
         <Route exact path="/candidate" component={Candidate} />
+        <Route exact path="/Employeer-Dashbord" component={EmployerHome} />
 
         {/* <Route component={NoMatch} /> */}
 

@@ -1,13 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, NavItem, NavDropdown } from 'react-bootstrap';
+import { AppState } from '../../store';
+import { connect } from "react-redux";
+import { updateSession } from "../../store/auth/actions";
+
+
 
 function Navigation(props: any) {
 
     let loginInfo;
     let Title = (props.app_prop.loggedIn === true) ? "Ken Jobs" : "";
     let UserName;
-
     if (props.app_prop.loggedIn === true) {
         loginInfo = (<>
             <NavDropdown title={props.app_prop.userName} id="nav-dropdown">
@@ -38,7 +42,7 @@ function Navigation(props: any) {
                 </>
             )
     }
-
+    console.log(props.app_prop.loginType)
     return (<>
         <div className={props.app_prop.appProps.showNav ? "bg-primary" : "d-none"}>
             <div className="container">
@@ -49,25 +53,36 @@ function Navigation(props: any) {
                         <Nav className="mr-auto">
                         </Nav>
                         <Nav >
-                            <Link className="nav-link Active" to="/">
-                                Home
+                            {props.app_prop.loginType == "employer" ?
+                                <Link className="nav-link Active" to="/Employeer-Dashbord">
+                                    Home
+                                </Link>
+                                : <Link className="nav-link Active" to="/">
+                                    Home
                              </Link>
+                            }
 
-                            {/* {
-                                props.app_prop.state.loginType == "employer" ?
-                                    <Link className="nav-link" to="/recdash">
-                                        Post Job
-                                </Link>
-                                    : <Link className="nav-link" to="/Jobs">
-                                        Search Job
-                                </Link>
-                            } */}
-                            <Link className="nav-link" to="/recdash">
-                                Post Job
-                                </Link>
-                            <Link className="nav-link" to="/Jobs">
-                                Search Job
-                                </Link>
+                            {
+
+                                props.app_prop.loginType == "" ?
+                                    <>
+                                        <Link className="nav-link" to="/recdash">
+                                            Post Job
+                                    </Link>
+                                        <Link className="nav-link" to="/Jobs">
+                                            Search Job
+                                    </Link>
+                                    </> :
+                                    (props.app_prop.loginType == "employer") ?
+                                        <Link className="nav-link" to="/recdash">
+                                            Post Jobs
+                                    </Link>
+                                        : <Link className="nav-link" to="/Jobs">
+                                            Search Jobs
+                                    </Link>
+
+
+                            }
 
                             {loginInfo}
                         </Nav>

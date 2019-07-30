@@ -2,6 +2,7 @@
 export interface IsessionState {
     loggedIn: boolean;
     token: string;
+    loginType:string;
     userName: string;
     appProps: any;
 }

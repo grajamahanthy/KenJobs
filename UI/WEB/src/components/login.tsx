@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { connect } from 'react-redux';
 import { Tabs, Tab, Row, Col } from "react-bootstrap";
 import Apiservices from "./services/Apiservices";
+import LoaderModal from "./util/LoaderModal";
 // import { ValidationForm, TextInput, TextInputGroup, FileInput, SelectGroup, Checkbox } from "react-bootstrap4-form-validation";
 
 
@@ -30,16 +31,16 @@ class Login extends React.Component<any, any> {
       username: "",
       password: "",
       key: 'Login',
-      isJobseekar: true,
       loginType: "",
       mobileResolutions: false,
       loading: false,
+      isValid: true,
+      errorMessage: '',
       loggedIn
     };
 
     this.onChange = this.onChange.bind(this);
     this.submitForm = this.submitForm.bind(this);
-    this.formType = this.formType.bind(this);
     this.resize = this.resize.bind(this);
   }
 
@@ -78,20 +79,37 @@ class Login extends React.Component<any, any> {
     }
   }
 
+  doesExists = function (obj: any) {
+    return (obj != null && obj != undefined)
+  }
+
   displaydata = (response: any) => {
 
+    let isError: boolean = this.doesExists(response.error);
+    if (isError) {
+      //
+
+      this.setState({
+        isValid: false,
+        errorMessage: response.error_description
+      })
+      return;
+    }
+    
 
     let accessToken = response.access_token;
-    let logedIn = (response.access_token !== '' && response.access_token !== undefined) ? true : false;
+    let logedIn = this.doesExists(response.access_token);
     let userName = response.userName
     this.props.updateSession({
       loggedIn: logedIn,
       token: accessToken,
+      loginType:this.state.loginType,
       userName: userName
     });
     var myOth = {
       "loggedIn": logedIn,
       "token": accessToken,
+      "loginType": this.state.loginType,
       "userName": userName
     };
 
@@ -111,7 +129,6 @@ class Login extends React.Component<any, any> {
     this.setState({
       loading: false
     })
-    console.log(data);
   }
 
   onChange = (e: any) => {
@@ -122,18 +139,11 @@ class Login extends React.Component<any, any> {
     });
   };
 
-  formType = (e: any) => {
-    this.setState({
-      isJobseekar: (e.target.name === "jobseeker") ? true : false
-    });
-  }
-
   componentWillMount() {
-
-
     this.setState({
-      isJobseekar: (this.props.match.params.usertype === "jobseeker") ? true : false,
-      loginType: this.props.match.params.usertype
+      loginType: (this.props.match.params.usertype === "jobseeker" || this.props.match.params.usertype === "employer") 
+      ? this.props.match.params.usertype ==="jobseeker"?"jobseeker":"employer"
+      : 'jobseeker'
     })
   }
 
@@ -160,9 +170,9 @@ class Login extends React.Component<any, any> {
 
   componentWillReceiveProps(nextProps: any) {
     this.setState({
-      isJobseekar: (nextProps.match.params.usertype === "jobseeker") ? true : false,
-      loginType: nextProps.match.params.usertype
-
+      loginType: (this.props.match.params.usertype === "jobseeker" || this.props.match.params.usertype === "employer") 
+      ? this.props.match.params.usertype ==="jobseeker"?"jobseeker":"employer"
+      : 'jobseeker'
     })
   }
 
@@ -170,9 +180,15 @@ class Login extends React.Component<any, any> {
 
   render() {
     // console.log(this.props.match.params.usertype)
-    console.log(this.state.mobileResolutions);
+
     if (this.state.loggedIn === true) {
-      return <Redirect to="/" />;
+      if(this.state.loginType==="employer"){
+        return <Redirect to={"/Employeer-Dashbord"}/>;
+
+      }else{
+        return <Redirect to={"/"}/>;
+
+      }
     }
     let leftbar;
     if (this.state.mobileResolutions) {
@@ -181,21 +197,6 @@ class Login extends React.Component<any, any> {
       leftbar = <Col className="bg-primary h-100 d-table">
         <div className="text-center d-table-cell align-middle"><h1 className="text-white">Ken Jobs</h1></div>
       </Col>;
-    }
-    let loader;
-    if (this.state.loading) {
-      loader =
-        <div className="bg-white">
-          <div className="d-flex justify-content-center">
-            <div className="spinner-border text-warning" role="status">
-              <span className="sr-only text-dark">Loading...</span>
-            </div>
-            <br />
-            <div>Loading...</div>
-          </div>
-        </div>
-    } else {
-      loader = ''
     }
 
     return (
@@ -215,12 +216,6 @@ class Login extends React.Component<any, any> {
                 <h4 className="text-uppercase mt-20">{this.state.loginType + ' Login'}</h4>
                 <div className="row text-white pt-4 pb-4 ">
                   <div className="col-sm-11 mx-auto pt-4 pb-4">
-
-                    {/* <div className="btn-group btn-group-lg mb-5" role="group">
-                      <button type="button" className={(this.state.isJobseekar) ? "btn  btn-Primary bg-primary  text-white" : "btn btn-secondary"} name="jobseeker" onClick={this.formType} >Job seeker</button>
-                      <button type="button" className={(this.state.isJobseekar) ? "btn btn-secondary" : "btn  btn-Primary bg-primary  text-white"} name="employee" onClick={this.formType} >Employer</button>
-                    </div> */}
-
                     <div className="info-form">
                       <form onSubmit={this.submitForm} className="needs-validation" noValidate>
                         <div className="form-group">
@@ -251,15 +246,22 @@ class Login extends React.Component<any, any> {
                             name="password"
                             value={this.state.password}
                             onChange={this.onChange}
-                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,}).*"
+                            // pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,}).*"
                             required
                           />
-                          <div className="invalid-feedback text-left">
+                          { <div className="invalid-feedback text-left">
                             <h6> Please Provide Valid Password.</h6>
-                            <div>* Password Must Contain at least one number and one uppercase and lowercase letter and Special Character,
-                              and  at least 8 or more characters</div>
-                          </div>
+                            {/* <div>* Password Must Contain at least one number and one uppercase and lowercase letter and Special Character,
+                              and  at least 8 or more characters</div> */}
+                          </div> }
                         </div>
+                        {!this.state.isValid ?
+                          <div className="text-left text-danger mb-2">
+                            <h6></h6>
+                            <div>Please Provide Valid User Name and Password</div>
+                          </div>
+                          : ''}
+
                         <input type="submit" value="Login" className="btn btn-primary mb-2" />
 
                         <div className="text-primary">
@@ -288,6 +290,9 @@ class Login extends React.Component<any, any> {
             </div>
           </Col >
         </Row >
+        {this.state.loading ?
+          <LoaderModal></LoaderModal>
+        : ''}
       </>
     );
   }

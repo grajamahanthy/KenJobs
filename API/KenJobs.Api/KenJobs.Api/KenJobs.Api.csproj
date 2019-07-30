@@ -371,7 +371,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50768</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://api-kenjobs.com</IISUrl>
+          <IISUrl>http://apikenjobs.com</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://apikenjobs.com</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

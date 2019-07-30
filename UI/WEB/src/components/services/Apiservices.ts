@@ -13,7 +13,8 @@ export default class Apiservices {
     local: any;
     token: any;
     constructor() {
-        this.UrlPath = 'http://localhost:50768/api/';
+        //this.UrlPath = 'http://api-kenjobs.com/api/';
+        this.UrlPath = 'http://apikenjobs.com/api/';
         // this.UrlPath = 'http://api.kenjobs.com/api/';
     }
     //Regular Service Call
@@ -126,12 +127,15 @@ export default class Apiservices {
                 successCallback(data);
             });
         }).catch(error => {
+            
             return error;
         })
     }
 
     LOGIN_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any): any {
-        let currentUrl = 'http://localhost:50768/' + URL;
+
+        //let currentUrl = 'http://api-kenjobs.com/' + URL;
+        let currentUrl = 'http://apikenjobs.com/' + URL;
         // let currentUrl = 'http://api.kenjobs.com/' + URL;
 
         this.Header = new Headers();
@@ -147,6 +151,7 @@ export default class Apiservices {
                 successCallback(data);
             });
         }).catch(error => {
+
             return error;
         })
     }
@@ -164,6 +169,7 @@ export default class Apiservices {
 
             successCallback(response);
         }).catch(error => {
+            
             return error;
         })
     }
