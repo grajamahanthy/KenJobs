@@ -47,11 +47,11 @@ SET IDENTITY_INSERT [dbo].[JobCategory] OFF
 GO
 SET IDENTITY_INSERT [dbo].[JobType] ON 
 GO
-INSERT [dbo].[JobType] ([Id], [JobType], [Status], [CreatedBy], [CreatedOn], [UpdatedBy], [UpdatedOn]) VALUES (1, N'Full Time', 1, N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime), N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime))
+INSERT [dbo].[JobType] ([Id], [Name], [Status], [CreatedBy], [CreatedOn], [UpdatedBy], [UpdatedOn]) VALUES (1, N'Full Time', 1, N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime), N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime))
 GO
-INSERT [dbo].[JobType] ([Id], [JobType], [Status], [CreatedBy], [CreatedOn], [UpdatedBy], [UpdatedOn]) VALUES (2, N'Part Time', 1, N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime), N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime))
+INSERT [dbo].[JobType] ([Id], [Name], [Status], [CreatedBy], [CreatedOn], [UpdatedBy], [UpdatedOn]) VALUES (2, N'Part Time', 1, N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime), N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime))
 GO
-INSERT [dbo].[JobType] ([Id], [JobType], [Status], [CreatedBy], [CreatedOn], [UpdatedBy], [UpdatedOn]) VALUES (3, N'Work From Home', 1, N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime), N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime))
+INSERT [dbo].[JobType] ([Id], [Name], [Status], [CreatedBy], [CreatedOn], [UpdatedBy], [UpdatedOn]) VALUES (3, N'Work From Home', 1, N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime), N'admin', CAST(N'2019-06-28T00:00:00.000' AS DateTime))
 GO
 SET IDENTITY_INSERT [dbo].[JobType] OFF
 GO
