@@ -58,7 +58,8 @@ class ChangePassword extends React.Component<any, any> {
     //debugger;
     const Servicecall = new Apiservices();
 
-    let responce = Servicecall.GET_CALL("User/ValidateKey?email=" + email + "&key=" + key + "&codeFor=changepassword", null, that.isvalid)
+    let responce = Servicecall.GET_CALL("User/ValidateKey?email=" + email + "&key=" + key + "&codeFor=changepassword", null, 
+    that.isvalid,that.errorHandle)
 
   }
 
@@ -77,6 +78,9 @@ class ChangePassword extends React.Component<any, any> {
         })
   }
 
+  errorHandle=(error:any)=>{
+    console.log();
+  }
 
   submitForm(e: any) {
     let that: any = this;
@@ -103,7 +107,7 @@ class ChangePassword extends React.Component<any, any> {
 
         const Servicecall = new Apiservices();
 
-        let responce = Servicecall.POST_CALL("account/ResetPassword", body, that.success)
+        let responce = Servicecall.POST_CALL("account/ResetPassword", body, that.success,that.errorHandle)
 
 
       }

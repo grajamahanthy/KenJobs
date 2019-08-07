@@ -67,12 +67,15 @@ class ForgotPassword extends React.Component<any, any> {
 
 
         let url = 'User/ForgotPassword';
-        let responce = Servicecall.POST_CALL(url, body, this.Success)
+        let responce = Servicecall.POST_CALL(url, body, this.Success,this.errorHandle)
       }
       else {
         console.log("Please provide your email for resetting the password.");
       }
     }
+  }
+  errorHandle=(error:any)=>{
+
   }
   Success = () => {
     this.setState({

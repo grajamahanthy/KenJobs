@@ -44,10 +44,12 @@ class Employeedashbord extends React.Component<any, any> {
             body.set('UserId', '1');
 
             //Get jobs bu user id, User id is assigned by server 
-            let responce = Servicecall.GET_SECURE_CALL('Job/GetJobsByUserId', null, this.displayData)
+            let responce = Servicecall.GET_SECURE_CALL('Job/GetJobsByUserId', null, this.displayData,this.errorHandle)
         }
     }
+    errorHandle=(error:any)=>{
 
+    }
     displayData = (data: any) => {
 
         this.setState({

@@ -63,7 +63,10 @@ class Jobs extends React.Component<any, any>{
     findTheJobs = (value: any) => {
         let body = new URLSearchParams();
         let Servicecall = new Apiservices();
-        let responce = Servicecall.GET_CALL('JobSearch/Get', null, this.displayData)
+        let responce = Servicecall.GET_CALL('JobSearch/Get', null, this.displayData,this.errorHandle)
+
+    }
+    errorHandle=()=>{
 
     }
 

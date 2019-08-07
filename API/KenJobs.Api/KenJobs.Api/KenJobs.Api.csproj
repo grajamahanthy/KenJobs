@@ -17,7 +17,7 @@
     <AssemblyName>KenJobs.Api</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -221,7 +221,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Common\BaseController.cs" />
     <Compile Include="Controllers\ApplyJobController.cs" />
+    <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
+    <Compile Include="Controllers\EmployerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobCategoryController.cs" />
     <Compile Include="Controllers\JobController.cs" />
@@ -234,8 +236,11 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CandidateModel.cs" />
+    <Compile Include="Models\CandidateSearchModel.cs" />
     <Compile Include="Models\ConfigModel.cs" />
     <Compile Include="Models\EducationalQualificationModel.cs" />
+    <Compile Include="Models\EmployerModel.cs" />
     <Compile Include="Models\ExperienceModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JobCategoryModel.cs" />
@@ -371,9 +376,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50768</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://apikenjobs.com</IISUrl>
+          <IISUrl>http://localhost:50768</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://apikenjobs.com</IISAppRootUrl>
+          <IISAppRootUrl>http://localhost:50768</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

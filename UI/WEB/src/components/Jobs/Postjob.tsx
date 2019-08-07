@@ -82,7 +82,7 @@ class Postjob extends React.Component<any, any> {
 
             let Servicecall = new Apiservices();
 
-            let responce = Servicecall.POST_SECURE_CALL('Job', body, this.success)
+            let responce = Servicecall.POST_SECURE_CALL('Job', body, this.success,this.errorHandle)
 
         }
     }
@@ -107,9 +107,14 @@ class Postjob extends React.Component<any, any> {
 
     componentDidMount() {
         const Servicecall = new Apiservices();
-        Servicecall.GET_SECURE_CALL('JobType', null, this.getJobType)
-        Servicecall.GET_SECURE_CALL('JobCategory', null, this.getJobCategory)
+        Servicecall.GET_SECURE_CALL('JobType', null, this.getJobType,this.errorHandle)
+        Servicecall.GET_SECURE_CALL('JobCategory', null, this.getJobCategory,this.errorHandle)
     }
+
+    errorHandle=()=>{
+
+    }
+
     getJobCategory = (data: any) => {
         this.setState({
             jobCategoryList: data

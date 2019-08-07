@@ -38,11 +38,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { fab, faFacebook } from '@fortawesome/free-brands-svg-icons'
 import {
   faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender,
-  faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser
+  faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser,faEnvelope,faMobileAlt,faUniversity,
+faLaptopCode
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender,
-  faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser)
+  faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser,faEnvelope,faMobileAlt,faUniversity,faLaptopCode)
 
 
 

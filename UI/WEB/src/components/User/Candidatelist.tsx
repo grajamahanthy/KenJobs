@@ -18,9 +18,11 @@ class CandidateList extends React.Component<any, any> {
     componentWillMount() {
 
         let url = 'Job/GetJobseekersByJobId/' + this.state.JobId;
-        let responce = Servicecall.GET_SECURE_CALL(url, null, this.displayData)
+        let responce = Servicecall.GET_SECURE_CALL(url, null, this.displayData,this.errorHandle)
     }
+    errorHandle=(error:any)=>{
 
+    }
     displayData = (data: any) => {
         this.setState({
             haveCandidate: data.length > 0 ? true : false,

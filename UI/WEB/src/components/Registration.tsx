@@ -62,13 +62,16 @@ class Registration extends React.Component<any, any> {
 
                 const Servicecall = new Apiservices();
 
-                let responce = Servicecall.POST_CALL('Account/Register', body, this.success)
+                let responce = Servicecall.POST_CALL('Account/Register', body, this.success,this.errorHandle)
 
 
             } else {
                 return false;
             }
         }
+    }
+    errorHandle=(error:any)=>{
+
     }
     success = (data: any) => {
         if (data == 1) {
