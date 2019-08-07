@@ -47,6 +47,7 @@
     <Compile Include="BusinessObjects\AspNetUserClaimBo.cs" />
     <Compile Include="BusinessObjects\AspNetUserLoginBo.cs" />
     <Compile Include="BusinessObjects\BusinessBase.cs" />
+    <Compile Include="BusinessObjects\CandidateBo.cs" />
     <Compile Include="BusinessObjects\Class1.cs" />
     <Compile Include="BusinessObjects\ClientBo.cs" />
     <Compile Include="BusinessObjects\CountryBo.cs" />

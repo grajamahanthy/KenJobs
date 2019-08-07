@@ -14,11 +14,13 @@ export default class Apiservices {
     token: any;
     constructor() {
         //this.UrlPath = 'http://api-kenjobs.com/api/';
-        this.UrlPath = 'http://apikenjobs.com/api/';
-        // this.UrlPath = 'http://api.kenjobs.com/api/';
+      // this.UrlPath = 'http://apikenjobs.com/api/';
+        // this.UrlPath = 'http://localhost:50768/api/';
+        this.UrlPath = 'http://api.kenjobs.com/api/';
+      
     }
     //Regular Service Call
-    GET_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any): any {
+    GET_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any,errorCallback:any): any {
         const isAuthenticated = localStorage.getItem("authInfo");
         if (isAuthenticated) {
             this.local = JSON.parse(isAuthenticated);
@@ -40,13 +42,13 @@ export default class Apiservices {
                 successCallback(data);
             });
         }).catch(error => {
-            return error;
+            errorCallback(error);
         })
 
 
     }
 
-    POST_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any): any {
+    POST_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any,errorCallback:any): any {
         const isAuthenticated = localStorage.getItem("authInfo");
         if (isAuthenticated) {
             this.local = JSON.parse(isAuthenticated);
@@ -66,13 +68,13 @@ export default class Apiservices {
                 successCallback(data);
             });
         }).catch(error => {
-            return error;
+            errorCallback(error);
         })
     }
 
     //Secure Service Call
 
-    GET_SECURE_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any): any {
+    GET_SECURE_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any,errorCallback:any): any {
         let currentUrl = this.UrlPath + URL;
         const isAuthenticated = localStorage.getItem("authInfo");
         if (isAuthenticated) {
@@ -100,11 +102,11 @@ export default class Apiservices {
                     });
                 }
             }).catch(error => {
-                return error;
+                errorCallback(error);
             })
     }
 
-    POST_SECURE_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any): any {
+    POST_SECURE_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any,errorCallback:any): any {
         let currentUrl = this.UrlPath + URL;
         const isAuthenticated = localStorage.getItem("authInfo");
         if (isAuthenticated) {
@@ -128,15 +130,16 @@ export default class Apiservices {
             });
         }).catch(error => {
             
-            return error;
+            errorCallback(error);
         })
     }
 
-    LOGIN_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any): any {
+    LOGIN_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any,errorCallback:any): any {
 
         //let currentUrl = 'http://api-kenjobs.com/' + URL;
-        let currentUrl = 'http://apikenjobs.com/' + URL;
-        // let currentUrl = 'http://api.kenjobs.com/' + URL;
+        // let currentUrl = 'http://apikenjobs.com/' + URL;
+        //let currentUrl = 'http://localhost:50768/' + URL;
+         let currentUrl = 'http://api.kenjobs.com/' + URL;
 
         this.Header = new Headers();
         this.Header.append("Accept", "application/json");
@@ -152,11 +155,11 @@ export default class Apiservices {
             });
         }).catch(error => {
 
-            return error;
+            errorCallback(error);
         })
     }
 
-    ResetPassword(URL: string, DATA: URLSearchParams | null, successCallback: any): any {
+    ResetPassword(URL: string, DATA: URLSearchParams | null, successCallback: any,errorCallback:any): any {
         let currentUrl = this.UrlPath + URL;
         this.Header = new Headers();
         this.Header.append("Accept", "application/json");
@@ -170,7 +173,7 @@ export default class Apiservices {
             successCallback(response);
         }).catch(error => {
             
-            return error;
+            errorCallback(error);
         })
     }
 

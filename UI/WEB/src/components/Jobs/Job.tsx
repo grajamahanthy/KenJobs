@@ -55,7 +55,7 @@ class Job extends React.Component<any, any>{
             const Servicecall = new Apiservices();
 
             //Get jobs bu user id, User id is assigned by server 
-            let responce = Servicecall.GET_CALL('ApplyJob/Get', null, this.success)
+            let responce = Servicecall.GET_CALL('ApplyJob/Get', null, this.success,this.errorHandle)
 
         } else {
             this.setState({
@@ -63,7 +63,9 @@ class Job extends React.Component<any, any>{
             })
         }
     }
+    errorHandle=(error:any)=>{
 
+    }
     success = () => {
 
     }

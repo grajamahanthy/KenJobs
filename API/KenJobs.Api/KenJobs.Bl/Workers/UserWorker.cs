@@ -230,6 +230,35 @@ namespace KenJobs.Bl.Workers
             return 1;
         }
 
+        public int UpdateEmployer(int id,UserBo userBo)
+        {
+            IGenericRepository<User> repository = new GenericRepository<User>();
+            User user = repository.GetById(id);
+
+            user.Id = userBo.Id;
+            user.FirstName = userBo.FirstName;
+            user.LastName = userBo.LastName;
+            user.ProfilePhoto = userBo.ProfilePhoto;
+            user.Gender_Id = userBo.Gender_Id;
+            user.Status = userBo.Status;
+            user.UpdatedBy = "admin";
+            user.UpdatedOn = DateTime.UtcNow;
+            user.PhoneNumber = userBo.PhoneNumber;
+
+            try
+            {
+                repository.Update(user);
+                repository.Save();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+           
+
+            
+        }
         public int UpdatePartialUserProps(UserBo userBo)
         {
             try

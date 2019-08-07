@@ -73,12 +73,13 @@ class Login extends React.Component<any, any> {
         })
         const Servicecall = new Apiservices();
 
-        let response = Servicecall.LOGIN_CALL("token", body, this.displaydata)
+        let response = Servicecall.LOGIN_CALL("token", body, this.displaydata,this.errorHandle)
 
       }
     }
   }
 
+  
   doesExists = function (obj: any) {
     return (obj != null && obj != undefined)
   }
@@ -88,14 +89,13 @@ class Login extends React.Component<any, any> {
     let isError: boolean = this.doesExists(response.error);
     if (isError) {
       //
-
       this.setState({
+        loading: false,
         isValid: false,
         errorMessage: response.error_description
       })
       return;
     }
-    
 
     let accessToken = response.access_token;
     let logedIn = this.doesExists(response.access_token);
@@ -116,13 +116,22 @@ class Login extends React.Component<any, any> {
     localStorage.setItem("authInfo", JSON.stringify(myOth))
 
     this.setState({
-      loggedIn: logedIn, loading: false
+      loggedIn: logedIn, 
+      loading: false
     })
 
     if (response.ok) {
 
     }
 
+  }
+
+  errorHandle=(error:any)=>{
+    console.log(error);
+    this.setState({
+      isValid: false,
+      loading: false
+    })
   }
 
   displayError = (data: any) => {

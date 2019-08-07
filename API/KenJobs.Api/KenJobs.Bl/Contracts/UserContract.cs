@@ -15,6 +15,7 @@ namespace KenJobs.Bl.Contracts
         UserBo GetUserByEmail(string email);
         int PostUser(UserBo userBo);
         int UpdateUser(int id, UserBo userBo);
+        int UpdateEmployer(int id, UserBo userBo);
         int UpdatePartialUserProps(UserBo userBo);
     }
 }

@@ -23,9 +23,15 @@ function Navigation(props: any) {
 
                 <NavDropdown.Divider />
                 <NavDropdown.Item eventKey="4.3">
-                    <Link className="nav-link" to="/edituser">
-                        Edit Profile
-                    </Link>
+                    {
+                        (props.app_prop.loginType == "employer") ?
+                        <Link className="nav-link" to="/editemployee">
+                            Edit Profile
+                        </Link>
+                        : <Link className="nav-link" to="/edituser">
+                            Edit Profile
+                        </Link>
+                    }
                 </NavDropdown.Item>
             </NavDropdown>
         </>)

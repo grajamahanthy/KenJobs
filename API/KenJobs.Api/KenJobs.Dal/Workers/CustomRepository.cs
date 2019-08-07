@@ -7,7 +7,7 @@ using KenJobs.Dal.Contracts;
 
 namespace KenJobs.Dal.Workers
 {
-    public class CustomRepository<T>: GenericRepository<T>,ICustomRepository<T> where T : class
+    public class CustomRepository<T> : GenericRepository<T>, ICustomRepository<T> where T : class
     {
         public IEnumerable<Job> GetAppliedJobByUserId(int userId)
         {
@@ -32,18 +32,34 @@ namespace KenJobs.Dal.Workers
         public IEnumerable<User> GetJobseekersByJobId(int jobId)
         {
             var jobseekerList = (from u in _context.Users
-                           join aj in _context.AppliedJobs on u.Id equals aj.User_Id
-                           where aj.Job_Id == jobId
-                           select u).ToList();
+                                 join aj in _context.AppliedJobs on u.Id equals aj.User_Id
+                                 where aj.Job_Id == jobId
+                                 select u).ToList();
             return jobseekerList;
         }
 
         public User GetUserByEmail(string email)
         {
             var user = (from u in _context.Users
-                                 where u.Email == email
-                                 select u).ToList();
+                        where u.Email == email
+                        select u).ToList();
             return (user == null || user.Count == 0) ? null : user[0];
+        }
+
+        public IEnumerable<User> GetCandidates(string userName, string skills, string location, Nullable<int> minexperience, Nullable<int> maxExperience)
+        {
+            KenJobsEntities _context = new KenJobsEntities();
+            var CandList = (from u in _context.Users
+                            join p in _context.Profiles
+                            on u.Id equals p.User_Id
+                            join a in _context.AspNetUsers
+                            on u.AspNetUser_Id equals a.Id
+                            where (u.FirstName + " " + u.LastName).Contains(userName)
+                             && (p.skills).Contains(skills)
+                             && (p.PreferredLocation).Contains(location)
+                             && (p.TotalExperiance >= minexperience && p.TotalExperiance <= maxExperience)
+                            select u).ToList();
+            return CandList;
         }
     }
 }

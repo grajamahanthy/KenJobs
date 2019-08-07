@@ -73,6 +73,13 @@ namespace KenJobs.Api.Controllers
 
         }
 
+       
+
+        public IHttpActionResult UpdateUser()
+        {
+            return Ok();
+        }
+
         // POST: api/User
         public void Post([FromBody]string value)
         {
