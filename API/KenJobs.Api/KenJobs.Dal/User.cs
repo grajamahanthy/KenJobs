@@ -23,6 +23,7 @@ namespace KenJobs.Dal
             this.Profiles = new HashSet<Profile>();
             this.User_Organization_Client = new HashSet<User_Organization_Client>();
             this.User_Organization = new HashSet<User_Organization>();
+            this.FavoriteJobs = new HashSet<FavoriteJob>();
         }
     
         public int Id { get; set; }
@@ -58,5 +59,7 @@ namespace KenJobs.Dal
         public virtual ICollection<User_Organization_Client> User_Organization_Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User_Organization> User_Organization { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FavoriteJob> FavoriteJobs { get; set; }
     }
 }

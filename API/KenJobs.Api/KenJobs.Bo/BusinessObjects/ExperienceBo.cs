@@ -2,6 +2,10 @@ namespace KenJobs.Bo.BusinessObjects
 {
     public partial class ExperienceBo: BusinessBase
     {
+        public ExperienceBo()
+        {
+            this.UiStatus = "E";
+        }
         public int Id { get; set; }
         public int User_Id { get; set; }
         public string CompanyName { get; set; }
@@ -11,5 +15,7 @@ namespace KenJobs.Bo.BusinessObjects
         public System.DateTime EndDate { get; set; }
         public string Description { get; set; }    
         public virtual UserBo User { get; set; }
+        public string UiStatus { get; set; }
+
     }
 }

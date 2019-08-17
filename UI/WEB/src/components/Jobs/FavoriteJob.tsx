@@ -8,19 +8,18 @@ import { AppState } from '../../store';
 import { updateSession } from "../../store/auth/actions";
 
 
-class Applyjob extends React.Component<any, any>{
+class FavoriteJob extends React.Component<any, any>{
     constructor(props: any) {
         super(props);
         let loggedIn = this.props.system.loggedIn
         this.state = {
             loggedIn,
             jobdata: []
-
         }
     }
     componentDidMount() {
         const Servicecall = new Apiservices();
-        let response = Servicecall.GET_SECURE_CALL("ApplyJob/GetJobsByUserid", null, this.success, this.errorHandle)
+        let response = Servicecall.GET_SECURE_CALL("FavoriteJob/GetJobsByUserid", null, this.success, this.errorHandle)
     }
 
     success = (data: any) => {
@@ -148,7 +147,6 @@ class Applyjob extends React.Component<any, any>{
     }
 }
 
-
 const mapStateToProps = (state: AppState) => ({
     system: state.system
   });
@@ -156,4 +154,4 @@ const mapStateToProps = (state: AppState) => ({
   export default connect(
     mapStateToProps,
     { updateSession }
-  )(Applyjob);
+  )(FavoriteJob);

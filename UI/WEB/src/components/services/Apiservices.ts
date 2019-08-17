@@ -177,4 +177,32 @@ export default class Apiservices {
         })
     }
 
+    POST_SECURE_CALL1(URL: string, DATA: any | null, successCallback: any,errorCallback:any): any {
+        let currentUrl = this.UrlPath + URL;
+        const isAuthenticated = localStorage.getItem("authInfo");
+        if (isAuthenticated) {
+            this.local = JSON.parse(isAuthenticated);
+            this.token = this.local['token']
+        }
+        this.Header = new Headers();
+        this.Header.append("Accept", "application/json");
+        this.Header.append('Content-Type', 'application/json;charset=utf-8');
+        let bearer = 'Bearer ' + this.token
+        if (this.token != null) {
+            this.Header.append("Authorization", bearer);
+        }
+        fetch(currentUrl, {
+            method: "POST",
+            headers: this.Header,
+            body:JSON.stringify(DATA) ,
+        }).then(response => {
+            response.json().then((data) => {
+                successCallback(data);
+            });
+        }).catch(error => {
+            
+            errorCallback(error);
+        })
+    }
+
 }

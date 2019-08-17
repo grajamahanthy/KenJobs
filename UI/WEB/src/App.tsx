@@ -25,6 +25,7 @@ import Postjobdescription from "./components/Jobs/PostedJobDescription";
 import Editjob from "./components/Jobs/EditJob";
 import Candidate from "./components/User/Candidate";
 import CandidateProfile from "./components/User/candidateprofile";
+import favoritejob from "./components/Jobs/FavoriteJob";
 import EmployerHome from "./components/EmployerHome";
 // import { IsessionState } from "./store/auth/types";
 import { updateSession } from "./store/auth/actions";
@@ -51,6 +52,7 @@ class App extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     const token = localStorage.getItem("token");
+
     let loggedIn = true;
     if (token == null) {
       loggedIn = false;
@@ -99,6 +101,7 @@ class App extends React.Component<any, any> {
         <Route exact path="/editemployee" component={Employeeprofile} />
         <Route exact path="/Jobs" component={Jobs} />
         <Route exact path="/applyjob" component={Applyjob} />
+        <Route exact path="/favoritejob" component={favoritejob} />
         <Route exact path="/Logout" component={Logout} />
         <Route exact path="/postjobs" component={Postjob} />
         <Route exact path="/profile" component={Userprofile} />

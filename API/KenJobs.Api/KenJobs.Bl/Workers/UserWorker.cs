@@ -68,10 +68,6 @@ namespace KenJobs.Bl.Workers
                 User user = aspNetUser.Users.ToList()[0];
 
 
-
-
-
-
                 UserBo userBo = new UserBo();
                 userBo.Id = user.Id;
                 userBo.FirstName = user.FirstName;

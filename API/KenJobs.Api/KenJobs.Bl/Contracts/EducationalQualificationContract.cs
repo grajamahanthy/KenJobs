@@ -7,11 +7,12 @@ using KenJobs.Bo.BusinessObjects;
 
 namespace KenJobs.Bl.Contracts
 {
-    interface EducationalQualificationContract
+    public interface EducationalQualificationContract
     {
         IEnumerable<EducationalQualificationBo> GetEducationalQualifications();
         EducationalQualificationBo GetEducationalQualification(int id);
         int PostEducationalQualification(EducationalQualificationBo educationalQualificationBo);
-        int UpdateEducationalQualification(int id,EducationalQualificationBo educationalQualificationBo);
+        int UpdateEducationalQualification(int id, EducationalQualificationBo educationalQualificationBo);
+        int DeleteEducationalQualification(int id);
     }
 }

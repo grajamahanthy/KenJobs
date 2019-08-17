@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { updateSession } from "../../store/auth/actions";
@@ -7,18 +7,16 @@ import { connect } from 'react-redux';
 
 import { AppState } from '../../store';
 import Apiservices from '../services/Apiservices';
+import LoginModal from '../util/LoginModal';
 
 
 
 class Job extends React.Component<any, any>{
     constructor(props: any) {
-
         super(props);
-        let job = props.jobInfo;
+        let job = this.props.jobInfo;
         const token = this.props.system.token
         let loggedIn = this.props.system.loggedIn
-
-        // console.log(job);
         this.state = {
             loggedIn,
             jobId: job.Id,
@@ -33,50 +31,29 @@ class Job extends React.Component<any, any>{
             skills: job.Skills,
             experience: job.MinExperience + '-' + job.MaxExperience,
             posteddate: job.PostDate,
-            redirect: false
+            redirect: false,
+            showLogin: false,
         }
         this.addtofavorites = this.addtofavorites.bind(this);
         this.applyjob = this.applyjob.bind(this);
     }
 
-
     addtofavorites = (e: any) => {
-        if (this.state.loggedIn) {
-
-        } else {
-            this.setState({
-                redirect: true
-            })
-        }
+        this.props.addFavorite(this.state.jobId);
     }
+
     applyjob = (e: any) => {
-        if (this.state.loggedIn) {
-
-            const Servicecall = new Apiservices();
-
-            //Get jobs bu user id, User id is assigned by server 
-            let responce = Servicecall.GET_CALL('ApplyJob/Get', null, this.success,this.errorHandle)
-
-        } else {
-            this.setState({
-                redirect: true
-            })
-        }
+        this.props.applyjob(this.state.jobId);
     }
-    errorHandle=(error:any)=>{
-
-    }
-    success = () => {
+    errorHandle = (error: any) => {
 
     }
 
 
     render() {
-        if (!this.state.loggedIn && this.state.redirect) {
-            return <Redirect to="/login/jobseeker" />
-        }
         return (
             <>
+                {/* {this.state.showLogin ? <LoginModal onLoginModalHide={this.onLoginModalHide} onAfterLogin={this.onAfterLogin}></LoginModal> : <></>} */}
                 <div className="">
                     <div className="card  border rounded-0 pt-2 mb-2 shadow-sm p-3 ">
 

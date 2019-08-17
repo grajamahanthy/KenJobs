@@ -54,6 +54,7 @@
     <Compile Include="BusinessObjects\CurrencyBo.cs" />
     <Compile Include="BusinessObjects\EducationalQualificationBo.cs" />
     <Compile Include="BusinessObjects\ExperienceBo.cs" />
+    <Compile Include="BusinessObjects\FavoriteJobBo.cs" />
     <Compile Include="BusinessObjects\GenderBo.cs" />
     <Compile Include="BusinessObjects\JobBo.cs" />
     <Compile Include="BusinessObjects\JobCategoryBo.cs" />

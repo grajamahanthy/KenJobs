@@ -2,6 +2,7 @@ import React from "react";
 import { Pagination } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import Apiservices from "../services/Apiservices";
+import LoaderModal from "../util/LoaderModal";
 const Servicecall = new Apiservices();
 
 class CandidateList extends React.Component<any, any> {
@@ -11,23 +12,29 @@ class CandidateList extends React.Component<any, any> {
             JobId: props.location.state.JobId,
             haveCandidate: false,
             showContent: false,
+            loader: false,
             Candidatedata: []
         }
     }
 
     componentWillMount() {
-
+        this.setState({
+            loader: true
+        })
         let url = 'Job/GetJobseekersByJobId/' + this.state.JobId;
-        let responce = Servicecall.GET_SECURE_CALL(url, null, this.displayData,this.errorHandle)
+        let responce = Servicecall.GET_SECURE_CALL(url, null, this.displayData, this.errorHandle)
     }
-    errorHandle=(error:any)=>{
-
+    errorHandle = (error: any) => {
+        this.setState({
+            loader: false
+        })
     }
     displayData = (data: any) => {
         this.setState({
             haveCandidate: data.length > 0 ? true : false,
             Candidatedata: data,
-            showContent: true
+            showContent: true,
+            loader: false,
         })
     }
     render() {
@@ -90,11 +97,7 @@ class CandidateList extends React.Component<any, any> {
                         <h4>!Oops... No Data Found.</h4>
                     </div></div>
         } else if (!this.state.showContent) {
-            Candidatelist =
-                <div className="col-md-6   my-1 p-3">
-                    <div className="row">
-                        <h4>Loading.....!</h4>
-                    </div></div>
+            Candidatelist =<LoaderModal></LoaderModal>
         }
         return (
             <>

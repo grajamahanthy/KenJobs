@@ -7,11 +7,13 @@ using KenJobs.Bo.BusinessObjects;
 
 namespace KenJobs.Bl.Contracts
 {
-    interface ExperienceContract
+ public interface ExperienceContract
     {
         IEnumerable<ExperienceBo> GetExperiences();
         ExperienceBo GetExperience(int id);
         int PostExperience(ExperienceBo experienceBo);
         int UpdateExperience(int id, ExperienceBo experience);
+
+        int DeleteExperience(int UserId);
     }
 }

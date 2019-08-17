@@ -86,6 +86,9 @@
     <Compile Include="Experience.cs">
       <DependentUpon>KenJobs.tt</DependentUpon>
     </Compile>
+    <Compile Include="FavoriteJob.cs">
+      <DependentUpon>KenJobs.tt</DependentUpon>
+    </Compile>
     <Compile Include="Gender.cs">
       <DependentUpon>KenJobs.tt</DependentUpon>
     </Compile>

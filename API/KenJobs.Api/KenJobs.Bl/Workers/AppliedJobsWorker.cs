@@ -11,13 +11,13 @@ using KenJobs.Dal.Workers;
 
 namespace KenJobs.Bl.Workers
 {
-  public  class AppliedJobsWorker : AppliedJobsContract
+    public class AppliedJobsWorker : AppliedJobsContract
     {
         public AppliedJobBo GetAppliedJob(int id)
         {
             IGenericRepository<AppliedJob> repository = new GenericRepository<AppliedJob>();
             object objid = id;
-            AppliedJob appliedJob= repository.GetById(objid);
+            AppliedJob appliedJob = repository.GetById(objid);
 
             AppliedJobBo appliedJobBo = new AppliedJobBo();
             appliedJobBo.Id = appliedJob.Id;
@@ -104,16 +104,27 @@ namespace KenJobs.Bl.Workers
         public int PostAppliedJob(AppliedJobBo appliedJobBo)
         {
             IGenericRepository<AppliedJob> repository = new GenericRepository<AppliedJob>();
-            AppliedJob appliedJob = new AppliedJob();
-            appliedJob.Id = appliedJobBo.Id;
-            appliedJob.User_Id = appliedJobBo.User_Id;
-            appliedJob.Client_Id = appliedJobBo.Client_Id;
-            appliedJob.Job_Id = appliedJobBo.Job_Id;
-            appliedJob.AppliedDate = appliedJobBo.AppliedDate;
+            try
+            {
+                AppliedJob appliedJob = new AppliedJob();
+                appliedJob.Id = appliedJobBo.Id;
+                appliedJob.User_Id = appliedJobBo.User_Id;
+                appliedJob.Client_Id = appliedJobBo.Client_Id;
+                appliedJob.Job_Id = appliedJobBo.Job_Id;
+                appliedJob.AppliedDate = DateTime.UtcNow;
+                appliedJob.CreatedBy = "admin";
+                appliedJob.CreatedOn = DateTime.UtcNow;
+                appliedJob.UpdatedBy = "admin";
+                appliedJob.UpdatedOn = DateTime.UtcNow;
+                repository.Insert(appliedJob);
+                repository.Save();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
 
-            repository.Insert(appliedJob);
-            repository.Save();
-            return 1;
         }
 
         public int UpdateAppliedJob(int id, AppliedJobBo appliedJobBo)
@@ -130,5 +141,30 @@ namespace KenJobs.Bl.Workers
             repository.Save();
             return 1;
         }
+
+        public IEnumerable<AppliedJobBo> GetAppliedJobs(int jobId, int userId)
+        {
+            ICustomRepository<AppliedJob> repository = new CustomRepository<AppliedJob>();
+
+            IEnumerable<AppliedJob> appliedJobList = repository.GetAppliedJobs(jobId, userId);
+
+            List<AppliedJobBo> appliedJobBoList = new List<AppliedJobBo>();
+
+            foreach (AppliedJob appliedJob in appliedJobList)
+            {
+                AppliedJobBo appliedJobBo = new AppliedJobBo();
+                appliedJobBo.Id = appliedJob.Id;
+                appliedJobBo.Client_Id = appliedJob.Client_Id;
+                appliedJobBo.Job_Id = appliedJob.Job_Id;
+                appliedJobBo.AppliedDate = appliedJob.AppliedDate;
+
+                appliedJobBoList.Add(appliedJobBo);
+            }
+
+            return appliedJobBoList;
+        }
+
+
+
     }
 }

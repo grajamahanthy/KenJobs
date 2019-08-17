@@ -46,5 +46,6 @@ namespace KenJobs.Dal
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<User_Organization> User_Organization { get; set; }
         public virtual DbSet<User_Organization_Client> User_Organization_Client { get; set; }
+        public virtual DbSet<FavoriteJob> FavoriteJobs { get; set; }
     }
 }

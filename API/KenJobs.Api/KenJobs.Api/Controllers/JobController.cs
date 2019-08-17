@@ -329,21 +329,28 @@ namespace KenJobs.Api.Controllers
         public List<ProfileModel> profileModelMapper(List<ProfileBo> profileBoList)
         {
             List<ProfileModel> profileModlList = new List<ProfileModel>();
-            foreach (ProfileBo profile in profileBoList)
+            if (profileBoList != null && profileBoList.Count > 0)
             {
-                ProfileModel profileModel = new ProfileModel();
-                profileModel.Id = profile.Id;
-                profileModel.User_Id = profile.User_Id;
-                profileModel.Resume = profile.Resume;
-                profileModel.skills = profile.skills;
-                profileModel.TotalExperiance = profile.TotalExperiance;
-                profileModel.HeighestQualification = profile.HeighestQualification;
-                profileModel.PreferredLocation = profile.PreferredLocation;
-                profileModel.CurrentSalary = profile.CurrentSalary;
-                profileModel.ExpectedSalary = profile.ExpectedSalary;
-                profileModel.Languages = profile.Languages;
+                foreach (ProfileBo profile in profileBoList)
+                {
+                    ProfileModel profileModel = new ProfileModel();
+                    profileModel.Id = profile.Id;
+                    profileModel.User_Id = profile.User_Id;
+                    profileModel.Resume = profile.Resume;
+                    profileModel.skills = profile.skills;
+                    profileModel.TotalExperiance = profile.TotalExperiance;
+                    profileModel.HeighestQualification = profile.HeighestQualification;
+                    profileModel.PreferredLocation = profile.PreferredLocation;
+                    profileModel.CurrentSalary = profile.CurrentSalary;
+                    profileModel.ExpectedSalary = profile.ExpectedSalary;
+                    profileModel.Languages = profile.Languages;
 
-                profileModlList.Add(profileModel);
+                    profileModlList.Add(profileModel);
+                }
+            }
+            else
+            {
+                profileModlList.Add(new ProfileModel());
             }
             return profileModlList;
         }

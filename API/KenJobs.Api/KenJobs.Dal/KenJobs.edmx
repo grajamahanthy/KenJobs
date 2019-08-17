@@ -152,6 +152,19 @@
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
+        <EntityType Name="FavoriteJobs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="Job_Id" Type="int" Nullable="false" />
+          <Property Name="AppliedDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
         <EntityType Name="Gender">
           <Key>
             <PropertyRef Name="Id" />
@@ -433,6 +446,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FavoriteJobs_Jobs">
+          <End Role="Jobs" Type="Self.Jobs" Multiplicity="1" />
+          <End Role="FavoriteJobs" Type="Self.FavoriteJobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jobs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FavoriteJobs">
+              <PropertyRef Name="Job_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FavoriteJobs_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="FavoriteJobs" Type="Self.FavoriteJobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FavoriteJobs">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Jobs_JobCategory">
           <End Role="JobCategory" Type="Self.JobCategory" Multiplicity="1" />
           <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
@@ -578,6 +615,7 @@
           <EntitySet Name="Currency" EntityType="Self.Currency" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EducationalQualification" EntityType="Self.EducationalQualification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Experience" EntityType="Self.Experience" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FavoriteJobs" EntityType="Self.FavoriteJobs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobCategory" EntityType="Self.JobCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Jobs" EntityType="Self.Jobs" Schema="dbo" store:Type="Tables" />
@@ -623,6 +661,14 @@
           <AssociationSet Name="FK_Experience_User" Association="Self.FK_Experience_User">
             <End Role="User" EntitySet="User" />
             <End Role="Experience" EntitySet="Experience" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FavoriteJobs_Jobs" Association="Self.FK_FavoriteJobs_Jobs">
+            <End Role="Jobs" EntitySet="Jobs" />
+            <End Role="FavoriteJobs" EntitySet="FavoriteJobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FavoriteJobs_User" Association="Self.FK_FavoriteJobs_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="FavoriteJobs" EntitySet="FavoriteJobs" />
           </AssociationSet>
           <AssociationSet Name="FK_Jobs_JobCategory" Association="Self.FK_Jobs_JobCategory">
             <End Role="JobCategory" EntitySet="JobCategory" />
@@ -770,6 +816,15 @@
           <AssociationSet Name="AspNetUserRoles" Association="kenjobsModel.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="FavoriteJobs" EntityType="kenjobsModel.FavoriteJob" />
+          <AssociationSet Name="FK_FavoriteJobs_Jobs" Association="kenjobsModel.FK_FavoriteJobs_Jobs">
+            <End Role="Job" EntitySet="Jobs" />
+            <End Role="FavoriteJob" EntitySet="FavoriteJobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FavoriteJobs_User" Association="kenjobsModel.FK_FavoriteJobs_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="FavoriteJob" EntitySet="FavoriteJobs" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AppliedJob">
@@ -985,6 +1040,7 @@
           <NavigationProperty Name="AppliedJobs" Relationship="kenjobsModel.FK_AppliedJobs_Jobs" FromRole="Job" ToRole="AppliedJob" />
           <NavigationProperty Name="JobCategory" Relationship="kenjobsModel.FK_Jobs_JobCategory" FromRole="Job" ToRole="JobCategory" />
           <NavigationProperty Name="JobType" Relationship="kenjobsModel.FK_Jobs_JobType" FromRole="Job" ToRole="JobType" />
+          <NavigationProperty Name="FavoriteJobs" Relationship="kenjobsModel.FK_FavoriteJobs_Jobs" FromRole="Job" ToRole="FavoriteJob" />
         </EntityType>
         <EntityType Name="JobType">
           <Key>
@@ -1083,6 +1139,7 @@
           <NavigationProperty Name="Profiles" Relationship="kenjobsModel.FK_Profile_User" FromRole="User" ToRole="Profile" />
           <NavigationProperty Name="User_Organization_Client" Relationship="kenjobsModel.FK_User_Client_User" FromRole="User" ToRole="User_Organization_Client" />
           <NavigationProperty Name="User_Organization" Relationship="kenjobsModel.FK_User_Organization_User" FromRole="User" ToRole="User_Organization" />
+          <NavigationProperty Name="FavoriteJobs" Relationship="kenjobsModel.FK_FavoriteJobs_User" FromRole="User" ToRole="FavoriteJob" />
         </EntityType>
         <EntityType Name="User_Organization">
           <Key>
@@ -1337,6 +1394,45 @@
         <Association Name="AspNetUserRoles">
           <End Type="kenjobsModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="kenjobsModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityType Name="FavoriteJob">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Job_Id" Type="Int32" Nullable="false" />
+          <Property Name="AppliedDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Job" Relationship="kenjobsModel.FK_FavoriteJobs_Jobs" FromRole="FavoriteJob" ToRole="Job" />
+          <NavigationProperty Name="User" Relationship="kenjobsModel.FK_FavoriteJobs_User" FromRole="FavoriteJob" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_FavoriteJobs_Jobs">
+          <End Type="kenjobsModel.Job" Role="Job" Multiplicity="1" />
+          <End Type="kenjobsModel.FavoriteJob" Role="FavoriteJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FavoriteJob">
+              <PropertyRef Name="Job_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FavoriteJobs_User">
+          <End Type="kenjobsModel.User" Role="User" Multiplicity="1" />
+          <End Type="kenjobsModel.FavoriteJob" Role="FavoriteJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FavoriteJob">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -1674,6 +1770,20 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="FavoriteJobs">
+            <EntityTypeMapping TypeName="kenjobsModel.FavoriteJob">
+              <MappingFragment StoreEntitySet="FavoriteJobs">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="AppliedDate" ColumnName="AppliedDate" />
+                <ScalarProperty Name="Job_Id" ColumnName="Job_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

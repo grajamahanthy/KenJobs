@@ -221,9 +221,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Common\BaseController.cs" />
     <Compile Include="Controllers\ApplyJobController.cs" />
+    <Compile Include="Controllers\BrassringExportController.cs" />
     <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\EmployerController.cs" />
+    <Compile Include="Controllers\FavoriteJobController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobCategoryController.cs" />
     <Compile Include="Controllers\JobController.cs" />
@@ -236,14 +238,17 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AppliedJobModel.cs" />
     <Compile Include="Models\CandidateModel.cs" />
     <Compile Include="Models\CandidateSearchModel.cs" />
     <Compile Include="Models\ConfigModel.cs" />
     <Compile Include="Models\EducationalQualificationModel.cs" />
     <Compile Include="Models\EmployerModel.cs" />
     <Compile Include="Models\ExperienceModel.cs" />
+    <Compile Include="Models\FavoriteJobModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JobCategoryModel.cs" />
+    <Compile Include="Models\JobSearchModel.cs" />
     <Compile Include="Models\JobsModel.cs" />
     <Compile Include="Models\JobTypeModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />
