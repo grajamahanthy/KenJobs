@@ -5,14 +5,25 @@ import LoaderModal from '../util/LoaderModal';
 import UserProfileModel from '../../Models/User';
 import ExperienceModel from '../../Models/Experience';
 import EducationalQualificationModel from '../../Models/Education';
-
+import UserAttachmentModel from '../../Models/UserAttachment';
+import AttachmentModel from '../../Models/Attachment';
+import { ToastContainer, toast } from 'react-toastify';
+import Notify from '../../components/common/Notify';
+const notify = new Notify();
 class CandidateProfile extends React.Component<any, any>{
     constructor(props: any) {
         super(props)
         this.state = {
             UserProfile: new UserProfileModel(),
+            UserProfileAttachment: new UserAttachmentModel(),
+            UserResumeAttachment: new UserAttachmentModel(),
             loader: false,
+            file: '',
+            imagePreviewUrl: '',
+            resume: '',
+
         }
+
 
         this.addExperienceRow = this.addExperienceRow.bind(this);
         this.removeExperienceRow = this.removeExperienceRow.bind(this);
@@ -23,8 +34,8 @@ class CandidateProfile extends React.Component<any, any>{
         this.SubmitHandle = this.SubmitHandle.bind(this);
     }
 
+
     SubmitHandle = (e: any) => {
-        console.log(this.state);
         e.preventDefault();
         var form = document.forms[0];
         if (form.checkValidity() === false) {
@@ -35,10 +46,7 @@ class CandidateProfile extends React.Component<any, any>{
         else {
             form.classList.add('was-validated');
 
-
-
             let candidate = this.state.UserProfile;
-
             let Servicecall = new Apiservices();
             this.setState({ loader: true })
             let responce = Servicecall.POST_SECURE_CALL1('Candidate/UpdateCandidate', candidate, this.success, this.errorHandle)
@@ -48,10 +56,28 @@ class CandidateProfile extends React.Component<any, any>{
 
     success = (data: any) => {
         this.loadCandidateData();
-
+        this.loadCandidateProfilePicture();
+        this.loadCandidateResume();
         this.setState({
             loader: false,
         })
+
+        notify.Success_notify("Profile Updated Succesfully")
+    }
+    successProfile = (data: any) => {
+        this.loadCandidateProfilePicture();
+        this.setState({
+            loader: false,
+        })
+        notify.Success_notify("Profile Picture Uploaded Succesfully")
+    }
+
+    successResume = (data: any) => {
+        this.loadCandidateResume();
+        this.setState({
+            loader: false,
+        })
+        notify.Success_notify("Resume Uploaded Succesfully")
     }
 
     onChange = (e: any) => {
@@ -63,7 +89,6 @@ class CandidateProfile extends React.Component<any, any>{
     }
 
     onChangeProfile = (e: any) => {
-
         e.preventDefault();
         let up: any = this.state.UserProfile;
         up.Profile[0][e.target.name] = e.target.value;
@@ -76,18 +101,62 @@ class CandidateProfile extends React.Component<any, any>{
             loader: false
         })
     }
+
     componentDidMount() {
         this.setState({
             loader: true
         })
         this.loadCandidateData();
+        this.loadCandidateProfilePicture();
     }
 
     loadCandidateData = () => {
         const Servicecall = new Apiservices();
         let responce = Servicecall.GET_SECURE_CALL('Candidate/Get', null, this.displayData, this.errorHandle)
     }
+    loadCandidateProfilePicture = () => {
+        const Servicecall = new Apiservices();
+        let res1 = Servicecall.GET_SECURE_CALL('Attachment?attachmentTypeId=1', null, this.displayProfilePicture, this.errorHandle)
+        let res2 = Servicecall.GET_SECURE_CALL('Attachment?attachmentTypeId=2', null, this.displayResume, this.errorHandle)
 
+    }
+    loadCandidateResume = () => {
+        // const Servicecall = new Apiservices();
+        // let responce = Servicecall.GET_SECURE_CALL('Attachment?attachmentTypeId=2', null, this.displayResume, this.errorHandle)
+    }
+
+    PostProfileAttachment = () => {
+        this.setState({
+            loader: true,
+        })
+        let body = new URLSearchParams();
+        let user = this.state.UserProfileAttachment;
+        const Servicecall = new Apiservices();
+        let responce = Servicecall.POST_SECURE_CALL1('Attachment/PostAttachment', user, this.successProfile, this.errorHandle)
+
+    }
+    PostResumeAttachment = () => {
+        this.setState({
+            loader: true,
+        })
+        let body = new URLSearchParams();
+        let user = this.state.UserResumeAttachment;
+        const Servicecall = new Apiservices();
+        let responce = Servicecall.POST_SECURE_CALL1('Attachment/PostAttachment', user, this.successResume, this.errorHandle)
+
+    }
+
+    displayProfilePicture = (data: any) => {
+        this.setState({
+            UserProfileAttachment: data
+        })
+    }
+
+    displayResume = (data: any) => {
+        this.setState({
+            UserResumeAttachment: data
+        })
+    }
 
     errorHandle() {
 
@@ -144,12 +213,69 @@ class CandidateProfile extends React.Component<any, any>{
         this.setState({ UserProfile: up })
     }
 
-    render() {
+    _handleImageChange(e: any) {
+        e.preventDefault();
+        let imgreader = new FileReader();
+        let file = e.target.files[0];
+        imgreader.onloadend = () => {
 
-       
-            return (
+            let u = this.state.UserProfileAttachment;
+            let a = new AttachmentModel();
+            a.Base64Text = ((imgreader.result == null ? '' : imgreader.result)).toString();
+            a.FileExtension = file.name;
+            a.Id = u.Attachment.Id;
+            u.Attachment = a;
+            u.AttachmentType_Id = 1;
+
+            this.setState({
+                UserProfileAttachment: u
+            }, () => this.PostProfileAttachment());
+
+        }
+        imgreader.readAsDataURL(file)
+
+    }
+
+    _handleFileChangeChange(e: any) {
+        e.preventDefault();
+        let reader = new FileReader();
+        let file = e.target.files[0];
+        reader.onloadend = () => {
+
+            let u = this.state.UserResumeAttachment;
+            let a = new AttachmentModel();
+            a.Base64Text = ((reader.result == null ? '' : reader.result)).toString();
+            a.FileExtension = file.name;
+            a.Id = u.Attachment.Id;
+            u.Attachment = a;
+            u.AttachmentType_Id = 2;
+
+            this.setState({
+                file: file,
+                UserResumeAttachment: u
+            }, () => this.PostResumeAttachment());
+
+        }
+        reader.readAsDataURL(file)
+
+
+    }
+
+    render() {
+        let { imagePreviewUrl } = this.state;
+        let $imagePreview = null;
+        if (this.state.UserProfileAttachment && this.state.UserProfileAttachment.Attachment &&
+            this.state.UserProfileAttachment.Attachment.Base64Text && this.state.UserProfileAttachment.Attachment.Base64Text != "null") {
+            $imagePreview = (<img src={this.state.UserProfileAttachment.Attachment.Base64Text} className="rounded-circle img-fluid img200 mt-2" alt='' />);
+        } else {
+            $imagePreview = (<img src={require('../../assets/images/profile.png')} className="rounded-circle img-fluid img200 mt-2" alt='' />);
+        }
+
+
+
+        return (
             <>
-           
+
                 {this.state.loader ?
                     <LoaderModal></LoaderModal>
                     : ''}
@@ -159,6 +285,34 @@ class CandidateProfile extends React.Component<any, any>{
                         <div className="container-fluid">
                             <div className="row">
                                 <div className="col-12">
+                                    <div className="card  border rounded mt-2 mb-2 shadow-sm p-3 ">
+                                        <div className="card-text row mx-2 my-2">
+                                            <div className="col-sm-6 text-center">
+                                                {/* <img src={require('../../assets/images/profile.png')} width="100%" height="200" alt='' /> */}
+                                                {$imagePreview}
+                                                <br/>
+                                                <div className="upload-btn-wrapper my-2">
+                                                    <input type="file" className="btn  btn-lg btn-block rounded-0" onChange={(e) => this._handleImageChange(e)} />
+                                                    <button className="btn btn-primary">
+                                                        Upload Profile Image
+                                                    </button>
+                                                </div>
+                                                {/* <button className="btn btn-primary">
+                                                    Remove
+                                                </button> */}
+                                            </div>
+                                            <div className="col-sm-6 text-center">
+                                                <FontAwesomeIcon icon="upload" size="10x"  className="mt-5 text-primary"/>
+                                                <br/>
+                                                <div className="upload-btn-wrapper my-2">
+                                                    <input type="file" className="btn  btn-lg btn-block rounded-0" onChange={(e) => this._handleFileChangeChange(e)} />
+                                                    <button className="btn btn-primary">
+                                                        Upload Resume
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div className="card  border rounded pt-2 mb-2 shadow-sm p-3 ">
                                         <div className="card-text mb-2">
 
@@ -588,7 +742,7 @@ class CandidateProfile extends React.Component<any, any>{
                     </div>
                 </div>
             </>
-            )
-        }
+        )
     }
+}
 export default CandidateProfile;

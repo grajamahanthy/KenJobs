@@ -61,5 +61,8 @@ namespace KenJobs.Api.Models
         public List<ProfileModel> Profile { get; set; }
         public List<ExperienceModel> Experience { get; set; }
         public List<EducationalQualificationModel> EducationalQualification { get; set; }
+
+        public virtual ICollection<UserAttachmentModel> UserAttachments { get; set; }
+
     }
 }

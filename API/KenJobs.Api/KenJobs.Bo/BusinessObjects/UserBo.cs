@@ -23,6 +23,8 @@ namespace KenJobs.Bo.BusinessObjects
         public List<ExperienceBo> Experience { get; set; }
         public List<EducationalQualificationBo> EducationalQualification { get; set; }
 
+        public List<UserAttachmentBo> UserAttachment { get; set; }
+
         public virtual ICollection<AppliedJobBo> AppliedJobs { get; set; }
         public virtual AspNetUserBo AspNetUser { get; set; }
         public virtual ICollection<EducationalQualificationBo> EducationalQualifications { get; set; }
@@ -30,5 +32,7 @@ namespace KenJobs.Bo.BusinessObjects
         public virtual GenderBo Gender { get; set; }
         public virtual ICollection<ProfileBo> Profiles { get; set; }
         public virtual ICollection<User_Organization_ClientBo> User_Client { get; set; }
+        public virtual ICollection<UserAttachmentBo> UserAttachments { get; set; }
+
     }
 }

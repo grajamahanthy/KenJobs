@@ -282,6 +282,7 @@ namespace KenJobs.Bl.Workers
                 userBo.Profile = userWorker.GenerateProfileBo(user.Profiles);
                 userBo.Experience = userWorker.GenerateExperienceBo(user.Experiences);
                 userBo.EducationalQualification = userWorker.GenerateEducationalQualificationBo(user.EducationalQualifications);
+                userBo.UserAttachment = userWorker.GenerateUserAttachment(user.UserAttachments);
 
                 userBoList.Add(userBo);
             }

@@ -221,6 +221,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Common\BaseController.cs" />
     <Compile Include="Controllers\ApplyJobController.cs" />
+    <Compile Include="Controllers\AttachmentController.cs" />
     <Compile Include="Controllers\BrassringExportController.cs" />
     <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
@@ -239,6 +240,8 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppliedJobModel.cs" />
+    <Compile Include="Models\AttachmentModel.cs" />
+    <Compile Include="Models\AttachmentTypeModel.cs" />
     <Compile Include="Models\CandidateModel.cs" />
     <Compile Include="Models\CandidateSearchModel.cs" />
     <Compile Include="Models\ConfigModel.cs" />
@@ -252,6 +255,7 @@
     <Compile Include="Models\JobsModel.cs" />
     <Compile Include="Models\JobTypeModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />
+    <Compile Include="Models\UserAttachmentModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\UserProfileModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

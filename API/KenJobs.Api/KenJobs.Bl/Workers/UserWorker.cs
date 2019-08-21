@@ -338,5 +338,30 @@ namespace KenJobs.Bl.Workers
             }
             return educationalQualificationBoList;
         }
+
+        public List<UserAttachmentBo> GenerateUserAttachment(ICollection<UserAttachment> userAttachmentsList)
+        {
+            List<UserAttachmentBo> userAttachmentBoList = new List<UserAttachmentBo>();
+            foreach(UserAttachment userattachment in userAttachmentsList)
+            {
+                if (userattachment.AttachmentType_Id == 1)
+                {
+                    UserAttachmentBo userAttachmentBo = new UserAttachmentBo();
+                    userAttachmentBo.Id = userattachment.Id;
+                    userAttachmentBo.User_Id = userattachment.User_Id;
+                    userAttachmentBo.Attachment_Id = userattachment.Attachment_Id;
+                    userAttachmentBo.AttachmentType_Id = userattachment.AttachmentType_Id;
+                    userAttachmentBo.Name = userattachment.Name;
+                    userAttachmentBo.Attachment = new AttachmentBo()
+                    {
+                        Id = userattachment.Attachment.Id,
+                        Base64Text = userattachment.Attachment.Base64Text,
+                        FileExtension = userattachment.Attachment.FileExtension,
+                    };
+                    userAttachmentBoList.Add(userAttachmentBo);
+                }
+            }
+            return userAttachmentBoList;
+        }
     }
 }

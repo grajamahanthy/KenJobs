@@ -17,6 +17,7 @@ import LoaderModal from '../util/LoaderModal';
 class Employeedashbord extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
+        
         this.state = {
             ishaveJobs: false,
             showContent: false,
@@ -37,6 +38,7 @@ class Employeedashbord extends React.Component<any, any> {
     }
 
     componentWillMount() {
+        console.log("PostJob");
         if (this.state.loggedIn) {
             const Servicecall = new Apiservices();
 

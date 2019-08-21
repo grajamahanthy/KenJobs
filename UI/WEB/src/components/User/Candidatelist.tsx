@@ -3,6 +3,7 @@ import { Pagination } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import Apiservices from "../services/Apiservices";
 import LoaderModal from "../util/LoaderModal";
+import { Item } from "react-bootstrap/lib/Carousel";
 const Servicecall = new Apiservices();
 
 class CandidateList extends React.Component<any, any> {
@@ -15,6 +16,7 @@ class CandidateList extends React.Component<any, any> {
             loader: false,
             Candidatedata: []
         }
+       this.downloadResume=this.downloadResume.bind(this);
     }
 
     componentWillMount() {
@@ -30,6 +32,7 @@ class CandidateList extends React.Component<any, any> {
         })
     }
     displayData = (data: any) => {
+        console.log(data);
         this.setState({
             haveCandidate: data.length > 0 ? true : false,
             Candidatedata: data,
@@ -37,8 +40,19 @@ class CandidateList extends React.Component<any, any> {
             loader: false,
         })
     }
+
+    downloadResume=(userId:number)=>{
+        const Servicecall = new Apiservices();
+        let res1 = Servicecall.GET_SECURE_CALL('Attachment/GetAttachmentByUserId?User_Id='+userId+'&&attachmentTypeId=2', null, this.success, this.errorHandle)
+        
+    }
+    success=(data:any)=>{
+        window.location.href = data.Attachment.Base64Text;
+    }
+
     render() {
         let Candidatelist;
+        let imageData= <img className="btn-md border rounded-circle" src={require('../../assets/images/profile.png')}  width="100%" height="160" />;
         let Pagenation;
         if (this.state.haveCandidate && this.state.showContent) {
             Candidatelist = this.state.Candidatedata.map((item: any, key: any) =>
@@ -46,9 +60,17 @@ class CandidateList extends React.Component<any, any> {
                 <div className="col-md-6 border  my-1 p-3">
                     <div className="row">
                         <div className="col-md-4 ">
-                            <img className="btn-md border" src={require('../../assets/images/profile.png')} width="150" height="150" alt="" />
+                            {
+                                item.UserAttachments.map((attachment: any, index: any) => {
+                                    if (attachment.Attachment != null) {
+                                        imageData=<img  src={attachment.Attachment.Base64Text}  className="btn-md border rounded-circle" width="100%" height="160"  />
+                                    }
+                                })
+
+                            }
+                           {imageData}
                         </div>
-                        <div className="col-md-8">
+                        <div className="col-md-8 ">
 
                             <h4 className="text-primary">
                                 <Link className=""
@@ -65,7 +87,7 @@ class CandidateList extends React.Component<any, any> {
                             <h6>Key Skills : {} </h6>
                             <div className="float-sm-right">
 
-                                <button className="btn btn-primary btn-sm rounded-0">Download Resume</button>
+                                <button className="btn btn-primary btn-sm rounded-0" onClick={()=>this.downloadResume(item.Id)}>Download Resume</button>
                             </div>
                         </div>
                     </div>
@@ -97,7 +119,7 @@ class CandidateList extends React.Component<any, any> {
                         <h4>!Oops... No Data Found.</h4>
                     </div></div>
         } else if (!this.state.showContent) {
-            Candidatelist =<LoaderModal></LoaderModal>
+            Candidatelist = <LoaderModal></LoaderModal>
         }
         return (
             <>
@@ -110,12 +132,12 @@ class CandidateList extends React.Component<any, any> {
                             </div>
                             <div className="col">
 
-                                <input
+                                {/* <input
                                     type="text"
                                     className="form-control rounded-0"
                                     placeholder="Search Candidate"
                                     aria-label="Recipient's username"
-                                    aria-describedby="basic-addon2" />
+                                    aria-describedby="basic-addon2" /> */}
 
                             </div>
 

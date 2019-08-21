@@ -319,6 +319,7 @@ namespace KenJobs.Api.Controllers
                 userProfileModel.Profile = profileModelMapper(userBo.Profile);
                 userProfileModel.Experience = experienceModelMapper(userBo.Experience);
                 userProfileModel.EducationalQualification = educationalQualificationModelMapper(userBo.EducationalQualification);
+                userProfileModel.UserAttachments = userAttachmentsMapper(userBo.UserAttachment);
                 userProfileModelList.Add(userProfileModel);
             }
             return userProfileModelList;
@@ -393,6 +394,28 @@ namespace KenJobs.Api.Controllers
             }
 
             return educationalQualificationModelList;
+        }
+
+        List<UserAttachmentModel> userAttachmentsMapper(List<UserAttachmentBo> userAttachmentBoList)
+        {
+            List<UserAttachmentModel> userAttachmentModelList = new List<UserAttachmentModel>();
+            foreach (UserAttachmentBo userAttachmentBo in userAttachmentBoList)
+            {
+                UserAttachmentModel userAttachmentModel = new UserAttachmentModel();
+                userAttachmentModel.Id = userAttachmentBo.Id;
+                userAttachmentModel.User_Id = userAttachmentBo.User_Id;
+                userAttachmentModel.Attachment_Id = userAttachmentBo.Attachment_Id;
+                userAttachmentModel.AttachmentType_Id = userAttachmentBo.AttachmentType_Id;
+                userAttachmentModel.Name = userAttachmentBo.Name;
+                userAttachmentModel.Attachment = new AttachmentModel()
+                {
+                    Id = userAttachmentBo.Attachment.Id,
+                    Base64Text = userAttachmentBo.Attachment.Base64Text,
+                    FileExtension = userAttachmentBo.Attachment.FileExtension,
+                };
+                userAttachmentModelList.Add(userAttachmentModel);
+            }
+            return userAttachmentModelList;
         }
     }
 }

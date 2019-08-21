@@ -108,12 +108,12 @@ class Applyjob extends React.Component<any, any>{
                             </div>
                             <div className="col">
 
-                                <input
+                                {/* <input
                                     type="text"
                                     className="form-control rounded-0"
                                     placeholder="Search Candidate"
                                     aria-label="Recipient's username"
-                                    aria-describedby="basic-addon2" />
+                                    aria-describedby="basic-addon2" /> */}
 
                             </div>
 

@@ -65,6 +65,12 @@
     <Compile Include="AspNetUserLogin.cs">
       <DependentUpon>KenJobs.tt</DependentUpon>
     </Compile>
+    <Compile Include="Attachment.cs">
+      <DependentUpon>KenJobs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AttachmentType.cs">
+      <DependentUpon>KenJobs.tt</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Client.cs">
       <DependentUpon>KenJobs.tt</DependentUpon>
@@ -127,6 +133,9 @@
       <DependentUpon>KenJobs.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
+      <DependentUpon>KenJobs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserAttachment.cs">
       <DependentUpon>KenJobs.tt</DependentUpon>
     </Compile>
     <Compile Include="User_Organization.cs">

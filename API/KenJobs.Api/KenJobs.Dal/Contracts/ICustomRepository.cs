@@ -20,6 +20,6 @@ namespace KenJobs.Dal.Contracts
         IEnumerable<AppliedJob> GetAppliedJobs(int jobid, int userid);
         IEnumerable<FavoriteJob> GetFavoriteJobs(int jobid, int userid);
 
-
+        UserAttachment GetUserAttachment(int UserId, int AttachmentTypeId);
     }
 }

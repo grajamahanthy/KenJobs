@@ -14,6 +14,8 @@ import Jobfilter from '../util/JobFilter';
 import Apiservices from '../services/Apiservices';
 import LoaderModal from '../util/LoaderModal';
 import LoginModal from '../util/LoginModal';
+import Notify from '../common/Notify';
+const notify = new Notify();
 
 class Jobs extends React.Component<any, any>{
     constructor(props: any) {
@@ -116,7 +118,7 @@ class Jobs extends React.Component<any, any>{
             body.set('Job_Id', jobid);
             body.set('Client_Id', '1');
             //Get jobs bu user id, User id is assigned by server 
-            let responce = Servicecall.POST_SECURE_CALL('ApplyJob/apply', body, this.success, this.errorHandle)
+            let responce = Servicecall.POST_SECURE_CALL('ApplyJob/apply', body, this.successAppliedJob, this.errorHandle)
 
         } else {
             this.setState({
@@ -125,12 +127,18 @@ class Jobs extends React.Component<any, any>{
         }
 
     }
-    success = (data: any) => {
+    successAppliedJob = (data: any) => {
         console.log(data);
         switch (data) {
-            case data = 1: alert("success"); break;
-            case data = 2: alert("Already applied this Job"); break;
-            case data = 0: alert("Failed"); break;
+            case 1:
+                notify.Success_notify("Job is Applied Succesfully.");
+                break;
+            case 2:
+                notify.Info_Notify("You Have Already Applied This Job.");
+                break;
+            case 0:
+                alert("Job Applied Failed");
+                break;
             default: break;
         }
         this.setState({
@@ -161,9 +169,9 @@ class Jobs extends React.Component<any, any>{
     successFavoritejob = (data: any) => {
         console.log(data);
         switch (data) {
-            case data = 1: alert("success"); break;
-            case data = 2: alert("Already added to Favoritejobs"); break;
-            case data = 0: alert("Failed"); break;
+            case 1: notify.Success_notify("Job Is Added In Favorites Succesfully "); break;
+            case 2: notify.Info_Notify("Job Is Already Added In Favoritejobs"); break;
+            case 0: notify.Error_notify("Failed"); break;
             default: break;
         }
         this.setState({
@@ -197,7 +205,7 @@ class Jobs extends React.Component<any, any>{
             )
         }
         else {
-            prepare_jobs =<h4>Oops... No Result Found</h4> 
+            prepare_jobs = <h4>Oops... No Result Found</h4>
         }
 
         return (

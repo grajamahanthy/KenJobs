@@ -118,6 +118,14 @@ namespace KenJobs.Dal.Workers
             return appliedJobs;
         }
 
-       
+        public UserAttachment GetUserAttachment(int UserId, int AttachmentTypeId)
+        {
+            KenJobsEntities _context = new KenJobsEntities();
+            var userAttachment = (from u in _context.UserAttachments
+                                  where u.User_Id == UserId &&
+                                  u.AttachmentType_Id == AttachmentTypeId
+                                  select u).FirstOrDefault();
+            return userAttachment;
+        }
     }
 }

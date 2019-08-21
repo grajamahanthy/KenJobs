@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\AppliedJobsContract.cs" />
+    <Compile Include="Contracts\AttachmentContract.cs" />
+    <Compile Include="Contracts\AttachmentTypeContract.cs" />
     <Compile Include="Contracts\CandidateContract.cs" />
     <Compile Include="Contracts\ClientContract.cs" />
     <Compile Include="Contracts\ConfigContract.cs" />
@@ -55,10 +57,13 @@
     <Compile Include="Contracts\KenJobsSessionContractor.cs" />
     <Compile Include="Contracts\OrganizationContract.cs" />
     <Compile Include="Contracts\ProfileContract.cs" />
+    <Compile Include="Contracts\UserAttachmentContract.cs" />
     <Compile Include="Contracts\UserClientContract.cs" />
     <Compile Include="Contracts\UserContract.cs" />
     <Compile Include="Contracts\User_OrganizationContract.cs" />
     <Compile Include="Workers\AppliedJobsWorker.cs" />
+    <Compile Include="Workers\AttachmentTypeWorker.cs" />
+    <Compile Include="Workers\AttachmentWorker.cs" />
     <Compile Include="Workers\CandidateWorker.cs" />
     <Compile Include="Workers\Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +78,7 @@
     <Compile Include="Workers\KenJobsSessionWorker.cs" />
     <Compile Include="Workers\OrganizationWorker.cs" />
     <Compile Include="Workers\ProfileWorker.cs" />
+    <Compile Include="Workers\UserAttachmentWorker.cs" />
     <Compile Include="Workers\UserClientWorker.cs" />
     <Compile Include="Workers\UserWorker.cs" />
     <Compile Include="Workers\User_OrganizationWorker.cs" />

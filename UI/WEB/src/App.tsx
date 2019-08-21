@@ -40,13 +40,12 @@ import { fab, faFacebook } from '@fortawesome/free-brands-svg-icons'
 import {
   faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender,
   faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser,faEnvelope,faMobileAlt,faUniversity,
-faLaptopCode
+faLaptopCode, faUpload
 } from '@fortawesome/free-solid-svg-icons'
+import { ToastContainer } from "react-toastify";
 
 library.add(faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender,
-  faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser,faEnvelope,faMobileAlt,faUniversity,faLaptopCode)
-
-
+  faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser,faEnvelope,faMobileAlt,faUniversity,faLaptopCode, faUpload)
 
 class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -70,25 +69,10 @@ class App extends React.Component<any, any> {
     if (isAuthenticated) {
       this.props.updateSession(JSON.parse(isAuthenticated))
     }
-
-
-    // this.props.updateSession({
-    //   loggedIn: this.props.system.loggedIn,
-    //   token: "",
-    //   userName: ""
-    // });
   }
 
   render() {
-    // console.log(this.props);
-    // let login_page;
-    // if (this.props.system.loggedIn == true) {
-    //   login_page = < Navigation app_prop={this.props.system}></Navigation>;
-    // } else {
-    //   login_page = < Navigation app_prop={this.props.system}></Navigation>;
-    // }
-
-    return (<>
+       return (<>
       <Router>
         {/* {login_page} */}
         < Navigation app_prop={this.props.system}></Navigation>
@@ -118,6 +102,8 @@ class App extends React.Component<any, any> {
         {/* <Route component={NoMatch} /> */}
 
       </Router>
+      <ToastContainer />
+
     </>
     );
   }
