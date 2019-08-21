@@ -25,6 +25,7 @@ import Postjobdescription from "./components/Jobs/PostedJobDescription";
 import Editjob from "./components/Jobs/EditJob";
 import Candidate from "./components/User/Candidate";
 import CandidateProfile from "./components/User/candidateprofile";
+import favoritejob from "./components/Jobs/FavoriteJob";
 import EmployerHome from "./components/EmployerHome";
 // import { IsessionState } from "./store/auth/types";
 import { updateSession } from "./store/auth/actions";
@@ -39,18 +40,18 @@ import { fab, faFacebook } from '@fortawesome/free-brands-svg-icons'
 import {
   faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender,
   faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser,faEnvelope,faMobileAlt,faUniversity,
-faLaptopCode
+faLaptopCode, faUpload
 } from '@fortawesome/free-solid-svg-icons'
+import { ToastContainer } from "react-toastify";
 
 library.add(faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender,
-  faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser,faEnvelope,faMobileAlt,faUniversity,faLaptopCode)
-
-
+  faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser,faEnvelope,faMobileAlt,faUniversity,faLaptopCode, faUpload)
 
 class App extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     const token = localStorage.getItem("token");
+
     let loggedIn = true;
     if (token == null) {
       loggedIn = false;
@@ -68,25 +69,10 @@ class App extends React.Component<any, any> {
     if (isAuthenticated) {
       this.props.updateSession(JSON.parse(isAuthenticated))
     }
-
-
-    // this.props.updateSession({
-    //   loggedIn: this.props.system.loggedIn,
-    //   token: "",
-    //   userName: ""
-    // });
   }
 
   render() {
-    // console.log(this.props);
-    // let login_page;
-    // if (this.props.system.loggedIn == true) {
-    //   login_page = < Navigation app_prop={this.props.system}></Navigation>;
-    // } else {
-    //   login_page = < Navigation app_prop={this.props.system}></Navigation>;
-    // }
-
-    return (<>
+       return (<>
       <Router>
         {/* {login_page} */}
         < Navigation app_prop={this.props.system}></Navigation>
@@ -99,6 +85,7 @@ class App extends React.Component<any, any> {
         <Route exact path="/editemployee" component={Employeeprofile} />
         <Route exact path="/Jobs" component={Jobs} />
         <Route exact path="/applyjob" component={Applyjob} />
+        <Route exact path="/favoritejob" component={favoritejob} />
         <Route exact path="/Logout" component={Logout} />
         <Route exact path="/postjobs" component={Postjob} />
         <Route exact path="/profile" component={Userprofile} />
@@ -115,6 +102,8 @@ class App extends React.Component<any, any> {
         {/* <Route component={NoMatch} /> */}
 
       </Router>
+      <ToastContainer />
+
     </>
     );
   }

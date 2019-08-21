@@ -6,6 +6,7 @@ import { AppState } from "../store/index";
 import { connect } from 'react-redux';
 import { updateSession } from "../store/auth/actions";
 import Apiservices from './services/Apiservices';
+import LoaderModal from './util/LoaderModal';
 
 
 class Registration extends React.Component<any, any> {
@@ -27,6 +28,7 @@ class Registration extends React.Component<any, any> {
             userRoleId: '',
             redirect: false,
             validemail: true,
+            loading:false,
         };
 
         this.submitForm = this.submitForm.bind(this);
@@ -47,6 +49,9 @@ class Registration extends React.Component<any, any> {
 
             if (this.state.password === this.state.confirmpassword) {
 
+                this.setState({
+                    loading:true,
+                })
                 let body = new URLSearchParams();
                 body.set('FirstName', this.state.firstName);
                 body.set('LastName', this.state.lastName);
@@ -71,9 +76,15 @@ class Registration extends React.Component<any, any> {
         }
     }
     errorHandle=(error:any)=>{
+        this.setState({
+            loading:false,
+        })
 
     }
     success = (data: any) => {
+        this.setState({
+            loading:false,
+        })
         if (data == 1) {
             this.setState({
                 redirect: true
@@ -124,6 +135,7 @@ class Registration extends React.Component<any, any> {
     render() {
 
         console.log("User Rosle Id: " + this.state.userRoleId)
+       
         if (this.state.redirect) {
             return <Redirect to={"/Login/" + this.state.loginType} />;
         }
@@ -170,6 +182,8 @@ class Registration extends React.Component<any, any> {
         }
 
         return (<>
+         {this.state.loading? 
+        <LoaderModal></LoaderModal>:""}
             <Row className="ml-0 mr-0 h-100">
                 <Col className="bg-primary h-100 d-table">
                     <div className="text-center d-table-cell align-middle"><h1 className="text-white">Ken Jobs</h1></div>

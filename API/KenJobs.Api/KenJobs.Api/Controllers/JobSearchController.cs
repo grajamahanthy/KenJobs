@@ -11,13 +11,15 @@ using KenJobs.Bo.BusinessObjects;
 
 namespace KenJobs.Api.Controllers
 {
-    public class JobSearchController : ApiController
+    public class JobSearchController : BaseController
     {
         // GET: api/JobSearch
         public List<JobsModel> Get()
         {
             JobsContract jobsWorker = new JobsWorker();
             IEnumerable<JobBo> jobBoList = jobsWorker.GetJobs();
+            //IEnumerable<JobBo> jobBoList = jobsWorker.GetJobsByParams("angular", "", 6);
+
             List<JobsModel> jobModelList = new List<JobsModel>();
             foreach (JobBo jobBo in jobBoList)
             {
@@ -67,12 +69,15 @@ namespace KenJobs.Api.Controllers
             return jobModelList;
         }
 
-        [HttpGet]
-        [Route("api/JobSearch/GetJobsByUserId/{UserId}")]
-        public List<JobsModel> Get(int UserId)
+        [HttpPost]
+        [Route("api/JobSearch/GetJobsByParms")]
+        public List<JobsModel> GetJobsByParms(JobSearchModel jobSearchModel)
         {
+            string keyword = (string.IsNullOrEmpty(jobSearchModel.Keyword) ? "" : jobSearchModel.Keyword);
+            string location = (string.IsNullOrEmpty(jobSearchModel.Location) ? "" : jobSearchModel.Location);
+            int? experience = jobSearchModel.Experience == null ?  null : jobSearchModel.Experience;
             JobsContract jobsWorker = new JobsWorker();
-            IEnumerable<JobBo> jobBoList = jobsWorker.GetJobsByUserId(UserId);
+            IEnumerable<JobBo> jobBoList = jobsWorker.GetJobsByParams(keyword, location, experience,null);
 
             List<JobsModel> jobModelList = new List<JobsModel>();
 
@@ -124,6 +129,77 @@ namespace KenJobs.Api.Controllers
             }
             return jobModelList;
         }
+
+        [Authorize]
+        [HttpPost]
+        [Route("api/JobSearch/GetJobsByUserParms")]
+        public List<JobsModel> GetJobsByUserParms(JobSearchModel jobSearchModel)
+        {
+            string keyword = (string.IsNullOrEmpty(jobSearchModel.Keyword) ? "" : jobSearchModel.Keyword);
+            string location = (string.IsNullOrEmpty(jobSearchModel.Location) ? "" : jobSearchModel.Location);
+            int? experience = jobSearchModel.Experience == null ? null : jobSearchModel.Experience;
+            JobsContract jobsWorker = new JobsWorker();
+            KenJobsSession s = GetKenJobsSession();
+
+            IEnumerable<JobBo> jobBoList = jobsWorker.GetJobsByParams(keyword, location, experience,s.User.Id);
+
+            List<JobsModel> jobModelList = new List<JobsModel>();
+
+            foreach (JobBo jobBo in jobBoList)
+            {
+                JobsModel jobsModel = new JobsModel();
+                jobsModel.Id = jobBo.Id;
+                jobsModel.Client_Id = jobBo.Client_Id;
+                jobsModel.JobTitle = jobBo.JobTitle;
+                jobsModel.Description = jobBo.Description;
+                jobsModel.NoOfVacancies = jobBo.NoOfVacancies;
+                jobsModel.Qualification = jobBo.Qualification;
+                jobsModel.State = jobBo.State;
+                jobsModel.City = jobBo.City;
+                jobsModel.PostDate = jobBo.PostDate;
+                jobsModel.PostingStatus = jobBo.PostingStatus;
+                jobsModel.JobType_Id = jobBo.JobType_Id;
+                jobsModel.Category_id = jobBo.Category_id;
+                jobsModel.MinSalary = jobBo.MinSalary;
+                jobsModel.MaxSalary = jobBo.MaxSalary;
+                jobsModel.MinExperience = jobBo.MinExperience;
+                jobsModel.MaxExperience = jobBo.MaxExperience;
+                jobsModel.User_Id = jobBo.User_Id;
+                jobsModel.ClientName = jobBo.ClientName;
+                jobsModel.Currency = jobBo.Currency;
+                jobsModel.Country = jobBo.Country;
+                jobsModel.Skills = jobBo.Skills;
+                jobsModel.AddressLine = jobBo.AddressLine;
+
+                JobTypeModel jobTypeModel = new JobTypeModel();
+                JobTypeBo jobTypeBo = jobBo.JobType;
+                jobTypeModel.Id = jobTypeBo.Id;
+                jobTypeModel.Name = jobTypeBo.Name;
+                jobTypeModel.Status = jobTypeBo.Status;
+
+                jobsModel.JobType = jobTypeModel;
+
+                JobCategoryModel jobCategoryModel = new JobCategoryModel();
+                JobCategoryBo jobCategoryBo = jobBo.JobCategory;
+
+                jobCategoryModel.Id = jobCategoryBo.Id;
+                jobCategoryModel.Category = jobCategoryBo.Category;
+                jobCategoryModel.Status = jobCategoryBo.Status;
+
+                jobsModel.JobCategory = jobCategoryModel;
+
+
+                jobModelList.Add(jobsModel);
+            }
+            return jobModelList;
+        }
+
+
+
+
+
+
+
         // GET: api/JobSearch/5
         //public List<JobsModel> Get(string Keyword,string location)
         //{

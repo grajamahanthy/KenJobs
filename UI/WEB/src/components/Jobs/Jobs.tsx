@@ -12,25 +12,36 @@ import Job from './Job';
 import Jobfilter from '../util/JobFilter';
 //services
 import Apiservices from '../services/Apiservices';
+import LoaderModal from '../util/LoaderModal';
+import LoginModal from '../util/LoginModal';
+import Notify from '../common/Notify';
+const notify = new Notify();
 
 class Jobs extends React.Component<any, any>{
     constructor(props: any) {
         super(props);
-
         const token = this.props.system.token
         let loggedIn = this.props.system.loggedIn
-
         if (token == null) {
             loggedIn = false;
         }
+
         this.state = {
             loggedIn,
-            jobdata: '',
+            reqType: '',
+            jobId: '',
+            jobdata: {},
             keyword: '',
-            location: ''
+            location: '',
+            experience: '',
+            showLogin: false,
+            loader: false
         }
 
         this.findTheJobs = this.findTheJobs.bind(this);
+        this.applyjob = this.applyjob.bind(this);
+        this.onLoginModalHide = this.onLoginModalHide.bind(this);
+        this.onAfterLogin = this.onAfterLogin.bind(this);
     }
 
     onSubmit = (e: any) => {
@@ -50,48 +61,157 @@ class Jobs extends React.Component<any, any>{
         if (this.props.location.state != undefined) {
             let keyword = this.props.location.state.keyword;
             let location = this.props.location.state.location;
+            let sexperience = this.props.location.state.experience;
             this.setState({
                 keyword: keyword,
-                location: location
-            })
-            this.findTheJobs(this.state);
+                location: location,
+                experience: sexperience
+            }, () => this.findTheJobs(this.state))
+
         } else {
 
         }
     }
 
-    findTheJobs = (value: any) => {
-        let body = new URLSearchParams();
-        let Servicecall = new Apiservices();
-        let responce = Servicecall.GET_CALL('JobSearch/Get', null, this.displayData,this.errorHandle)
-
-    }
-    errorHandle=()=>{
-
-    }
-
     displayData = (data: any) => {
 
         this.setState({
+            loader: false,
             jobdata: data
+        })
+
+    }
+
+    findTheJobs = (value: any) => {
+        this.setState({
+            jobdata: null,
+            loader: true
+        })
+        let body = new URLSearchParams();
+        body.set('Keyword', this.state.keyword);
+        body.set('Location', this.state.location);
+        body.set('Experience', this.state.experience);
+
+        let Servicecall = new Apiservices();
+        if (this.state.loggedIn) {
+            let responce = Servicecall.POST_SECURE_CALL('JobSearch/GetJobsByUserParms', body, this.displayData, this.errorHandle)
+        } else {
+            let responce = Servicecall.POST_CALL('JobSearch/GetJobsByParms', body, this.displayData, this.errorHandle)
+        }
+
+    }
+    errorHandle = () => {
+        this.setState({
+            loader: false,
         })
     }
 
-    render() {
-        // if (this.state.loggedIn === false) {
-        //     return <Redirect to="/login/jobseeker" />
-        // }
-        let prepare_jobs = "";
-        if (this.state.jobdata != undefined && this.state.jobdata.length > 0) {
-            prepare_jobs = this.state.jobdata.map((item: any, key: any) =>
-                <Job key={key} jobInfo={item}></Job>
-            )
+    applyjob(jobid: any) {
+        this.setState({
+            jobId: jobid,
+            reqType: 'applyjob'
+        })
+        console.log(this.state.loggedIn);
+        if (this.state.loggedIn) {
+            const Servicecall = new Apiservices();
+            let body = new URLSearchParams();
+            body.set('Job_Id', jobid);
+            body.set('Client_Id', '1');
+            //Get jobs bu user id, User id is assigned by server 
+            let responce = Servicecall.POST_SECURE_CALL('ApplyJob/apply', body, this.successAppliedJob, this.errorHandle)
 
+        } else {
+            this.setState({
+                showLogin: true,
+            })
         }
 
+    }
+    successAppliedJob = (data: any) => {
+        console.log(data);
+        switch (data) {
+            case 1:
+                notify.Success_notify("Job is Applied Succesfully.");
+                break;
+            case 2:
+                notify.Info_Notify("You Have Already Applied This Job.");
+                break;
+            case 0:
+                alert("Job Applied Failed");
+                break;
+            default: break;
+        }
+        this.setState({
+            showLogin: false,
+        })
+    }
+
+    addFavorite = (jobid: any) => {
+        this.setState({
+            jobId: jobid,
+            reqType: 'favoritejob'
+        })
+        if (this.state.loggedIn) {
+            const Servicecall = new Apiservices();
+            let body = new URLSearchParams();
+            body.set('Job_Id', jobid);
+
+            //Get jobs bu user id, User id is assigned by server 
+            let responce = Servicecall.POST_SECURE_CALL('FavoriteJob/addToFavorite', body, this.successFavoritejob, this.errorHandle)
+
+        } else {
+            this.setState({
+                showLogin: true,
+            })
+        }
+
+    }
+    successFavoritejob = (data: any) => {
+        console.log(data);
+        switch (data) {
+            case 1: notify.Success_notify("Job Is Added In Favorites Succesfully "); break;
+            case 2: notify.Info_Notify("Job Is Already Added In Favoritejobs"); break;
+            case 0: notify.Error_notify("Failed"); break;
+            default: break;
+        }
+        this.setState({
+            showLogin: false,
+        })
+    }
+    onLoginModalHide() {
+        this.setState({
+            showLogin: false
+        })
+    }
+
+    onAfterLogin() {
+        this.setState({ loggedIn: true })
+        if (this.state.reqType === 'applyjob') {
+            this.applyjob(this.state.jobId);
+        }
+        else if (this.state.reqType === 'favoritejob') {
+            this.addFavorite(this.state.jobId);
+        }
+
+    }
+
+
+    render() {
+        let prepare_jobs;
+        prepare_jobs = "";
+        if (this.state.jobdata != null && this.state.jobdata != undefined && this.state.jobdata.length > 0) {
+            prepare_jobs = this.state.jobdata.map((item: any, key: any) =>
+                <Job jobInfo={item} applyjob={this.applyjob} addFavorite={this.addFavorite}></Job>
+            )
+        }
+        else {
+            prepare_jobs = <h4>Oops... No Result Found</h4>
+        }
 
         return (
             <>
+                {this.state.showLogin ? <LoginModal onLoginModalHide={this.onLoginModalHide} onAfterLogin={this.onAfterLogin}></LoginModal> : <></>}
+                {this.state.loader ? <LoaderModal></LoaderModal> : ''}
                 <div className="container mt-3">
                     <h1>
                         Search Job
@@ -102,7 +222,7 @@ class Jobs extends React.Component<any, any>{
                             <div className="col-sm-8 mx-auto  mt-3">
                                 <form onSubmit={this.onSubmit}>
                                     <div className="form-row">
-                                        <div className="form-group col-md-5">
+                                        <div className="form-group col-md-4">
                                             <input
                                                 type="text"
                                                 id="tptcat"
@@ -113,7 +233,7 @@ class Jobs extends React.Component<any, any>{
                                                 onChange={this.changevalue}
                                             />
                                         </div>
-                                        <div className="form-group col-md-5">
+                                        <div className="form-group col-md-4">
                                             <input
                                                 type="text"
                                                 id="tptloc"
@@ -121,6 +241,19 @@ class Jobs extends React.Component<any, any>{
                                                 className="form-control   rounded-0 "
                                                 name="location"
                                                 value={this.state.location}
+                                                onChange={this.changevalue}
+                                            />
+                                        </div>
+                                        <div className="form-group col-md-2">
+                                            <input
+                                                type="number"
+                                                id="tptexp"
+                                                min='0'
+                                                max='100'
+                                                placeholder="Enter experirnce"
+                                                className="form-control   rounded-0 "
+                                                name="experience"
+                                                value={this.state.experience}
                                                 onChange={this.changevalue}
                                             />
                                         </div>
@@ -150,7 +283,7 @@ class Jobs extends React.Component<any, any>{
                                         <Link className="btn btn-primary btn-block rounded-0" to="/applyjob">
                                             Applied Jobs
                                         </Link>
-                                        <Link className="btn btn-primary btn-block rounded-0" to="/Logout">
+                                        <Link className="btn btn-primary btn-block rounded-0" to="/favoritejob">
                                             My favorites
                                         </Link>
                                     </div>

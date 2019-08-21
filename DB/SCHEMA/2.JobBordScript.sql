@@ -363,6 +363,97 @@ CREATE TABLE [dbo].[User_Organization_Client](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+/****** Object:  Table [dbo].[Attachment]    Script Date: 19-08-2019 18:49:22 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Attachment](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[FileExtension] [nvarchar](100) NOT NULL,
+	[Base64Text] [nvarchar](max) NOT NULL,
+	[CreatedBy] [nvarchar](100) NULL,
+	[CreatedOn] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](100) NULL,
+	[UpdatedOn] [datetime2](7) NULL,
+ CONSTRAINT [PK_Attachment] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AttachmentType]    Script Date: 19-08-2019 18:50:09 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[AttachmentType](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](100) NOT NULL,
+	[AllowedFileTypeExtensions] [nvarchar](1000) NULL,
+	[AllowedFileSize] [nvarchar](200) NULL,
+	[CreatedBy] [nvarchar](100) NULL,
+	[CreatedOn] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](100) NULL,
+	[UpdatedOn] [datetime2](7) NULL,
+ CONSTRAINT [PK_AttachmentType] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+/****** Object:  Table [dbo].[UserAttachment]    Script Date: 19-08-2019 18:50:40 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[UserAttachment](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[User_Id] [int] NOT NULL,
+	[Attachment_Id] [int] NOT NULL,
+	[AttachmentType_Id] [int] NOT NULL,
+	[Name] [nvarchar](500) NULL,
+	[CreatedBy] [nvarchar](100) NULL,
+	[CreatedOn] [datetime2](7) NULL,
+	[UpdatedBy] [nvarchar](100) NULL,
+	[UpdatedOn] [datetime2](7) NULL,
+ CONSTRAINT [PK_UserAttachment] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[FavoriteJobs]    Script Date: 19-08-2019 18:51:23 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[FavoriteJobs](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[User_Id] [int] NOT NULL,
+	[Job_Id] [int] NOT NULL,
+	[AppliedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [nvarchar](100) NOT NULL,
+	[CreatedOn] [datetime2](7) NOT NULL,
+	[UpdatedBy] [nvarchar](100) NOT NULL,
+	[UpdatedOn] [datetime2](7) NOT NULL,
+ CONSTRAINT [PK_FavoriteJobs] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
 ALTER TABLE [dbo].[AppliedJobs]  WITH CHECK ADD  CONSTRAINT [FK_AppliedJobs_Client] FOREIGN KEY([Client_Id])
 REFERENCES [dbo].[Client] ([Id])
 GO
@@ -442,4 +533,37 @@ ALTER TABLE [dbo].[User_Organization_Client]  WITH CHECK ADD  CONSTRAINT [FK_Use
 REFERENCES [dbo].[User] ([Id])
 GO
 ALTER TABLE [dbo].[User_Organization_Client] CHECK CONSTRAINT [FK_User_Client_User]
+GO
+ALTER TABLE [dbo].[UserAttachment]  WITH CHECK ADD  CONSTRAINT [FK_UserAttachment_Attachment] FOREIGN KEY([Attachment_Id])
+REFERENCES [dbo].[Attachment] ([Id])
+GO
+
+ALTER TABLE [dbo].[UserAttachment] CHECK CONSTRAINT [FK_UserAttachment_Attachment]
+GO
+
+ALTER TABLE [dbo].[UserAttachment]  WITH CHECK ADD  CONSTRAINT [FK_UserAttachment_AttachmentType] FOREIGN KEY([AttachmentType_Id])
+REFERENCES [dbo].[AttachmentType] ([Id])
+GO
+
+ALTER TABLE [dbo].[UserAttachment] CHECK CONSTRAINT [FK_UserAttachment_AttachmentType]
+GO
+
+ALTER TABLE [dbo].[UserAttachment]  WITH CHECK ADD  CONSTRAINT [FK_UserAttachment_User] FOREIGN KEY([User_Id])
+REFERENCES [dbo].[User] ([Id])
+GO
+
+ALTER TABLE [dbo].[UserAttachment] CHECK CONSTRAINT [FK_UserAttachment_User]
+GO
+ALTER TABLE [dbo].[FavoriteJobs]  WITH CHECK ADD  CONSTRAINT [FK_FavoriteJobs_Jobs] FOREIGN KEY([Job_Id])
+REFERENCES [dbo].[Jobs] ([Id])
+GO
+
+ALTER TABLE [dbo].[FavoriteJobs] CHECK CONSTRAINT [FK_FavoriteJobs_Jobs]
+GO
+
+ALTER TABLE [dbo].[FavoriteJobs]  WITH CHECK ADD  CONSTRAINT [FK_FavoriteJobs_User] FOREIGN KEY([User_Id])
+REFERENCES [dbo].[User] ([Id])
+GO
+
+ALTER TABLE [dbo].[FavoriteJobs] CHECK CONSTRAINT [FK_FavoriteJobs_User]
 GO

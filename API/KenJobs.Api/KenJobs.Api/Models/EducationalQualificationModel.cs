@@ -7,11 +7,17 @@ namespace KenJobs.Api.Models
 {
     public class EducationalQualificationModel
     {
-        public int Id { get; set; }
+        public EducationalQualificationModel()
+        {
+            this.UiStatus = "E";
+        }
+        public int? Id { get; set; }
         public int User_Id { get; set; }
         public string Institute { get; set; }
         public string Qualification { get; set; }
         public string YearOfPass { get; set; }
         public double Percentage { get; set; }
+        public string UiStatus { get; set; }
+
     }
 }

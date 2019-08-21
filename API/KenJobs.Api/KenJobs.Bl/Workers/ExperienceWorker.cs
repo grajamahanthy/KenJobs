@@ -11,9 +11,10 @@ using KenJobs.Dal;
 
 namespace KenJobs.Bl.Workers
 {
-    class ExperienceWorker : ExperienceContract
+    public class ExperienceWorker : ExperienceContract
     {
-     
+
+
         public ExperienceBo GetExperience(int id)
         {
             IGenericRepository<Experience> repository = new GenericRepository<Experience>();
@@ -64,7 +65,7 @@ namespace KenJobs.Bl.Workers
             IGenericRepository<Experience> repository = new GenericRepository<Experience>();
             Experience experience = new Experience();
 
-            experience.Id = experienceBo.Id;
+            // experience.Id = experienceBo.Id;
             experience.User_Id = experienceBo.User_Id;
             experience.CompanyName = experienceBo.CompanyName;
             experience.Technology = experienceBo.Technology;
@@ -72,6 +73,10 @@ namespace KenJobs.Bl.Workers
             experience.Description = experienceBo.Description;
             experience.StartDate = experienceBo.StartDate;
             experience.EndDate = experienceBo.EndDate;
+            experience.CreatedBy = "admin";
+            experience.CreatedOn = DateTime.UtcNow;
+            experience.UpdatedBy = "admin";
+            experience.UpdatedOn = DateTime.UtcNow;
             repository.Insert(experience);
             repository.Save();
             return 1;
@@ -80,9 +85,9 @@ namespace KenJobs.Bl.Workers
         public int UpdateExperience(int id, ExperienceBo experienceBo)
         {
             IGenericRepository<Experience> repository = new GenericRepository<Experience>();
-            Experience experience = new Experience();
+            Experience experience = repository.GetById(id);
 
-            experience.Id = experienceBo.Id;
+            //experience.Id = experienceBo.Id;
             experience.User_Id = experienceBo.User_Id;
             experience.CompanyName = experienceBo.CompanyName;
             experience.Technology = experienceBo.Technology;
@@ -90,8 +95,18 @@ namespace KenJobs.Bl.Workers
             experience.Description = experienceBo.Description;
             experience.StartDate = experienceBo.StartDate;
             experience.EndDate = experienceBo.EndDate;
-            repository.Insert(experience);
+            repository.Update(experience);
             repository.Save();
+            return 1;
+        }
+
+
+        public int DeleteExperience(int UserId)
+        {
+            IGenericRepository<Experience> repository = new GenericRepository<Experience>();
+
+            repository.Delete(UserId);
+                 repository.Save();
             return 1;
         }
     }

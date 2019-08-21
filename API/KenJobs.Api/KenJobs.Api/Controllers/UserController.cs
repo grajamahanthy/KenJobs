@@ -73,7 +73,7 @@ namespace KenJobs.Api.Controllers
 
         }
 
-       
+
 
         public IHttpActionResult UpdateUser()
         {
@@ -164,7 +164,7 @@ namespace KenJobs.Api.Controllers
             var verifyUrl = "/" + emailFor + "/" + role + "/" + email + "/" + activationCode;
             var link = Request.Headers.Referrer.AbsoluteUri.Replace(Request.Headers.Referrer.PathAndQuery, verifyUrl);
 
-            var fromEmail = new MailAddress("info.kensuite@gmail.com", "Kensuite Technologies Pvt Ltd.");
+            var fromEmail = new MailAddress("info@kensuite.com", "Kensuite Technologies Pvt Ltd.");
             var toEmail = new MailAddress(email);
             var fromEmailPassword = "Password$9"; // Replace with actual password
 
@@ -188,20 +188,27 @@ namespace KenJobs.Api.Controllers
 
             var smtp = new SmtpClient
             {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
+                //Host = "smtp.gmail.com",
+                //Port = 587,
+                Host = "relay-hosting.secureserver.net",
+                Port = 25,
+                //EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
                 Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
             };
-            using (var message = new MailMessage(fromEmail, toEmail)
-            {
-                Subject = subject,
-                Body = body,
-                IsBodyHtml = true
-            })
-                smtp.Send(message);
+            //using (var message = new MailMessage(fromEmail, toEmail)
+            //{
+            //    Subject = subject,
+            //    Body = body,
+            //    IsBodyHtml = true
+            //})
+            var message = new MailMessage(fromEmail, toEmail);
+            message.Subject = subject;
+            message.Body = body;
+            message.IsBodyHtml = true;
+
+            smtp.Send(message);
         }
 
 

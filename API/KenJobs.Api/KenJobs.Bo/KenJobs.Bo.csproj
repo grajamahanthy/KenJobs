@@ -46,6 +46,8 @@
     <Compile Include="BusinessObjects\AspNetUserBo.cs" />
     <Compile Include="BusinessObjects\AspNetUserClaimBo.cs" />
     <Compile Include="BusinessObjects\AspNetUserLoginBo.cs" />
+    <Compile Include="BusinessObjects\AttachmentBo.cs" />
+    <Compile Include="BusinessObjects\AttachmentTypeBo.cs" />
     <Compile Include="BusinessObjects\BusinessBase.cs" />
     <Compile Include="BusinessObjects\CandidateBo.cs" />
     <Compile Include="BusinessObjects\Class1.cs" />
@@ -54,6 +56,7 @@
     <Compile Include="BusinessObjects\CurrencyBo.cs" />
     <Compile Include="BusinessObjects\EducationalQualificationBo.cs" />
     <Compile Include="BusinessObjects\ExperienceBo.cs" />
+    <Compile Include="BusinessObjects\FavoriteJobBo.cs" />
     <Compile Include="BusinessObjects\GenderBo.cs" />
     <Compile Include="BusinessObjects\JobBo.cs" />
     <Compile Include="BusinessObjects\JobCategoryBo.cs" />
@@ -62,6 +65,7 @@
     <Compile Include="BusinessObjects\OrganizationBo.cs" />
     <Compile Include="BusinessObjects\ProfileBo.cs" />
     <Compile Include="BusinessObjects\StateBo.cs" />
+    <Compile Include="BusinessObjects\UserAttachmentBo.cs" />
     <Compile Include="BusinessObjects\UserBo.cs" />
     <Compile Include="BusinessObjects\User_ClientBo.cs" />
     <Compile Include="BusinessObjects\User_OrganizationBo.cs" />

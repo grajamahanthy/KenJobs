@@ -2,7 +2,9 @@ import React from 'react';
 import { Redirect } from 'react-router';
 //services
 import Apiservices from '../services/Apiservices';
+import Notify from '../common/Notify';
 const Servicecall = new Apiservices();
+const notify = new Notify();
 
 class Editjob extends React.Component<any, any>{
     constructor(props: any) {
@@ -87,6 +89,7 @@ class Editjob extends React.Component<any, any>{
         this.setState({
             redirect: true
         })
+        notify.Success_notify("Job Updated Succesfully");
     }
     componentDidMount() {
 

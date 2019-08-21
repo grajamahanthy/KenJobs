@@ -104,7 +104,8 @@ namespace KenJobs.Bl.Workers
 
         }
 
-        public IEnumerable<JobBo> GetJobsByUserId(int userId) {
+        public IEnumerable<JobBo> GetJobsByUserId(int userId)
+        {
             ICustomRepository<Job> repository = new CustomRepository<Job>();
             IEnumerable<Job> jobList = repository.GetJobsByUserId(userId);
 
@@ -244,7 +245,8 @@ namespace KenJobs.Bl.Workers
             {
                 repository.Update(job);
                 repository.Save();
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
 
             }
@@ -258,7 +260,7 @@ namespace KenJobs.Bl.Workers
 
             List<UserBo> userBoList = new List<UserBo>();
 
-            foreach(User user in jobseekerList)
+            foreach (User user in jobseekerList)
             {
                 UserWorker userWorker = new UserWorker();
                 UserBo userBo = new UserBo();
@@ -280,12 +282,67 @@ namespace KenJobs.Bl.Workers
                 userBo.Profile = userWorker.GenerateProfileBo(user.Profiles);
                 userBo.Experience = userWorker.GenerateExperienceBo(user.Experiences);
                 userBo.EducationalQualification = userWorker.GenerateEducationalQualificationBo(user.EducationalQualifications);
+                userBo.UserAttachment = userWorker.GenerateUserAttachment(user.UserAttachments);
 
                 userBoList.Add(userBo);
             }
 
             return userBoList;
 
+        }
+
+        public IEnumerable<JobBo> GetJobsByParams(string keyword, string location, int? experience,int? userId)
+        {
+
+            ICustomRepository<Job> repository = new CustomRepository<Job>();
+            IEnumerable<Job> jobList = repository.GetJobsByParams(keyword, location, experience,userId);
+
+            List<JobBo> jobBolist = new List<JobBo>();
+
+            foreach (Job job in jobList)
+            {
+                JobBo jobBo = new JobBo();
+                jobBo.Id = job.Id;
+                jobBo.Client_Id = job.Client_Id;
+                jobBo.JobTitle = job.JobTitle;
+                jobBo.Description = job.Description;
+                jobBo.NoOfVacancies = job.NoOfVacancies;
+                jobBo.Qualification = job.Qualification;
+                jobBo.State = job.State;
+                jobBo.City = job.City;
+                jobBo.Status = job.Status;
+                jobBo.PostingStatus = job.PostingStatus;
+                jobBo.JobType_Id = job.JobType_Id;
+                jobBo.Category_id = job.Category_id;
+                jobBo.MinSalary = job.MinSalary;
+                jobBo.MaxSalary = job.MaxSalary;
+                jobBo.MinExperience = job.MinExperience;
+                jobBo.MaxExperience = job.MaxExperience;
+                jobBo.Skills = job.Skills;
+                jobBo.User_Id = job.User_Id;
+                jobBo.Currency = job.Currency;
+                jobBo.ClientName = job.ClientName;
+                jobBo.Country = job.Country;
+
+                JobType jobType = job.JobType;
+                JobTypeBo jobTypeBo = new JobTypeBo();
+                jobTypeBo.Id = jobType.Id;
+                jobTypeBo.Name = jobType.Name;
+                jobTypeBo.Status = jobType.Status;
+
+                jobBo.JobType = jobTypeBo;
+
+                JobCategory jobCategory = job.JobCategory;
+                JobCategoryBo jobCategoryBo = new JobCategoryBo();
+
+                jobCategoryBo.Id = jobCategory.Id;
+                jobCategoryBo.Category = jobCategory.Category;
+                jobCategoryBo.Status = jobCategory.Status;
+                jobBo.JobCategory = jobCategoryBo;
+
+                jobBolist.Add(jobBo);
+            }
+            return jobBolist;
         }
     }
 }

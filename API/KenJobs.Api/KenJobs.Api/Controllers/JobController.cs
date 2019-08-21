@@ -319,6 +319,7 @@ namespace KenJobs.Api.Controllers
                 userProfileModel.Profile = profileModelMapper(userBo.Profile);
                 userProfileModel.Experience = experienceModelMapper(userBo.Experience);
                 userProfileModel.EducationalQualification = educationalQualificationModelMapper(userBo.EducationalQualification);
+                userProfileModel.UserAttachments = userAttachmentsMapper(userBo.UserAttachment);
                 userProfileModelList.Add(userProfileModel);
             }
             return userProfileModelList;
@@ -329,21 +330,28 @@ namespace KenJobs.Api.Controllers
         public List<ProfileModel> profileModelMapper(List<ProfileBo> profileBoList)
         {
             List<ProfileModel> profileModlList = new List<ProfileModel>();
-            foreach (ProfileBo profile in profileBoList)
+            if (profileBoList != null && profileBoList.Count > 0)
             {
-                ProfileModel profileModel = new ProfileModel();
-                profileModel.Id = profile.Id;
-                profileModel.User_Id = profile.User_Id;
-                profileModel.Resume = profile.Resume;
-                profileModel.skills = profile.skills;
-                profileModel.TotalExperiance = profile.TotalExperiance;
-                profileModel.HeighestQualification = profile.HeighestQualification;
-                profileModel.PreferredLocation = profile.PreferredLocation;
-                profileModel.CurrentSalary = profile.CurrentSalary;
-                profileModel.ExpectedSalary = profile.ExpectedSalary;
-                profileModel.Languages = profile.Languages;
+                foreach (ProfileBo profile in profileBoList)
+                {
+                    ProfileModel profileModel = new ProfileModel();
+                    profileModel.Id = profile.Id;
+                    profileModel.User_Id = profile.User_Id;
+                    profileModel.Resume = profile.Resume;
+                    profileModel.skills = profile.skills;
+                    profileModel.TotalExperiance = profile.TotalExperiance;
+                    profileModel.HeighestQualification = profile.HeighestQualification;
+                    profileModel.PreferredLocation = profile.PreferredLocation;
+                    profileModel.CurrentSalary = profile.CurrentSalary;
+                    profileModel.ExpectedSalary = profile.ExpectedSalary;
+                    profileModel.Languages = profile.Languages;
 
-                profileModlList.Add(profileModel);
+                    profileModlList.Add(profileModel);
+                }
+            }
+            else
+            {
+                profileModlList.Add(new ProfileModel());
             }
             return profileModlList;
         }
@@ -386,6 +394,28 @@ namespace KenJobs.Api.Controllers
             }
 
             return educationalQualificationModelList;
+        }
+
+        List<UserAttachmentModel> userAttachmentsMapper(List<UserAttachmentBo> userAttachmentBoList)
+        {
+            List<UserAttachmentModel> userAttachmentModelList = new List<UserAttachmentModel>();
+            foreach (UserAttachmentBo userAttachmentBo in userAttachmentBoList)
+            {
+                UserAttachmentModel userAttachmentModel = new UserAttachmentModel();
+                userAttachmentModel.Id = userAttachmentBo.Id;
+                userAttachmentModel.User_Id = userAttachmentBo.User_Id;
+                userAttachmentModel.Attachment_Id = userAttachmentBo.Attachment_Id;
+                userAttachmentModel.AttachmentType_Id = userAttachmentBo.AttachmentType_Id;
+                userAttachmentModel.Name = userAttachmentBo.Name;
+                userAttachmentModel.Attachment = new AttachmentModel()
+                {
+                    Id = userAttachmentBo.Attachment.Id,
+                    Base64Text = userAttachmentBo.Attachment.Base64Text,
+                    FileExtension = userAttachmentBo.Attachment.FileExtension,
+                };
+                userAttachmentModelList.Add(userAttachmentModel);
+            }
+            return userAttachmentModelList;
         }
     }
 }

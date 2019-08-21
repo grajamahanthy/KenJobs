@@ -55,3 +55,17 @@ INSERT [dbo].[JobType] ([Id], [Name], [Status], [CreatedBy], [CreatedOn], [Updat
 GO
 SET IDENTITY_INSERT [dbo].[JobType] OFF
 GO
+SET IDENTITY_INSERT [dbo].[AttachmentType] ON 
+GO
+INSERT [dbo].[AttachmentType] ([Id], [Name], [AllowedFileTypeExtensions], [AllowedFileSize], [CreatedBy], [CreatedOn], [UpdatedBy], [UpdatedOn]) VALUES (1, N'ProfilePicture', NULL, NULL, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[AttachmentType] ([Id], [Name], [AllowedFileTypeExtensions], [AllowedFileSize], [CreatedBy], [CreatedOn], [UpdatedBy], [UpdatedOn]) VALUES (2, N'Resume', NULL, NULL, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[AttachmentType] ([Id], [Name], [AllowedFileTypeExtensions], [AllowedFileSize], [CreatedBy], [CreatedOn], [UpdatedBy], [UpdatedOn]) VALUES (3, N'CoverLetter', NULL, NULL, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[AttachmentType] ([Id], [Name], [AllowedFileTypeExtensions], [AllowedFileSize], [CreatedBy], [CreatedOn], [UpdatedBy], [UpdatedOn]) VALUES (4, N'CompanyLogo', NULL, NULL, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[AttachmentType] ([Id], [Name], [AllowedFileTypeExtensions], [AllowedFileSize], [CreatedBy], [CreatedOn], [UpdatedBy], [UpdatedOn]) VALUES (5, N'Custom', NULL, NULL, NULL, NULL, NULL, NULL)
+GO
+SET IDENTITY_INSERT [dbo].[AttachmentType] OFF
+GO

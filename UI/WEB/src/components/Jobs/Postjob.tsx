@@ -2,6 +2,9 @@ import React from 'react';
 import { Redirect } from 'react-router';
 //services
 import Apiservices from '../services/Apiservices';
+import LoaderModal from '../util/LoaderModal';
+import Notify from '../common/Notify';
+const notify = new Notify();
 
 
 class Postjob extends React.Component<any, any> {
@@ -27,6 +30,7 @@ class Postjob extends React.Component<any, any> {
             city: '',
             status: 0,
             PostingStatus: '',
+            loader: false,
             jobCategoryList: [],
             jobTypeList: [],
             currencyList: [
@@ -54,9 +58,7 @@ class Postjob extends React.Component<any, any> {
 
             form.classList.add('was-validated');
 
-            this.success();
             let Jobs = this.state;
-            console.log(Jobs);
             let body = new URLSearchParams();
             // body.set('Client_Id', '');
             body.set('ClientName', Jobs.clientName);
@@ -81,17 +83,18 @@ class Postjob extends React.Component<any, any> {
             body.set('Country', Jobs.country);
 
             let Servicecall = new Apiservices();
-
-            let responce = Servicecall.POST_SECURE_CALL('Job', body, this.success,this.errorHandle)
+            this.setState({ loader: true })
+            let responce = Servicecall.POST_SECURE_CALL('Job', body, this.success, this.errorHandle)
 
         }
     }
     success = () => {
 
         this.setState({
+            loader: false,
             redirect: true
         })
-
+        notify.Success_notify("Job Posted Succesfully.");
 
     }
     changeValue = (e: any) => {
@@ -107,23 +110,29 @@ class Postjob extends React.Component<any, any> {
 
     componentDidMount() {
         const Servicecall = new Apiservices();
-        Servicecall.GET_SECURE_CALL('JobType', null, this.getJobType,this.errorHandle)
-        Servicecall.GET_SECURE_CALL('JobCategory', null, this.getJobCategory,this.errorHandle)
+        this.setState({ loader: true })
+
+        Servicecall.GET_SECURE_CALL('JobType', null, this.getJobType, this.errorHandle)
+        Servicecall.GET_SECURE_CALL('JobCategory', null, this.getJobCategory, this.errorHandle)
     }
 
-    errorHandle=()=>{
+    errorHandle = () => {
+        this.setState({ loader: false })
 
     }
 
     getJobCategory = (data: any) => {
         this.setState({
-            jobCategoryList: data
+            jobCategoryList: data,
+            loader: false
         })
     }
 
     getJobType = (data: any) => {
         this.setState({
-            jobTypeList: data
+            jobTypeList: data,
+            loader: false
+
         })
     }
 
@@ -152,6 +161,7 @@ class Postjob extends React.Component<any, any> {
         }
         return (
             <>
+                {this.state.loader ? <LoaderModal></LoaderModal> : ''}
                 <div className="container mt-3">
                     <h1>Post New Job</h1>
 

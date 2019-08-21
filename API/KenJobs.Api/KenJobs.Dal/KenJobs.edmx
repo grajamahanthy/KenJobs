@@ -70,6 +70,31 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="Attachment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileExtension" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Base64Text" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="AttachmentType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="AllowedFileTypeExtensions" Type="nvarchar" MaxLength="1000" />
+          <Property Name="AllowedFileSize" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" />
+        </EntityType>
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -147,6 +172,19 @@
           <Property Name="StartDate" Type="datetime" Nullable="false" />
           <Property Name="EndDate" Type="datetime" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FavoriteJobs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="Job_Id" Type="int" Nullable="false" />
+          <Property Name="AppliedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -317,6 +355,20 @@
           <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Organization_Id" Type="int" />
         </EntityType>
+        <EntityType Name="UserAttachment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="Attachment_Id" Type="int" Nullable="false" />
+          <Property Name="AttachmentType_Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="7" />
+        </EntityType>
         <Association Name="FK_AppliedJobs_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="AppliedJobs" Type="Self.AppliedJobs" Multiplicity="*" />
@@ -429,6 +481,30 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Experience">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FavoriteJobs_Jobs">
+          <End Role="Jobs" Type="Self.Jobs" Multiplicity="1" />
+          <End Role="FavoriteJobs" Type="Self.FavoriteJobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jobs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FavoriteJobs">
+              <PropertyRef Name="Job_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FavoriteJobs_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="FavoriteJobs" Type="Self.FavoriteJobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FavoriteJobs">
               <PropertyRef Name="User_Id" />
             </Dependent>
           </ReferentialConstraint>
@@ -565,6 +641,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserAttachment_Attachment">
+          <End Role="Attachment" Type="Self.Attachment" Multiplicity="1" />
+          <End Role="UserAttachment" Type="Self.UserAttachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attachment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserAttachment">
+              <PropertyRef Name="Attachment_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAttachment_AttachmentType">
+          <End Role="AttachmentType" Type="Self.AttachmentType" Multiplicity="1" />
+          <End Role="UserAttachment" Type="Self.UserAttachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AttachmentType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserAttachment">
+              <PropertyRef Name="AttachmentType_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAttachment_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserAttachment" Type="Self.UserAttachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserAttachment">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="kenjobsModelStoreContainer">
           <EntitySet Name="AppliedJobs" EntityType="Self.AppliedJobs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -572,12 +684,15 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Attachment" EntityType="Self.Attachment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AttachmentType" EntityType="Self.AttachmentType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Currency" EntityType="Self.Currency" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EducationalQualification" EntityType="Self.EducationalQualification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Experience" EntityType="Self.Experience" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FavoriteJobs" EntityType="Self.FavoriteJobs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobCategory" EntityType="Self.JobCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Jobs" EntityType="Self.Jobs" Schema="dbo" store:Type="Tables" />
@@ -588,6 +703,7 @@
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Organization" EntityType="Self.User_Organization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Organization_Client" EntityType="Self.User_Organization_Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAttachment" EntityType="Self.UserAttachment" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AppliedJobs_Client" Association="Self.FK_AppliedJobs_Client">
             <End Role="Client" EntitySet="Client" />
             <End Role="AppliedJobs" EntitySet="AppliedJobs" />
@@ -623,6 +739,14 @@
           <AssociationSet Name="FK_Experience_User" Association="Self.FK_Experience_User">
             <End Role="User" EntitySet="User" />
             <End Role="Experience" EntitySet="Experience" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FavoriteJobs_Jobs" Association="Self.FK_FavoriteJobs_Jobs">
+            <End Role="Jobs" EntitySet="Jobs" />
+            <End Role="FavoriteJobs" EntitySet="FavoriteJobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FavoriteJobs_User" Association="Self.FK_FavoriteJobs_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="FavoriteJobs" EntitySet="FavoriteJobs" />
           </AssociationSet>
           <AssociationSet Name="FK_Jobs_JobCategory" Association="Self.FK_Jobs_JobCategory">
             <End Role="JobCategory" EntitySet="JobCategory" />
@@ -667,6 +791,18 @@
           <AssociationSet Name="FK_User_Organization_User" Association="Self.FK_User_Organization_User">
             <End Role="User" EntitySet="User" />
             <End Role="User_Organization" EntitySet="User_Organization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAttachment_Attachment" Association="Self.FK_UserAttachment_Attachment">
+            <End Role="Attachment" EntitySet="Attachment" />
+            <End Role="UserAttachment" EntitySet="UserAttachment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAttachment_AttachmentType" Association="Self.FK_UserAttachment_AttachmentType">
+            <End Role="AttachmentType" EntitySet="AttachmentType" />
+            <End Role="UserAttachment" EntitySet="UserAttachment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAttachment_User" Association="Self.FK_UserAttachment_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserAttachment" EntitySet="UserAttachment" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -770,6 +906,30 @@
           <AssociationSet Name="AspNetUserRoles" Association="kenjobsModel.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="FavoriteJobs" EntityType="kenjobsModel.FavoriteJob" />
+          <AssociationSet Name="FK_FavoriteJobs_Jobs" Association="kenjobsModel.FK_FavoriteJobs_Jobs">
+            <End Role="Job" EntitySet="Jobs" />
+            <End Role="FavoriteJob" EntitySet="FavoriteJobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FavoriteJobs_User" Association="kenjobsModel.FK_FavoriteJobs_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="FavoriteJob" EntitySet="FavoriteJobs" />
+          </AssociationSet>
+          <EntitySet Name="Attachments" EntityType="kenjobsModel.Attachment" />
+          <EntitySet Name="AttachmentTypes" EntityType="kenjobsModel.AttachmentType" />
+          <EntitySet Name="UserAttachments" EntityType="kenjobsModel.UserAttachment" />
+          <AssociationSet Name="FK_UserAttachment_Attachment" Association="kenjobsModel.FK_UserAttachment_Attachment">
+            <End Role="Attachment" EntitySet="Attachments" />
+            <End Role="UserAttachment" EntitySet="UserAttachments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAttachment_AttachmentType" Association="kenjobsModel.FK_UserAttachment_AttachmentType">
+            <End Role="AttachmentType" EntitySet="AttachmentTypes" />
+            <End Role="UserAttachment" EntitySet="UserAttachments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAttachment_User" Association="kenjobsModel.FK_UserAttachment_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserAttachment" EntitySet="UserAttachments" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AppliedJob">
@@ -985,6 +1145,7 @@
           <NavigationProperty Name="AppliedJobs" Relationship="kenjobsModel.FK_AppliedJobs_Jobs" FromRole="Job" ToRole="AppliedJob" />
           <NavigationProperty Name="JobCategory" Relationship="kenjobsModel.FK_Jobs_JobCategory" FromRole="Job" ToRole="JobCategory" />
           <NavigationProperty Name="JobType" Relationship="kenjobsModel.FK_Jobs_JobType" FromRole="Job" ToRole="JobType" />
+          <NavigationProperty Name="FavoriteJobs" Relationship="kenjobsModel.FK_FavoriteJobs_Jobs" FromRole="Job" ToRole="FavoriteJob" />
         </EntityType>
         <EntityType Name="JobType">
           <Key>
@@ -1083,6 +1244,8 @@
           <NavigationProperty Name="Profiles" Relationship="kenjobsModel.FK_Profile_User" FromRole="User" ToRole="Profile" />
           <NavigationProperty Name="User_Organization_Client" Relationship="kenjobsModel.FK_User_Client_User" FromRole="User" ToRole="User_Organization_Client" />
           <NavigationProperty Name="User_Organization" Relationship="kenjobsModel.FK_User_Organization_User" FromRole="User" ToRole="User_Organization" />
+          <NavigationProperty Name="FavoriteJobs" Relationship="kenjobsModel.FK_FavoriteJobs_User" FromRole="User" ToRole="FavoriteJob" />
+          <NavigationProperty Name="UserAttachments" Relationship="kenjobsModel.FK_UserAttachment_User" FromRole="User" ToRole="UserAttachment" />
         </EntityType>
         <EntityType Name="User_Organization">
           <Key>
@@ -1337,6 +1500,125 @@
         <Association Name="AspNetUserRoles">
           <End Type="kenjobsModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="kenjobsModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityType Name="FavoriteJob">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Job_Id" Type="Int32" Nullable="false" />
+          <Property Name="AppliedDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Job" Relationship="kenjobsModel.FK_FavoriteJobs_Jobs" FromRole="FavoriteJob" ToRole="Job" />
+          <NavigationProperty Name="User" Relationship="kenjobsModel.FK_FavoriteJobs_User" FromRole="FavoriteJob" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_FavoriteJobs_Jobs">
+          <End Type="kenjobsModel.Job" Role="Job" Multiplicity="1" />
+          <End Type="kenjobsModel.FavoriteJob" Role="FavoriteJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FavoriteJob">
+              <PropertyRef Name="Job_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FavoriteJobs_User">
+          <End Type="kenjobsModel.User" Role="User" Multiplicity="1" />
+          <End Type="kenjobsModel.FavoriteJob" Role="FavoriteJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FavoriteJob">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Attachment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileExtension" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Base64Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserAttachments" Relationship="kenjobsModel.FK_UserAttachment_Attachment" FromRole="Attachment" ToRole="UserAttachment" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="7" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="AttachmentType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AllowedFileTypeExtensions" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="AllowedFileSize" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserAttachments" Relationship="kenjobsModel.FK_UserAttachment_AttachmentType" FromRole="AttachmentType" ToRole="UserAttachment" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="7" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="UserAttachment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Attachment_Id" Type="Int32" Nullable="false" />
+          <Property Name="AttachmentType_Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Attachment" Relationship="kenjobsModel.FK_UserAttachment_Attachment" FromRole="UserAttachment" ToRole="Attachment" />
+          <NavigationProperty Name="AttachmentType" Relationship="kenjobsModel.FK_UserAttachment_AttachmentType" FromRole="UserAttachment" ToRole="AttachmentType" />
+          <NavigationProperty Name="User" Relationship="kenjobsModel.FK_UserAttachment_User" FromRole="UserAttachment" ToRole="User" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="7" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="7" />
+        </EntityType>
+        <Association Name="FK_UserAttachment_Attachment">
+          <End Type="kenjobsModel.Attachment" Role="Attachment" Multiplicity="1" />
+          <End Type="kenjobsModel.UserAttachment" Role="UserAttachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attachment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserAttachment">
+              <PropertyRef Name="Attachment_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAttachment_AttachmentType">
+          <End Type="kenjobsModel.AttachmentType" Role="AttachmentType" Multiplicity="1" />
+          <End Type="kenjobsModel.UserAttachment" Role="UserAttachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AttachmentType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserAttachment">
+              <PropertyRef Name="AttachmentType_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAttachment_User">
+          <End Type="kenjobsModel.User" Role="User" Multiplicity="1" />
+          <End Type="kenjobsModel.UserAttachment" Role="UserAttachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserAttachment">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -1674,6 +1956,62 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="FavoriteJobs">
+            <EntityTypeMapping TypeName="kenjobsModel.FavoriteJob">
+              <MappingFragment StoreEntitySet="FavoriteJobs">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="AppliedDate" ColumnName="AppliedDate" />
+                <ScalarProperty Name="Job_Id" ColumnName="Job_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attachments">
+            <EntityTypeMapping TypeName="kenjobsModel.Attachment">
+              <MappingFragment StoreEntitySet="Attachment">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Base64Text" ColumnName="Base64Text" />
+                <ScalarProperty Name="FileExtension" ColumnName="FileExtension" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AttachmentTypes">
+            <EntityTypeMapping TypeName="kenjobsModel.AttachmentType">
+              <MappingFragment StoreEntitySet="AttachmentType">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="AllowedFileSize" ColumnName="AllowedFileSize" />
+                <ScalarProperty Name="AllowedFileTypeExtensions" ColumnName="AllowedFileTypeExtensions" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAttachments">
+            <EntityTypeMapping TypeName="kenjobsModel.UserAttachment">
+              <MappingFragment StoreEntitySet="UserAttachment">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AttachmentType_Id" ColumnName="AttachmentType_Id" />
+                <ScalarProperty Name="Attachment_Id" ColumnName="Attachment_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -45,6 +45,15 @@
         <AssociationConnector Association="kenjobsModel.FK_User_Client_User" />
         <AssociationConnector Association="kenjobsModel.FK_User_Organization_User" />
         <AssociationConnector Association="kenjobsModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="kenjobsModel.FavoriteJob" Width="1.5" PointX="13.5" PointY="8.875" />
+        <AssociationConnector Association="kenjobsModel.FK_FavoriteJobs_Jobs" />
+        <AssociationConnector Association="kenjobsModel.FK_FavoriteJobs_User" />
+        <EntityTypeShape EntityType="kenjobsModel.Attachment" Width="1.5" PointX="11.25" PointY="29.75" />
+        <EntityTypeShape EntityType="kenjobsModel.AttachmentType" Width="1.5" PointX="11.25" PointY="43.25" />
+        <EntityTypeShape EntityType="kenjobsModel.UserAttachment" Width="1.5" PointX="13.5" PointY="21.625" />
+        <AssociationConnector Association="kenjobsModel.FK_UserAttachment_Attachment" />
+        <AssociationConnector Association="kenjobsModel.FK_UserAttachment_AttachmentType" />
+        <AssociationConnector Association="kenjobsModel.FK_UserAttachment_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

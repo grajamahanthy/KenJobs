@@ -17,6 +17,7 @@ class Home extends React.Component<any, any> {
       loggedIn,
       keyword: '',
       location: '',
+      experience:'',
       redirect: false
     }
 
@@ -26,10 +27,10 @@ class Home extends React.Component<any, any> {
     this.setState({
       redirect: true
     })
-
   }
 
   changevalue = (e: any) => {
+    console.log( e.target.name);
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -37,12 +38,12 @@ class Home extends React.Component<any, any> {
   }
   render() {
 
-    const { keyword, location, redirect } = this.state;
+    const { keyword, location, experience, redirect } = this.state;
 
     if (redirect)
       return (<Redirect to={{
         pathname: '/Jobs',
-        state: { keyword: keyword, location: location }
+        state: { keyword: keyword, location: location,experience:experience }
       }} />)
     return (
       <>
@@ -59,7 +60,7 @@ class Home extends React.Component<any, any> {
             <div className="col-sm-8 mx-auto  mt-3">
               <form onSubmit={this.onSubmit}>
                 <div className="form-row">
-                  <div className="form-group col-md-5">
+                  <div className="form-group col-md-4">
                     <input
                       type="text"
                       id="tptcat"
@@ -70,7 +71,7 @@ class Home extends React.Component<any, any> {
                       onChange={this.changevalue}
                     />
                   </div>
-                  <div className="form-group col-md-5">
+                  <div className="form-group col-md-4">
                     <input
                       type="text"
                       id="tptloc"
@@ -81,6 +82,19 @@ class Home extends React.Component<any, any> {
                       onChange={this.changevalue}
                     />
                   </div>
+                  <div className="form-group col-md-2">
+                                        <input
+                                                type="number"
+                                                id="tptexp"
+                                                min='0'
+                                                max='100'
+                                                placeholder="Enter experirnce"
+                                                className="form-control rounded-0 "
+                                                name="experience"
+                                                value={this.state.experience}
+                                                onChange={this.changevalue}
+                                            />
+                                        </div>
                   <div className="form-group col-md-2">
                     <input
                       type="submit"

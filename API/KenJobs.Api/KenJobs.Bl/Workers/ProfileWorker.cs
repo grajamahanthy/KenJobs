@@ -11,7 +11,7 @@ using KenJobs.Dal.Workers;
 
 namespace KenJobs.Bl.Workers
 {
-    class ProfileWorker : ProfileContract
+    public class ProfileWorker : ProfileContract
     {
         public ProfileBo GetProfile(int id)
         {
@@ -44,12 +44,50 @@ namespace KenJobs.Bl.Workers
 
         public int PostProfile(ProfileBo profileBo)
         {
-            throw new NotImplementedException();
+            IGenericRepository<Profile> repository = new GenericRepository<Profile>();
+            Profile profile = new Profile();
+
+            profile.Id = profileBo.Id;
+            profile.User_Id = profileBo.User_Id;
+            profile.Resume = profileBo.Resume;
+            profile.skills = profileBo.skills;
+            profile.TotalExperiance = profileBo.TotalExperiance;
+            profile.HeighestQualification = profileBo.HeighestQualification;
+            profile.PreferredLocation = profileBo.PreferredLocation;
+            profile.CurrentSalary = profileBo.CurrentSalary;
+            profile.ExpectedSalary = profileBo.ExpectedSalary;
+            profile.Languages = profileBo.Languages;
+            profile.CreatedBy = "admin";
+            profile.CreatedOn = DateTime.UtcNow;
+            profile.UpdatedBy = "admin";
+            profile.UpdatedOn = DateTime.UtcNow;
+
+            repository.Insert(profile);
+            repository.Save();
+
+            return 1;
         }
 
         public int UpdateProfile(int id, ProfileBo profileBo)
         {
-            throw new NotImplementedException();
+            IGenericRepository<Profile> repository = new GenericRepository<Profile>();
+            Profile profile = repository.GetById(id);
+
+            //profile.Id = profileBo.Id;
+            profile.User_Id = profileBo.User_Id;
+            profile.Resume = profileBo.Resume;
+            profile.skills = profileBo.skills;
+            profile.TotalExperiance = profileBo.TotalExperiance;
+            profile.HeighestQualification = profileBo.HeighestQualification;
+            profile.PreferredLocation = profileBo.PreferredLocation;
+            profile.CurrentSalary = profileBo.CurrentSalary;
+            profile.ExpectedSalary = profileBo.ExpectedSalary;
+            profile.Languages = profileBo.Languages;
+
+            repository.Update(profile);
+            repository.Save();
+
+            return 1;
         }
     }
 }

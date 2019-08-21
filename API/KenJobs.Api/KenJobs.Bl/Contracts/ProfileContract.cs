@@ -7,7 +7,7 @@ using KenJobs.Bo.BusinessObjects;
 
 namespace KenJobs.Bl.Contracts
 {
-    interface ProfileContract
+    public interface ProfileContract
     {
         IEnumerable<ProfileBo> GetProfiles();
         ProfileBo GetProfile(int id);

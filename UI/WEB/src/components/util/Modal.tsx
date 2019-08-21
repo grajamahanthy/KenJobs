@@ -1,13 +1,13 @@
 import { Modal, Alert } from "react-bootstrap";
 import React from "react";
 import { Button } from "react-bootstrap";
-import AAlert from "../ModelComponents/Alert";
-import AButton from "../ModelComponents/Alert";
+import AAlert from "../Modals/Alert";
+import AButton from "../Modals/Alert";
 
 
 
 
-interface CustomProps {
+interface CustomProps { 
   message: AAlert
 }
 

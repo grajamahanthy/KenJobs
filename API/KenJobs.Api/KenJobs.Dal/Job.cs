@@ -18,6 +18,7 @@ namespace KenJobs.Dal
         public Job()
         {
             this.AppliedJobs = new HashSet<AppliedJob>();
+            this.FavoriteJobs = new HashSet<FavoriteJob>();
         }
     
         public int Id { get; set; }
@@ -52,5 +53,7 @@ namespace KenJobs.Dal
         public virtual ICollection<AppliedJob> AppliedJobs { get; set; }
         public virtual JobCategory JobCategory { get; set; }
         public virtual JobType JobType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FavoriteJob> FavoriteJobs { get; set; }
     }
 }

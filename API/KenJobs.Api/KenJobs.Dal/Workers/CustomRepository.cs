@@ -17,6 +17,14 @@ namespace KenJobs.Dal.Workers
                            select j).ToList();
             return jobList;
         }
+        public IEnumerable<Job> GetFavoriteJobByUserId(int userId)
+        {
+            var jobList = (from j in _context.Jobs
+                           join a in _context.FavoriteJobs on j.Id equals a.Job_Id
+                           where a.User_Id == userId
+                           select j).ToList();
+            return jobList;
+        }
 
         public IEnumerable<Job> GetJobsByUserId(int userId)
         {
@@ -60,6 +68,64 @@ namespace KenJobs.Dal.Workers
                              && (p.TotalExperiance >= minexperience && p.TotalExperiance <= maxExperience)
                             select u).ToList();
             return CandList;
+        }
+
+        public IEnumerable<Job> GetJobsByParams(string keyword, string location, int? experience, int? userId)
+        {
+
+            KenJobsEntities _context = new KenJobsEntities();
+            var jobs = (from j in _context.Jobs
+                        where j.Skills.Contains(keyword) &&
+                       (j.City.Contains(location) || j.State.Contains(location)) &&
+
+                       ((experience != null && experience >= j.MinExperience && experience <= j.MaxExperience) ||
+                       experience == null)
+
+                        select j).ToList();
+
+            //jobs = (from j in _context.Jobs
+            //        join a in _context.AppliedJobs on j.Id equals a.Job_Id
+            //        where j.Skills.Contains(keyword) &&
+            //        (j.City.Contains(location) || j.State.Contains(location)) &&
+            //        a.User_Id == userId &&
+
+            //        ((experience != null && experience >= j.MinExperience && experience <= j.MaxExperience) ||
+            //        experience == null)
+
+            //        select  j).ToList();
+
+            return jobs;
+        }
+
+        public IEnumerable<AppliedJob> GetAppliedJobs(int jobid, int userid)
+        {
+            KenJobsEntities _context = new KenJobsEntities();
+            var appliedJobs = (from a in _context.AppliedJobs
+                               where a.Job_Id == jobid &&
+                               a.User_Id == userid
+                               select a).ToList();
+            return appliedJobs;
+
+        }
+
+        public IEnumerable<FavoriteJob> GetFavoriteJobs(int jobid, int userid)
+        {
+            KenJobsEntities _context = new KenJobsEntities();
+            var appliedJobs = (from a in _context.FavoriteJobs
+                               where a.Job_Id == jobid &&
+                               a.User_Id == userid
+                               select a).ToList();
+            return appliedJobs;
+        }
+
+        public UserAttachment GetUserAttachment(int UserId, int AttachmentTypeId)
+        {
+            KenJobsEntities _context = new KenJobsEntities();
+            var userAttachment = (from u in _context.UserAttachments
+                                  where u.User_Id == UserId &&
+                                  u.AttachmentType_Id == AttachmentTypeId
+                                  select u).FirstOrDefault();
+            return userAttachment;
         }
     }
 }
