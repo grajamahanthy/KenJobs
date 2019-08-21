@@ -16,8 +16,8 @@ BEGIN
 		
 		INSERT INTO [dbo].[AspNetUsers]
 		(Id,[Email],[EmailConfirmed],[PasswordHash],[SecurityStamp],[PhoneNumber],[PhoneNumberConfirmed],[TwoFactorEnabled],[LockoutEndDateUtc],[LockoutEnabled],[AccessFailedCount],[UserName])
-		VALUES(@AspNetID,'employer_' + @UNIQUEEXT + '@gmail.com',1,'ADFuPp504lvX5wnMnLFdEYF1GBN92UpCP3eP0wNioysiBKSVfYHaR0NiKI1G+xQd4g=='
-		,'5261efee-4ace-446d-a80d-fe8bd1087bab',null,0,0,null,0,0,'employer_' + @UNIQUEEXT + '@gmail.com')
+		VALUES(@AspNetID,'employer_' + @UNIQUEEXT + '@gmail.com',1,'AG250b4a6XywisfNtkx3fK6JLxuuGDbO7FyUREYlt4qdbCCCQqzGKW6BQO1pqfAy6w=='
+		,'ccbc0828-df9d-49ae-8a19-3982d209ef28',null,0,0,null,0,0,'employer_' + @UNIQUEEXT + '@gmail.com')
 
 		INSERT INTO AspNetUserRoles (UserId, RoleId)
 		VALUES(@AspNetID, 2)
@@ -38,7 +38,7 @@ BEGIN
 		VALUES(@UserId, @OrgId, 'Admin', GETDATE(), 'Admin', GETDATE())
 
 		PRINT '--EMPLOYER ID IS: ' + CAST(@UserId AS VARCHAR)
-		EXEC dbo.CREATEJOBSDATA @UserId, 20
+		EXEC CREATEJOBSDATA @UserId, 20
 		
 		
 		SET @UserCounter = @UserCounter + 1

@@ -15,8 +15,8 @@ BEGIN
 		
 		INSERT INTO [dbo].[AspNetUsers]
 		(Id,[Email],[EmailConfirmed],[PasswordHash],[SecurityStamp],[PhoneNumber],[PhoneNumberConfirmed],[TwoFactorEnabled],[LockoutEndDateUtc],[LockoutEnabled],[AccessFailedCount],[UserName])
-		VALUES(@AspNetID,'js_' + @UNIQUEEXT + '@gmail.com',1,'ADFuPp504lvX5wnMnLFdEYF1GBN92UpCP3eP0wNioysiBKSVfYHaR0NiKI1G+xQd4g=='
-		,'5261efee-4ace-446d-a80d-fe8bd1087bab',null,0,0,null,0,0,'js_' + @UNIQUEEXT + '@gmail.com')
+		VALUES(@AspNetID,'js_' + @UNIQUEEXT + '@gmail.com',1,'AG250b4a6XywisfNtkx3fK6JLxuuGDbO7FyUREYlt4qdbCCCQqzGKW6BQO1pqfAy6w=='
+		,'ccbc0828-df9d-49ae-8a19-3982d209ef28',null,0,0,null,0,0,'js_' + @UNIQUEEXT + '@gmail.com')
 
 		INSERT INTO AspNetUserRoles (UserId, RoleId)
 		VALUES(@AspNetID, 1)
@@ -28,6 +28,26 @@ BEGIN
 		
 		SET @UserId = @@IDENTITY
 		PRINT '------------------JOBSEEKER ID IS:' + CAST(@UserId AS VARCHAR)
+
+
+		INSERT INTO EducationalQualification(User_Id, Institute, Qualification, YearOfPass, Percentage,[CreatedBy],[CreatedOn],[UpdatedBy],[UpdatedOn])
+		Values(@UserId, 'JNTU', 'B.Tech', '2007', '90','Admin',GETDATE(),'Admin',GETDATE())
+		INSERT INTO EducationalQualification(User_Id, Institute, Qualification, YearOfPass, Percentage,[CreatedBy],[CreatedOn],[UpdatedBy],[UpdatedOn])
+		Values(@UserId, 'Intermediate Board', 'Intermediate', '2003', '90','Admin',GETDATE(),'Admin',GETDATE())
+		INSERT INTO EducationalQualification(User_Id, Institute, Qualification, YearOfPass, Percentage,[CreatedBy],[CreatedOn],[UpdatedBy],[UpdatedOn])
+		Values(@UserId, 'SSC Board', '10th Standard', '2001', '90','Admin',GETDATE(),'Admin',GETDATE())
+
+		INSERT INTO Experience(User_Id, CompanyName, Technology, Role, StartDate, EndDate, Description,[CreatedBy],[CreatedOn],[UpdatedBy],[UpdatedOn])
+		VALUES(@UserId, 'Kensuite Technologies Pvt Ltd.', '.Net', 'Architect', GETDATE(), GETDATE(), '','Admin',GETDATE(),'Admin',GETDATE())
+		INSERT INTO Experience(User_Id, CompanyName, Technology, Role, StartDate, EndDate, Description,[CreatedBy],[CreatedOn],[UpdatedBy],[UpdatedOn])
+		VALUES(@UserId, 'CTS Pvt Ltd.', '.Net', 'Architect', GETDATE(), GETDATE(), '','Admin',GETDATE(),'Admin',GETDATE())
+		INSERT INTO Experience(User_Id, CompanyName, Technology, Role, StartDate, EndDate, Description,[CreatedBy],[CreatedOn],[UpdatedBy],[UpdatedOn])
+		VALUES(@UserId, 'IBM INDIA Pvt Ltd.', '.Net', 'Architect', GETDATE(), GETDATE(), '','Admin',GETDATE(),'Admin',GETDATE())
+
+		INSERT INTO Profile(User_Id, Resume, Skills, TotalExperiance, HeighestQualification, PreferredLocation, CurrentSalary, ExpectedSalary, Languages,[CreatedBy],[CreatedOn],[UpdatedBy],[UpdatedOn])
+		VALUES(@UserId, '', '.Net, Web API, SQL Server, Angular, React', 10, 'B.Tech', 'Hyderabad', 9999999, 9999999, 'English, Telugu, Hindi','Admin',GETDATE(),'Admin',GETDATE())
+
+
 		
 
 		DECLARE @DefaultClientId INT
