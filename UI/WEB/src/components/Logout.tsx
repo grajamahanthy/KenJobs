@@ -12,7 +12,9 @@ const Logout = (props: any) => {
         loggedIn: false,
         token: "",
         loginType:"",
-        userName: ""
+        userName: "",
+        logo:"",
+        profileimg:"",
     })
 
     // return <Redirect to={"/login/" + usertype} />;

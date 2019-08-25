@@ -11,6 +11,7 @@ namespace KenJobs.Bl.Contracts
     {
         IEnumerable<UserBo> GetUsers();
         UserBo GetUser(string id);
+        string GetUserByAspId(string id);
         AspNetUserBo GetAspNetUser(string id);
         UserBo GetUserByEmail(string email);
         int PostUser(UserBo userBo);

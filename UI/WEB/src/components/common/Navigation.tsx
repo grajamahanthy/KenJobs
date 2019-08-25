@@ -21,49 +21,24 @@ const name = {
     fontSize: '28px',
     lineHeight: '100px',
 };
+
+
 function Navigation(props: any) {
     let loginInfo;
     let Title = (props.app_prop.loggedIn === true) ? "Ken Jobs" : "";
-    let UserProfileAttachment = new UserAttachmentModel();
+
     let imgdata = new ImageModel();
-    let UserProfilePicture;
-    const displayProfilePicture = (data: any) => {
-        UserProfileAttachment = data;
-
-        // console.log(UserProfileAttachment.Attachment.Base64Text);
-        // UserProfilePicture = (UserProfileAttachment.Attachment.Id != 0 && UserProfileAttachment.Attachment.Base64Text != "")
-        //     ? <img src={UserProfileAttachment.Attachment.Base64Text } className="rounded-circle ml-2" width="30" height="40" />
-        //     :
-        //     <div id="container" style={container}>
-        //         <div id="name" style={name}>
-        //             {'Sekhar'}
-        //         </div>
-        //     </div>
-
-        //     ;
-
-    }
-
-
-    const errorHandle = () => {
-
-    }
-
-    // if (props.app_prop.loggedIn === true) {
-    //     const Servicecall = new Apiservices();
-    //     let res1 = Servicecall.GET_SECURE_CALL('Attachment?attachmentTypeId=1', null, displayProfilePicture, errorHandle)
-    // }
+   //  console.log(props);
 
     if (props.app_prop.loggedIn === true) {
         loginInfo = (<>
-        <img src={require('../../assets/images/profile.png')} className="rounded-circle img-fluid mt-2" height="20" width="25" alt='' />
+          
             <NavDropdown title={props.app_prop.userName} id="nav-dropdown">
                 <NavDropdown.Item eventKey="4.1">
                     <Link className="nav-link" to="/Logout">
                         Log Out
                     </Link>
                 </NavDropdown.Item>
-
                 <NavDropdown.Divider />
                 <NavDropdown.Item eventKey="4.3">
                     {
@@ -77,6 +52,8 @@ function Navigation(props: any) {
                     }
                 </NavDropdown.Item>
             </NavDropdown>
+            <ProfileImg imgdata={props}></ProfileImg>
+
         </>)
     } else {
         loginInfo =

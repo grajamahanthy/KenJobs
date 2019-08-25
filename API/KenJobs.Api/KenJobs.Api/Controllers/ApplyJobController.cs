@@ -91,7 +91,7 @@ namespace KenJobs.Api.Controllers
 
             appliedJobBo.Job_Id = jobmodel.Job_Id;
             appliedJobBo.User_Id = s.User.Id;
-            appliedJobBo.Client_Id = jobmodel.Client_Id;
+            appliedJobBo.Client_Id =1;
 
 
             IEnumerable<AppliedJobBo> appliedJobBoList = appliedJobsWorker.GetAppliedJobs(appliedJobBo.Job_Id, appliedJobBo.User_Id);

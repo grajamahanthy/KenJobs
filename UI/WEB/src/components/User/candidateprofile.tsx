@@ -9,6 +9,11 @@ import UserAttachmentModel from '../../Models/UserAttachment';
 import AttachmentModel from '../../Models/Attachment';
 import { ToastContainer, toast } from 'react-toastify';
 import Notify from '../../components/common/Notify';
+import { AppState } from '../../store';
+import { updateSession } from "../../store/auth/actions";
+import { connect } from 'react-redux';
+
+
 const notify = new Notify();
 class CandidateProfile extends React.Component<any, any>{
     constructor(props: any) {
@@ -21,9 +26,7 @@ class CandidateProfile extends React.Component<any, any>{
             file: '',
             imagePreviewUrl: '',
             resume: '',
-
         }
-
 
         this.addExperienceRow = this.addExperienceRow.bind(this);
         this.removeExperienceRow = this.removeExperienceRow.bind(this);
@@ -58,6 +61,7 @@ class CandidateProfile extends React.Component<any, any>{
         this.loadCandidateData();
         this.loadCandidateProfilePicture();
         this.loadCandidateResume();
+       
         this.setState({
             loader: false,
         })
@@ -66,6 +70,9 @@ class CandidateProfile extends React.Component<any, any>{
     }
     successProfile = (data: any) => {
         this.loadCandidateProfilePicture();
+        this.props.updateSession({
+            profileimg: this.state.UserProfileAttachment.Attachment.Base64Text,
+          });
         this.setState({
             loader: false,
         })
@@ -81,7 +88,6 @@ class CandidateProfile extends React.Component<any, any>{
     }
 
     onChange = (e: any) => {
-
         e.preventDefault();
         let up: any = this.state.UserProfile;
         up[e.target.name] = e.target.value;
@@ -96,8 +102,10 @@ class CandidateProfile extends React.Component<any, any>{
     }
 
     displayData = (data: any) => {
+        // console.log(data);
         this.setState({
             UserProfile: data,
+            UserProfileAttachment:data.UserAttachment,
             loader: false
         })
     }
@@ -116,7 +124,7 @@ class CandidateProfile extends React.Component<any, any>{
     }
     loadCandidateProfilePicture = () => {
         const Servicecall = new Apiservices();
-        let res1 = Servicecall.GET_SECURE_CALL('Attachment?attachmentTypeId=1', null, this.displayProfilePicture, this.errorHandle)
+       // let res1 = Servicecall.GET_SECURE_CALL('Attachment?attachmentTypeId=1', null, this.displayProfilePicture, this.errorHandle)
         let res2 = Servicecall.GET_SECURE_CALL('Attachment?attachmentTypeId=2', null, this.displayResume, this.errorHandle)
 
     }
@@ -146,11 +154,11 @@ class CandidateProfile extends React.Component<any, any>{
 
     }
 
-    displayProfilePicture = (data: any) => {
-        this.setState({
-            UserProfileAttachment: data
-        })
-    }
+    // displayProfilePicture = (data: any) => {
+    //     // this.setState({
+    //     //     UserProfileAttachment: data
+    //     // })
+    // }
 
     displayResume = (data: any) => {
         this.setState({
@@ -266,9 +274,9 @@ class CandidateProfile extends React.Component<any, any>{
         let $imagePreview = null;
         if (this.state.UserProfileAttachment && this.state.UserProfileAttachment.Attachment &&
             this.state.UserProfileAttachment.Attachment.Base64Text && this.state.UserProfileAttachment.Attachment.Base64Text != "null") {
-            $imagePreview = (<img src={this.state.UserProfileAttachment.Attachment.Base64Text} className="rounded-circle img-fluid img200 mt-2" alt='' />);
+            $imagePreview = (<img src={this.state.UserProfileAttachment.Attachment.Base64Text} className="rounded-circle img-fluid mt-2" style={{height:"200px"}}  alt='' />);
         } else {
-            $imagePreview = (<img src={require('../../assets/images/profile.png')} className="rounded-circle img-fluid img200 mt-2" alt='' />);
+            $imagePreview = (<img src={require('../../assets/images/DP.png')} className="rounded-circle img-fluid mt-2" width="100%" style={{height:"200px"}}  alt='' />);
         }
 
 
@@ -288,7 +296,7 @@ class CandidateProfile extends React.Component<any, any>{
                                     <div className="card  border rounded mt-2 mb-2 shadow-sm p-3 ">
                                         <div className="card-text row mx-2 my-2">
                                             <div className="col-sm-6 text-center">
-                                                {/* <img src={require('../../assets/images/profile.png')} width="100%" height="200" alt='' /> */}
+                                                {/* <img src={require('../../assets/images/DP.png')} width="100%" height="200" alt='' /> */}
                                                 {$imagePreview}
                                                 <br/>
                                                 <div className="upload-btn-wrapper my-2">
@@ -745,4 +753,13 @@ class CandidateProfile extends React.Component<any, any>{
         )
     }
 }
-export default CandidateProfile;
+
+
+const mapStateToProps = (state: AppState) => ({
+    system: state.system
+  });
+  
+  export default connect(
+    mapStateToProps,
+    { updateSession }
+  )(CandidateProfile)

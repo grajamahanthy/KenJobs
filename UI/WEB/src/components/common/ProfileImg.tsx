@@ -20,28 +20,28 @@ const name = {
 class ProfileImg extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
-        this.state={
-            Imagedata:props.data,
-            user:new UserAttachmentModel()
+        console.log(props.imgdata.app_prop.profileimg);
+        let userImg = props.imgdata.app_prop.profileimg;
+        this.state = {
+            Image: userImg,
+            // user:this.props.data
         }
     }
-    componentDidMount(){
-        this.setState({
-            user:this.props.data
-        },()=>console.log(this.state.user.Attachment.Base64Text));
+
+    componentDidMount() {
+
     }
     render() {
         return (
             <>
-                {/* {Image.Base64Text != "" && Image.Base64Text != null ?
-                    <img src={Image.Base64Text} className="rounded-circle ml-2" width="30" height="40" />
-                    :
-                    <div id="container" style={container}>
-                        <div id="name" style={name}>
-                            {Image.FirstName + '' + Image.LastName}
-                        </div>
-                    </div>
-                } */}
+                <div className="rounded-circle" style={{overflow:"hidden"}} >
+                    {this.state.Image != "" && this.state.Image != null ?
+                        <img src={this.state.Image} className="img-fluid" style={{ height: "40px"  }} alt='' />
+                        :
+                        <img src={require('../../assets/images/DP_white.png')} className="img-fluid" style={{ height: "40px" }} alt='' />
+
+                    }
+                </div>
             </>)
 
     }

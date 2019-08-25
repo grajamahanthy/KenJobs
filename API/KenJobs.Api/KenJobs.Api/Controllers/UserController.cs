@@ -11,6 +11,7 @@ using KenJobs.Bo.BusinessObjects;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using System.Web.Script.Serialization;
 
 namespace KenJobs.Api.Controllers
 {
@@ -65,7 +66,7 @@ namespace KenJobs.Api.Controllers
             userProfileModel.Profile = profileModelMapper(userBo.Profile);
             userProfileModel.Experience = experienceModelMapper(userBo.Experience);
             userProfileModel.EducationalQualification = educationalQualificationModelMapper(userBo.EducationalQualification);
-
+            userProfileModel.UserAttachments = userAttachmentsMapper(userBo.UserAttachment);
             userProfileModel.CreatedBy = userBo.CreatedBy;
             userProfileModel.CreatedOn = userBo.CreatedOn;
 
@@ -74,6 +75,31 @@ namespace KenJobs.Api.Controllers
         }
 
 
+        [NonAction]
+        public string GetAuthData(string id)
+        {
+            UserContract userWorker = new UserWorker();
+            string userBo = userWorker.GetUserByAspId(id);
+
+            //List<UserAttachmentModel> userAttachmentModelList= userAttachmentsMapper(userBo.UserAttachment);
+
+            //AuthModel authModel = new AuthModel();
+            //authModel.UserName = userBo.Email;
+            //authModel.FirstName = userBo.FirstName;
+            //authModel.LastName = userBo.LastName;
+            //authModel.UserTitle = userBo.Title;
+            //foreach (UserAttachmentModel userAttachmentModel in userAttachmentModelList)
+            //{
+            //    if (userAttachmentModel.AttachmentType_Id == 1)
+            //    {
+            //        authModel.ProfilePicture = userAttachmentModel.Attachment.Base64Text;
+            //    }
+            //}
+            //JavaScriptSerializer js = new JavaScriptSerializer();
+            //string userAuthString = js.Serialize(authModel);
+
+            return userBo;
+        }
 
         public IHttpActionResult UpdateUser()
         {
@@ -284,5 +310,28 @@ namespace KenJobs.Api.Controllers
         {
             return "<html><head> <meta charset='utf-8'> <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'> <style>.container{margin: 50px;}.logo-text{font-size: 40px; font-weight: 500; color: #fff; margin-bottom: 20px;}.bg-primary, .btn-primary{background-color: #00317f !important;}.card-header{border-top-left-radius: 5px; border-top-right-radius: 5px;}.card *{border: none;}.card, .card *{border: none;}.card-header, .card-body{padding-left: 20px;}.card-footer:last-child{border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px);}.text-muted{color: #6c757d !important;}.text-center{text-align: center !important;}.card-footer{padding: .75rem 1.25rem; background-color: rgba(0, 0, 0, .03); border-top: 1px solid rgba(0, 0, 0, .125);}.small, small{font-size: 80%; font-weight: 400;}h1, h2, h3, h4, h5, h6{margin-top: 0; margin-bottom: .5rem;}*, ::after, ::before{box-sizing: border-box;}h5{display: block; font-size: 0.83em; margin-block-start: 1.67em; margin-block-end: 1.67em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;}.text-center{text-align: center !important;}.small{font-size: 80%; font-weight: 400;}.card-footer{padding: .75rem 1.25rem; background-color: rgba(0, 0, 0, .03);}.text-muted{color: #6c757d !important;}.card-footer:last-child{border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px);}body{background-color: rgba(0, 0, 0, .03); margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 1rem; font-weight: 400; line-height: 1.5; color: #212529; text-align: left; background-color: #fff;}.btn:not(:disabled):not(.disabled){cursor: pointer;}.bg-primary, .btn-primary{background-color: #00317f !important; color: #fff;}.btn{display: inline-block; font-weight: 400; text-align: center; white-space: nowrap; vertical-align: middle; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; border: 1px solid transparent; padding: .375rem .75rem; font-size: 1rem; line-height: 1.5; border-radius: .25rem; transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out; color: #fff; text-decoration: none;}.card{border-radius: 5px !important; border: 1px solid #ccc; /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) !important; */}</style></head><body> <div class='container'> <div class='card'> <div class='card-header bg-primary'> <h5 class='text-white logo-text'>Ken Jobs</h5> </div><div class='card-body text-muted'> <p class='card-text'> <div class='pb-4'>Hi,</div><div class='pb-4'> <p class='mb-2'>$#$EmailText$#$</p><a href='$#$ButtonLinkUrl$#$' class='btn btn-primary'>$#$ButtonLinkText$#$d</a> </div><br/> Greetings,<br/> Ken Jobs Team </p></div><div class='small card-footer footer text-center text-muted'>Copyright © All rights reserved.<br/>Kensuite</div></div></div></body></html>";
         }
+
+        List<UserAttachmentModel> userAttachmentsMapper(List<UserAttachmentBo> userAttachmentBoList)
+        {
+            List<UserAttachmentModel> userAttachmentModelList = new List<UserAttachmentModel>();
+            foreach (UserAttachmentBo userAttachmentBo in userAttachmentBoList)
+            {
+                UserAttachmentModel userAttachmentModel = new UserAttachmentModel();
+                userAttachmentModel.Id = userAttachmentBo.Id;
+                userAttachmentModel.User_Id = userAttachmentBo.User_Id;
+                userAttachmentModel.Attachment_Id = userAttachmentBo.Attachment_Id;
+                userAttachmentModel.AttachmentType_Id = userAttachmentBo.AttachmentType_Id;
+                userAttachmentModel.Name = userAttachmentBo.Name;
+                userAttachmentModel.Attachment = new AttachmentModel()
+                {
+                    Id = userAttachmentBo.Attachment.Id,
+                    Base64Text = userAttachmentBo.Attachment.Base64Text,
+                    FileExtension = userAttachmentBo.Attachment.FileExtension,
+                };
+                userAttachmentModelList.Add(userAttachmentModel);
+            }
+            return userAttachmentModelList;
+        }
+
     }
 }

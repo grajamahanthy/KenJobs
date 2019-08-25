@@ -9,7 +9,7 @@ using KenJobs.Dal.Contracts;
 using KenJobs.Dal.Workers;
 using KenJobs.Dal;
 using System.Collections.Generic;
-
+using System.Web.Script.Serialization;
 
 namespace KenJobs.Bl.Workers
 {
@@ -64,9 +64,7 @@ namespace KenJobs.Bl.Workers
             try
             {
                 AspNetUser aspNetUser = repository.GetById(userid);
-
                 User user = aspNetUser.Users.ToList()[0];
-
 
                 UserBo userBo = new UserBo();
                 userBo.Id = user.Id;
@@ -89,13 +87,62 @@ namespace KenJobs.Bl.Workers
                 userBo.Profile = GenerateProfileBo(user.Profiles);
                 userBo.Experience = GenerateExperienceBo(user.Experiences);
                 userBo.EducationalQualification = GenerateEducationalQualificationBo(user.EducationalQualifications);
-
+                userBo.UserAttachment = GenerateUserAttachment(user.UserAttachments);
                 return userBo;
             }
             catch (Exception ex)
             {
                 return new UserBo();
             }
+
+        }
+
+        public string GetUserByAspId(string userid)
+        {
+
+            IGenericRepository<AspNetUser> repository = new GenericRepository<AspNetUser>();
+            //object objid = userid;
+            try
+            {
+                AspNetUser aspNetUser = repository.GetById(userid);
+                User user = aspNetUser.Users.ToList()[0];
+
+                UserBo userBo = new UserBo();
+                userBo.Id = user.Id;
+                userBo.FirstName = user.FirstName;
+                userBo.MiddleName = user.MiddleName;
+                userBo.LastName = user.LastName;
+                userBo.ProfilePhoto = user.ProfilePhoto;
+                userBo.Gender_Id = user.Gender_Id;
+                userBo.Status = user.Status;
+                userBo.CreatedBy = user.CreatedBy;
+                userBo.CreatedOn = user.CreatedOn;
+                userBo.UpdatedBy = user.UpdatedBy;
+                userBo.UpdatedOn = user.UpdatedOn;
+                userBo.AspNetUser_Id = user.AspNetUser_Id;
+                userBo.PhoneNumber = user.PhoneNumber;
+                userBo.Email = user.Email;
+
+                userBo.ResetPasswordCode = user.ResetPasswordCode;
+                userBo.EmailActivationCode = user.EmailActivationCode;
+                userBo.Profile = GenerateProfileBo(user.Profiles);
+                userBo.Experience = GenerateExperienceBo(user.Experiences);
+                userBo.EducationalQualification = GenerateEducationalQualificationBo(user.EducationalQualifications);
+                userBo.UserAttachment = GenerateUserAttachment(user.UserAttachments);
+
+                JavaScriptSerializer js = new JavaScriptSerializer();
+
+                string userAuthString = js.Serialize(userBo);
+
+
+
+                return userAuthString.ToString();
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+
         }
 
         public IEnumerable<UserBo> GetUsers()
@@ -162,7 +209,7 @@ namespace KenJobs.Bl.Workers
                 return userBo;
             }
             return null;
-            
+
         }
 
         public int PostUser(UserBo userBo)
@@ -226,7 +273,7 @@ namespace KenJobs.Bl.Workers
             return 1;
         }
 
-        public int UpdateEmployer(int id,UserBo userBo)
+        public int UpdateEmployer(int id, UserBo userBo)
         {
             IGenericRepository<User> repository = new GenericRepository<User>();
             User user = repository.GetById(id);
@@ -251,9 +298,9 @@ namespace KenJobs.Bl.Workers
             {
                 return 0;
             }
-           
 
-            
+
+
         }
         public int UpdatePartialUserProps(UserBo userBo)
         {
@@ -342,7 +389,7 @@ namespace KenJobs.Bl.Workers
         public List<UserAttachmentBo> GenerateUserAttachment(ICollection<UserAttachment> userAttachmentsList)
         {
             List<UserAttachmentBo> userAttachmentBoList = new List<UserAttachmentBo>();
-            foreach(UserAttachment userattachment in userAttachmentsList)
+            foreach (UserAttachment userattachment in userAttachmentsList)
             {
                 if (userattachment.AttachmentType_Id == 1)
                 {

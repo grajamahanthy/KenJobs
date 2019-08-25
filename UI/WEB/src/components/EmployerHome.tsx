@@ -60,7 +60,7 @@ class EmployerHome extends React.Component<any, any>{
 
 
     render() {
-
+console.log(this.state.candidateData);
         let candidateList;
         if (this.state.ishaveJobs && this.state.showContent) {
             candidateList = this.state.candidateData.map((item: any, key: any) =>
@@ -81,6 +81,12 @@ class EmployerHome extends React.Component<any, any>{
                 {/* <Link className="btn btn-primary btn-sm rounded-0" to='/candidates' >
                     View Candidates
                 </Link> */}
+                 {/* <Link className="btn btn-primary btn-sm rounded-0"
+                                    to={{
+                                        pathname: "/candidate",
+                                        state: { User: item }
+                                    }}
+                                > View Candidate</Link> */}
                 <button className="btn btn-primary btn-sm rounded-0"> View Candidate</button>
                  {/* <Link className="btn btn-primary btn-sm rounded-0 align-self-end"
                 to={{

@@ -77,7 +77,7 @@ function Candidate(props: any) {
                                                 </div>
 
                                                 <div className="col-md-4 col-sm-4 text-center">
-                                                    <img className="btn-md" src={require('../../assets/images/profile.png')} width="200" height="200" alt="" />
+                                                    <img className="btn-md" src={require('../../assets/images/DP.png')} style={{height:"200px"}} alt="" />
                                                 </div>
 
                                             </div>

@@ -73,18 +73,19 @@ class Login extends React.Component<any, any> {
         })
         const Servicecall = new Apiservices();
 
-        let response = Servicecall.LOGIN_CALL("token", body, this.displaydata,this.errorHandle)
+        let response = Servicecall.LOGIN_CALL("token", body, this.displaydata, this.errorHandle)
 
       }
     }
   }
 
-  
+
   doesExists = function (obj: any) {
     return (obj != null && obj != undefined)
   }
 
   displaydata = (response: any) => {
+    // debugger;
 
     let isError: boolean = this.doesExists(response.error);
     if (isError) {
@@ -97,36 +98,41 @@ class Login extends React.Component<any, any> {
       return;
     }
 
+    // console.log(JSON.parse(response.userAuthData));
+    let authData = JSON.parse(response.userAuthData);
     let accessToken = response.access_token;
     let logedIn = this.doesExists(response.access_token);
-    let userName = response.userName
+    let userName = authData.Email
+    let profilePicture = (authData.UserAttachment != "" && authData.UserAttachment != null) ? authData.UserAttachment[0].Attachment.Base64Text : ""
     this.props.updateSession({
       loggedIn: logedIn,
       token: accessToken,
-      loginType:this.state.loginType,
-      userName: userName
+      loginType: this.state.loginType,
+      userName: userName,
+      profileimg: profilePicture
     });
     var myOth = {
       "loggedIn": logedIn,
       "token": accessToken,
       "loginType": this.state.loginType,
-      "userName": userName
+      "userName": userName,
+      "profileimg": profilePicture,
+      "logo": "",
     };
 
     localStorage.setItem("authInfo", JSON.stringify(myOth))
 
     this.setState({
-      loggedIn: logedIn, 
+      loggedIn: logedIn,
       loading: false
     })
 
     if (response.ok) {
 
     }
-
   }
 
-  errorHandle=(error:any)=>{
+  errorHandle = (error: any) => {
     console.log(error);
     this.setState({
       isValid: false,
@@ -150,9 +156,9 @@ class Login extends React.Component<any, any> {
 
   componentWillMount() {
     this.setState({
-      loginType: (this.props.match.params.usertype === "jobseeker" || this.props.match.params.usertype === "employer") 
-      ? this.props.match.params.usertype ==="jobseeker"?"jobseeker":"employer"
-      : 'jobseeker'
+      loginType: (this.props.match.params.usertype === "jobseeker" || this.props.match.params.usertype === "employer")
+        ? this.props.match.params.usertype === "jobseeker" ? "jobseeker" : "employer"
+        : 'jobseeker'
     })
   }
 
@@ -179,9 +185,9 @@ class Login extends React.Component<any, any> {
 
   componentWillReceiveProps(nextProps: any) {
     this.setState({
-      loginType: (this.props.match.params.usertype === "jobseeker" || this.props.match.params.usertype === "employer") 
-      ? this.props.match.params.usertype ==="jobseeker"?"jobseeker":"employer"
-      : 'jobseeker'
+      loginType: (this.props.match.params.usertype === "jobseeker" || this.props.match.params.usertype === "employer")
+        ? this.props.match.params.usertype === "jobseeker" ? "jobseeker" : "employer"
+        : 'jobseeker'
     })
   }
 
@@ -191,11 +197,11 @@ class Login extends React.Component<any, any> {
     // console.log(this.props.match.params.usertype)
 
     if (this.state.loggedIn === true) {
-      if(this.state.loginType==="employer"){
-        return <Redirect to={"/Employeer-Dashbord"}/>;
+      if (this.state.loginType === "employer") {
+        return <Redirect to={"/Employeer-Dashbord"} />;
 
-      }else{
-        return <Redirect to={"/"}/>;
+      } else {
+        return <Redirect to={"/"} />;
 
       }
     }
@@ -258,11 +264,11 @@ class Login extends React.Component<any, any> {
                             // pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,}).*"
                             required
                           />
-                          { <div className="invalid-feedback text-left">
+                          {<div className="invalid-feedback text-left">
                             <h6> Please Provide Valid Password.</h6>
                             {/* <div>* Password Must Contain at least one number and one uppercase and lowercase letter and Special Character,
                               and  at least 8 or more characters</div> */}
-                          </div> }
+                          </div>}
                         </div>
                         {!this.state.isValid ?
                           <div className="text-left text-danger mb-2">
@@ -283,14 +289,14 @@ class Login extends React.Component<any, any> {
                         <div className="text-primary">Please <span><Link to={"/Registration/" + this.state.loginType}><u>click here</u></Link> </span> for new user registration.</div>
 
                       </form>
-                      {this.state.loginType == "employer" ? "" :
-                        <div className="row mt-2">
-                          <div className="col">
-                            <button className="btn  btn-block rounded-0 bg-danger border text-white">Google</button>
-                          </div><div className="col">
-                            <button className="btn  btn-block rounded-0 bg-primary border text-white">Facebook</button>
-                          </div>
-                        </div>
+                      {this.state.loginType == "employer" ? "" : ""
+                        // <div className="row mt-2">
+                        //   <div className="col">
+                        //     <button className="btn  btn-block rounded-0 bg-danger border text-white">Google</button>
+                        //   </div><div className="col">
+                        //     <button className="btn  btn-block rounded-0 bg-primary border text-white">Facebook</button>
+                        //   </div>
+                        // </div>
                       }
                     </div>
                   </div>
@@ -301,7 +307,7 @@ class Login extends React.Component<any, any> {
         </Row >
         {this.state.loading ?
           <LoaderModal></LoaderModal>
-        : ''}
+          : ''}
       </>
     );
   }

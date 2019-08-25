@@ -19,5 +19,7 @@ namespace KenJobs.Api.Models
         public System.DateTime CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public System.DateTime UpdatedOn { get; set; }
+        public virtual UserAttachmentModel UserAttachment { get; set; }
+        public virtual ICollection<UserAttachmentModel> UserAttachments { get; set; }
     }
 }

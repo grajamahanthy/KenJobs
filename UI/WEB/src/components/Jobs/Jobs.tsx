@@ -116,7 +116,7 @@ class Jobs extends React.Component<any, any>{
             const Servicecall = new Apiservices();
             let body = new URLSearchParams();
             body.set('Job_Id', jobid);
-            body.set('Client_Id', '1');
+            //body.set('Client_Id', '1');
             //Get jobs bu user id, User id is assigned by server 
             let responce = Servicecall.POST_SECURE_CALL('ApplyJob/apply', body, this.successAppliedJob, this.errorHandle)
 
@@ -137,7 +137,7 @@ class Jobs extends React.Component<any, any>{
                 notify.Info_Notify("You Have Already Applied This Job.");
                 break;
             case 0:
-                alert("Job Applied Failed");
+                notify.Error_notify("Something went wrong.");
                 break;
             default: break;
         }
@@ -171,7 +171,7 @@ class Jobs extends React.Component<any, any>{
         switch (data) {
             case 1: notify.Success_notify("Job Is Added In Favorites Succesfully "); break;
             case 2: notify.Info_Notify("Job Is Already Added In Favoritejobs"); break;
-            case 0: notify.Error_notify("Failed"); break;
+            case 0: notify.Error_notify("Something Went Wrong."); break;
             default: break;
         }
         this.setState({

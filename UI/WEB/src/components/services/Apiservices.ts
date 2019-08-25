@@ -14,13 +14,13 @@ export default class Apiservices {
     token: any;
     constructor() {
         //this.UrlPath = 'http://api-kenjobs.com/api/';
-      // this.UrlPath = 'http://apikenjobs.com/api/';
-        // this.UrlPath = 'http://localhost:50768/api/';
-        this.UrlPath = 'http://api.kenjobs.com/api/';
-      
+        // this.UrlPath = 'http://apikenjobs.com/api/';
+        this.UrlPath = 'http://localhost:50768/api/';
+        //this.UrlPath = 'http://api.kenjobs.com/api/';
+       
     }
     //Regular Service Call
-    GET_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any,errorCallback:any): any {
+    GET_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any, errorCallback: any): any {
         const isAuthenticated = localStorage.getItem("authInfo");
         if (isAuthenticated) {
             this.local = JSON.parse(isAuthenticated);
@@ -48,7 +48,7 @@ export default class Apiservices {
 
     }
 
-    POST_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any,errorCallback:any): any {
+    POST_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any, errorCallback: any): any {
         const isAuthenticated = localStorage.getItem("authInfo");
         if (isAuthenticated) {
             this.local = JSON.parse(isAuthenticated);
@@ -74,13 +74,14 @@ export default class Apiservices {
 
     //Secure Service Call
 
-    GET_SECURE_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any,errorCallback:any): any {
+    GET_SECURE_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any, errorCallback: any): any {
         let currentUrl = this.UrlPath + URL;
         const isAuthenticated = localStorage.getItem("authInfo");
         if (isAuthenticated) {
             this.local = JSON.parse(isAuthenticated);
             this.token = this.local['token']
         }
+        console.log(this.local['token']);
         this.Header = new Headers();
         this.Header.append("Accept", "application/json");
         this.Header.append("Content-Type", "application/x-www-form-urlencoded");
@@ -106,7 +107,7 @@ export default class Apiservices {
             })
     }
 
-    POST_SECURE_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any,errorCallback:any): any {
+    POST_SECURE_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any, errorCallback: any): any {
         let currentUrl = this.UrlPath + URL;
         const isAuthenticated = localStorage.getItem("authInfo");
         if (isAuthenticated) {
@@ -129,17 +130,17 @@ export default class Apiservices {
                 successCallback(data);
             });
         }).catch(error => {
-            
+
             errorCallback(error);
         })
     }
 
-    LOGIN_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any,errorCallback:any): any {
+    LOGIN_CALL(URL: string, DATA: URLSearchParams | null, successCallback: any, errorCallback: any): any {
 
         //let currentUrl = 'http://api-kenjobs.com/' + URL;
         // let currentUrl = 'http://apikenjobs.com/' + URL;
-   // let currentUrl = 'http://localhost:50768/' + URL;
-         let currentUrl = 'http://api.kenjobs.com/' + URL;
+        let currentUrl = 'http://localhost:50768/' + URL;
+        //let currentUrl = 'http://api.kenjobs.com/' + URL;
 
         this.Header = new Headers();
         this.Header.append("Accept", "application/json");
@@ -159,7 +160,7 @@ export default class Apiservices {
         })
     }
 
-    ResetPassword(URL: string, DATA: URLSearchParams | null, successCallback: any,errorCallback:any): any {
+    ResetPassword(URL: string, DATA: URLSearchParams | null, successCallback: any, errorCallback: any): any {
         let currentUrl = this.UrlPath + URL;
         this.Header = new Headers();
         this.Header.append("Accept", "application/json");
@@ -172,12 +173,12 @@ export default class Apiservices {
 
             successCallback(response);
         }).catch(error => {
-            
+
             errorCallback(error);
         })
     }
 
-    POST_SECURE_CALL1(URL: string, DATA: any | null, successCallback: any,errorCallback:any): any {
+    POST_SECURE_CALL1(URL: string, DATA: any | null, successCallback: any, errorCallback: any): any {
         let currentUrl = this.UrlPath + URL;
         const isAuthenticated = localStorage.getItem("authInfo");
         if (isAuthenticated) {
@@ -194,13 +195,13 @@ export default class Apiservices {
         fetch(currentUrl, {
             method: "POST",
             headers: this.Header,
-            body:JSON.stringify(DATA) ,
+            body: JSON.stringify(DATA),
         }).then(response => {
             response.json().then((data) => {
                 successCallback(data);
             });
         }).catch(error => {
-            
+
             errorCallback(error);
         })
     }

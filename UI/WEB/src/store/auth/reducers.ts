@@ -5,6 +5,8 @@ const initialState: IsessionState = {
     token: "",
     userName: "",
     loginType:"",
+    logo:"",
+    profileimg:"",
     appProps: {showNav : true}
 };
 

@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Apiservices from '../services/Apiservices';
 import { AppState } from '../../store';
 import { updateSession } from "../../store/auth/actions";
+import LoaderModal from '../util/LoaderModal';
 
 
 class Applyjob extends React.Component<any, any>{
@@ -13,6 +14,7 @@ class Applyjob extends React.Component<any, any>{
         super(props);
         let loggedIn = this.props.system.loggedIn
         this.state = {
+            loader: false,
             loggedIn,
             jobdata: []
 
@@ -20,22 +22,27 @@ class Applyjob extends React.Component<any, any>{
     }
     componentDidMount() {
         const Servicecall = new Apiservices();
+        this.setState({
+            loader: true
+        })
         let response = Servicecall.GET_SECURE_CALL("ApplyJob/GetJobsByUserid", null, this.success, this.errorHandle)
     }
 
     success = (data: any) => {
         console.log(data);
         this.setState({
-            jobdata: data
+            jobdata: data, loader: false
         })
     }
 
     errorHandle = () => {
-
+        this.setState({
+            loader: false
+        })
     }
 
     render() {
-        if(this.state.loggedIn===false){
+        if (this.state.loggedIn === false) {
             return <Redirect to="/Login/jobseeker" />
         }
         let prepare_jobs;
@@ -60,11 +67,11 @@ class Applyjob extends React.Component<any, any>{
                             <div className=" row mt-2 ">
                                 <span>
                                     <span className="col-sm-2" >
-                                        <FontAwesomeIcon icon="newspaper" size="xs"  className="mr-2" />
+                                        <FontAwesomeIcon icon="newspaper" size="xs" className="mr-2" />
                                         {item.Description}
                                     </span>
                                     <span className="col-sm-10 pull-right text-wrap">
-                                       
+
                                     </span>
                                 </span>
                             </div>
@@ -98,7 +105,7 @@ class Applyjob extends React.Component<any, any>{
 
         return (
             <>
-
+                {this.state.loader ? <LoaderModal></LoaderModal> : ''}
                 <div className="container mt-3">
                     <h1>Applyed Jobs List</h1>
                     <div className="container mt-2">
@@ -151,9 +158,9 @@ class Applyjob extends React.Component<any, any>{
 
 const mapStateToProps = (state: AppState) => ({
     system: state.system
-  });
-  
-  export default connect(
+});
+
+export default connect(
     mapStateToProps,
     { updateSession }
-  )(Applyjob);
+)(Applyjob);

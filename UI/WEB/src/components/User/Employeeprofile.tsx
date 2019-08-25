@@ -66,14 +66,13 @@ class Employeeprofile extends React.Component<any, any>{
 
         const Servicecall = new Apiservices();
         let responce = Servicecall.GET_SECURE_CALL('Employer/GetEmployerById', null, this.displayData, this.errorHandle)
-        this.loadCandidateProfilePicture();
     }
 
     errorHandle = (error: any) => {
 
     }
     displayData = (data: any) => {
-
+        console.log(data);
         this.setState({
             id: data.Id,
             firstName: data.FirstName,
@@ -86,7 +85,7 @@ class Employeeprofile extends React.Component<any, any>{
             createdOn: data.CreatedOn,
             updatedBy: data.UpdatedBy,
             updatedOn: data.UpdatedOn,
-            UserProfileAttachment: new UserAttachmentModel(),
+            UserProfileAttachment: data.UserAttachment,
         })
         this.setState({
             loader: false
@@ -103,21 +102,12 @@ class Employeeprofile extends React.Component<any, any>{
 
     }
     successProfile = (data: any) => {
-        this.loadCandidateProfilePicture();
         this.setState({
             loader: false,
         })
         notify.Success_notify("Profile Picture Uploaded Succesfully")
     }
-    loadCandidateProfilePicture = () => {
-        const Servicecall = new Apiservices();
-        let res1 = Servicecall.GET_SECURE_CALL('Attachment?attachmentTypeId=1', null, this.displayProfilePicture, this.errorHandle)
-    }
-    displayProfilePicture = (data: any) => {
-        this.setState({
-            UserProfileAttachment: data
-        })
-    }
+  
     _handleImageChange(e: any) {
         e.preventDefault();
         let imgreader = new FileReader();
@@ -141,14 +131,13 @@ class Employeeprofile extends React.Component<any, any>{
     }
 
     render() {
-        console.log(this.state)
         let { imagePreviewUrl } = this.state;
         let $imagePreview = null;
         if (this.state.UserProfileAttachment && this.state.UserProfileAttachment.Attachment &&
             this.state.UserProfileAttachment.Attachment.Base64Text && this.state.UserProfileAttachment.Attachment.Base64Text != "null") {
-            $imagePreview = (<img src={this.state.UserProfileAttachment.Attachment.Base64Text} className="rounded-circle img-fluid img200 mt-2" alt='' />);
+            $imagePreview = (<img src={this.state.UserProfileAttachment.Attachment.Base64Text} className="rounded-circle img-fluid  mt-2" width="100%" style={{ height: "200px" }} alt='' />);
         } else {
-            $imagePreview = (<img src={require('../../assets/images/profile.png')} className="rounded-circle img-fluid img200 mt-2" alt='' />);
+            $imagePreview = (<img src={require('../../assets/images/DP.png')} className="rounded-circle img-fluid mt-2" style={{ height: "200px" }} alt='' />);
         }
         return (
             <>
@@ -161,23 +150,25 @@ class Employeeprofile extends React.Component<any, any>{
                         <div className="container-fluid">
                             <div className="row">
                                 <div className="col-12">
-                                  
+
                                     <div className="card  border rounded pt-2 mb-2 shadow-sm p-3 ">
                                         <div className="card-text mb-2">
 
                                             <form onSubmit={this.onSubmit}>
                                                 <div className="form-row">
                                                     <div className="col-sm-6">
-                                                        <div className="text-center">
-                                                            {$imagePreview}
-                                                            <br />
-                                                            <div className="upload-btn-wrapper my-2">
-                                                                <input type="file" className="btn  btn-lg btn-block rounded-0" onChange={(e) => this._handleImageChange(e)} />
-                                                                <button className="btn btn-primary">
-                                                                    Upload Profile Image
-                                                    </button>
-                                                            </div>
+                                                        <div className="col-sm-7 mx-auto">
+                                                            <div className="text-center">
+                                                                {$imagePreview}
+                                                                <br />
+                                                                <div className="upload-btn-wrapper my-2">
+                                                                    <input type="file" className="btn  btn-lg btn-block rounded-0" onChange={(e) => this._handleImageChange(e)} />
+                                                                    <button className="btn btn-primary">
+                                                                        Upload Profile Image
+                                                                </button>
+                                                                </div>
 
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div className="col-sm-6">
@@ -250,7 +241,7 @@ class Employeeprofile extends React.Component<any, any>{
                                                             <button type="submit" className="btn btn-primary">Update Profile</button>
                                                         </div>
                                                     </div>
-                                                </div>                                                
+                                                </div>
                                             </form>
                                         </div>
                                     </div>

@@ -39,40 +39,42 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { fab, faFacebook } from '@fortawesome/free-brands-svg-icons'
 import {
   faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender,
-  faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser,faEnvelope,faMobileAlt,faUniversity,
-faLaptopCode, faUpload
+  faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser, faEnvelope, faMobileAlt, faUniversity,
+  faLaptopCode, faUpload
 } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer } from "react-toastify";
+import Apiservices from "./components/services/Apiservices";
 
 library.add(faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender,
-  faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser,faEnvelope,faMobileAlt,faUniversity,faLaptopCode, faUpload)
+  faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser, faEnvelope, faMobileAlt, faUniversity, faLaptopCode, faUpload)
 
 class App extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     const token = localStorage.getItem("token");
-
     let loggedIn = true;
     if (token == null) {
       loggedIn = false;
     }
     this.state = {
-      loggedIn
+      loggedIn,
+      profileImg: '',
     }
-
-  }
-
-  componentDidMount() {
-
     const isAuthenticated = localStorage.getItem("authInfo");
-
+   // console.log(localStorage.getItem("authInfo"));
     if (isAuthenticated) {
+
       this.props.updateSession(JSON.parse(isAuthenticated))
     }
   }
 
+
+  componentDidMount() {
+
+  }
+
   render() {
-       return (<>
+    return (<>
       <Router>
         {/* {login_page} */}
         < Navigation app_prop={this.props.system}></Navigation>

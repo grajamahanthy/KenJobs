@@ -16,7 +16,7 @@ class CandidateList extends React.Component<any, any> {
             loader: false,
             Candidatedata: []
         }
-       this.downloadResume=this.downloadResume.bind(this);
+        this.downloadResume = this.downloadResume.bind(this);
     }
 
     componentWillMount() {
@@ -41,18 +41,18 @@ class CandidateList extends React.Component<any, any> {
         })
     }
 
-    downloadResume=(userId:number)=>{
+    downloadResume = (userId: number) => {
         const Servicecall = new Apiservices();
-        let res1 = Servicecall.GET_SECURE_CALL('Attachment/GetAttachmentByUserId?User_Id='+userId+'&&attachmentTypeId=2', null, this.success, this.errorHandle)
-        
+        let res1 = Servicecall.GET_SECURE_CALL('Attachment/GetAttachmentByUserId?User_Id=' + userId + '&&attachmentTypeId=2', null, this.success, this.errorHandle)
+
     }
-    success=(data:any)=>{
+    success = (data: any) => {
         window.location.href = data.Attachment.Base64Text;
     }
 
     render() {
         let Candidatelist;
-        let imageData= <img className="btn-md border rounded-circle" src={require('../../assets/images/profile.png')}  width="100%" height="160" />;
+        let imageData = <img className="btn-md border rounded-circle" src={require('../../assets/images/DP.png')} style={{ height: "160px" }} />;
         let Pagenation;
         if (this.state.haveCandidate && this.state.showContent) {
             Candidatelist = this.state.Candidatedata.map((item: any, key: any) =>
@@ -60,15 +60,18 @@ class CandidateList extends React.Component<any, any> {
                 <div className="col-md-6 border  my-1 p-3">
                     <div className="row">
                         <div className="col-md-4 ">
+
                             {
                                 item.UserAttachments.map((attachment: any, index: any) => {
                                     if (attachment.Attachment != null) {
-                                        imageData=<img  src={attachment.Attachment.Base64Text}  className="btn-md border rounded-circle" width="100%" height="160"  />
+                                        imageData =
+                                                <img src={attachment.Attachment.Base64Text} className="btn-md border rounded-circle" width="100%"  style={{ height: "160px" }} />
                                     }
                                 })
-
                             }
-                           {imageData}
+                            <div className="text-center">
+                                {imageData}
+                            </div>
                         </div>
                         <div className="col-md-8 ">
 
@@ -87,7 +90,7 @@ class CandidateList extends React.Component<any, any> {
                             <h6>Key Skills : {} </h6>
                             <div className="float-sm-right">
 
-                                <button className="btn btn-primary btn-sm rounded-0" onClick={()=>this.downloadResume(item.Id)}>Download Resume</button>
+                                <button className="btn btn-primary btn-sm rounded-0" onClick={() => this.downloadResume(item.Id)}>Download Resume</button>
                             </div>
                         </div>
                     </div>

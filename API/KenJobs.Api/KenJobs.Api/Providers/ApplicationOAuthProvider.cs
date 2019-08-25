@@ -10,6 +10,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using KenJobs.Api.Models;
+using KenJobs.Api.Controllers;
 
 namespace KenJobs.Api.Providers
 {
@@ -54,7 +55,8 @@ namespace KenJobs.Api.Providers
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
                 CookieAuthenticationDefaults.AuthenticationType);
 
-            AuthenticationProperties properties = CreateProperties(user.UserName);
+
+            AuthenticationProperties properties = CreateProperties("");
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
@@ -62,7 +64,17 @@ namespace KenJobs.Api.Providers
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
         {
-            foreach (KeyValuePair<string, string> property in context.Properties.Dictionary)
+            AuthModel userAuth = new AuthModel();
+            UserController userController = new UserController();
+            string userId = context.Identity.GetUserId();
+            string authData = userController.GetAuthData(userId);
+            IDictionary<string, string> data = new Dictionary<string, string>
+            {
+                { "userAuthData", authData }
+
+            };
+
+            foreach (KeyValuePair<string, string> property in data)
             {
                 context.AdditionalResponseParameters.Add(property.Key, property.Value);
             }
@@ -96,13 +108,10 @@ namespace KenJobs.Api.Providers
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName)
+        public static AuthenticationProperties CreateProperties(string userAuthData)
         {
-            IDictionary<string, string> data = new Dictionary<string, string>
-            {
-                { "userName", userName }
-               
-            };
+            IDictionary<string, string> data = new Dictionary<string, string>();
+            
             return new AuthenticationProperties(data);
         }
     }

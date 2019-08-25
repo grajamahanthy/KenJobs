@@ -66,6 +66,7 @@ namespace KenJobs.Api.Controllers
             employerModel.Status = userBo.Status;
             employerModel.CreatedBy = userBo.CreatedBy;
             employerModel.CreatedOn = userBo.CreatedOn;
+            employerModel.UserAttachment = userAttachmentMapper(userBo.UserAttachment);
 
             return Ok(employerModel);
         }
@@ -113,6 +114,53 @@ namespace KenJobs.Api.Controllers
         // DELETE: api/Employer/5
         public void Delete(int id)
         {
+        }
+
+        List<UserAttachmentModel> userAttachmentsMapper(List<UserAttachmentBo> userAttachmentBoList)
+        {
+            List<UserAttachmentModel> userAttachmentModelList = new List<UserAttachmentModel>();
+            foreach (UserAttachmentBo userAttachmentBo in userAttachmentBoList)
+            {
+                UserAttachmentModel userAttachmentModel = new UserAttachmentModel();
+                userAttachmentModel.Id = userAttachmentBo.Id;
+                userAttachmentModel.User_Id = userAttachmentBo.User_Id;
+                userAttachmentModel.Attachment_Id = userAttachmentBo.Attachment_Id;
+                userAttachmentModel.AttachmentType_Id = userAttachmentBo.AttachmentType_Id;
+                userAttachmentModel.Name = userAttachmentBo.Name;
+                userAttachmentModel.Attachment = new AttachmentModel()
+                {
+                    Id = userAttachmentBo.Attachment.Id,
+                    Base64Text = userAttachmentBo.Attachment.Base64Text,
+                    FileExtension = userAttachmentBo.Attachment.FileExtension,
+                };
+                userAttachmentModelList.Add(userAttachmentModel);
+            }
+            return userAttachmentModelList;
+        }
+
+        UserAttachmentModel userAttachmentMapper(List<UserAttachmentBo> userAttachmentBoList)
+        {
+            List<UserAttachmentModel> userAttachmentModelList = new List<UserAttachmentModel>();
+            UserAttachmentModel userAttachmentModel = new UserAttachmentModel();
+
+            foreach (UserAttachmentBo userAttachmentBo in userAttachmentBoList)
+            {
+                if (userAttachmentBo.AttachmentType_Id == 1)
+                {
+                    userAttachmentModel.Id = userAttachmentBo.Id;
+                    userAttachmentModel.User_Id = userAttachmentBo.User_Id;
+                    userAttachmentModel.Attachment_Id = userAttachmentBo.Attachment_Id;
+                    userAttachmentModel.AttachmentType_Id = userAttachmentBo.AttachmentType_Id;
+                    userAttachmentModel.Name = userAttachmentBo.Name;
+                    userAttachmentModel.Attachment = new AttachmentModel()
+                    {
+                        Id = userAttachmentBo.Attachment.Id,
+                        Base64Text = userAttachmentBo.Attachment.Base64Text,
+                        FileExtension = userAttachmentBo.Attachment.FileExtension,
+                    };
+                }
+            }
+            return userAttachmentModel;
         }
     }
 }

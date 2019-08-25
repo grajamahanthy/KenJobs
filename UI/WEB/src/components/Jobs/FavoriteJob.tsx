@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Apiservices from '../services/Apiservices';
 import { AppState } from '../../store';
 import { updateSession } from "../../store/auth/actions";
+import LoaderModal from '../util/LoaderModal';
 
 
 class FavoriteJob extends React.Component<any, any>{
@@ -13,11 +14,15 @@ class FavoriteJob extends React.Component<any, any>{
         super(props);
         let loggedIn = this.props.system.loggedIn
         this.state = {
+            loader:false,
             loggedIn,
             jobdata: []
         }
     }
     componentDidMount() {
+        this.setState({
+            loader:true,
+        })
         const Servicecall = new Apiservices();
         let response = Servicecall.GET_SECURE_CALL("FavoriteJob/GetJobsByUserid", null, this.success, this.errorHandle)
     }
@@ -25,12 +30,15 @@ class FavoriteJob extends React.Component<any, any>{
     success = (data: any) => {
         console.log(data);
         this.setState({
+            loader:false,
             jobdata: data
         })
     }
 
     errorHandle = () => {
-
+        this.setState({
+            loader:false,
+        })
     }
 
     render() {
@@ -97,6 +105,7 @@ class FavoriteJob extends React.Component<any, any>{
 
         return (
             <>
+            {this.state.loader?<LoaderModal></LoaderModal> : ''}
 
                 <div className="container mt-3">
                     <h1>Applyed Jobs List</h1>

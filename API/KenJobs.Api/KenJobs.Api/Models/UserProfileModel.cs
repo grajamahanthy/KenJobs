@@ -63,6 +63,7 @@ namespace KenJobs.Api.Models
         public List<EducationalQualificationModel> EducationalQualification { get; set; }
 
         public virtual ICollection<UserAttachmentModel> UserAttachments { get; set; }
+        public virtual UserAttachmentModel UserAttachment { get; set; }
 
     }
 }
