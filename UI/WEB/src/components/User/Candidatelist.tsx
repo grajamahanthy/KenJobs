@@ -32,7 +32,6 @@ class CandidateList extends React.Component<any, any> {
         })
     }
     displayData = (data: any) => {
-        console.log(data);
         this.setState({
             haveCandidate: data.length > 0 ? true : false,
             Candidatedata: data,
@@ -52,7 +51,7 @@ class CandidateList extends React.Component<any, any> {
 
     render() {
         let Candidatelist;
-        let imageData = <img className="btn-md border rounded-circle" src={require('../../assets/images/DP.png')} style={{ height: "160px" }} />;
+        let imageData = <img src={require('../../assets/images/DP.png')} className="btn-md border rounded-circle"  style={{ height: "160px" }} />;
         let Pagenation;
         if (this.state.haveCandidate && this.state.showContent) {
             Candidatelist = this.state.Candidatedata.map((item: any, key: any) =>
@@ -79,7 +78,7 @@ class CandidateList extends React.Component<any, any> {
                                 <Link className=""
                                     to={{
                                         pathname: "/candidate",
-                                        state: { User: item }
+                                        state: { UserId: item.Id }
                                     }}
                                 >{item.Title + ' ' + item.FirstName + ' ' + item.LastName}</Link>
                             </h4>

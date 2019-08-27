@@ -39,7 +39,6 @@ class EmployerHome extends React.Component<any, any>{
     }
 
     success = (data: any) => {
-        console.log(data);
         this.setState({
             loader:false,
             ishaveJobs: data.length > 0 ? true : false,
@@ -49,7 +48,6 @@ class EmployerHome extends React.Component<any, any>{
     }
 
     errorHandle=(error:any)=>{
-        console.log();
       }
     changeValue = (e: any) => {
         e.preventDefault();
@@ -60,7 +58,6 @@ class EmployerHome extends React.Component<any, any>{
 
 
     render() {
-console.log(this.state.candidateData);
         let candidateList;
         if (this.state.ishaveJobs && this.state.showContent) {
             candidateList = this.state.candidateData.map((item: any, key: any) =>
@@ -81,13 +78,13 @@ console.log(this.state.candidateData);
                 {/* <Link className="btn btn-primary btn-sm rounded-0" to='/candidates' >
                     View Candidates
                 </Link> */}
-                 {/* <Link className="btn btn-primary btn-sm rounded-0"
+                 <Link className="btn btn-primary btn-sm rounded-0"
                                     to={{
                                         pathname: "/candidate",
-                                        state: { User: item }
+                                        state: { UserId: item.Id }
                                     }}
-                                > View Candidate</Link> */}
-                <button className="btn btn-primary btn-sm rounded-0"> View Candidate</button>
+                                > View Candidate</Link>
+                {/* <button className="btn btn-primary btn-sm rounded-0"> View Candidate</button> */}
                  {/* <Link className="btn btn-primary btn-sm rounded-0 align-self-end"
                 to={{
                     pathname: "/candidates",

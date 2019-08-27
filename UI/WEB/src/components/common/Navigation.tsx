@@ -68,7 +68,6 @@ function Navigation(props: any) {
                 </>
             )
     }
-    console.log(props.app_prop.loginType)
     return (<>
         <div className={props.app_prop.appProps.showNav ? "bg-primary" : "d-none"}>
             <div className="container">

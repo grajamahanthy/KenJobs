@@ -72,7 +72,6 @@ class Employeeprofile extends React.Component<any, any>{
 
     }
     displayData = (data: any) => {
-        console.log(data);
         this.setState({
             id: data.Id,
             firstName: data.FirstName,

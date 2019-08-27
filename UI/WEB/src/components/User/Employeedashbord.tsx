@@ -38,7 +38,6 @@ class Employeedashbord extends React.Component<any, any> {
     }
 
     componentWillMount() {
-        console.log("PostJob");
         if (this.state.loggedIn) {
             const Servicecall = new Apiservices();
 

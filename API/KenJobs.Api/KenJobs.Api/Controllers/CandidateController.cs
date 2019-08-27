@@ -46,6 +46,40 @@ namespace KenJobs.Api.Controllers
             return Ok(userProfileModel);
         }
 
+        [Authorize]
+        [HttpGet]
+        // GET: api/Candidate
+        [Route("api/Candidate/GetCandidateById")]
+
+        public IHttpActionResult GetCandidateById(int UserId)
+        {
+            UserContract userWorker = new UserWorker();
+            KenJobsSession s = GetKenJobsSession();
+            UserBo userBo = userWorker.GetUserById(UserId);
+
+            UserProfileModel userProfileModel = new UserProfileModel();
+
+            userProfileModel.Id = userBo.Id;
+            userProfileModel.FirstName = userBo.FirstName;
+            userProfileModel.MiddleName = userBo.MiddleName;
+            userProfileModel.LastName = userBo.LastName;
+            userProfileModel.PhoneNumber = userBo.PhoneNumber;
+            userProfileModel.Email = userBo.Email;
+            userProfileModel.ProfilePhoto = userBo.ProfilePhoto;
+            userProfileModel.Gender_Id = userBo.Gender_Id;
+            userProfileModel.Status = userBo.Status;
+            userProfileModel.AspNetUser_Id = userBo.AspNetUser_Id;
+            userProfileModel.Profile = profileModelMapper(userBo.Profile);
+            userProfileModel.Experience = experienceModelMapper(userBo.Experience);
+            userProfileModel.EducationalQualification = educationalQualificationModelMapper(userBo.EducationalQualification);
+            userProfileModel.UserAttachment = userAttachmentMapper(userBo.UserAttachment);
+
+            userProfileModel.CreatedBy = userBo.CreatedBy;
+            userProfileModel.CreatedOn = userBo.CreatedOn;
+
+            return Ok(userProfileModel);
+        }
+
         // GET: api/Candidate/5
         [Authorize]
         [HttpPost]

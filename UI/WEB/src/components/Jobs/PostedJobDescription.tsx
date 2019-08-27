@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 
 function Postjobdescription(props: any) {
-    console.log(props.location.state);
     let job = props.location.state.JobData;
     return (
         <>

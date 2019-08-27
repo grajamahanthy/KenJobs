@@ -111,7 +111,7 @@ class Jobs extends React.Component<any, any>{
             jobId: jobid,
             reqType: 'applyjob'
         })
-        console.log(this.state.loggedIn);
+        // console.log(this.state.loggedIn);
         if (this.state.loggedIn) {
             const Servicecall = new Apiservices();
             let body = new URLSearchParams();
@@ -128,7 +128,6 @@ class Jobs extends React.Component<any, any>{
 
     }
     successAppliedJob = (data: any) => {
-        console.log(data);
         switch (data) {
             case 1:
                 notify.Success_notify("Job is Applied Succesfully.");
@@ -167,7 +166,6 @@ class Jobs extends React.Component<any, any>{
 
     }
     successFavoritejob = (data: any) => {
-        console.log(data);
         switch (data) {
             case 1: notify.Success_notify("Job Is Added In Favorites Succesfully "); break;
             case 2: notify.Info_Notify("Job Is Already Added In Favoritejobs"); break;

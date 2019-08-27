@@ -97,15 +97,14 @@ namespace KenJobs.Bl.Workers
 
         }
 
-        public string GetUserByAspId(string userid)
+        public UserBo GetUserById(int userid)
         {
 
-            IGenericRepository<AspNetUser> repository = new GenericRepository<AspNetUser>();
+            IGenericRepository<User> repository = new GenericRepository<User>();
             //object objid = userid;
             try
             {
-                AspNetUser aspNetUser = repository.GetById(userid);
-                User user = aspNetUser.Users.ToList()[0];
+                User user = repository.GetById(userid);
 
                 UserBo userBo = new UserBo();
                 userBo.Id = user.Id;
@@ -130,17 +129,13 @@ namespace KenJobs.Bl.Workers
                 userBo.EducationalQualification = GenerateEducationalQualificationBo(user.EducationalQualifications);
                 userBo.UserAttachment = GenerateUserAttachment(user.UserAttachments);
 
-                JavaScriptSerializer js = new JavaScriptSerializer();
-
-                string userAuthString = js.Serialize(userBo);
 
 
-
-                return userAuthString.ToString();
+                return userBo;
             }
             catch (Exception ex)
             {
-                return "";
+                return new UserBo();
             }
 
         }

@@ -28,7 +28,7 @@ class FavoriteJob extends React.Component<any, any>{
     }
 
     success = (data: any) => {
-        console.log(data);
+        // console.log(data);
         this.setState({
             loader:false,
             jobdata: data

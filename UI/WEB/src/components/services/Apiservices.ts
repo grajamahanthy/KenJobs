@@ -15,8 +15,8 @@ export default class Apiservices {
     constructor() {
         //this.UrlPath = 'http://api-kenjobs.com/api/';
         // this.UrlPath = 'http://apikenjobs.com/api/';
-        this.UrlPath = 'http://localhost:50768/api/';
-        //this.UrlPath = 'http://api.kenjobs.com/api/';
+       // this.UrlPath = 'http://localhost:50768/api/';
+        this.UrlPath = 'http://api.kenjobs.com/api/';
        
     }
     //Regular Service Call
@@ -81,7 +81,6 @@ export default class Apiservices {
             this.local = JSON.parse(isAuthenticated);
             this.token = this.local['token']
         }
-        console.log(this.local['token']);
         this.Header = new Headers();
         this.Header.append("Accept", "application/json");
         this.Header.append("Content-Type", "application/x-www-form-urlencoded");
@@ -139,8 +138,8 @@ export default class Apiservices {
 
         //let currentUrl = 'http://api-kenjobs.com/' + URL;
         // let currentUrl = 'http://apikenjobs.com/' + URL;
-        let currentUrl = 'http://localhost:50768/' + URL;
-        //let currentUrl = 'http://api.kenjobs.com/' + URL;
+       // let currentUrl = 'http://localhost:50768/' + URL;
+        let currentUrl = 'http://api.kenjobs.com/' + URL;
 
         this.Header = new Headers();
         this.Header.append("Accept", "application/json");

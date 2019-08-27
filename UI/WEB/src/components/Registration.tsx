@@ -134,7 +134,6 @@ class Registration extends React.Component<any, any> {
 
     render() {
 
-        console.log("User Rosle Id: " + this.state.userRoleId)
        
         if (this.state.redirect) {
             return <Redirect to={"/Login/" + this.state.loginType} />;

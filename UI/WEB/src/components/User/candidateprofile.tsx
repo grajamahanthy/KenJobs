@@ -61,7 +61,7 @@ class CandidateProfile extends React.Component<any, any>{
         this.loadCandidateData();
         this.loadCandidateProfilePicture();
         this.loadCandidateResume();
-       
+
         this.setState({
             loader: false,
         })
@@ -72,7 +72,7 @@ class CandidateProfile extends React.Component<any, any>{
         this.loadCandidateProfilePicture();
         this.props.updateSession({
             profileimg: this.state.UserProfileAttachment.Attachment.Base64Text,
-          });
+        });
         this.setState({
             loader: false,
         })
@@ -105,7 +105,7 @@ class CandidateProfile extends React.Component<any, any>{
         // console.log(data);
         this.setState({
             UserProfile: data,
-            UserProfileAttachment:data.UserAttachment,
+            UserProfileAttachment: data.UserAttachment,
             loader: false
         })
     }
@@ -124,7 +124,7 @@ class CandidateProfile extends React.Component<any, any>{
     }
     loadCandidateProfilePicture = () => {
         const Servicecall = new Apiservices();
-       // let res1 = Servicecall.GET_SECURE_CALL('Attachment?attachmentTypeId=1', null, this.displayProfilePicture, this.errorHandle)
+        // let res1 = Servicecall.GET_SECURE_CALL('Attachment?attachmentTypeId=1', null, this.displayProfilePicture, this.errorHandle)
         let res2 = Servicecall.GET_SECURE_CALL('Attachment?attachmentTypeId=2', null, this.displayResume, this.errorHandle)
 
     }
@@ -274,9 +274,9 @@ class CandidateProfile extends React.Component<any, any>{
         let $imagePreview = null;
         if (this.state.UserProfileAttachment && this.state.UserProfileAttachment.Attachment &&
             this.state.UserProfileAttachment.Attachment.Base64Text && this.state.UserProfileAttachment.Attachment.Base64Text != "null") {
-            $imagePreview = (<img src={this.state.UserProfileAttachment.Attachment.Base64Text} className="rounded-circle img-fluid mt-2" style={{height:"200px"}}  alt='' />);
+            $imagePreview = (<img src={this.state.UserProfileAttachment.Attachment.Base64Text} className="rounded-circle img-fluid mt-2" style={{ height: "200px" }} alt='' />);
         } else {
-            $imagePreview = (<img src={require('../../assets/images/DP.png')} className="rounded-circle img-fluid mt-2" width="100%" style={{height:"200px"}}  alt='' />);
+            $imagePreview = (<img src={require('../../assets/images/DP.png')} className="rounded-circle img-fluid mt-2" width="100%" style={{ height: "200px" }} alt='' />);
         }
 
 
@@ -298,7 +298,7 @@ class CandidateProfile extends React.Component<any, any>{
                                             <div className="col-sm-6 text-center">
                                                 {/* <img src={require('../../assets/images/DP.png')} width="100%" height="200" alt='' /> */}
                                                 {$imagePreview}
-                                                <br/>
+                                                <br />
                                                 <div className="upload-btn-wrapper my-2">
                                                     <input type="file" className="btn  btn-lg btn-block rounded-0" onChange={(e) => this._handleImageChange(e)} />
                                                     <button className="btn btn-primary">
@@ -310,8 +310,8 @@ class CandidateProfile extends React.Component<any, any>{
                                                 </button> */}
                                             </div>
                                             <div className="col-sm-6 text-center">
-                                                <FontAwesomeIcon icon="upload" size="10x"  className="mt-5 text-primary"/>
-                                                <br/>
+                                                <FontAwesomeIcon icon="upload" size="10x" className="mt-5 text-primary" />
+                                                <br />
                                                 <div className="upload-btn-wrapper my-2">
                                                     <input type="file" className="btn  btn-lg btn-block rounded-0" onChange={(e) => this._handleFileChangeChange(e)} />
                                                     <button className="btn btn-primary">
@@ -546,6 +546,103 @@ class CandidateProfile extends React.Component<any, any>{
                                                                     <h4>Experience</h4>
                                                                 </div>
                                                                 <div className="card-body">
+                                                                    {/* <div>
+                                                                        <div className="display-table">
+                                                                            <div className="row">
+                                                                                <div className="col">Company</div>
+                                                                                <div className="col">Role</div>
+                                                                                <div className="col">Technology</div>
+                                                                                <div className="col">Start Date</div>
+                                                                                <div className="col">End Date</div>
+                                                                                <div className="col">Company</div>
+                                                                                <div className="col">
+                                                                                    <button onClick={this.addExperienceRow} className="btn btn-success"> <span className="mr-sm-2"><FontAwesomeIcon icon="plus-square" size="xs" /></span></button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="display-table">
+                                                                            {
+                                                                                this.state.UserProfile.Experience.map((experience: any, index: number) => {
+                                                                                    if (experience.UiStatus != 'D') {
+                                                                                        return (
+                                                                                            <div key={index.toString()}>
+
+                                                                                                <div>
+                                                                                                    <input
+                                                                                                        type="text"
+                                                                                                        className="form-control"
+                                                                                                        id="CompanyName"
+                                                                                                        name="CompanyName"
+                                                                                                        value={experience.CompanyName}
+                                                                                                        required
+                                                                                                        onChange={(e) => this.handleExperiencechange(e, index)}
+                                                                                                    />
+                                                                                                </div>
+                                                                                                <div>
+                                                                                                    <input
+                                                                                                        type="text"
+                                                                                                        className="form-control"
+                                                                                                        id="Role"
+                                                                                                        name="Role"
+                                                                                                        value={experience.Role}
+                                                                                                        required
+
+                                                                                                        onChange={(e) => this.handleExperiencechange(e, index)}
+
+                                                                                                    />
+                                                                                                </div>
+                                                                                                <div>
+                                                                                                    <input
+                                                                                                        type="text"
+                                                                                                        className="form-control"
+                                                                                                        id="Technology"
+                                                                                                        name="Technology"
+                                                                                                        value={experience.Technology}
+                                                                                                        required
+
+                                                                                                        onChange={(e) => this.handleExperiencechange(e, index)}
+
+                                                                                                    />
+                                                                                                </div>
+                                                                                                <div>
+                                                                                                    <input
+                                                                                                        type="text"
+                                                                                                        className="form-control"
+                                                                                                        id="StartDate"
+                                                                                                        name="StartDate"
+                                                                                                        value={experience.StartDate}
+                                                                                                        required
+
+                                                                                                        onChange={(e) => this.handleExperiencechange(e, index)}
+
+                                                                                                    />
+                                                                                                </div>
+                                                                                                <div>
+                                                                                                    <input
+                                                                                                        type="text"
+                                                                                                        className="form-control"
+                                                                                                        id="EndDate"
+                                                                                                        name="EndDate"
+                                                                                                        value={experience.EndDate}
+                                                                                                        required
+
+                                                                                                        onChange={(e) => this.handleExperiencechange(e, index)}
+
+                                                                                                    />
+                                                                                                </div>
+                                                                                                <div>
+                                                                                                    <button onClick={(e) => this.removeExperienceRow(e, index)} className="btn btn-danger"> <span className="mr-sm-2"><FontAwesomeIcon icon="trash-alt" size="xs" /></span></button>
+
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        )
+                                                                                    }
+
+                                                                                })
+
+                                                                            }
+                                                                        </div>
+                                                                    </div> */}
 
                                                                     <table className="table table-bordered table-hover">
                                                                         <thead>
@@ -557,7 +654,6 @@ class CandidateProfile extends React.Component<any, any>{
                                                                                 <th>End Date</th>
                                                                                 <th>
                                                                                     <div>
-
                                                                                         <button onClick={this.addExperienceRow} className="btn btn-success"> <span className="mr-sm-2"><FontAwesomeIcon icon="plus-square" size="xs" /></span></button>
                                                                                     </div>
                                                                                 </th>
@@ -757,9 +853,9 @@ class CandidateProfile extends React.Component<any, any>{
 
 const mapStateToProps = (state: AppState) => ({
     system: state.system
-  });
-  
-  export default connect(
+});
+
+export default connect(
     mapStateToProps,
     { updateSession }
-  )(CandidateProfile)
+)(CandidateProfile)

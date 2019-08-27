@@ -58,13 +58,11 @@ class Userprofile extends React.Component<any, any> {
             educationalqualification: response.EducationalQualification
 
         })
-        console.log(this.state);
 
     }
 
 
     displayError = (data: any) => {
-        console.log(data);
     }
     render() {
         let experiencedata = this.state.experience.map((item: any, key: any) =>

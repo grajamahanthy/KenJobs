@@ -29,7 +29,7 @@ class Applyjob extends React.Component<any, any>{
     }
 
     success = (data: any) => {
-        console.log(data);
+        // console.log(data);
         this.setState({
             jobdata: data, loader: false
         })

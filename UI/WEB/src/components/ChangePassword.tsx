@@ -79,7 +79,6 @@ class ChangePassword extends React.Component<any, any> {
   }
 
   errorHandle=(error:any)=>{
-    console.log();
   }
 
   submitForm(e: any) {

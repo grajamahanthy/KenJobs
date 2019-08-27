@@ -20,7 +20,6 @@ const name = {
 class ProfileImg extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
-        console.log(props.imgdata.app_prop.profileimg);
         let userImg = props.imgdata.app_prop.profileimg;
         this.state = {
             Image: userImg,

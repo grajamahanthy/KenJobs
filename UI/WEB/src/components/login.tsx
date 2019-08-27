@@ -133,7 +133,7 @@ class Login extends React.Component<any, any> {
   }
 
   errorHandle = (error: any) => {
-    console.log(error);
+    // console.log(error);
     this.setState({
       isValid: false,
       loading: false

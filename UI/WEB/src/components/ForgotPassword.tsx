@@ -70,7 +70,7 @@ class ForgotPassword extends React.Component<any, any> {
         let responce = Servicecall.POST_CALL(url, body, this.Success,this.errorHandle)
       }
       else {
-        console.log("Please provide your email for resetting the password.");
+        // console.log("Please provide your email for resetting the password.");
       }
     }
   }

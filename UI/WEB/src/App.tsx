@@ -40,13 +40,14 @@ import { fab, faFacebook } from '@fortawesome/free-brands-svg-icons'
 import {
   faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender,
   faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser, faEnvelope, faMobileAlt, faUniversity,
-  faLaptopCode, faUpload
+  faLaptopCode, faUpload, faDownload
 } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer } from "react-toastify";
 import Apiservices from "./components/services/Apiservices";
 
 library.add(faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender,
-  faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser, faEnvelope, faMobileAlt, faUniversity, faLaptopCode, faUpload)
+  faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser, faEnvelope, faMobileAlt, faUniversity, faLaptopCode,
+  faUpload, faDownload)
 
 class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -61,7 +62,7 @@ class App extends React.Component<any, any> {
       profileImg: '',
     }
     const isAuthenticated = localStorage.getItem("authInfo");
-   // console.log(localStorage.getItem("authInfo"));
+    // console.log(localStorage.getItem("authInfo"));
     if (isAuthenticated) {
 
       this.props.updateSession(JSON.parse(isAuthenticated))

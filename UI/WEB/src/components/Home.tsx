@@ -30,7 +30,7 @@ class Home extends React.Component<any, any> {
   }
 
   changevalue = (e: any) => {
-    console.log( e.target.name);
+    // console.log( e.target.name);
     this.setState({
       [e.target.name]: e.target.value
     });

@@ -137,7 +137,6 @@ class Postjob extends React.Component<any, any> {
     }
 
     render() {
-        console.log(this.state.status);
         if (this.state.redirect) {
             return <Redirect to={"/recdash"} />;
         }

@@ -79,7 +79,7 @@ namespace KenJobs.Api.Controllers
         public string GetAuthData(string id)
         {
             UserContract userWorker = new UserWorker();
-            string userBo = userWorker.GetUserByAspId(id);
+            UserBo userBo = userWorker.GetUser(id);
 
             //List<UserAttachmentModel> userAttachmentModelList= userAttachmentsMapper(userBo.UserAttachment);
 
@@ -98,7 +98,11 @@ namespace KenJobs.Api.Controllers
             //JavaScriptSerializer js = new JavaScriptSerializer();
             //string userAuthString = js.Serialize(authModel);
 
-            return userBo;
+            JavaScriptSerializer js = new JavaScriptSerializer();
+
+            string userAuthString = js.Serialize(userBo);
+
+            return userAuthString;
         }
 
         public IHttpActionResult UpdateUser()
