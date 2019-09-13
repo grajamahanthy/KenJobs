@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace KenJobs.Api.Models
+namespace KenJobs.Bo.BusinessObjects
 {
-    public class JobSearchModel
+   public class JobSearchModelBo
     {
         public string Keyword { get; set; }
         public string Location { get; set; }
         public int? Experience { get; set; }
 
-        public GridRequest JobSearchRequest { get; set; }
-        //public PaginationModel paginationdata { get; set; }
+        public GridRequestBo JobSearchRequest { get; set; }
     }
 }

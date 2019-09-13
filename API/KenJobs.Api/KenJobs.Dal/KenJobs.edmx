@@ -222,7 +222,7 @@
           <Property Name="JobTitle" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="NoOfVacancies" Type="int" />
-          <Property Name="MinSalary" Type="float" />
+          <Property Name="MinSalary" Type="float" Nullable="false" />
           <Property Name="Qualification" Type="nvarchar" MaxLength="100" />
           <Property Name="State" Type="nvarchar" MaxLength="200" />
           <Property Name="City" Type="nvarchar" MaxLength="200" />
@@ -235,10 +235,10 @@
           <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UpdatedOn" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="MinExperience" Type="float" />
+          <Property Name="MinExperience" Type="float" Nullable="false" />
           <Property Name="Skills" Type="nvarchar(max)" />
-          <Property Name="MaxSalary" Type="float" />
-          <Property Name="MaxExperience" Type="float" />
+          <Property Name="MaxSalary" Type="float" Nullable="false" />
+          <Property Name="MaxExperience" Type="float" Nullable="false" />
           <Property Name="User_Id" Type="int" />
           <Property Name="Currency" Type="int" />
           <Property Name="ClientName" Type="nvarchar" MaxLength="200" />
@@ -1120,7 +1120,7 @@
           <Property Name="JobTitle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="NoOfVacancies" Type="Int32" />
-          <Property Name="MinSalary" Type="Double" />
+          <Property Name="MinSalary" Type="Double" Nullable="false" />
           <Property Name="Qualification" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="State" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
@@ -1133,10 +1133,10 @@
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="MinExperience" Type="Double" />
+          <Property Name="MinExperience" Type="Double" Nullable="false" />
           <Property Name="Skills" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MaxSalary" Type="Double" />
-          <Property Name="MaxExperience" Type="Double" />
+          <Property Name="MaxSalary" Type="Double" Nullable="false" />
+          <Property Name="MaxExperience" Type="Double" Nullable="false" />
           <Property Name="User_Id" Type="Int32" />
           <Property Name="Currency" Type="Int32" />
           <Property Name="ClientName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />

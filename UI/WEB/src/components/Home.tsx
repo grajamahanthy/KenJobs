@@ -42,7 +42,7 @@ class Home extends React.Component<any, any> {
 
     if (redirect)
       return (<Redirect to={{
-        pathname: '/Jobs',
+        pathname: '/filterjobs',
         state: { keyword: keyword, location: location,experience:experience }
       }} />)
     return (

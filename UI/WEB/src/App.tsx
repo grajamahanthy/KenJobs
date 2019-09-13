@@ -40,14 +40,15 @@ import { fab, faFacebook } from '@fortawesome/free-brands-svg-icons'
 import {
   faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender,
   faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser, faEnvelope, faMobileAlt, faUniversity,
-  faLaptopCode, faUpload, faDownload
+  faLaptopCode, faUpload, faDownload, faFilter, faGripVertical, faSort, faSortUp, faSortDown
 } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer } from "react-toastify";
 import Apiservices from "./components/services/Apiservices";
+import FilterJobs from "./components/Jobs/FilterJobs";
 
 library.add(faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender,
   faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser, faEnvelope, faMobileAlt, faUniversity, faLaptopCode,
-  faUpload, faDownload)
+  faUpload, faDownload, faFilter, faGripVertical, faSort, faSortUp, faSortDown)
 
 class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -101,6 +102,7 @@ class App extends React.Component<any, any> {
         <Route exact path="/Editjob" component={Editjob} />
         <Route exact path="/candidate" component={Candidate} />
         <Route exact path="/Employeer-Dashbord" component={EmployerHome} />
+        <Route exact path="/FilterJobs" component={FilterJobs} />
 
         {/* <Route component={NoMatch} /> */}
 

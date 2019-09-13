@@ -9,6 +9,7 @@ using KenJobs.Dal.Contracts;
 using KenJobs.Dal.Workers;
 using KenJobs.Dal;
 using System.Globalization;
+using KenJobs.Dal.Common.Grid;
 
 namespace KenJobs.Bl.Workers
 {
@@ -96,6 +97,21 @@ namespace KenJobs.Bl.Workers
             jobBo.Currency = job.Currency;
             jobBo.ClientName = job.ClientName;
             jobBo.Country = job.Country;
+            JobType jobType = job.JobType;
+            JobTypeBo jobTypeBo = new JobTypeBo();
+            jobTypeBo.Id = jobType.Id;
+            jobTypeBo.Name = jobType.Name;
+            jobTypeBo.Status = jobType.Status;
+
+            jobBo.JobType = jobTypeBo;
+
+            JobCategory jobCategory = job.JobCategory;
+            JobCategoryBo jobCategoryBo = new JobCategoryBo();
+
+            jobCategoryBo.Id = jobCategory.Id;
+            jobCategoryBo.Category = jobCategory.Category;
+            jobCategoryBo.Status = jobCategory.Status;
+            jobBo.JobCategory = jobCategoryBo;
 
 
 
@@ -291,15 +307,28 @@ namespace KenJobs.Bl.Workers
 
         }
 
-        public IEnumerable<JobBo> GetJobsByParams(string keyword, string location, int? experience,int? userId)
+        public GridResponseBo<JobBo> GetJobsByParams(JobSearchModelBo jobSearchModelBo)
         {
-
+            string keyword = jobSearchModelBo.Keyword;
+            string location = jobSearchModelBo.Location;
+            int? experience = jobSearchModelBo.Experience;
             ICustomRepository<Job> repository = new CustomRepository<Job>();
-            IEnumerable<Job> jobList = repository.GetJobsByParams(keyword, location, experience,userId);
+            IEnumerable<Job> jobList = repository.GetJobsByParams(keyword, location, experience);
+
+            PaginationBo paginationBo = jobSearchModelBo.JobSearchRequest.Pagination;
+
+            IEnumerable<Job> List = jobList;
+            paginationBo.TotalRecords = jobList.Count();
+            if (paginationBo.TotalRecords > 0)
+            {
+                paginationBo.TotalPages = paginationBo.TotalRecords / paginationBo.PageSize + ((paginationBo.TotalRecords % paginationBo.PageSize) > 0 ? 1 : 0);
+                //  List = jobs.OrderBy((x) => propertyInfo.GetValue(x, null));
+                List = jobList.Skip(paginationBo.PageSize * (paginationBo.CurrentPage - 1)).Take(paginationBo.PageSize);
+            }
 
             List<JobBo> jobBolist = new List<JobBo>();
 
-            foreach (Job job in jobList)
+            foreach (Job job in List)
             {
                 JobBo jobBo = new JobBo();
                 jobBo.Id = job.Id;
@@ -342,7 +371,108 @@ namespace KenJobs.Bl.Workers
 
                 jobBolist.Add(jobBo);
             }
-            return jobBolist;
+            GridResponseBo<JobBo> listJobBo = new GridResponseBo<JobBo>();
+            listJobBo.Rows = jobBolist;
+            listJobBo.TotalRecords = paginationBo.TotalRecords;
+
+            return listJobBo;
         }
+
+        public GridResponseBo<JobBo> GetJobsByGridParams(GridRequestBo gridRequestBo)
+        {
+
+            List<FilterBo> topFilterBoListBo = gridRequestBo.TopSearchFilter;
+            List<FilterBo> leftFilterBoListBo = gridRequestBo.LeftSearchFilter;
+            List<Filter> topFilterlist = new List<Filter>();
+            List<Filter> leftFilterlist = new List<Filter>();
+            SearchFilter searchFilter = new SearchFilter();
+            foreach (FilterBo filterBo in topFilterBoListBo)
+            {
+                Filter filter = new Filter();
+                filter.PropertyName = filterBo.ColumnName;
+                filter.Value = filterBo.Value;
+                topFilterlist.Add(filter);
+            }
+            foreach (FilterBo filterBo in leftFilterBoListBo)
+            {
+                Filter filter = new Filter();
+                filter.PropertyName = filterBo.ColumnName;
+                filter.Value = filterBo.Value;
+                leftFilterlist.Add(filter);
+            }
+            searchFilter.TopSearchFilter = topFilterlist;
+            searchFilter.LeftSearchFilter = leftFilterlist;
+
+            Pagination pagination = new Pagination();
+            pagination.PageSize = gridRequestBo.Pagination.PageSize;
+            pagination.CurrentPage = gridRequestBo.Pagination.CurrentPage;
+
+            SortingBo sortingBo = gridRequestBo.Sorting;
+            ICustomRepository<Job> repository = new CustomRepository<Job>();
+            GridResponse<Job> jobList = repository.GetListByGridParams(sortingBo.SortColumn, sortingBo.SortOrder, searchFilter, pagination);
+
+            //PaginationBo paginationBo = gridRequestBo.Pagination;
+
+            IEnumerable<Job> List = jobList.Rows;
+            //paginationBo.TotalRecords = jobList.Count();
+            //if (paginationBo.TotalRecords > 0)
+            //{
+            //    paginationBo.TotalPages = paginationBo.TotalRecords / paginationBo.PageSize + ((paginationBo.TotalRecords % paginationBo.PageSize) > 0 ? 1 : 0);
+            //    //  List = jobs.OrderBy((x) => propertyInfo.GetValue(x, null));
+            //    List = jobList.Skip(paginationBo.PageSize * (paginationBo.CurrentPage - 1)).Take(paginationBo.PageSize);
+            //}
+
+            List<JobBo> jobBolist = new List<JobBo>();
+
+            foreach (Job job in List)
+            {
+                JobBo jobBo = new JobBo();
+                jobBo.Id = job.Id;
+                jobBo.Client_Id = job.Client_Id;
+                jobBo.JobTitle = job.JobTitle;
+                jobBo.Description = job.Description;
+                jobBo.NoOfVacancies = job.NoOfVacancies;
+                jobBo.Qualification = job.Qualification;
+                jobBo.State = job.State;
+                jobBo.City = job.City;
+                jobBo.Status = job.Status;
+                jobBo.PostingStatus = job.PostingStatus;
+                jobBo.JobType_Id = job.JobType_Id;
+                jobBo.Category_id = job.Category_id;
+                jobBo.MinSalary = job.MinSalary;
+                jobBo.MaxSalary = job.MaxSalary;
+                jobBo.MinExperience = job.MinExperience;
+                jobBo.MaxExperience = job.MaxExperience;
+                jobBo.Skills = job.Skills;
+                jobBo.User_Id = job.User_Id;
+                jobBo.Currency = job.Currency;
+                jobBo.ClientName = job.ClientName;
+                jobBo.Country = job.Country;
+
+                JobType jobType = job.JobType;
+                JobTypeBo jobTypeBo = new JobTypeBo();
+                jobTypeBo.Id = jobType.Id;
+                jobTypeBo.Name = jobType.Name;
+                jobTypeBo.Status = jobType.Status;
+
+                jobBo.JobType = jobTypeBo;
+
+                JobCategory jobCategory = job.JobCategory;
+                JobCategoryBo jobCategoryBo = new JobCategoryBo();
+
+                jobCategoryBo.Id = jobCategory.Id;
+                jobCategoryBo.Category = jobCategory.Category;
+                jobCategoryBo.Status = jobCategory.Status;
+                jobBo.JobCategory = jobCategoryBo;
+
+                jobBolist.Add(jobBo);
+            }
+            GridResponseBo<JobBo> listJobBo = new GridResponseBo<JobBo>();
+            listJobBo.Rows = jobBolist;
+            listJobBo.TotalRecords = jobList.TotalRecords;
+
+            return listJobBo;
+        }
+
     }
 }

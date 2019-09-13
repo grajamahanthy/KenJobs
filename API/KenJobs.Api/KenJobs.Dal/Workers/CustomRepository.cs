@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using KenJobs.Dal.Common.Grid;
 using KenJobs.Dal.Contracts;
 
 namespace KenJobs.Dal.Workers
@@ -70,9 +73,13 @@ namespace KenJobs.Dal.Workers
             return CandList;
         }
 
-        public IEnumerable<Job> GetJobsByParams(string keyword, string location, int? experience, int? userId)
+        public IEnumerable<Job> GetJobsByParams(string keyword, string location, int? experience)
         {
+            string sortColumnName = "JobTitle";
+            string sortOrder = "asc";
 
+            var param = sortColumnName;
+            var propertyInfo = typeof(Job).GetProperty(param);
             KenJobsEntities _context = new KenJobsEntities();
             var jobs = (from j in _context.Jobs
                         where j.Skills.Contains(keyword) &&
@@ -81,7 +88,18 @@ namespace KenJobs.Dal.Workers
                        ((experience != null && experience >= j.MinExperience && experience <= j.MaxExperience) ||
                        experience == null)
 
-                        select j).ToList();
+                        orderby sortColumnName + " " + sortOrder
+
+                        select j).AsQueryable();
+
+            //var List= jobs;
+            //totalRecord = jobs.Count();
+            //if (totalRecord > 0)
+            //{
+            //    totalPage = totalRecord / pageSize; //+ ((totalRecord % pageSize) > 0 ? 1 : 0);
+            //    //  List = jobs.OrderBy((x) => propertyInfo.GetValue(x, null));
+            //    List = jobs.Skip(pageSize * (currentPage - 1)).Take(pageSize);
+            //}
 
             //jobs = (from j in _context.Jobs
             //        join a in _context.AppliedJobs on j.Id equals a.Job_Id
@@ -126,6 +144,82 @@ namespace KenJobs.Dal.Workers
                                   u.AttachmentType_Id == AttachmentTypeId
                                   select u).FirstOrDefault();
             return userAttachment;
+        }
+
+        public GridResponse<T> GetListByGridParams(string sortcolumn, int order, SearchFilter searchFilter, Pagination pagination)
+        {
+            string sortColumnName = sortcolumn;
+            bool sortAscending = (order == 1 ? true : false);
+            KenJobsEntities _context = new KenJobsEntities();
+            IEnumerable<T> filteredList = null;
+            IEnumerable<T> sortedList = null;
+            IEnumerable<T> paginatedList = null;
+
+            GridResponse<T> GenericGridResponse = new GridResponse<T>();
+            //Filtering
+            if (searchFilter.TopSearchFilter.Count > 0)
+            {
+                IEnumerable<Job> iqFilteredList = _context.Set<Job>();
+
+                foreach (Filter flts in searchFilter.TopSearchFilter)
+                {
+                    if (flts.PropertyName == "Keyword")
+                        iqFilteredList = iqFilteredList.Where(x =>
+                        (
+                            x.JobTitle.ToLower().Contains(flts.Value[0].ToLower().ToString()) ||
+                            x.City.ToLower().Contains(flts.Value[0].ToLower().ToString()) ||
+                            x.ClientName.ToLower().Contains(flts.Value[0].ToLower().ToString()) ||
+                            x.Skills.ToLower().Contains(flts.Value[0].ToLower().ToString())
+                        )
+
+                        );
+                    else if (flts.PropertyName == "Experience")
+                        iqFilteredList = iqFilteredList.Where(y => y.MinExperience <= Convert.ToDouble(flts.Value[0]) && y.MaxExperience >= Convert.ToDouble(flts.Value[0]));
+                    else if (flts.PropertyName == "City")
+                        iqFilteredList = iqFilteredList.Where(z => z.City.ToLower().Contains(flts.Value[0].ToLower().ToString()));
+                }
+                filteredList = (IEnumerable<T>)iqFilteredList;
+            }
+            else
+            {
+                filteredList = _context.Set<T>();
+            }
+
+            if (searchFilter.LeftSearchFilter.Count > 0)
+            {
+                IEnumerable<Job> iqFilteredList = (IEnumerable<Job>)filteredList;
+
+                foreach (Filter flts in searchFilter.LeftSearchFilter)
+                {
+                    if (flts.PropertyName == "ClientName")
+                        iqFilteredList = iqFilteredList.Where(x =>
+                        (x.ClientName.ToLower().Contains(flts.Value[0].ToLower().ToString()))
+                        );
+                    else if (flts.PropertyName == "Experience")
+                        iqFilteredList = iqFilteredList.Where(y => y.MinExperience <= Convert.ToDouble(flts.Value[0]) && y.MaxExperience >= Convert.ToDouble(flts.Value[0]));
+                    else if (flts.PropertyName == "City")
+                        iqFilteredList = iqFilteredList.Where(z => z.City.ToLower().Contains(flts.Value[0].ToLower().ToString()));
+                }
+                filteredList = (IEnumerable<T>)iqFilteredList;
+            }
+           
+
+            //Sorting
+            if (order != 0)
+            {
+                Sort<T> _sort = new Sort<T>(sortcolumn, sortAscending);
+                sortedList = _sort.sortFunc(filteredList);
+            }
+            else
+            {
+                sortedList = filteredList;
+            }
+
+            //Pagination
+            paginatedList = sortedList.Skip(pagination.PageSize * (pagination.CurrentPage - 1)).Take(pagination.PageSize);
+            GenericGridResponse.Rows = paginatedList.ToList();
+            GenericGridResponse.TotalRecords = filteredList.Count();
+            return GenericGridResponse;
         }
     }
 }

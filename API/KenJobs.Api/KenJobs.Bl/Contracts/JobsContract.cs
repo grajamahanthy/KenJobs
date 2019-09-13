@@ -26,6 +26,8 @@ namespace KenJobs.Bl.Contracts
         IEnumerable<JobBo> GetJobsByUserId(int UserId);
         IEnumerable<UserBo> GetJobseekersByJobId(int jobId);
 
-        IEnumerable<JobBo> GetJobsByParams(string keyword, string location, int? experience,int? userId);
+        GridResponseBo<JobBo> GetJobsByParams(JobSearchModelBo jobSearchModelBo);
+        GridResponseBo<JobBo> GetJobsByGridParams(GridRequestBo gridRequestBo);
+
     }
 }

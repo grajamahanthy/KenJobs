@@ -18,11 +18,11 @@ namespace KenJobs.Bo.BusinessObjects
         public short PostingStatus { get; set; }
         public int JobType_Id { get; set; }
         public int Category_id { get; set; }
-        public Nullable<double> MinSalary { get; set; }
-        public Nullable<double> MinExperience { get; set; }
+        public double MinSalary { get; set; }
+        public double MinExperience { get; set; }
         public string Skills { get; set; }
-        public Nullable<double> MaxSalary { get; set; }
-        public Nullable<double> MaxExperience { get; set; }
+        public double MaxSalary { get; set; }
+        public double MaxExperience { get; set; }
         public Nullable<int> User_Id { get; set; }
         public Nullable<int> Currency { get; set; }
         public string ClientName { get; set; }

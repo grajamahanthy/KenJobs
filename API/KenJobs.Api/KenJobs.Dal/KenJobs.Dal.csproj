@@ -75,6 +75,11 @@
     <Compile Include="Client.cs">
       <DependentUpon>KenJobs.tt</DependentUpon>
     </Compile>
+    <Compile Include="Common\Grid\GridResponse.cs" />
+    <Compile Include="Common\Grid\Pagination.cs" />
+    <Compile Include="Common\Grid\T.cs" />
+    <Compile Include="Common\Grid\Where.cs" />
+    <Compile Include="Common\Grid\Sort.cs" />
     <Compile Include="Contracts\IGenericRepository.cs" />
     <Compile Include="Contracts\ICustomRepository.cs" />
     <Compile Include="Country.cs">

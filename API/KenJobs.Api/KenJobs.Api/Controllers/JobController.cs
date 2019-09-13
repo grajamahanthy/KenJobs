@@ -50,15 +50,15 @@ namespace KenJobs.Api.Controllers
                 jobmodel.Country = jobBo.Country;
                 jobmodel.AddressLine = jobBo.AddressLine;
 
-
-
-
-
                 jobModleList.Add(jobmodel);
             }
             return jobModleList;
         }
         // GET: api/Job/5
+
+       
+        [HttpGet]
+        [Route("api/Job")]
         public JobsModel Get(int id)
         {
 
@@ -89,7 +89,25 @@ namespace KenJobs.Api.Controllers
             jobmodel.Currency = jobBo.Currency;
             jobmodel.Country = jobBo.Country;
             jobmodel.AddressLine = jobBo.AddressLine;
+            jobmodel.Skills = jobBo.Skills;
+            jobmodel.PostDate = jobBo.PostDate;
 
+            JobTypeModel jobTypeModel = new JobTypeModel();
+            JobTypeBo jobTypeBo = jobBo.JobType;
+            jobTypeModel.Id = jobTypeBo.Id;
+            jobTypeModel.Name = jobTypeBo.Name;
+            jobTypeModel.Status = jobTypeBo.Status;
+
+            jobmodel.JobType = jobTypeModel;
+
+            JobCategoryModel jobCategoryModel = new JobCategoryModel();
+            JobCategoryBo jobCategoryBo = jobBo.JobCategory;
+
+            jobCategoryModel.Id = jobCategoryBo.Id;
+            jobCategoryModel.Category = jobCategoryBo.Category;
+            jobCategoryModel.Status = jobCategoryBo.Status;
+
+            jobmodel.JobCategory = jobCategoryModel;
             return jobmodel;
         }
 

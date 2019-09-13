@@ -278,9 +278,7 @@ class CandidateProfile extends React.Component<any, any>{
         } else {
             $imagePreview = (<img src={require('../../assets/images/DP.png')} className="rounded-circle img-fluid mt-2" width="100%" style={{ height: "200px" }} alt='' />);
         }
-
-
-
+        
         return (
             <>
 
@@ -546,7 +544,8 @@ class CandidateProfile extends React.Component<any, any>{
                                                                     <h4>Experience</h4>
                                                                 </div>
                                                                 <div className="card-body">
-                                                                    {/* <div>
+                                                                    
+                                                                    <div>
                                                                         <div className="display-table">
                                                                             <div className="row">
                                                                                 <div className="col">Company</div>
@@ -642,7 +641,7 @@ class CandidateProfile extends React.Component<any, any>{
 
                                                                             }
                                                                         </div>
-                                                                    </div> */}
+                                                                    </div>
 
                                                                     <table className="table table-bordered table-hover">
                                                                         <thead>

@@ -26,7 +26,7 @@ namespace KenJobs.Dal
         public string JobTitle { get; set; }
         public string Description { get; set; }
         public Nullable<int> NoOfVacancies { get; set; }
-        public Nullable<double> MinSalary { get; set; }
+        public double MinSalary { get; set; }
         public string Qualification { get; set; }
         public string State { get; set; }
         public string City { get; set; }
@@ -39,10 +39,10 @@ namespace KenJobs.Dal
         public System.DateTime CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public System.DateTime UpdatedOn { get; set; }
-        public Nullable<double> MinExperience { get; set; }
+        public double MinExperience { get; set; }
         public string Skills { get; set; }
-        public Nullable<double> MaxSalary { get; set; }
-        public Nullable<double> MaxExperience { get; set; }
+        public double MaxSalary { get; set; }
+        public double MaxExperience { get; set; }
         public Nullable<int> User_Id { get; set; }
         public Nullable<int> Currency { get; set; }
         public string ClientName { get; set; }

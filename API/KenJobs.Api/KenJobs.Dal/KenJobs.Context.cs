@@ -16,7 +16,7 @@ namespace KenJobs.Dal
     public partial class KenJobsEntities : DbContext
     {
         public KenJobsEntities()
-            : base("name=KenJobsEntities")
+            : base("name=kenjobsEntities")
         {
         }
     

@@ -15,7 +15,10 @@ import Apiservices from '../services/Apiservices';
 import LoaderModal from '../util/LoaderModal';
 import LoginModal from '../util/LoginModal';
 import Notify from '../common/Notify';
+import JobSearchModel from '../../Models/JobSearchModel';
 const notify = new Notify();
+
+
 
 class Jobs extends React.Component<any, any>{
     constructor(props: any) {
@@ -31,9 +34,7 @@ class Jobs extends React.Component<any, any>{
             reqType: '',
             jobId: '',
             jobdata: {},
-            keyword: '',
-            location: '',
-            experience: '',
+            jobSearchModel: new JobSearchModel(),
             showLogin: false,
             loader: false
         }
@@ -42,7 +43,11 @@ class Jobs extends React.Component<any, any>{
         this.applyjob = this.applyjob.bind(this);
         this.onLoginModalHide = this.onLoginModalHide.bind(this);
         this.onAfterLogin = this.onAfterLogin.bind(this);
+        this.onPageChange = this.onPageChange.bind(this);
+
     }
+
+
 
     onSubmit = (e: any) => {
         e.preventDefault();
@@ -50,9 +55,18 @@ class Jobs extends React.Component<any, any>{
     }
 
     changevalue = (e: any) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
+        let JSM: any = this.state.jobSearchModel;
+        JSM[e.target.name] = e.target.value;
+        this.setState({ jobSearchModel: JSM })
+    }
+    onPageChange = (e: any, index: number) => {
+        e.preventDefault();
+        let JSM: any = this.state.jobSearchModel;
+        let P = JSM.paginationdata;
+        P.CurrentPage = index;
+        JSM.paginationdata = P;
+
+        this.setState({ jobSearchModel: JSM }, () => { this.findTheJobs(this.state); })
 
     }
     componentWillMount() {
@@ -62,10 +76,12 @@ class Jobs extends React.Component<any, any>{
             let keyword = this.props.location.state.keyword;
             let location = this.props.location.state.location;
             let sexperience = this.props.location.state.experience;
+            let JSM: any = this.state.jobSearchModel;
+            JSM.Keyword = keyword;
+            JSM.Location = location;
+            JSM.Experience = sexperience;
             this.setState({
-                keyword: keyword,
-                location: location,
-                experience: sexperience
+                jobSearchModel: JSM
             }, () => this.findTheJobs(this.state))
 
         } else {
@@ -74,10 +90,12 @@ class Jobs extends React.Component<any, any>{
     }
 
     displayData = (data: any) => {
-
+        let JSM: any = this.state.jobSearchModel;
+        JSM.paginationdata = data.paginationModel;
         this.setState({
             loader: false,
-            jobdata: data
+            jobdata: data.ListItems,
+            jobSearchModel: JSM
         })
 
     }
@@ -92,11 +110,12 @@ class Jobs extends React.Component<any, any>{
         body.set('Location', this.state.location);
         body.set('Experience', this.state.experience);
 
+        let Searchmodel = this.state.jobSearchModel;
         let Servicecall = new Apiservices();
         if (this.state.loggedIn) {
-            let responce = Servicecall.POST_SECURE_CALL('JobSearch/GetJobsByUserParms', body, this.displayData, this.errorHandle)
+            let responce = Servicecall.POST_SECURE_CALL1('JobSearch/GetJobsByUserParms', Searchmodel, this.displayData, this.errorHandle)
         } else {
-            let responce = Servicecall.POST_CALL('JobSearch/GetJobsByParms', body, this.displayData, this.errorHandle)
+            let responce = Servicecall.POST_CALL1('JobSearch/GetJobsByParms', Searchmodel, this.displayData, this.errorHandle)
         }
 
     }
@@ -105,6 +124,7 @@ class Jobs extends React.Component<any, any>{
             loader: false,
         })
     }
+
 
     applyjob(jobid: any) {
         this.setState({
@@ -192,20 +212,59 @@ class Jobs extends React.Component<any, any>{
         }
 
     }
-
+  
 
     render() {
+        let li: any[] = [];
+
+
+        const renderPaginationList = () => {
+            let currentPage = this.state.jobSearchModel.paginationdata.CurrentPage;
+            let totalPages = this.state.jobSearchModel.paginationdata.TotalPages;
+
+            li.push(
+                <li className={"page-item " + (currentPage > 1 ? "" : "disabled")}>
+                    <a className="page-link" href="#" onClick={(e) => this.onPageChange(e, currentPage - 1)}>{"Previous"}</a>
+                </li>
+            )
+            for (let i = 1; i <= this.state.jobSearchModel.paginationdata.TotalPages; i++) {
+
+                if (this.state.jobSearchModel.paginationdata.CurrentPage == i) {
+                    li.push(<li key={i} className="page-item active"><a className="page-link" href="#">{i}</a></li>);
+                } else {
+                    li.push(<li key={i} className="page-item">
+                        <a className="page-link" href="#" onClick={(e) => this.onPageChange(e, i)}>{i}</a>
+                    </li>)
+                }
+            }
+            li.push(
+                <li className={"page-item " + (currentPage < totalPages ? "" : "disabled")}>
+                    <a className="page-link" href="#" onClick={(e) => this.onPageChange(e, currentPage + 1)}>{"Next"}</a>
+                </li>
+            )
+
+
+            return (li);
+        };
+
+
         let prepare_jobs;
+
         prepare_jobs = "";
         if (this.state.jobdata != null && this.state.jobdata != undefined && this.state.jobdata.length > 0) {
-            prepare_jobs = this.state.jobdata.map((item: any, key: any) =>
-                <Job jobInfo={item} applyjob={this.applyjob} addFavorite={this.addFavorite}></Job>
-            )
+            prepare_jobs = <> {this.state.jobdata.map((item: any, key: any) =>
+                <Job jobInfo={item} key={key} applyjob={this.applyjob} addFavorite={this.addFavorite}></Job>
+            )}
+                <div className="container">
+                    <ul className="pagination">
+                        {renderPaginationList()}
+                    </ul>
+                </div>
+            </>
         }
         else {
             prepare_jobs = <h4>Oops... No Result Found</h4>
         }
-
         return (
             <>
                 {this.state.showLogin ? <LoginModal onLoginModalHide={this.onLoginModalHide} onAfterLogin={this.onAfterLogin}></LoginModal> : <></>}
@@ -226,8 +285,8 @@ class Jobs extends React.Component<any, any>{
                                                 id="tptcat"
                                                 placeholder="Enter Keyword"
                                                 className="form-control  rounded-0  "
-                                                name="keyword"
-                                                value={this.state.keyword}
+                                                name="Keyword"
+                                                value={this.state.jobSearchModel.Keyword}
                                                 onChange={this.changevalue}
                                             />
                                         </div>
@@ -237,8 +296,8 @@ class Jobs extends React.Component<any, any>{
                                                 id="tptloc"
                                                 placeholder="Enter Location"
                                                 className="form-control   rounded-0 "
-                                                name="location"
-                                                value={this.state.location}
+                                                name="Location"
+                                                value={this.state.jobSearchModel.Location}
                                                 onChange={this.changevalue}
                                             />
                                         </div>
@@ -250,8 +309,8 @@ class Jobs extends React.Component<any, any>{
                                                 max='100'
                                                 placeholder="Enter experirnce"
                                                 className="form-control   rounded-0 "
-                                                name="experience"
-                                                value={this.state.experience}
+                                                name="Experience"
+                                                value={this.state.jobSearchModel.Experience}
                                                 onChange={this.changevalue}
                                             />
                                         </div>
@@ -290,6 +349,8 @@ class Jobs extends React.Component<any, any>{
                         </div>
                     </div>
                 </div>
+
+
             </>
         )
     }

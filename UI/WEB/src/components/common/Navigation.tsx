@@ -94,7 +94,7 @@ function Navigation(props: any) {
                                         <Link className="nav-link" to="/recdash">
                                             Post Job
                                     </Link>
-                                        <Link className="nav-link" to="/Jobs">
+                                        <Link className="nav-link" to="/filterjobs">
                                             Search Job
                                     </Link>
                                     </> :
@@ -102,7 +102,7 @@ function Navigation(props: any) {
                                         <Link className="nav-link" to="/recdash">
                                             Post Jobs
                                     </Link>
-                                        : <Link className="nav-link" to="/Jobs">
+                                        : <Link className="nav-link" to="/filterjobs">
                                             Search Jobs
                                     </Link>
 

@@ -62,7 +62,7 @@ class Job extends React.Component<any, any>{
                             <Link className=""
                                 to={{
                                     pathname: "/Jobresult",
-                                    state: { JobInfo: this.state }
+                                    state: { JobInfo: this.state.jobId }
                                 }}
                             > {this.state.jobTitle}</Link>
 
@@ -83,11 +83,10 @@ class Job extends React.Component<any, any>{
                             <div className=" row mt-2 ">
                                 <span>
                                     <span className="col-sm-2" >
-                                        <FontAwesomeIcon icon="newspaper" size="xs" />
-                                    </span>
-                                    <span className="col-sm-10 pull-right text-wrap text-justify">
+                                        <FontAwesomeIcon icon="newspaper" size="xs" className="mr-2"/>
                                         {this.state.description}
                                     </span>
+                                    
                                 </span>
                             </div>
 

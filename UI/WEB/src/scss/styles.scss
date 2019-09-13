@@ -51,6 +51,8 @@
 //Table Formate
 .display-table {
   display: table; 
+  overflow: scroll; /* Scrollbar are always visible */
+overflow: auto;   /* Scrollbar is displayed as it's needed */
 }
 .display-table > div { 
   display: table-row; 

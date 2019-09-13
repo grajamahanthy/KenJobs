@@ -9,7 +9,6 @@ const notify = new Notify();
 class Editjob extends React.Component<any, any>{
     constructor(props: any) {
         super(props);
-
         let job = props.location.state.Job;
         // console.log(job);
         this.state = {
@@ -44,7 +43,6 @@ class Editjob extends React.Component<any, any>{
             ],
             redirect: false
         }
-
     }
 
     handleSubmit = (e: any) => {
@@ -79,10 +77,10 @@ class Editjob extends React.Component<any, any>{
             body.set('AddressLine', this.state.AddressLine);
             body.set('Country', this.state.country);
             //service call
-            let responce = Servicecall.POST_SECURE_CALL('Job/Updatejob', body, this.success,this.errorHandle)
+            let responce = Servicecall.POST_SECURE_CALL('Job/Updatejob', body, this.success, this.errorHandle)
         }
     }
-    errorHandle=(error:any)=>{
+    errorHandle = (error: any) => {
 
     }
     success = () => {
@@ -93,12 +91,11 @@ class Editjob extends React.Component<any, any>{
     }
     componentDidMount() {
 
-        Servicecall.GET_SECURE_CALL('JobCategory', null, this.getJobCategory,this.errorHandle)
+        Servicecall.GET_SECURE_CALL('JobCategory', null, this.getJobCategory, this.errorHandle)
 
-        Servicecall.GET_SECURE_CALL('JobType', null, this.getJobType,this.errorHandle)
+        Servicecall.GET_SECURE_CALL('JobType', null, this.getJobType, this.errorHandle)
     }
 
-  
 
     getJobCategory = (data: any) => {
         this.setState({

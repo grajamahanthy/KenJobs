@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KenJobs.Dal.Common.Grid;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,8 @@ namespace KenJobs.Dal.Contracts
         IEnumerable<Job> GetAppliedJobByUserId(int userId);
 
         IEnumerable<User> GetCandidates(string userName, string skills, string location, Nullable<int> minexperience, Nullable<int> maxExperience);
-        IEnumerable<Job> GetJobsByParams(string keyword, string location, int? experience, int? userId);
+        IEnumerable<Job> GetJobsByParams(string keyword, string location, int? experience);
+        GridResponse<T> GetListByGridParams(string sortcolumn, int order, SearchFilter searchFilters, Pagination pagination);
 
         IEnumerable<AppliedJob> GetAppliedJobs(int jobid, int userid);
         IEnumerable<FavoriteJob> GetFavoriteJobs(int jobid, int userid);
