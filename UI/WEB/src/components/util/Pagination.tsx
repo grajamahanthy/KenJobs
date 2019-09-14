@@ -405,7 +405,7 @@ class Pagination extends React.Component<any, any> {
         let Servicecall = new Apiservices();
         let responce = null;
 
-        if (this.state.GridConfig.method == "post")
+            if (this.state.GridConfig.gridApiData.method == "post")
             responce = Servicecall.POST_CALL1(this.state.GridConfig.gridApiData.url, this.state.GridRequest, this.displayData, this.errorHandle)
         else
             responce = Servicecall.POST_CALL1(this.state.GridConfig.gridApiData.url, this.state.GridRequest, this.displayData, this.errorHandle)
