@@ -15,6 +15,8 @@ export class Column {
     title: string = "";
     columnPropertyKey: string = "";
     sortable: boolean = false;
+    columnType: string = "text";
+    buttonProps: ButtonProps=new ButtonProps();
 }
 
 export class FilterUi {
@@ -31,11 +33,16 @@ export class Option {
     text: string = "";
 }
 
-export class ApiConfig{
+export class ApiConfig {
     url: string = "";
     method: string = "";
 }
 
+export class ButtonProps {
+    buttonText: string = "";
+    buttonEvent: any = "";
+    params: string[] = [];
+}
 
 //Grid Request/Response Models
 export class GridRequest {
@@ -51,8 +58,8 @@ export class GridResponse {
 }
 
 export class Filter {
-    ColumnName:string="";
-    Value:any[]=[];
+    ColumnName: string = "";
+    Value: any[] = [];
 }
 
 export class Sorting {
@@ -66,8 +73,10 @@ export class Pagination {
     TotalPages: number = 0;
     TotalRecords: number = 0;
 }
-export enum Op
-{
+
+
+
+export enum Op {
     Equals,
     GreaterThan,
     LessThan,

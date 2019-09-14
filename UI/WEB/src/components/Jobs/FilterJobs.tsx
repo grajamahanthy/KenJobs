@@ -45,7 +45,6 @@ class FilterJobs extends React.Component<any, any, any>{
         this.onLoginModalHide = this.onLoginModalHide.bind(this);
         this.onAfterLogin = this.onAfterLogin.bind(this);
         this.onPageChange = this.onPageChange.bind(this);
-
         this.applyFilter = this.applyFilter.bind(this);
         //this.FillGridConfig();
     }
@@ -57,40 +56,40 @@ class FilterJobs extends React.Component<any, any, any>{
                     columnPropertyKey: "Keyword",
                     questionType: "text",
                     label: "SKeyword",
-                    propValue:""
+                    propValue: ""
                 },
                 {
                     columnPropertyKey: "Location",
                     questionType: "text",
                     label: "SLocation",
-                    propValue:""
+                    propValue: ""
 
                 },
                 {
                     columnPropertyKey: "Experience",
                     questionType: "number",
-                    label: "SExperience",                   
-                    propValue:""
+                    label: "SExperience",
+                    propValue: ""
 
                 }
             ],
-            leftSearchPanelUi:[
+            leftSearchPanelUi: [
                 {
                     columnPropertyKey: "ClientName",
                     questionType: "text",
                     label: "Company",
-                    propValue:""
+                    propValue: ""
                 },
                 {
                     columnPropertyKey: "City",
                     questionType: "text",
                     label: "Location",
-                    propValue:""
-                },{
+                    propValue: ""
+                }, {
                     columnPropertyKey: "Experience",
                     questionType: "number",
                     label: "Experience",
-                    propValue:""
+                    propValue: ""
                 }
             ],
             column: [
@@ -103,25 +102,46 @@ class FilterJobs extends React.Component<any, any, any>{
                     title: "Company",
                     columnPropertyKey: "ClientName",
                     sortable: true,
-                  
+
                 },
                 {
                     title: "Min Experience",
                     columnPropertyKey: "MinExperience",//Just a placeholder to get element value, while creating Filter object.
                     sortable: true,
-                   
+
                 },
                 {
                     title: "Max Experience",
                     columnPropertyKey: "MaxExperience",
                     sortable: true,
-                   
                 },
                 {
                     title: "Location",
                     columnPropertyKey: "City",
                     sortable: true,
-                   
+                }
+                ,
+                {
+                    title: "",
+                    columnPropertyKey: "Action",
+                    sortable: false,
+                    columnType: "button",
+                    buttonProps: {
+                        buttonText: "Apply",
+                        buttonEvent: this.applyjob,
+                        params: ["Id"],
+                    }
+                },
+                {
+                    title: "",
+                    columnPropertyKey: "Action",
+                    sortable: false,
+                    columnType: "button",
+                    buttonProps: {
+                        buttonText: "Add To Favirotes",
+                        buttonEvent: this.addFavorite,
+                        params: ["Id"],
+                    }
                 }
             ],
             gridApiData: { url: "JobSearch/GetJobsGrid", method: "post" },
@@ -247,7 +267,17 @@ class FilterJobs extends React.Component<any, any, any>{
     }
 
 
-    applyjob(jobid: any) {
+    applyjob(paramsArr: any[]) {
+
+        let jobid: string = "";
+        paramsArr.forEach(
+            x => {
+                if (x.key == "Id") {
+                    jobid = x.value;
+                }
+            }
+        );
+
         this.setState({
             jobId: jobid,
             reqType: 'applyjob'
@@ -286,11 +316,15 @@ class FilterJobs extends React.Component<any, any, any>{
         })
     }
 
-    addFavorite = (jobid: any) => {
-        this.setState({
-            jobId: jobid,
-            reqType: 'favoritejob'
-        })
+    addFavorite = (paramsArr: any[]) => {
+        let jobid: string = "";
+        paramsArr.forEach(
+            x => {
+                if (x.key == "Id") {
+                    jobid = x.value;
+                }
+            }
+        );
         if (this.state.loggedIn) {
             const Servicecall = new Apiservices();
             let body = new URLSearchParams();
@@ -326,10 +360,10 @@ class FilterJobs extends React.Component<any, any, any>{
     onAfterLogin() {
         this.setState({ loggedIn: true })
         if (this.state.reqType === 'applyjob') {
-            this.applyjob(this.state.jobId);
+            this.applyjob([{ key: "Id", value: this.state.jobId }]);
         }
         else if (this.state.reqType === 'favoritejob') {
-            this.addFavorite(this.state.jobId);
+            this.addFavorite([{ key: "Id", value: this.state.jobId }]);
         }
 
     }

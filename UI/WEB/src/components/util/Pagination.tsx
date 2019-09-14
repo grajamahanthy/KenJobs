@@ -2,7 +2,7 @@ import React, { CSSProperties } from "react";
 import { Modal, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PaginationModel from "../../Models/PaginationModel";
-import { GridRequest, GridConfig, Column, Filter, Sorting, Op, FilterUi } from "../../Models/GridModel";
+import { GridRequest, GridConfig, Column, Filter, Sorting, Op, FilterUi, ButtonProps } from "../../Models/GridModel";
 import Apiservices from "../services/Apiservices";
 import Jobfilter from "./JobFilter";
 import { Link } from "react-router-dom";
@@ -132,7 +132,7 @@ function LoadTopSearchPanelData(data: any): any {
                     type="submit"
                     id="search"
                     className="btn btn-primary btn-block rounded-0 "
-                    value="Apply"
+                    value="Search"
                 />
             </div>
         )
@@ -211,13 +211,21 @@ function ListTableHeader(data: any): any {
     let th: any[] = [];
 
     columns.map((item: any, key: any) => {
-        if (sorting.SortColumn != "" && sorting.SortColumn == item.columnPropertyKey) {
-            th.push(<th onClick={(e) => data.sortChange(e, item.columnPropertyKey, sorting.SortOrder)}>{item.title}
-                <FontAwesomeIcon icon={_SortClass(sorting.SortOrder)} size="xs" className="float-right" /></th>)
-        } else {
-            th.push(<th onClick={(e) => data.sortChange(e, item.columnPropertyKey, 0)}>
-                {item.title}
-                <FontAwesomeIcon icon={_SortClass(0)} size="xs" className="float-right" /></th>)
+        if (item.sortable) {
+            if (sorting.SortColumn != "" && sorting.SortColumn == item.columnPropertyKey) {
+                th.push(<th onClick={(e) => data.sortChange(e, item.columnPropertyKey, sorting.SortOrder)}>{item.title}
+                    <FontAwesomeIcon icon={_SortClass(sorting.SortOrder)} size="xs" className="float-right" /></th>)
+            }
+            else {
+                th.push(<th onClick={(e) => data.sortChange(e, item.columnPropertyKey, 0)}>
+                    {item.title}
+                    <FontAwesomeIcon icon={_SortClass(0)} size="xs" className="float-right" /></th>)
+            }
+        }
+        else {
+            th.push(<th>{item.title}
+            </th>)
+
         }
     })
     return (th)
@@ -226,7 +234,9 @@ function ListTableHeader(data: any): any {
 function ListTabledata(data: any): any {
     let columnData = data.columns;
     let rowData = data.item;
+    let event = data.Clickevent;
     let gridRowList: any[] = [];
+
 
     rowData.map((item: any, key: any) => {
         gridRowList.push(<tr>
@@ -241,9 +251,28 @@ function ListTabledata(data: any): any {
 function getColTagsForDesktop(columnData: Column[], item: any) {
     let colTagsArr: any = [];
     columnData.forEach((col: Column) => {
-        colTagsArr.push(<td>{item[col.columnPropertyKey]}</td>);
+        if (col.columnType == "button") {
+            colTagsArr.push(<td>
+                <button className="btn btn-primary btn-sm rounded-0 mr-2"
+                    onClick={(e)=>CallEvent(item, col.buttonProps)} >{col.buttonProps.buttonText}</button>
+
+                {item[col.columnPropertyKey]}
+            </td>);
+        } else {
+            colTagsArr.push(<td>{item[col.columnPropertyKey]}</td>);
+
+        }
     });
     return colTagsArr;
+}
+
+function CallEvent(data: any, btnProps: ButtonProps) {
+    let paramArr: any[] = [];
+    btnProps.params.forEach((param) => {
+        paramArr.push({ key: param, value: data[param] });
+    });
+
+    btnProps.buttonEvent(paramArr);
 }
 
 function BlockData(data: any): any {
@@ -320,6 +349,7 @@ class Pagination extends React.Component<any, any> {
         e.preventDefault();
         let GR = this.state.GridRequest;
         GR.Pagination.PageSize = e.target.value
+        GR.Pagination.CurrentPage = 1;
         this.setState({
             GridRequest: GR
         }, () => this.requestApi())
@@ -386,7 +416,7 @@ class Pagination extends React.Component<any, any> {
         let GR = this.state.GridRequest;
         let PG = GR.Pagination;
         let totalpages;
-        PG.TotalPages = totalrecords / PG.PageSize + ((totalrecords % PG.PageSize) > 0 ? 1 : 0);
+        PG.TotalPages = Math.ceil(totalrecords / PG.PageSize);
         GR.Pagination = PG;
 
         this.setState({
@@ -471,36 +501,60 @@ class Pagination extends React.Component<any, any> {
             show: false
         }, () => this.requestApi());
     }
-    renderPaginationList = () => {
+    renderPaginationList = (currentPage: any, totalPages: any) => {
         let li: any[] = [];
-
-        let currentPage = this.state.GridRequest.Pagination.CurrentPage;
-        let totalPages = this.state.GridRequest.Pagination.TotalPages;
-      
+        //li.push(<></>);
+        // let currentPage = this.state.GridRequest.Pagination.CurrentPage;
+        // let totalPages = Math.ceil(this.state.GridRequest.Pagination.TotalPages);
         li.push(<>
             <li key="0" className={"page-item " + (currentPage > 1 ? "" : "disabled")}>
                 <a className="page-link" href="#" onClick={(e) => this.handlePageChange(e, 1)}>{"First"}</a>
             </li>
-            <li key="0" className={"page-item " + (currentPage > 1 ? "" : "disabled")}>
+            <li key="1" className={"page-item " + (currentPage > 1 ? "" : "disabled")}>
                 <a className="page-link" href="#" onClick={(e) => this.handlePageChange(e, currentPage - 1)}>{"<<"}</a>
             </li>
         </>
         )
-        for (let i = (currentPage == 1) ? currentPage : currentPage - 1; i <= Math.ceil(totalPages); i++) {
-            if (currentPage == i) {
-                li.push(<li key={i} className="page-item active"><a className="page-link" href="#">{i}</a></li>);
-            } else {
-                li.push(<li key={i} className="page-item">
-                    <a className="page-link" href="#" onClick={(e) => this.handlePageChange(e, i)}>{i}</a>
-                </li>)
+        let pageArr: any[] = [];
+        if (totalPages <= 9) {
+            for (var p = 1; p <= totalPages; p++) {
+                pageArr.push(p);
+            }
+            // pageArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        }
+        else {
+            if (currentPage == 1 || currentPage == 2 || currentPage == 3) {
+                pageArr = [1, 2, 3, 4, 5, "...", totalPages];
+            }
+            else if (currentPage == totalPages || currentPage == (totalPages - 1) || currentPage == (totalPages - 2)) {
+                pageArr = [1, "...", totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+            }
+            else {
+                pageArr = [1, "...", currentPage - 2, currentPage - 1, currentPage, currentPage + 1, currentPage + 2, "...", totalPages];
+            }
+        }
+
+
+        for (let i = 0; i < pageArr.length; i++) {
+            if (pageArr[i] == currentPage) {
+                li.push(<><li key={i + 2} className="page-item active"><a className="page-link" href="#">{pageArr[i]}</a></li></>);
+            }
+            else if (pageArr[i] == "...") {
+                li.push(<><li key={i + 2} className="page-item page-link">{pageArr[i]}</li></>);
+            }
+            else {
+                li.push(<><li key={i + 2} className="page-item">
+                    <a className="page-link" href="#" onClick={(e) => this.handlePageChange(e, pageArr[i])}>{pageArr[i]}</a>
+                </li></>)
             }
         }
         li.push(<>
-            <li key={totalPages + 1} className={"page-item " + (currentPage < (Math.ceil(totalPages)) ? "" : "disabled")}>
+
+            <li key={pageArr.length + 2} className={"page-item " + (currentPage < totalPages ? "" : "disabled")}>
                 <a className="page-link" href="#" onClick={(e) => this.handlePageChange(e, currentPage + 1)}>{">>"}</a>
             </li>
-            <li key={totalPages + 1} className={"page-item " + (currentPage < (Math.ceil(totalPages)) ? "" : "disabled")}>
-                <a className="page-link" href="#" onClick={(e) => this.handlePageChange(e, Math.floor(totalPages))}>{"Last"}</a>
+            <li key={pageArr.length + 3} className={"page-item " + (currentPage < totalPages ? "" : "disabled")}>
+                <a className="page-link" href="#" onClick={(e) => this.handlePageChange(e, totalPages)}>{"Last"}</a>
             </li>
         </>
         )
@@ -636,7 +690,7 @@ class Pagination extends React.Component<any, any> {
                     < div className="mt-4" >
                         {this.state.showView ?
                             <div className="row" >
-                                {!this.state.MobileView ?
+                                {/* {!this.state.MobileView ?
                                     <div className="col-sm-2 border shadow pt-2" >
                                         <h4 className="text-center"><u>Filters</u></h4>
                                         <div>
@@ -653,31 +707,18 @@ class Pagination extends React.Component<any, any> {
                                         </div>
 
                                     </div> : ""
-                                }
-                                <div className="col-sm-10" >
-                                    {
-                                        this.state.MobileView ?
-                                            <div className="row">
-                                                <div className="col-sm-12 mb-2">
-
-                                                    <span onClick={this.setShow} className="btn btn-primary float-sm-right mr-2 float-right">
-                                                        <FontAwesomeIcon icon="grip-vertical" size="xs" className="ml-2" />
-                                                        <FontAwesomeIcon icon="filter" size="xs" className="ml-2" />
-                                                    </span>
-
-                                                </div>
-                                            </div> : ""
-                                    }
+                                } */}
+                                <div className="col-sm-12" >
                                     <div className="row">
-                                        <div className="col-sm-12">
+                                        <div className="col-sm-8">
                                             <nav aria-label="...">
                                                 <ul className="pagination float-left">
 
                                                     {this.state.GridRequest.Pagination.TotalPages > 0 ?
-                                                        this.renderPaginationList() : ""}
+                                                        this.renderPaginationList(this.state.GridRequest.Pagination.CurrentPage, Math.ceil(this.state.GridRequest.Pagination.TotalPages)) : ""}
 
                                                 </ul>
-                                                <span className="float-sm-right  mr-2 float-left ml-2">
+                                                <span className="float-sm-left  mr-2 ml-2">
                                                     <select className="form-control" onChange={this.recordsPerPage}>
                                                         <option>20</option>
                                                         <option>50</option>
@@ -689,7 +730,17 @@ class Pagination extends React.Component<any, any> {
                                                     </select>
                                                 </span>
                                             </nav>
-
+                                            </div>
+                                            <div className="col-sm-4">
+                                            {
+                                                // this.state.MobileView ?
+                                                <span onClick={this.setShow} className="btn btn-primary float-sm-right mr-2 float-right">
+                                                    <FontAwesomeIcon icon="grip-vertical" size="xs" className="ml-2" />
+                                                    <FontAwesomeIcon icon="filter" size="xs" className="ml-2" />
+                                                </span>
+                                                        
+                                                    // : ""
+                                            }
                                         </div>
                                     </div>
                                     {
