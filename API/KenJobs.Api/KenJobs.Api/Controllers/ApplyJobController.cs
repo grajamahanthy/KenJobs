@@ -91,7 +91,7 @@ namespace KenJobs.Api.Controllers
 
             appliedJobBo.Job_Id = jobmodel.Job_Id;
             appliedJobBo.User_Id = s.User.Id;
-            appliedJobBo.Client_Id =1;
+            appliedJobBo.Client_Id = 1;
 
 
             IEnumerable<AppliedJobBo> appliedJobBoList = appliedJobsWorker.GetAppliedJobs(appliedJobBo.Job_Id, appliedJobBo.User_Id);
@@ -107,6 +107,28 @@ namespace KenJobs.Api.Controllers
                 return Ok(responce);
             }
 
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("api/ApplyJob/applyMultipleJobs")]
+        public IHttpActionResult applyMultipleJobs(string[] jobIds)
+        {
+            KenJobsSession s = GetKenJobsSession();
+
+            AppliedJobsContract appliedJobsWorker = new AppliedJobsWorker();
+            List<AppliedJobBo> appliedJobBoList = new List<AppliedJobBo>();
+
+            foreach (string jobId in jobIds)
+            {
+                AppliedJobBo appliedJobBo = new AppliedJobBo();
+                appliedJobBo.Job_Id = Convert.ToInt32(jobId);
+                appliedJobBo.User_Id = s.User.Id;
+                appliedJobBo.Client_Id = 1;
+                appliedJobBoList.Add(appliedJobBo);
+            }
+            int responce = appliedJobsWorker.PostMultipleJobs(appliedJobBoList);
+            return Ok(responce);
         }
 
 

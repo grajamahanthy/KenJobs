@@ -121,6 +121,25 @@ namespace KenJobs.Bl.Workers
 
         }
 
+       public int PostMultipleFavoriteJob(List<FavoriteJobBo> appliedJobBo)
+        {
+            int responce = 1;
+            foreach (FavoriteJobBo favoriteJob in appliedJobBo)
+            {
+                IEnumerable<FavoriteJobBo> FavoriteJobBoList = this.GetFavoriteJobs(favoriteJob.Job_Id, favoriteJob.User_Id);
+
+                if (FavoriteJobBoList != null && FavoriteJobBoList.ToList().Count > 0)
+                {
+                }
+                else
+                {
+                     responce = this.PostFavoriteJob(favoriteJob);
+                }
+            }
+            return responce;
+
+
+        }
         public int UpdateFavoriteJob(int id, FavoriteJobBo appliedJobBo)
         {
             throw new NotImplementedException();

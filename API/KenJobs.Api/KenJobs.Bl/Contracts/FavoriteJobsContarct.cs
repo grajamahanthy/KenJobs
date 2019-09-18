@@ -13,6 +13,7 @@ namespace KenJobs.Bl.Contracts
         IEnumerable<JobBo> GetFavoriteJobsByUserId(int userId);
         FavoriteJobBo GetFavoriteJob(int id);
         int PostFavoriteJob(FavoriteJobBo appliedJobBo);
+        int PostMultipleFavoriteJob(List<FavoriteJobBo> appliedJobBo);
         int UpdateFavoriteJob(int id, FavoriteJobBo appliedJobBo);
         IEnumerable<FavoriteJobBo> GetFavoriteJobs(int jobId, int userId);
     }

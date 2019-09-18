@@ -36,10 +36,7 @@ namespace KenJobs.Api.Controllers
 
             FavoriteJobBo.Job_Id = jobmodel.Job_Id;
             FavoriteJobBo.User_Id = s.User.Id;
-
-
             IEnumerable<FavoriteJobBo> FavoriteJobBoList = favoriteJobsWorker.GetFavoriteJobs(FavoriteJobBo.Job_Id, FavoriteJobBo.User_Id);
-
 
             if (FavoriteJobBoList != null && FavoriteJobBoList.ToList().Count > 0)
             {
@@ -53,6 +50,26 @@ namespace KenJobs.Api.Controllers
 
         }
 
+        [Authorize]
+        [HttpPost]
+        [Route("api/FavoriteJob/addToFavoriteMultipleJobs")]
+        public IHttpActionResult addToFavoriteMultipleJobs(string[] jobIds)
+        {
+            KenJobsSession s = GetKenJobsSession();
+
+            FavoriteJobsContarct favoriteJobsWorker = new FavoriteJobsWorker();
+           List<FavoriteJobBo> favoriteJobBoList = new List<FavoriteJobBo>();
+
+            foreach (string jobId in jobIds)
+            {
+                FavoriteJobBo favoriteJobBo = new FavoriteJobBo();
+                favoriteJobBo.Job_Id = Convert.ToInt32(jobId);
+                favoriteJobBo.User_Id = s.User.Id;
+                favoriteJobBoList.Add(favoriteJobBo);
+            }
+            int responce = favoriteJobsWorker.PostMultipleFavoriteJob(favoriteJobBoList);
+            return Ok(responce);
+        }
 
         [Authorize]
         [HttpGet]

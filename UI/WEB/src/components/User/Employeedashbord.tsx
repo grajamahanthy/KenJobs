@@ -36,7 +36,6 @@ class Employeedashbord extends React.Component<any, any> {
             loggedIn
         }
     }
-
     componentWillMount() {
         if (this.state.loggedIn) {
             const Servicecall = new Apiservices();
@@ -131,25 +130,6 @@ class Employeedashbord extends React.Component<any, any> {
                                 <div className="row">
                                     {jobslist}
                                 </div>
-                                {/* <div className="mt-2">
-                                    <Pagination>
-                                        <Pagination.First />
-                                        <Pagination.Prev />
-                                        <Pagination.Item>{1}</Pagination.Item>
-                                        <Pagination.Ellipsis />
-
-                                        <Pagination.Item>{10}</Pagination.Item>
-                                        <Pagination.Item>{11}</Pagination.Item>
-                                        <Pagination.Item active>{12}</Pagination.Item>
-                                        <Pagination.Item>{13}</Pagination.Item>
-                                        <Pagination.Item disabled>{14}</Pagination.Item>
-
-                                        <Pagination.Ellipsis />
-                                        <Pagination.Item>{20}</Pagination.Item>
-                                        <Pagination.Next />
-                                        <Pagination.Last />
-                                    </Pagination>
-                                </div> */}
                             </div>
                             <div className="col-sm-3 border mx-auto  bg-light">
                                 <div className="mt-2">

@@ -30,9 +30,10 @@ class FilterJobs extends React.Component<any, any, any>{
 
         this.state = {
             loggedIn,
-            reqType: '',
+            requestType: '',
             jobId: '',
             jobdata: {},
+            multipleJobArray: [],
             gridConfig: new GridConfig(),
             jobSearchModel: new JobSearchModel(),
             showLogin: false,
@@ -46,11 +47,13 @@ class FilterJobs extends React.Component<any, any, any>{
         this.onAfterLogin = this.onAfterLogin.bind(this);
         this.onPageChange = this.onPageChange.bind(this);
         this.applyFilter = this.applyFilter.bind(this);
+        this.applyForMultipleJobs = this.applyForMultipleJobs.bind(this);
         //this.FillGridConfig();
     }
 
     FillGridConfig() {
         let gridConfigData = {
+            Title:"Search Job",
             topSearchPanelUi: [
                 {
                     columnPropertyKey: "Keyword",
@@ -97,6 +100,9 @@ class FilterJobs extends React.Component<any, any, any>{
                     title: "Title",
                     columnPropertyKey: "JobTitle",
                     sortable: true,
+                    columnType:"link",
+                    linkUrl:"Jobresult",
+                    linkParam:"JobInfo"
                 },
                 {
                     title: "Company",
@@ -148,7 +154,16 @@ class FilterJobs extends React.Component<any, any, any>{
             rowIdentityPropertyForManipulations: "",
             isEditable: false,
             isDeleteable: false,
-            isExportable: false
+            isExportable: true,
+            toolBar: [{
+                buttonText: "Apply",
+                buttonEvent: this.applyForMultipleJobs,
+                params: []
+            },{
+                buttonText: "Add To Favirotes",
+                buttonEvent: this.addToFaviroteMultipleJobs,
+                params: []
+            }]
         };
 
         this.setState({
@@ -161,6 +176,38 @@ class FilterJobs extends React.Component<any, any, any>{
         this.findTheJobs(this.state);
     }
 
+    applyForMultipleJobs = (jobidList: any) => {
+
+        this.setState({
+            multipleJobArray: jobidList,
+            requestType: 'applyMultipleJobs'
+        })
+        if (this.state.loggedIn) {
+            const Servicecall = new Apiservices();
+            let responce = Servicecall.POST_SECURE_CALL1('ApplyJob/applyMultipleJobs', jobidList, this.successAppliedJob, this.errorHandle)
+        } else {
+            this.setState({
+                showLogin: true,
+            })
+        }
+
+    }
+    addToFaviroteMultipleJobs = (jobidList: any) => {
+        this.setState({
+            multipleJobArray: jobidList,
+            requestType: 'addMultipleFaviroteJobs'
+        })
+        if (this.state.loggedIn) {
+            const Servicecall = new Apiservices();
+
+            let responce = Servicecall.POST_SECURE_CALL1('FavoriteJob/addToFavoriteMultipleJobs', jobidList, this.successFavoritejob, this.errorHandle)
+
+        } else {
+            this.setState({
+                showLogin: true,
+            })
+        }
+    }
     changevalue = (e: any) => {
         let JSM: any = this.state.jobSearchModel;
         JSM[e.target.name] = e.target.value;
@@ -268,7 +315,7 @@ class FilterJobs extends React.Component<any, any, any>{
 
 
     applyjob(paramsArr: any[]) {
-
+        console.log(paramsArr); debugger;
         let jobid: string = "";
         paramsArr.forEach(
             x => {
@@ -280,14 +327,12 @@ class FilterJobs extends React.Component<any, any, any>{
 
         this.setState({
             jobId: jobid,
-            reqType: 'applyjob'
+            requestType: 'applyjob'
         })
-        // console.log(this.state.loggedIn);
         if (this.state.loggedIn) {
             const Servicecall = new Apiservices();
             let body = new URLSearchParams();
             body.set('Job_Id', jobid);
-            //body.set('Client_Id', '1');
             //Get jobs bu user id, User id is assigned by server 
             let responce = Servicecall.POST_SECURE_CALL('ApplyJob/apply', body, this.successAppliedJob, this.errorHandle)
 
@@ -325,6 +370,10 @@ class FilterJobs extends React.Component<any, any, any>{
                 }
             }
         );
+        this.setState({
+            jobId: jobid,
+            requestType: 'favoritejob'
+        })
         if (this.state.loggedIn) {
             const Servicecall = new Apiservices();
             let body = new URLSearchParams();
@@ -359,11 +408,15 @@ class FilterJobs extends React.Component<any, any, any>{
 
     onAfterLogin() {
         this.setState({ loggedIn: true })
-        if (this.state.reqType === 'applyjob') {
+        if (this.state.requestType === 'applyjob') {
             this.applyjob([{ key: "Id", value: this.state.jobId }]);
         }
-        else if (this.state.reqType === 'favoritejob') {
+        else if (this.state.requestType === 'favoritejob') {
             this.addFavorite([{ key: "Id", value: this.state.jobId }]);
+        } else if (this.state.requestType === 'applyMultipleJobs') {
+            this.applyForMultipleJobs(this.state.multipleJobArray);
+        } else if (this.state.requestType === 'addMultipleFaviroteJobs') {
+            this.addToFaviroteMultipleJobs(this.state.multipleJobArray);
         }
 
     }

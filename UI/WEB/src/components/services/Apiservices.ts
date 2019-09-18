@@ -15,7 +15,7 @@ export default class Apiservices {
     constructor() {
         //this.UrlPath = 'http://api-kenjobs.com/api/';
         // this.UrlPath = 'http://apikenjobs.com/api/';
-        //  this.UrlPath = 'http://localhost:50768/api/';
+        // this.UrlPath = 'http://localhost:50768/api/';
         this.UrlPath = 'http://api.kenjobs.com/api/';
 
     }
@@ -178,6 +178,7 @@ export default class Apiservices {
     }
 
     POST_SECURE_CALL1(URL: string, DATA: any | null, successCallback: any, errorCallback: any): any {
+        debugger;
         let currentUrl = this.UrlPath + URL;
         const isAuthenticated = localStorage.getItem("authInfo");
         if (isAuthenticated) {

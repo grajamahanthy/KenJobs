@@ -40,7 +40,7 @@ import { fab, faFacebook } from '@fortawesome/free-brands-svg-icons'
 import {
   faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender,
   faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser, faEnvelope, faMobileAlt, faUniversity,
-  faLaptopCode, faUpload, faDownload, faFilter, faGripVertical, faSort, faSortUp, faSortDown
+  faLaptopCode, faUpload, faDownload, faFilter, faGripVertical, faSort, faSortUp, faSortDown, faFileExcel
 } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer } from "react-toastify";
 import Apiservices from "./components/services/Apiservices";
@@ -48,7 +48,7 @@ import FilterJobs from "./components/Jobs/FilterJobs";
 
 library.add(faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender,
   faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser, faEnvelope, faMobileAlt, faUniversity, faLaptopCode,
-  faUpload, faDownload, faFilter, faGripVertical, faSort, faSortUp, faSortDown)
+  faUpload, faDownload, faFilter, faGripVertical, faSort, faSortUp, faSortDown, faFileExcel)
 
 class App extends React.Component<any, any> {
   constructor(props: any) {

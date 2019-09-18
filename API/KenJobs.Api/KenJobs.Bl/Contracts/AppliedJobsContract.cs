@@ -13,7 +13,9 @@ namespace KenJobs.Bl.Contracts
         IEnumerable<JobBo> GetAppliedJobsByUserId(int userId);
         AppliedJobBo GetAppliedJob(int id);
         int PostAppliedJob(AppliedJobBo appliedJobBo);
+        int PostMultipleJobs(List<AppliedJobBo> appliedJobBos);
         int UpdateAppliedJob(int id, AppliedJobBo appliedJobBo);
+
         IEnumerable<AppliedJobBo> GetAppliedJobs(int jobId, int userId);
     }
 }

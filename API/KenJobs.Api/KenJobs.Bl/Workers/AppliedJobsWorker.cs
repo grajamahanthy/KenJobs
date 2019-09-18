@@ -127,6 +127,25 @@ namespace KenJobs.Bl.Workers
 
         }
 
+        public int PostMultipleJobs(List<AppliedJobBo> appliedJobBos)
+        {
+            int responce = 1;
+            foreach (AppliedJobBo appliedJobBo in appliedJobBos)
+            {
+                IEnumerable<AppliedJobBo> appliedJobBoList = this.GetAppliedJobs(appliedJobBo.Job_Id, appliedJobBo.User_Id);
+
+                if (appliedJobBoList != null && appliedJobBoList.ToList().Count > 0)
+                {
+                }
+                else
+                {
+                    responce = this.PostAppliedJob(appliedJobBo);
+                }
+            }
+
+            return responce;
+        }
+
         public int UpdateAppliedJob(int id, AppliedJobBo appliedJobBo)
         {
             IGenericRepository<AppliedJob> repository = new GenericRepository<AppliedJob>();

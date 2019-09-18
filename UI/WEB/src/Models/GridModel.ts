@@ -1,6 +1,7 @@
 
 //Grid Config Models
 export class GridConfig {
+    Title: string = "";
     column: Column[] = [];
     topSearchPanelUi: FilterUi[] = [];
     leftSearchPanelUi: FilterUi[] = [];
@@ -9,6 +10,7 @@ export class GridConfig {
     isEditable: boolean = false;
     isDeleteable: boolean = false;
     isExportable: boolean = false;
+    toolBar: ButtonProps[] = [];
 }
 
 export class Column {
@@ -16,7 +18,9 @@ export class Column {
     columnPropertyKey: string = "";
     sortable: boolean = false;
     columnType: string = "text";
-    buttonProps: ButtonProps=new ButtonProps();
+    linkUrl: string = "";
+    linkParam: string = "";
+    buttonProps: ButtonProps = new ButtonProps();
 }
 
 export class FilterUi {

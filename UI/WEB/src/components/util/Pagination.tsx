@@ -8,6 +8,10 @@ import Jobfilter from "./JobFilter";
 import { Link } from "react-router-dom";
 import LoaderModal from "./LoaderModal";
 import { existsTypeAnnotation } from "@babel/types";
+import exportFromJSON from 'export-from-json';
+import ExportData from "./ExportData";
+import Notify from "../common/Notify";
+const notify = new Notify();
 
 function LoadLeftSearchPanelData(data: any): any {
     let leftPanelData = data.items;
@@ -200,7 +204,6 @@ const getFilterArray = (data: any): any => {
     })
     return filterArray;
 }
-
 function doesExist(el: any) {
     return (el !== null && el !== undefined)
 }
@@ -209,8 +212,14 @@ function ListTableHeader(data: any): any {
     let columns = data.columns;
     let sorting = data.sorting;
     let th: any[] = [];
-
+    th.push(<th>
+        <div className="custom-control custom-checkbox">
+            <input type="checkbox" onChange={(e) => data.isSelectAll(e)} className="custom-control-input cls_selectall" id="customCheck1" />
+            <label className="custom-control-label" htmlFor="customCheck1"></label>
+        </div>
+    </th>)
     columns.map((item: any, key: any) => {
+
         if (item.sortable) {
             if (sorting.SortColumn != "" && sorting.SortColumn == item.columnPropertyKey) {
                 th.push(<th onClick={(e) => data.sortChange(e, item.columnPropertyKey, sorting.SortOrder)}>{item.title}
@@ -234,31 +243,65 @@ function ListTableHeader(data: any): any {
 function ListTabledata(data: any): any {
     let columnData = data.columns;
     let rowData = data.item;
-    let event = data.Clickevent;
+    let event = data.handleCheckChange;
+    let checkedItems = data.setCheckeditems;
     let gridRowList: any[] = [];
 
 
     rowData.map((item: any, key: any) => {
-        gridRowList.push(<tr>
+        gridRowList.push(<tr key={key}>
             {
-                getColTagsForDesktop(columnData, item)
+                getColTagsForDesktop(columnData, item, event, checkedItems)
             }
         </tr>)
     })
     return (gridRowList)
 }
 
-function getColTagsForDesktop(columnData: Column[], item: any) {
+function getColTagsForDesktop(columnData: Column[], item: any, event: any, checkedItemList: any) {
     let colTagsArr: any = [];
+
+    if (checkedItemList.length > 0 && (checkedItemList.indexOf((item.Id).toString()) > -1)) {
+        colTagsArr.push(
+            <td className="text-center">
+                <div className="custom-control custom-checkbox">
+                    <input type="checkbox" onChange={(e) => event(e)} checked className="custom-control-input cls_select" id={item.Id} value={item.Id} />
+                    <label className="custom-control-label" htmlFor={item.Id}></label>
+                </div>
+            </td>
+        )
+    } else {
+        colTagsArr.push(
+            <td className="text-center">
+                <div className="custom-control custom-checkbox">
+                    <input type="checkbox" onChange={(e) => event(e)} className="custom-control-input cls_select" id={item.Id} value={item.Id} />
+                    <label className="custom-control-label" htmlFor={item.Id}></label>
+                </div>
+            </td>
+        )
+    }
+
     columnData.forEach((col: Column) => {
+
         if (col.columnType == "button") {
             colTagsArr.push(<td>
                 <button className="btn btn-primary btn-sm rounded-0 mr-2"
-                    onClick={(e)=>CallEvent(item, col.buttonProps)} >{col.buttonProps.buttonText}</button>
+                    onClick={(e) => CallEvent(item, col.buttonProps)} >{col.buttonProps.buttonText}</button>
 
                 {item[col.columnPropertyKey]}
             </td>);
-        } else {
+        } else if (col.columnType == "link") {
+            colTagsArr.push(<td>
+                <Link className=""
+                    to={{
+                        pathname: "/" + col.linkUrl,
+                        state: { [col.linkParam]: item.Id }
+                    }}
+                > {item[col.columnPropertyKey]}
+                </Link>
+            </td >);
+        }
+        else {
             colTagsArr.push(<td>{item[col.columnPropertyKey]}</td>);
 
         }
@@ -318,6 +361,7 @@ function _SortClass(data: any): any {
 class Pagination extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
+
         this.state = {
             show: false,
             GridConfig: new GridConfig(),
@@ -327,9 +371,12 @@ class Pagination extends React.Component<any, any> {
             loader: false,
             showView: false,
             MobileView: false,
+            exportMenuShow: false,
+            temp: ""
         }
 
         this.setShow = this.setShow.bind(this);
+        this.exportShow = this.exportShow.bind(this);
         this.handlePageChange = this.handlePageChange.bind(this);
         this.handleTopSearchSubmit = this.handleTopSearchSubmit.bind(this);
         this.handleLeftSearchSubmit = this.handleLeftSearchSubmit.bind(this);
@@ -337,13 +384,87 @@ class Pagination extends React.Component<any, any> {
         this.recordsPerPage = this.recordsPerPage.bind(this);
         this.handleTopPanelElementChange = this.handleTopPanelElementChange.bind(this);
         this.handleLeftPanelElementChange = this.handleLeftPanelElementChange.bind(this);
+        this.handleMultipleSelectEvent = this.handleMultipleSelectEvent.bind(this);
     }
 
+    SelectedListArray: any[] = [];
     resize() {
         this.setState({
             MobileView: (window.innerWidth <= 420) ? true : false
         })
         // this.setState({ hideNav: window.innerWidth <= 760 });
+    }
+
+
+    selectall_change = (e: any) => {
+
+        let isSelectAll: boolean = e.target.checked
+        let filterClsControl: any = document.getElementsByClassName("cls_select");
+        for (let i = 0; i < filterClsControl.length; ++i) {
+            filterClsControl[i].checked = isSelectAll;
+            let idxOfItem = this.SelectedListArray.indexOf(filterClsControl[i].id);
+            if (isSelectAll) {
+                if (idxOfItem < 0)
+                    this.SelectedListArray.push(filterClsControl[i].id)
+            }
+            else {
+                if (idxOfItem > -1) {
+                    this.SelectedListArray.splice(idxOfItem, 1);
+                }
+            }
+        }
+        this.setState({ temp: "" });
+    }
+
+    handleCheckBoxchange = (e: any) => {
+
+        let isChecked: boolean = e.target.checked;
+        let selectedItemId: number = e.target.id;
+        let idxOfItem = this.SelectedListArray.indexOf(selectedItemId);
+        if (isChecked) {
+            if (idxOfItem < 0)
+                this.SelectedListArray.push(selectedItemId)
+        }
+        else {
+            if (idxOfItem > -1) {
+                this.SelectedListArray.splice(idxOfItem, 1);
+            }
+        }
+
+        let selectAllCheckboxCtrl: any = document.getElementsByClassName("cls_selectall")[0];
+        selectAllCheckboxCtrl.checked = this.isAllCheckboxesSelected();
+        this.setState({ temp: "" });
+
+    }
+
+    isAllCheckboxesSelected = function () {
+        let isAllCheckboxesSelectedBool: boolean = true;
+        let filterClsControl: any = document.getElementsByClassName("cls_select");
+        for (let i = 0; i < filterClsControl.length; ++i) {
+            if (!filterClsControl.checked) {
+                isAllCheckboxesSelectedBool = false;
+                return isAllCheckboxesSelectedBool;
+            }
+        }
+        return isAllCheckboxesSelectedBool;
+    }
+
+
+    exportShow() {
+        this.setState({
+            exportMenuShow: !this.state.exportMenuShow
+        })
+    }
+    export_data = (e: any, exportType: any) => {
+
+        let exportData = new ExportData()
+        const columns = this.state.GridConfig.column;
+        const item = this.state.ResponceData;
+        let data = { columns, item }
+
+        exportData.Export(data, "JOBS_Data", exportType);
+
+
     }
     recordsPerPage = (e: any) => {
         e.preventDefault();
@@ -405,7 +526,7 @@ class Pagination extends React.Component<any, any> {
         let Servicecall = new Apiservices();
         let responce = null;
 
-            if (this.state.GridConfig.gridApiData.method == "post")
+        if (this.state.GridConfig.gridApiData.method == "post")
             responce = Servicecall.POST_CALL1(this.state.GridConfig.gridApiData.url, this.state.GridRequest, this.displayData, this.errorHandle)
         else
             responce = Servicecall.POST_CALL1(this.state.GridConfig.gridApiData.url, this.state.GridRequest, this.displayData, this.errorHandle)
@@ -568,7 +689,7 @@ class Pagination extends React.Component<any, any> {
         let SearchPanelUi = gC.topSearchPanelUi
 
         SearchPanelUi.forEach((searchKey: FilterUi) => {
-            if (searchKey.columnPropertyKey == e.target.name)
+            if (searchKey.columnPropertyKey === e.target.name)
                 searchKey.propValue = e.target.value;
         });
 
@@ -604,13 +725,22 @@ class Pagination extends React.Component<any, any> {
                     <table className="table  table-hover">
                         <thead>
                             <tr>
-                                <ListTableHeader columns={this.state.GridConfig.column} sorting={this.state.GridRequest.Sorting} sortChange={this.sortOrder} />
+                                <ListTableHeader
+                                    columns={this.state.GridConfig.column}
+                                    sorting={this.state.GridRequest.Sorting}
+                                    sortChange={this.sortOrder}
+                                    isSelectAll={this.selectall_change} />
                             </tr>
                         </thead>
                         {
                             (this.state.ResponceData != undefined && this.state.ResponceData.length != null && this.state.ResponceData.length > 0)
                                 ?
-                                <ListTabledata item={this.state.ResponceData} columns={Columns} />
+                                <ListTabledata
+                                    item={this.state.ResponceData}
+                                    columns={Columns}
+                                    handleCheckChange={this.handleCheckBoxchange}
+                                    setCheckeditems={this.SelectedListArray}
+                                />
                                 : ""
                         }
                     </table>
@@ -647,6 +777,16 @@ class Pagination extends React.Component<any, any> {
         this.requestApi();
     }
 
+    handleMultipleSelectEvent = (toolBar: ButtonProps) => {
+        let paramArr: any[] = [];
+        if (this.SelectedListArray.length > 0) {
+            toolBar.buttonEvent(this.SelectedListArray);
+        }
+        else {
+            notify.Error_notify("Please Select Multiple Items.");
+        }
+    }
+
     handleGridChange = () => {
 
     }
@@ -670,11 +810,10 @@ class Pagination extends React.Component<any, any> {
             {this.state.loader ? <LoaderModal></LoaderModal> : ''}
             < div className=" mt-3 mx-5" >
                 <h1>
-                    Search Job
-                         </h1>
+                    {this.state.GridConfig.Title}
+                </h1>
                 < div className=" col-lg-12 " >
                     <div className="text-center text-secondary" >
-                        {/* <JobSearch GetValues={this.findTheJobs} ></JobSearch> */}
                         < div className="col-sm-8 mx-auto  mt-3" >
                             <form onSubmit={this.handleTopSearchSubmit}>
                                 <div className="form-row" >
@@ -690,33 +829,13 @@ class Pagination extends React.Component<any, any> {
                     < div className="mt-4" >
                         {this.state.showView ?
                             <div className="row" >
-                                {/* {!this.state.MobileView ?
-                                    <div className="col-sm-2 border shadow pt-2" >
-                                        <h4 className="text-center"><u>Filters</u></h4>
-                                        <div>
-                                            <div id="accordion">
-                                                <form onSubmit={this.handleLeftSearchSubmit}>
-                                                    <div className="form-row" >
-                                                        {(this.state.isLoaded && this.state.GridConfig.leftSearchPanelUi.length > 0)
-                                                            ?
-                                                            <LoadLeftSearchPanelData items={this.state.GridConfig.leftSearchPanelUi} handleElementChange={this.handleLeftPanelElementChange} />
-                                                            : ""}
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-
-                                    </div> : ""
-                                } */}
                                 <div className="col-sm-12" >
                                     <div className="row">
                                         <div className="col-sm-8">
                                             <nav aria-label="...">
                                                 <ul className="pagination float-left">
-
                                                     {this.state.GridRequest.Pagination.TotalPages > 0 ?
                                                         this.renderPaginationList(this.state.GridRequest.Pagination.CurrentPage, Math.ceil(this.state.GridRequest.Pagination.TotalPages)) : ""}
-
                                                 </ul>
                                                 <span className="float-sm-left  mr-2 ml-2">
                                                     <select className="form-control" onChange={this.recordsPerPage}>
@@ -724,23 +843,39 @@ class Pagination extends React.Component<any, any> {
                                                         <option>50</option>
                                                         <option>100</option>
                                                         <option>200</option>
-                                                        {/* <option>50</option>
-                                                        <option>100</option>
-                                                        <option>200</option> */}
                                                     </select>
                                                 </span>
                                             </nav>
-                                            </div>
-                                            <div className="col-sm-4">
+                                        </div>
+                                        <div className="col-sm-4">
+                                            <span className="float-sm-right  mr-2 ">
+                                                {(this.state.GridConfig.isExportable && this.state.GridRequest.Pagination.TotalPages > 0) ?
+                                                    <span onClick={(e) => this.export_data(e, "xls")} className="btn btn-primary float-sm-right mr-2 float-right">
+                                                        Excel <FontAwesomeIcon icon="file-excel" size="lg" className="" />
+                                                    </span> :
+                                                    ""
+                                                }
+                                            </span>
                                             {
-                                                // this.state.MobileView ?
                                                 <span onClick={this.setShow} className="btn btn-primary float-sm-right mr-2 float-right">
                                                     <FontAwesomeIcon icon="grip-vertical" size="xs" className="ml-2" />
                                                     <FontAwesomeIcon icon="filter" size="xs" className="ml-2" />
                                                 </span>
-                                                        
-                                                    // : ""
                                             }
+                                            <span className="float-sm-right mr-2">
+                                                {
+                                                    this.state.GridConfig.toolBar.map((item: any, key: any) => {
+                                                        let paramArr: any[] = [];
+
+                                                        return (
+                                                            <button key={key}
+                                                                className="btn btn-primary  mr-2"
+                                                                onClick={() => this.handleMultipleSelectEvent(item)}>
+                                                                {item.buttonText}</button>
+                                                        )
+                                                    })
+                                                }
+                                            </span>
                                         </div>
                                     </div>
                                     {
@@ -748,15 +883,13 @@ class Pagination extends React.Component<any, any> {
                                             this.BlockView()
                                             :
                                             this.ListData()
-
                                     }
-
                                 </div>
                             </div>
                             : ""}
                     </div>
                 </div>
-            </div >
+            </div>
 
             <Modal
                 size="lg"
