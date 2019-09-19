@@ -53,7 +53,7 @@ class FilterJobs extends React.Component<any, any, any>{
 
     FillGridConfig() {
         let gridConfigData = {
-            Title:"Search Job",
+            Title: "Search Job",
             topSearchPanelUi: [
                 {
                     columnPropertyKey: "Keyword",
@@ -100,9 +100,9 @@ class FilterJobs extends React.Component<any, any, any>{
                     title: "Title",
                     columnPropertyKey: "JobTitle",
                     sortable: true,
-                    columnType:"link",
-                    linkUrl:"Jobresult",
-                    linkParam:"JobInfo"
+                    columnType: "link",
+                    linkUrl: "Jobresult",
+                    linkParam: "JobInfo"
                 },
                 {
                     title: "Company",
@@ -155,15 +155,18 @@ class FilterJobs extends React.Component<any, any, any>{
             isEditable: false,
             isDeleteable: false,
             isExportable: true,
-            toolBar: [{
-                buttonText: "Apply",
-                buttonEvent: this.applyForMultipleJobs,
-                params: []
-            },{
-                buttonText: "Add To Favirotes",
-                buttonEvent: this.addToFaviroteMultipleJobs,
-                params: []
-            }]
+            isAllowMultiRowSelect:true,
+            toolBar: [
+                {
+                    buttonText: "Apply",
+                    buttonEvent: this.applyForMultipleJobs,
+                    params: []
+                }, {
+                    buttonText: "Add To Favirotes",
+                    buttonEvent: this.addToFaviroteMultipleJobs,
+                    params: []
+                }
+            ]
         };
 
         this.setState({
@@ -315,7 +318,8 @@ class FilterJobs extends React.Component<any, any, any>{
 
 
     applyjob(paramsArr: any[]) {
-        console.log(paramsArr); debugger;
+        // console.log(paramsArr);
+        //  debugger;
         let jobid: string = "";
         paramsArr.forEach(
             x => {

@@ -15,7 +15,7 @@ export default class Apiservices {
     constructor() {
         //this.UrlPath = 'http://api-kenjobs.com/api/';
         // this.UrlPath = 'http://apikenjobs.com/api/';
-        // this.UrlPath = 'http://localhost:50768/api/';
+        //this.UrlPath = 'http://localhost:50768/api/';
         this.UrlPath = 'http://api.kenjobs.com/api/';
 
     }
@@ -138,7 +138,7 @@ export default class Apiservices {
 
         //let currentUrl = 'http://api-kenjobs.com/' + URL;
         // let currentUrl = 'http://apikenjobs.com/' + URL;
-        //let currentUrl = 'http://localhost:50768/' + URL;
+        // let currentUrl = 'http://localhost:50768/' + URL;
         let currentUrl = 'http://api.kenjobs.com/' + URL;
 
         this.Header = new Headers();
@@ -178,7 +178,7 @@ export default class Apiservices {
     }
 
     POST_SECURE_CALL1(URL: string, DATA: any | null, successCallback: any, errorCallback: any): any {
-        debugger;
+        // debugger;
         let currentUrl = this.UrlPath + URL;
         const isAuthenticated = localStorage.getItem("authInfo");
         if (isAuthenticated) {

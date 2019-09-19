@@ -10,6 +10,7 @@ export class GridConfig {
     isEditable: boolean = false;
     isDeleteable: boolean = false;
     isExportable: boolean = false;
+    isAllowMultiRowSelect:boolean=false;
     toolBar: ButtonProps[] = [];
 }
 

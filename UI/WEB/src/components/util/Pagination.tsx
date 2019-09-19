@@ -209,15 +209,19 @@ function doesExist(el: any) {
 }
 
 function ListTableHeader(data: any): any {
-    let columns = data.columns;
+    let columns = data.config.column;
+    let isMultiselect = data.config.isAllowMultiRowSelect;
     let sorting = data.sorting;
     let th: any[] = [];
-    th.push(<th>
-        <div className="custom-control custom-checkbox">
-            <input type="checkbox" onChange={(e) => data.isSelectAll(e)} className="custom-control-input cls_selectall" id="customCheck1" />
-            <label className="custom-control-label" htmlFor="customCheck1"></label>
-        </div>
-    </th>)
+    if (isMultiselect) {
+        th.push(<th>
+            <div className="custom-control custom-checkbox">
+                <input type="checkbox" onChange={(e) => data.isSelectAll(e)} className="custom-control-input cls_selectall" id="customCheck1" />
+                <label className="custom-control-label" htmlFor="customCheck1"></label>
+            </div>
+        </th>)
+    }
+
     columns.map((item: any, key: any) => {
 
         if (item.sortable) {
@@ -241,7 +245,9 @@ function ListTableHeader(data: any): any {
 }
 
 function ListTabledata(data: any): any {
-    let columnData = data.columns;
+
+    let columnData = data.config.column;
+    let isMultiselect = data.config.isAllowMultiRowSelect;
     let rowData = data.item;
     let event = data.handleCheckChange;
     let checkedItems = data.setCheckeditems;
@@ -251,36 +257,36 @@ function ListTabledata(data: any): any {
     rowData.map((item: any, key: any) => {
         gridRowList.push(<tr key={key}>
             {
-                getColTagsForDesktop(columnData, item, event, checkedItems)
+                getColTagsForDesktop(columnData, item, event, checkedItems, isMultiselect)
             }
         </tr>)
     })
     return (gridRowList)
 }
 
-function getColTagsForDesktop(columnData: Column[], item: any, event: any, checkedItemList: any) {
+function getColTagsForDesktop(columnData: Column[], item: any, event: any, checkedItemList: any, isMultiselect: boolean) {
     let colTagsArr: any = [];
-
-    if (checkedItemList.length > 0 && (checkedItemList.indexOf((item.Id).toString()) > -1)) {
-        colTagsArr.push(
-            <td className="text-center">
-                <div className="custom-control custom-checkbox">
-                    <input type="checkbox" onChange={(e) => event(e)} checked className="custom-control-input cls_select" id={item.Id} value={item.Id} />
-                    <label className="custom-control-label" htmlFor={item.Id}></label>
-                </div>
-            </td>
-        )
-    } else {
-        colTagsArr.push(
-            <td className="text-center">
-                <div className="custom-control custom-checkbox">
-                    <input type="checkbox" onChange={(e) => event(e)} className="custom-control-input cls_select" id={item.Id} value={item.Id} />
-                    <label className="custom-control-label" htmlFor={item.Id}></label>
-                </div>
-            </td>
-        )
+    if (isMultiselect) {
+        if (checkedItemList.length > 0 && (checkedItemList.indexOf((item.Id).toString()) > -1)) {
+            colTagsArr.push(
+                <td className="text-center">
+                    <div className="custom-control custom-checkbox">
+                        <input type="checkbox" onChange={(e) => event(e)} checked className="custom-control-input cls_select" id={item.Id} value={item.Id} />
+                        <label className="custom-control-label" htmlFor={item.Id}></label>
+                    </div>
+                </td>
+            )
+        } else {
+            colTagsArr.push(
+                <td className="text-center">
+                    <div className="custom-control custom-checkbox">
+                        <input type="checkbox" onChange={(e) => event(e)} className="custom-control-input cls_select" id={item.Id} value={item.Id} />
+                        <label className="custom-control-label" htmlFor={item.Id}></label>
+                    </div>
+                </td>
+            )
+        }
     }
-
     columnData.forEach((col: Column) => {
 
         if (col.columnType == "button") {
@@ -319,16 +325,25 @@ function CallEvent(data: any, btnProps: ButtonProps) {
 }
 
 function BlockData(data: any): any {
-    let columnData = data.columns;
+    let columnData = data.config.column;
+    let isMultiselect = data.config.isAllowMultiRowSelect;
     let rowData = data.item;
+    let event = data.handleCheckChange;
+    let checkedItems = data.setCheckeditems;
     let gridBlock: any[] = [];
-
+    if (isMultiselect)
+        gridBlock.push(
+            <div className="custom-control custom-checkbox">
+                <input type="checkbox" onChange={(e) => data.isSelectAll(e)} className="custom-control-input cls_selectall" id="customCheck1" />
+                <label className="custom-control-label" htmlFor="customCheck1"> Select All</label>
+            </div>
+        )
     rowData.map((item: any, key: any) => {
         gridBlock.push(
             <div className="card  border rounded-0 pt-2 mb-2 shadow-sm p-3 ">
                 <div className="card-text mb-2">
                     {
-                        getColTagsForMobile(columnData, item)
+                        getColTagsForMobile(columnData, item, event, checkedItems, isMultiselect)
                     }
                 </div>
             </div>
@@ -336,15 +351,49 @@ function BlockData(data: any): any {
     })
     return (gridBlock)
 }
-function getColTagsForMobile(columnData: Column[], item: any) {
+function getColTagsForMobile(columnData: Column[], item: any, event: any, checkedItemList: any, isMultiselect: boolean) {
     let colTagsArr: any = [];
+    if (isMultiselect) {
+        if (checkedItemList.length > 0 && (checkedItemList.indexOf((item.Id).toString()) > -1)) {
+            colTagsArr.push(
+                <div className="custom-control custom-checkbox">
+                    <input type="checkbox" onChange={(e) => event(e)} checked className="custom-control-input cls_select" id={item.Id} value={item.Id} />
+                    <label className="custom-control-label" htmlFor={item.Id}></label>
+                </div>
+            )
+        } else {
+            colTagsArr.push(
+                <div className="custom-control custom-checkbox">
+                    <input type="checkbox" onChange={(e) => event(e)} className="custom-control-input cls_select" id={item.Id} value={item.Id} />
+                    <label className="custom-control-label" htmlFor={item.Id}></label>
+                </div>
+            )
+        }
+    }
     columnData.forEach((col: Column) => {
-        colTagsArr.push(
-            <div className="mt-2">
-                <span className="mr-sm-2 pull-right">{col.title} </span>
-                {" : " + item[col.columnPropertyKey]}
-            </div>
-        );
+        if (col.columnType == "button") {
+            colTagsArr.push(
+                <button className="btn btn-primary btn-sm rounded-0 mr-2"
+                    onClick={(e) => CallEvent(item, col.buttonProps)} >{col.buttonProps.buttonText}</button>
+            );
+        } else if (col.columnType == "link") {
+            colTagsArr.push(
+                <Link className=""
+                    to={{
+                        pathname: "/" + col.linkUrl,
+                        state: { [col.linkParam]: item.Id }
+                    }}
+                > {item[col.columnPropertyKey]}
+                </Link>
+            );
+        } else {
+            colTagsArr.push(
+                <div className="mt-2">
+                    <span className="mr-sm-2 pull-right">{col.title} </span>
+                    {" : " + item[col.columnPropertyKey]}
+                </div>
+            );
+        }
     });
     return colTagsArr;
 }
@@ -370,7 +419,7 @@ class Pagination extends React.Component<any, any> {
             isLoaded: false,
             loader: false,
             showView: false,
-            MobileView: false,
+            MobileView: (window.outerWidth <= 420) ? true : false,
             exportMenuShow: false,
             temp: ""
         }
@@ -385,16 +434,19 @@ class Pagination extends React.Component<any, any> {
         this.handleTopPanelElementChange = this.handleTopPanelElementChange.bind(this);
         this.handleLeftPanelElementChange = this.handleLeftPanelElementChange.bind(this);
         this.handleMultipleSelectEvent = this.handleMultipleSelectEvent.bind(this);
+        this.resize = this.resize.bind(this)
+
+        window.addEventListener("resize", this.resize);
+
     }
 
     SelectedListArray: any[] = [];
+
     resize() {
         this.setState({
-            MobileView: (window.innerWidth <= 420) ? true : false
+            MobileView: (window.outerWidth <= 420) ? true : false
         })
-        // this.setState({ hideNav: window.innerWidth <= 760 });
     }
-
 
     selectall_change = (e: any) => {
 
@@ -492,9 +544,8 @@ class Pagination extends React.Component<any, any> {
 
     }
 
+
     componentDidMount() {
-        window.addEventListener("resize", this.resize.bind(this));
-        this.resize();
         this.setState({
             GridConfig: this.props.gridConfig,
             isLoaded: true
@@ -637,11 +688,12 @@ class Pagination extends React.Component<any, any> {
         </>
         )
         let pageArr: any[] = [];
+
+
         if (totalPages <= 9) {
             for (var p = 1; p <= totalPages; p++) {
                 pageArr.push(p);
             }
-            // pageArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
         }
         else {
             if (currentPage == 1 || currentPage == 2 || currentPage == 3) {
@@ -655,20 +707,22 @@ class Pagination extends React.Component<any, any> {
             }
         }
 
-
-        for (let i = 0; i < pageArr.length; i++) {
-            if (pageArr[i] == currentPage) {
-                li.push(<><li key={i + 2} className="page-item active"><a className="page-link" href="#">{pageArr[i]}</a></li></>);
-            }
-            else if (pageArr[i] == "...") {
-                li.push(<><li key={i + 2} className="page-item page-link">{pageArr[i]}</li></>);
-            }
-            else {
-                li.push(<><li key={i + 2} className="page-item">
-                    <a className="page-link" href="#" onClick={(e) => this.handlePageChange(e, pageArr[i])}>{pageArr[i]}</a>
-                </li></>)
+        if (!this.state.MobileView) {
+            for (let i = 0; i < pageArr.length; i++) {
+                if (pageArr[i] == currentPage) {
+                    li.push(<><li key={i + 2} className="page-item active"><a className="page-link" href="#">{pageArr[i]}</a></li></>);
+                }
+                else if (pageArr[i] == "...") {
+                    li.push(<><li key={i + 2} className="page-item page-link">{pageArr[i]}</li></>);
+                }
+                else {
+                    li.push(<><li key={i + 2} className="page-item">
+                        <a className="page-link" href="#" onClick={(e) => this.handlePageChange(e, pageArr[i])}>{pageArr[i]}</a>
+                    </li></>)
+                }
             }
         }
+
         li.push(<>
 
             <li key={pageArr.length + 2} className={"page-item " + (currentPage < totalPages ? "" : "disabled")}>
@@ -716,17 +770,78 @@ class Pagination extends React.Component<any, any> {
 
     }
 
+    GridHeader = () => {
+        return (
+            <>
+                <div className="row">
+                    <div className="col-sm-8">
+                        <nav aria-label="...">
+                            <ul className="pagination float-left">
+                                {this.state.GridRequest.Pagination.TotalPages > 0 ?
+                                    this.renderPaginationList(this.state.GridRequest.Pagination.CurrentPage, Math.ceil(this.state.GridRequest.Pagination.TotalPages)) : ""}
+                            </ul>
+                            <span className="float-sm-left  mr-2 ml-2">
+                                <select className="form-control" onChange={this.recordsPerPage}>
+                                    <option>20</option>
+                                    <option>50</option>
+                                    <option>100</option>
+                                    <option>200</option>
+                                </select>
+                            </span>
+                        </nav>
+                    </div>
+                    <div className="col-sm-4">
+                        {
+                            !this.state.MobileView ?
+                                <>
+                                    <span className="float-sm-right  mr-2 ">
+                                        {(this.state.GridConfig.isExportable && this.state.GridRequest.Pagination.TotalPages > 0) ?
+                                            <span onClick={(e) => this.export_data(e, "xls")} className="btn btn-primary float-sm-right mr-2 float-right">
+                                                Excel <FontAwesomeIcon icon="file-excel" size="lg" className="" />
+                                            </span> :
+                                            ""
+                                        }
+                                    </span>
+
+                                    <span onClick={this.setShow} className="btn btn-primary float-sm-right mr-2 float-right ">
+                                        <FontAwesomeIcon icon="grip-vertical" size="xs" className="ml-2" />
+                                        <FontAwesomeIcon icon="filter" size="xs" className="ml-2" />
+                                    </span>
+                                    <span className="float-sm-right mr-2">
+                                        {
+                                            (this.state.GridConfig.isAllowMultiRowSelect) ?
+                                                this.state.GridConfig.toolBar.map((item: any, key: any) => {
+                                                    let paramArr: any[] = [];
+                                                    return (
+                                                        <button key={key}
+                                                            className="btn btn-primary  mr-2"
+                                                            onClick={() => this.handleMultipleSelectEvent(item)}>
+                                                            {item.buttonText}</button>
+                                                    )
+                                                }) : ""
+
+                                        }
+                                    </span></>
+                                : ""
+                        }
+                    </div>
+                </div>
+
+            </>
+        )
+    }
 
     ListData = () => {
         if (this.state.isLoaded && this.state.GridConfig.column.length > 0) {
             let Columns = this.state.GridConfig.column;
-            return (
+            return (<>
+                {this.GridHeader()}
                 <div className="table-responsive-lg">
                     <table className="table  table-hover">
                         <thead>
                             <tr>
                                 <ListTableHeader
-                                    columns={this.state.GridConfig.column}
+                                    config={this.state.GridConfig}
                                     sorting={this.state.GridRequest.Sorting}
                                     sortChange={this.sortOrder}
                                     isSelectAll={this.selectall_change} />
@@ -737,7 +852,7 @@ class Pagination extends React.Component<any, any> {
                                 ?
                                 <ListTabledata
                                     item={this.state.ResponceData}
-                                    columns={Columns}
+                                    config={this.state.GridConfig}
                                     handleCheckChange={this.handleCheckBoxchange}
                                     setCheckeditems={this.SelectedListArray}
                                 />
@@ -745,19 +860,57 @@ class Pagination extends React.Component<any, any> {
                         }
                     </table>
                 </div>
-            )
+            </>)
         }
     }
 
     BlockView = () => {
         if (this.state.isLoaded && this.state.GridConfig.column.length > 0) {
-            let Columns = this.state.GridConfig.column;
+            let Columns = this.state.GridConfig;
             return (
                 <>
+                    {this.GridHeader()}
                     {
                         (this.state.ResponceData != undefined && this.state.ResponceData.length != null && this.state.ResponceData.length > 0)
                             ?
-                            <BlockData item={this.state.ResponceData} columns={Columns} />
+                            <>
+                                <BlockData
+                                    item={this.state.ResponceData}
+                                    config={this.state.GridConfig}
+                                    setCheckeditems={this.SelectedListArray}
+                                    handleCheckChange={this.handleCheckBoxchange}
+                                    isSelectAll={this.selectall_change} />
+
+                                <div className="row fixed-bottom position-fixed">
+                                    <div className="col">
+                                        <span onClick={this.setShow} className="btn btn-primary rounded-circle float-sm-right mr-2 mb-1 float-right">
+                                            <FontAwesomeIcon icon="filter" size="xs" className="" />
+                                        </span>
+                                    </div>
+
+                                    <span className="col-sm-8  bg-primary ">
+                                        {
+                                            (this.state.GridConfig.isAllowMultiRowSelect) ?
+                                                this.state.GridConfig.toolBar.map((item: any, key: any) => {
+                                                    let paramArr: any[] = [];
+                                                    return (
+                                                        <button key={key}
+                                                            className="btn btn-primary"
+                                                            onClick={() => this.handleMultipleSelectEvent(item)}>
+                                                            {item.buttonText}</button>
+                                                    )
+                                                }) : ""
+                                        }
+                                        {
+                                            (this.state.GridConfig.isExportable && this.state.GridRequest.Pagination.TotalPages > 0) ?
+                                                <span onClick={(e) => this.export_data(e, "xls")} className="btn btn-primary float-sm-right mr-2 float-right">
+                                                    <FontAwesomeIcon icon="file-excel" size="lg" className="" /> Excel
+                                            </span> :
+                                                ""
+                                        }
+                                    </span>
+                                </div>
+                            </>
                             :
                             ""
                     }
@@ -830,54 +983,6 @@ class Pagination extends React.Component<any, any> {
                         {this.state.showView ?
                             <div className="row" >
                                 <div className="col-sm-12" >
-                                    <div className="row">
-                                        <div className="col-sm-8">
-                                            <nav aria-label="...">
-                                                <ul className="pagination float-left">
-                                                    {this.state.GridRequest.Pagination.TotalPages > 0 ?
-                                                        this.renderPaginationList(this.state.GridRequest.Pagination.CurrentPage, Math.ceil(this.state.GridRequest.Pagination.TotalPages)) : ""}
-                                                </ul>
-                                                <span className="float-sm-left  mr-2 ml-2">
-                                                    <select className="form-control" onChange={this.recordsPerPage}>
-                                                        <option>20</option>
-                                                        <option>50</option>
-                                                        <option>100</option>
-                                                        <option>200</option>
-                                                    </select>
-                                                </span>
-                                            </nav>
-                                        </div>
-                                        <div className="col-sm-4">
-                                            <span className="float-sm-right  mr-2 ">
-                                                {(this.state.GridConfig.isExportable && this.state.GridRequest.Pagination.TotalPages > 0) ?
-                                                    <span onClick={(e) => this.export_data(e, "xls")} className="btn btn-primary float-sm-right mr-2 float-right">
-                                                        Excel <FontAwesomeIcon icon="file-excel" size="lg" className="" />
-                                                    </span> :
-                                                    ""
-                                                }
-                                            </span>
-                                            {
-                                                <span onClick={this.setShow} className="btn btn-primary float-sm-right mr-2 float-right">
-                                                    <FontAwesomeIcon icon="grip-vertical" size="xs" className="ml-2" />
-                                                    <FontAwesomeIcon icon="filter" size="xs" className="ml-2" />
-                                                </span>
-                                            }
-                                            <span className="float-sm-right mr-2">
-                                                {
-                                                    this.state.GridConfig.toolBar.map((item: any, key: any) => {
-                                                        let paramArr: any[] = [];
-
-                                                        return (
-                                                            <button key={key}
-                                                                className="btn btn-primary  mr-2"
-                                                                onClick={() => this.handleMultipleSelectEvent(item)}>
-                                                                {item.buttonText}</button>
-                                                        )
-                                                    })
-                                                }
-                                            </span>
-                                        </div>
-                                    </div>
                                     {
                                         this.state.MobileView ?
                                             this.BlockView()
