@@ -12,12 +12,13 @@ import { updateSession } from "../../store/auth/actions";
 import { connect } from 'react-redux';
 import Apiservices from '../services/Apiservices';
 import LoaderModal from '../util/LoaderModal';
+import { GridConfig } from '../../Models/GridModel';
 
 
 class Employeedashbord extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
-        
+
         this.state = {
             ishaveJobs: false,
             showContent: false,
@@ -36,6 +37,9 @@ class Employeedashbord extends React.Component<any, any> {
             loggedIn
         }
     }
+
+
+
     componentWillMount() {
         if (this.state.loggedIn) {
             const Servicecall = new Apiservices();
@@ -44,10 +48,10 @@ class Employeedashbord extends React.Component<any, any> {
             body.set('UserId', '1');
 
             //Get jobs bu user id, User id is assigned by server 
-            let responce = Servicecall.GET_SECURE_CALL('Job/GetJobsByUserId', null, this.displayData,this.errorHandle)
+            let responce = Servicecall.GET_SECURE_CALL('Job/GetJobsByUserId', null, this.displayData, this.errorHandle)
         }
     }
-    errorHandle=(error:any)=>{
+    errorHandle = (error: any) => {
 
     }
     displayData = (data: any) => {
@@ -108,36 +112,41 @@ class Employeedashbord extends React.Component<any, any> {
                     </div></div>
         } else if (!this.state.showContent) {
             jobslist =
-            <LoaderModal></LoaderModal>
+                <LoaderModal></LoaderModal>
         }
 
 
         return (
             <>
-                <div className="container mt-3">
-                    <h1>Posted Jobs</h1>
-                    <div className="container">
-                        <div className="row mb-2">
-                            <div className="col-sm-10"></div>
-                            <div className="col-sm-2 right">
-                                <Link className="btn btn-primary btn-block rounded-0" to="/postjobs" >
-                                    Post Job
+                <div className="card  mx-2 h-100 d-block minhight-100">
+                    <div className="card-body">
+
+                        <div className="mt-3">
+                            <h1>Posted Jobs</h1>
+                            <div className="container">
+                                <div className="row mb-2">
+                                    <div className="col-sm-10"></div>
+                                    <div className="col-sm-2 right">
+                                        <Link className="btn btn-primary btn-block rounded-0" to="/postjobs" >
+                                            Post Job
                                 </Link>
-                            </div>
-                        </div>
-                        <div className="row mb-5">
-                            <div className="col-sm-9">
-                                <div className="row">
-                                    {jobslist}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="col-sm-3 border mx-auto  bg-light">
-                                <div className="mt-2">
-                                    <h3 className="text-center">Quick Links</h3>
-                                    <ul>
-                                        <li>Opened Jobs</li>
-                                        <li>Closed Jobs</li>
-                                    </ul>
+                                <div className="row mb-5">
+                                    <div className="col-sm-9">
+                                        <div className="row">
+                                            {jobslist}
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-3 border mx-auto  bg-light">
+                                        <div className="mt-2">
+                                            <h3 className="text-center">Quick Links</h3>
+                                            <ul>
+                                                <li>Opened Jobs</li>
+                                                <li>Closed Jobs</li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

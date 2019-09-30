@@ -106,6 +106,8 @@ class ForgotPassword extends React.Component<any, any> {
     this.props.updateSession({
       appProps: { showNav: true }
     });
+    document.getElementById("root-container")!.style.height = "92%";
+
   }
 
   componentDidMount() {
@@ -114,6 +116,8 @@ class ForgotPassword extends React.Component<any, any> {
     this.props.updateSession({
       appProps: { showNav: false }
     });
+    document.getElementById("root-container")!.style.height = "100%";
+
   }
   //Component life cycle events End-------------------------------------------------------------
 

@@ -115,12 +115,16 @@ class Registration extends React.Component<any, any> {
         this.props.updateSession({
             appProps: { showNav: false }
         });
+    document.getElementById("root-container")!.style.height = "100%";
+
     }
 
     componentWillUnmount() {
         this.props.updateSession({
             appProps: { showNav: true }
         });
+    document.getElementById("root-container")!.style.height = "92%";
+
     }
 
     componentWillReceiveProps(nextProps: any) {

@@ -40,7 +40,7 @@ import { fab, faFacebook } from '@fortawesome/free-brands-svg-icons'
 import {
   faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender,
   faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser, faEnvelope, faMobileAlt, faUniversity,
-  faLaptopCode, faUpload, faDownload, faFilter, faGripVertical, faSort, faSortUp, faSortDown, faFileExcel
+  faLaptopCode, faUpload, faDownload, faFilter, faGripVertical, faSort, faSortUp, faSortDown, faFileExcel, faSearch, faTimes
 } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer } from "react-toastify";
 import Apiservices from "./components/services/Apiservices";
@@ -48,7 +48,7 @@ import FilterJobs from "./components/Jobs/FilterJobs";
 
 library.add(faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender,
   faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser, faEnvelope, faMobileAlt, faUniversity, faLaptopCode,
-  faUpload, faDownload, faFilter, faGripVertical, faSort, faSortUp, faSortDown, faFileExcel)
+  faUpload, faDownload, faFilter, faGripVertical, faSort, faSortUp, faSortDown, faFileExcel, faSearch, faTimes)
 
 class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -77,38 +77,50 @@ class App extends React.Component<any, any> {
 
   render() {
     return (<>
-      <Router>
-        {/* {login_page} */}
-        < Navigation app_prop={this.props.system}></Navigation>
-        <Route exact path="/login/:usertype" name="usertype" component={Login} />
-        <Route exact path="/ForgotPassword/:usertype" name="usertype" component={ForgotPassword} />
-        <Route exact path="/ChangePassword/:usertype/:email/:key" name="usertype" component={ChangePassword} />
-        {/* <Route exact path="/ConfirmVerification/:usertype" name="usertype" component={ConfirmVerification} /> */}
-        <Route exact path="/" component={Home} />
-        <Route exact path="/Dashboard" component={Dashboard} />
-        <Route exact path="/editemployee" component={Employeeprofile} />
-        <Route exact path="/Jobs" component={Jobs} />
-        <Route exact path="/applyjob" component={Applyjob} />
-        <Route exact path="/favoritejob" component={favoritejob} />
-        <Route exact path="/Logout" component={Logout} />
-        <Route exact path="/postjobs" component={Postjob} />
-        <Route exact path="/profile" component={Userprofile} />
-        <Route exact path="/edituser" component={CandidateProfile} />
-        <Route exact path="/recdash" component={Employeedashbord} />
-        <Route exact path="/Jobresult" component={Jobdescription} />
-        <Route exact path="/Registration/:usertype" name="usertype" component={Registration} />
-        <Route exact path="/candidates" component={CandidateList} />
-        <Route exact path="/Jobdetails" component={Postjobdescription} />
-        <Route exact path="/Editjob" component={Editjob} />
-        <Route exact path="/candidate" component={Candidate} />
-        <Route exact path="/Employeer-Dashbord" component={EmployerHome} />
-        <Route exact path="/FilterJobs" component={FilterJobs} />
+      <div className="h-100">
+        <Router>
+          {/* {login_page} */}
+          {/* <div className="row">
+  <div className="col-sm-12">
+    
+  </div>
+  </div> */}
+          < Navigation app_prop={this.props.system}></Navigation>
+          <div className={"row container-height-92"} id="root-container">
+            <div className="col-sm-12">
+                <Route exact path="/login/:usertype" name="usertype" component={Login} />
+                <Route exact path="/ForgotPassword/:usertype" name="usertype" component={ForgotPassword} />
+                <Route exact path="/Registration/:usertype" name="usertype" component={Registration} />
+                <Route exact path="/ChangePassword/:usertype/:email/:key" name="usertype" component={ChangePassword} />
+                {/* <Route exact path="/ConfirmVerification/:usertype" name="usertype" component={ConfirmVerification} /> */}
+                <Route exact path="/" component={Home} />
+                <Route exact path="/Dashboard" component={Dashboard} />
+                <Route exact path="/editemployee" component={Employeeprofile} />
+                <Route exact path="/Jobs" component={Jobs} />
+                <Route exact path="/applyjob" component={Applyjob} />
+                <Route exact path="/favoritejob" component={favoritejob} />
+                <Route exact path="/Logout" component={Logout} />
+                <Route exact path="/postjobs" component={Postjob} />
+                <Route exact path="/profile" component={Userprofile} />
+                <Route exact path="/edituser" component={CandidateProfile} />
+                <Route exact path="/recdash" component={Employeedashbord} />
+                <Route exact path="/Jobresult" component={Jobdescription} />
+                <Route exact path="/candidates" component={CandidateList} />
+                <Route exact path="/Jobdetails" component={Postjobdescription} />
+                <Route exact path="/Editjob" component={Editjob} />
+                <Route exact path="/candidate" component={Candidate} />
+                <Route exact path="/Employeer-Dashbord" component={EmployerHome} />
+                <Route exact path="/FilterJobs" component={FilterJobs} />
 
-        {/* <Route component={NoMatch} /> */}
+                {/* <Route component={NoMatch} /> */}
+            </div>
+          </div>
 
-      </Router>
-      <ToastContainer />
 
+
+        </Router>
+        <ToastContainer />
+      </div>
     </>
     );
   }

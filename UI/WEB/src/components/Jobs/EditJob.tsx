@@ -141,269 +141,274 @@ class Editjob extends React.Component<any, any>{
 
         return (
             <>
-                <div className="container mt-3">
-                    <h1>Update Job</h1>
+                <div className="card  mx-2 h-100 d-block minhight-100">
+                    <div className="card-body">
 
-                    <div className="col-lg-12 mt-3">
-                        <div className="card  border rounded pt-2 mb-2 shadow-sm p-3 ">
-                            <div className="card-text mb-2">
-                                <form onSubmit={this.handleSubmit} className="needs-validation" noValidate>
+                        <div className="mt-3">
+                            <h1>Update Job</h1>
 
-                                    <div className="form-group">
+                            <div className="col-lg-12 mt-3">
+                                <div className="card  border rounded pt-2 mb-2 shadow-sm p-3 ">
+                                    <div className="card-text mb-2">
+                                        <form onSubmit={this.handleSubmit} className="needs-validation" noValidate>
 
-                                        <div className="form-group">
-                                            <label htmlFor="inputAddress">Job Title</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="jobTitle"
-                                                placeholder="Enter Job Title"
-                                                name="jobTitle"
-                                                value={this.state.jobTitle}
-                                                onChange={this.changeValue}
-                                                required
-                                            />
-                                            <div className="invalid-feedback text-left">
-                                                Please Enter Job Title.
-                                        </div>
-                                        </div>
-                                        <div className="form-group">
-                                            <div className="custom-control custom-switch">
-                                                <input type="checkbox" name="status" value={(this.state.status == 0) ? '1' : '0'} defaultChecked={this.state.status} onChange={this.changeValue} className="custom-control-input" id="switch1" />
-                                                <label className="custom-control-label" htmlFor="switch1">{(this.state.status == 0) ? 'In Active' : 'Active'}</label>
-                                            </div>
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="inputAddress">Client Name</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="jobTitle"
-                                                placeholder="Enter Client Name"
-                                                name="clientName"
-                                                value={this.state.clientName}
-                                                onChange={this.changeValue}
-                                                required
-                                            />
-                                            <div className="invalid-feedback text-left">
-                                                Please Enter Client Name.
-                                        </div>
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="inputAddress">Key Skills</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="jobTitle"
-                                                placeholder="Required technologies"
-                                                name="keySkills"
-                                                value={this.state.keySkills}
-                                                onChange={this.changeValue}
-                                                required
-                                            />
-                                            <div className="invalid-feedback text-left">
-                                                Please Enter Key Skills
-                                        </div>
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="inputAddress">Job Description</label>
-                                            <textarea className="form-control"
-                                                name="jobDescription"
-                                                value={this.state.jobDescription}
-                                                onChange={this.changeValue}
-                                                required
-                                            ></textarea>
-                                            <div className="invalid-feedback text-left">
-                                                Please Select Job Description.
-                                            </div>
-                                        </div>
+                                            <div className="form-group">
 
-                                        <div className="form-row">
-                                            <div className="form-group col-md-6">
-                                                <label htmlFor="inputZip">Job Type</label>
-                                                <select className="form-control" id="jobtype" name="jobType" onChange={this.changeValue}
-                                                    value={this.state.jobType} required>
-                                                    <option value="">Select Job Type</option>
-                                                    {jobtypelist}
-                                                </select>
-                                                <div className="invalid-feedback text-left">
-                                                    Please Select Job Type.
-                                            </div>
-                                            </div>
-                                            <div className="form-group col-md-6">
-                                                <label htmlFor="btnsubmit">Job Category</label>
-                                                <select className="form-control" id="jobcat" name="jobCategory" onChange={this.changeValue}
-                                                    value={this.state.jobCategory} required >
-                                                    <option value="">Select Job Category</option>
-                                                    {categorylist}
-                                                </select>
-                                                <div className="invalid-feedback text-left">
-                                                    Please Select Job Category.
-                                            </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="form-row">
-                                            <div className="form-group col-md-5">
-                                                <label htmlFor="inputState">Experiance</label>
-                                                <div className="input-group">
+                                                <div className="form-group">
+                                                    <label htmlFor="inputAddress">Job Title</label>
                                                     <input
-                                                        type="number"
-                                                        min="0" max="20"
-                                                        placeholder="Enter 0-20"
+                                                        type="text"
                                                         className="form-control"
-                                                        name="minExperience"
-                                                        value={this.state.minExperience}
+                                                        id="jobTitle"
+                                                        placeholder="Enter Job Title"
+                                                        name="jobTitle"
+                                                        value={this.state.jobTitle}
                                                         onChange={this.changeValue}
-                                                        required />
-                                                    <input
-                                                        type="number"
-                                                        min="0" max="50"
-                                                        placeholder="Enter 0-50"
-                                                        className="form-control"
-                                                        name="maxExperience"
-                                                        value={this.state.maxExperience}
-                                                        onChange={this.changeValue}
-                                                        required />
+                                                        required
+                                                    />
                                                     <div className="invalid-feedback text-left">
-                                                        Please Enter Experience.
+                                                        Please Enter Job Title.
+                                        </div>
+                                                </div>
+                                                <div className="form-group">
+                                                    <div className="custom-control custom-switch">
+                                                        <input type="checkbox" name="status" value={(this.state.status == 0) ? '1' : '0'} defaultChecked={this.state.status} onChange={this.changeValue} className="custom-control-input" id="switch1" />
+                                                        <label className="custom-control-label" htmlFor="switch1">{(this.state.status == 0) ? 'In Active' : 'Active'}</label>
+                                                    </div>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label htmlFor="inputAddress">Client Name</label>
+                                                    <input
+                                                        type="text"
+                                                        className="form-control"
+                                                        id="jobTitle"
+                                                        placeholder="Enter Client Name"
+                                                        name="clientName"
+                                                        value={this.state.clientName}
+                                                        onChange={this.changeValue}
+                                                        required
+                                                    />
+                                                    <div className="invalid-feedback text-left">
+                                                        Please Enter Client Name.
+                                        </div>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label htmlFor="inputAddress">Key Skills</label>
+                                                    <input
+                                                        type="text"
+                                                        className="form-control"
+                                                        id="jobTitle"
+                                                        placeholder="Required technologies"
+                                                        name="keySkills"
+                                                        value={this.state.keySkills}
+                                                        onChange={this.changeValue}
+                                                        required
+                                                    />
+                                                    <div className="invalid-feedback text-left">
+                                                        Please Enter Key Skills
+                                        </div>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label htmlFor="inputAddress">Job Description</label>
+                                                    <textarea className="form-control"
+                                                        name="jobDescription"
+                                                        value={this.state.jobDescription}
+                                                        onChange={this.changeValue}
+                                                        required
+                                                    ></textarea>
+                                                    <div className="invalid-feedback text-left">
+                                                        Please Select Job Description.
                                             </div>
                                                 </div>
+
+                                                <div className="form-row">
+                                                    <div className="form-group col-md-6">
+                                                        <label htmlFor="inputZip">Job Type</label>
+                                                        <select className="form-control" id="jobtype" name="jobType" onChange={this.changeValue}
+                                                            value={this.state.jobType} required>
+                                                            <option value="">Select Job Type</option>
+                                                            {jobtypelist}
+                                                        </select>
+                                                        <div className="invalid-feedback text-left">
+                                                            Please Select Job Type.
                                             </div>
-                                            <div className="form-group col-md-5">
-                                                <label htmlFor="inputState">Salary</label>
-                                                <div className="input-group">
-                                                    <input
-                                                        type="number"
-                                                        min="0"
-                                                        placeholder="Ex 50,000"
-                                                        className="form-control"
-                                                        name="minSalary"
-                                                        value={this.state.minSalary}
-                                                        onChange={this.changeValue}
-                                                        required />
-                                                    <input
-                                                        type="number"
-                                                        min="0"
-                                                        placeholder="Ex 70,000"
-                                                        className="form-control"
-                                                        name="maxSalary"
-                                                        value={this.state.maxSalary}
-                                                        onChange={this.changeValue}
-                                                        required />
-                                                    <div className="invalid-feedback text-left">
-                                                        Please Enter salary.
+                                                    </div>
+                                                    <div className="form-group col-md-6">
+                                                        <label htmlFor="btnsubmit">Job Category</label>
+                                                        <select className="form-control" id="jobcat" name="jobCategory" onChange={this.changeValue}
+                                                            value={this.state.jobCategory} required >
+                                                            <option value="">Select Job Category</option>
+                                                            {categorylist}
+                                                        </select>
+                                                        <div className="invalid-feedback text-left">
+                                                            Please Select Job Category.
                                             </div>
+                                                    </div>
                                                 </div>
+
+                                                <div className="form-row">
+                                                    <div className="form-group col-md-5">
+                                                        <label htmlFor="inputState">Experiance</label>
+                                                        <div className="input-group">
+                                                            <input
+                                                                type="number"
+                                                                min="0" max="20"
+                                                                placeholder="Enter 0-20"
+                                                                className="form-control"
+                                                                name="minExperience"
+                                                                value={this.state.minExperience}
+                                                                onChange={this.changeValue}
+                                                                required />
+                                                            <input
+                                                                type="number"
+                                                                min="0" max="50"
+                                                                placeholder="Enter 0-50"
+                                                                className="form-control"
+                                                                name="maxExperience"
+                                                                value={this.state.maxExperience}
+                                                                onChange={this.changeValue}
+                                                                required />
+                                                            <div className="invalid-feedback text-left">
+                                                                Please Enter Experience.
                                             </div>
-                                            <div className="form-group col-md-2">
-                                                <label htmlFor="inputState">Currency</label>
-                                                <div className="input-group">
-                                                    <select className="form-control" name="currency" onChange={this.changeValue}
-                                                        value={this.state.currency} required >
-                                                        <option value="">Currency</option>
-                                                        {currencylistitems}
-                                                    </select>
-                                                    <div className="invalid-feedback text-left">
-                                                        Please Enter salary.
+                                                        </div>
+                                                    </div>
+                                                    <div className="form-group col-md-5">
+                                                        <label htmlFor="inputState">Salary</label>
+                                                        <div className="input-group">
+                                                            <input
+                                                                type="number"
+                                                                min="0"
+                                                                placeholder="Ex 50,000"
+                                                                className="form-control"
+                                                                name="minSalary"
+                                                                value={this.state.minSalary}
+                                                                onChange={this.changeValue}
+                                                                required />
+                                                            <input
+                                                                type="number"
+                                                                min="0"
+                                                                placeholder="Ex 70,000"
+                                                                className="form-control"
+                                                                name="maxSalary"
+                                                                value={this.state.maxSalary}
+                                                                onChange={this.changeValue}
+                                                                required />
+                                                            <div className="invalid-feedback text-left">
+                                                                Please Enter salary.
                                             </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="form-group col-md-2">
+                                                        <label htmlFor="inputState">Currency</label>
+                                                        <div className="input-group">
+                                                            <select className="form-control" name="currency" onChange={this.changeValue}
+                                                                value={this.state.currency} required >
+                                                                <option value="">Currency</option>
+                                                                {currencylistitems}
+                                                            </select>
+                                                            <div className="invalid-feedback text-left">
+                                                                Please Enter salary.
+                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
 
 
 
-                                        <div className="form-row">
+                                                <div className="form-row">
 
-                                            <div className="form-group col-md-6">
-                                                <label htmlFor="inputZip">Qualification</label>
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                    placeholder="Qualification"
-                                                    id="inputZip"
-                                                    autoComplete="off"
-                                                    name="qualification"
-                                                    value={this.state.qualification}
-                                                    onChange={this.changeValue}
-                                                    required />
-                                                <div className="invalid-feedback text-left">
-                                                    Please Enter Qualification.
+                                                    <div className="form-group col-md-6">
+                                                        <label htmlFor="inputZip">Qualification</label>
+                                                        <input
+                                                            type="text"
+                                                            className="form-control"
+                                                            placeholder="Qualification"
+                                                            id="inputZip"
+                                                            autoComplete="off"
+                                                            name="qualification"
+                                                            value={this.state.qualification}
+                                                            onChange={this.changeValue}
+                                                            required />
+                                                        <div className="invalid-feedback text-left">
+                                                            Please Enter Qualification.
                                             </div>
+                                                    </div>
+                                                    <div className="form-group col-md-6">
+                                                        <label htmlFor="btnsubmit">No Of Vacancies</label>
+                                                        <input
+                                                            type="text"
+                                                            className="form-control"
+                                                            placeholder="No Of Vacancies"
+                                                            id="inputZip"
+                                                            autoComplete="off"
+                                                            name="noOfVacancies"
+                                                            value={this.state.noOfVacancies}
+                                                            onChange={this.changeValue}
+                                                            required />
+                                                        <div className="invalid-feedback text-left">
+                                                            Please Enter No Of Vacancies.
                                             </div>
-                                            <div className="form-group col-md-6">
-                                                <label htmlFor="btnsubmit">No Of Vacancies</label>
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                    placeholder="No Of Vacancies"
-                                                    id="inputZip"
-                                                    autoComplete="off"
-                                                    name="noOfVacancies"
-                                                    value={this.state.noOfVacancies}
-                                                    onChange={this.changeValue}
-                                                    required />
-                                                <div className="invalid-feedback text-left">
-                                                    Please Enter No Of Vacancies.
-                                            </div>
-                                            </div>
-                                        </div>
+                                                    </div>
+                                                </div>
 
-                                        <div className="form-row">
+                                                <div className="form-row">
 
-                                            <div className="form-group col-md-4">
-                                                <label htmlFor="inputZip">City</label>
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                    id="inputZip"
-                                                    placeholder="Location"
-                                                    autoComplete="off"
-                                                    name="city"
-                                                    value={this.state.city}
-                                                    onChange={this.changeValue}
-                                                    required />
-                                                <div className="invalid-feedback text-left">
-                                                    Please Enter City.
+                                                    <div className="form-group col-md-4">
+                                                        <label htmlFor="inputZip">City</label>
+                                                        <input
+                                                            type="text"
+                                                            className="form-control"
+                                                            id="inputZip"
+                                                            placeholder="Location"
+                                                            autoComplete="off"
+                                                            name="city"
+                                                            value={this.state.city}
+                                                            onChange={this.changeValue}
+                                                            required />
+                                                        <div className="invalid-feedback text-left">
+                                                            Please Enter City.
                                             </div>
+                                                    </div>
+                                                    <div className="form-group col-md-4">
+                                                        <label htmlFor="inputZip">State</label>
+                                                        <input
+                                                            type="text"
+                                                            className="form-control"
+                                                            id="inputZip"
+                                                            placeholder="State"
+                                                            autoComplete="off"
+                                                            name="State"
+                                                            value={this.state.State}
+                                                            onChange={this.changeValue}
+                                                            required />
+                                                        <div className="invalid-feedback text-left">
+                                                            Please Enter State.
                                             </div>
-                                            <div className="form-group col-md-4">
-                                                <label htmlFor="inputZip">State</label>
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                    id="inputZip"
-                                                    placeholder="State"
-                                                    autoComplete="off"
-                                                    name="State"
-                                                    value={this.state.State}
-                                                    onChange={this.changeValue}
-                                                    required />
-                                                <div className="invalid-feedback text-left">
-                                                    Please Enter State.
-                                            </div>
-                                            </div>
+                                                    </div>
 
-                                            <div className="form-group col-md-4">
-                                                <label htmlFor="inputZip">Country</label>
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                    id="inputZip"
-                                                    placeholder="Country"
-                                                    autoComplete="off"
-                                                    name="country"
-                                                    value={this.state.country}
-                                                    onChange={this.changeValue}
-                                                    required />
-                                                <div className="invalid-feedback text-left">
-                                                    Please Enter Country.
+                                                    <div className="form-group col-md-4">
+                                                        <label htmlFor="inputZip">Country</label>
+                                                        <input
+                                                            type="text"
+                                                            className="form-control"
+                                                            id="inputZip"
+                                                            placeholder="Country"
+                                                            autoComplete="off"
+                                                            name="country"
+                                                            value={this.state.country}
+                                                            onChange={this.changeValue}
+                                                            required />
+                                                        <div className="invalid-feedback text-left">
+                                                            Please Enter Country.
                                             </div>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" className="btn btn-primary mt-4" id="btnsubmit">Update Job</button>
                                             </div>
-                                        </div>
-                                        <button type="submit" className="btn btn-primary mt-4" id="btnsubmit">Update Job</button>
+                                        </form>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>

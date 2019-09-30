@@ -10,8 +10,11 @@ export class GridConfig {
     isEditable: boolean = false;
     isDeleteable: boolean = false;
     isExportable: boolean = false;
-    isAllowMultiRowSelect:boolean=false;
+    isAllowMultiRowSelect: boolean = false;
     toolBar: ButtonProps[] = [];
+    gridRequest: GridRequest = new GridRequest();
+    responceData:any[]=[];
+    isComingFromHome:boolean=false;
 }
 
 export class Column {
@@ -41,6 +44,7 @@ export class Option {
 export class ApiConfig {
     url: string = "";
     method: string = "";
+    apiCall:any="";
 }
 
 export class ButtonProps {

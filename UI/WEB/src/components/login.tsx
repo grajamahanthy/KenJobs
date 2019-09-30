@@ -166,6 +166,7 @@ class Login extends React.Component<any, any> {
     this.props.updateSession({
       appProps: { showNav: true }
     });
+    document.getElementById("root-container")!.style.height = "92%";
   }
 
   componentDidMount() {
@@ -174,6 +175,8 @@ class Login extends React.Component<any, any> {
     this.props.updateSession({
       appProps: { showNav: false }
     });
+
+    document.getElementById("root-container")!.style.height = "100%";
   }
 
   resize() {
@@ -303,6 +306,7 @@ class Login extends React.Component<any, any> {
                 </div>
               </div>
             </div>
+            
           </Col >
         </Row >
         {this.state.loading ?

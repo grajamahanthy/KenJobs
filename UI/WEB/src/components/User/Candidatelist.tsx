@@ -51,7 +51,7 @@ class CandidateList extends React.Component<any, any> {
 
     render() {
         let Candidatelist;
-        let imageData = <img src={require('../../assets/images/DP.png')} className="btn-md border rounded-circle"  style={{ height: "160px" }} />;
+        let imageData = <img src={require('../../assets/images/DP.png')} className="btn-md border rounded-circle" style={{ height: "160px" }} />;
         let Pagenation;
         if (this.state.haveCandidate && this.state.showContent) {
             Candidatelist = this.state.Candidatedata.map((item: any, key: any) =>
@@ -64,7 +64,7 @@ class CandidateList extends React.Component<any, any> {
                                 item.UserAttachments.map((attachment: any, index: any) => {
                                     if (attachment.Attachment != null) {
                                         imageData =
-                                                <img src={attachment.Attachment.Base64Text} className="btn-md border rounded-circle" width="100%"  style={{ height: "160px" }} />
+                                            <img src={attachment.Attachment.Base64Text} className="btn-md border rounded-circle" width="100%" style={{ height: "160px" }} />
                                     }
                                 })
                             }
@@ -125,33 +125,38 @@ class CandidateList extends React.Component<any, any> {
         }
         return (
             <>
-                <div className="container mt-3">
-                    <h1>Candidate List</h1>
-                    <div className="container mt-2">
-                        <div className=" row mb-2">
-                            <div className="col">
+                <div className="card  mx-2 h-100 d-block minhight-100">
+                    <div className="card-body">
 
-                            </div>
-                            <div className="col">
+                        <div className="mt-3">
+                            <h1>Candidate List</h1>
+                            <div className="container mt-2">
+                                <div className=" row mb-2">
+                                    <div className="col">
 
-                                {/* <input
+                                    </div>
+                                    <div className="col">
+
+                                        {/* <input
                                     type="text"
                                     className="form-control rounded-0"
                                     placeholder="Search Candidate"
                                     aria-label="Recipient's username"
                                     aria-describedby="basic-addon2" /> */}
 
-                            </div>
+                                    </div>
 
-                        </div>
+                                </div>
 
 
-                        <div className="row">
-                            {Candidatelist}
-                        </div>
-                        {/* <div className="mt-2">
+                                <div className="row">
+                                    {Candidatelist}
+                                </div>
+                                {/* <div className="mt-2">
                             {Pagenation}
                         </div> */}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </>

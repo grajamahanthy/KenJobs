@@ -17,7 +17,7 @@ class Home extends React.Component<any, any> {
       loggedIn,
       keyword: '',
       location: '',
-      experience:'',
+      experience: '',
       redirect: false
     }
 
@@ -43,72 +43,76 @@ class Home extends React.Component<any, any> {
     if (redirect)
       return (<Redirect to={{
         pathname: '/filterjobs',
-        state: { keyword: keyword, location: location,experience:experience }
+        state: { keyword: keyword, location: location, experience: experience }
       }} />)
     return (
       <>
         {/* <h1>Home Component</h1> */}
+        <div className="card  mx-2 h-100 d-block">
+          <div className="card-body">
 
-        <div className="col-lg-12 mt-3">
-          <div className="text-center">
-            <p className="text-uppercase">
-              1500+ Jobs posted last week
+
+            <div className="col-lg-12 mt-3">
+              <div className="text-center">
+                <p className="text-uppercase">
+                  1500+ Jobs posted last week
               </p>
-            <h2 className="text-uppercase mt-4 mb-5">
-              Easiest way to find your dream job
+                <h2 className="text-uppercase mt-4 mb-5">
+                  Easiest way to find your dream job
               </h2>
-            <div className="col-sm-8 mx-auto  mt-3">
-              <form onSubmit={this.onSubmit}>
-                <div className="form-row">
-                  <div className="form-group col-md-4">
-                    <input
-                      type="text"
-                      id="tptcat"
-                      placeholder="Enter Keyword"
-                      className="form-control  rounded-0  "
-                      name="keyword"
-                      value={this.state.keyword}
-                      onChange={this.changevalue}
-                    />
-                  </div>
-                  <div className="form-group col-md-4">
-                    <input
-                      type="text"
-                      id="tptloc"
-                      placeholder="Enter Location"
-                      className="form-control   rounded-0 "
-                      name="location"
-                      value={this.state.location}
-                      onChange={this.changevalue}
-                    />
-                  </div>
-                  <div className="form-group col-md-2">
-                                        <input
-                                                type="number"
-                                                id="tptexp"
-                                                min='0'
-                                                max='100'
-                                                placeholder="Enter experirnce"
-                                                className="form-control rounded-0 "
-                                                name="experience"
-                                                value={this.state.experience}
-                                                onChange={this.changevalue}
-                                            />
-                                        </div>
-                  <div className="form-group col-md-2">
-                    <input
-                      type="submit"
-                      id="search"
-                      className="btn btn-primary btn-block rounded-0 "
-                      value="Search"
-                    />
-                  </div>
+                <div className="col-sm-8 mx-auto  mt-3">
+                  <form onSubmit={this.onSubmit}>
+                    <div className="form-row">
+                      <div className="form-group col-md-4">
+                        <input
+                          type="text"
+                          id="tptcat"
+                          placeholder="Enter Keyword"
+                          className="form-control  rounded-0  "
+                          name="keyword"
+                          value={this.state.keyword}
+                          onChange={this.changevalue}
+                        />
+                      </div>
+                      <div className="form-group col-md-4">
+                        <input
+                          type="text"
+                          id="tptloc"
+                          placeholder="Enter Location"
+                          className="form-control   rounded-0 "
+                          name="location"
+                          value={this.state.location}
+                          onChange={this.changevalue}
+                        />
+                      </div>
+                      <div className="form-group col-md-2">
+                        <input
+                          type="number"
+                          id="tptexp"
+                          min='0'
+                          max='100'
+                          placeholder="Enter experirnce"
+                          className="form-control rounded-0 "
+                          name="experience"
+                          value={this.state.experience}
+                          onChange={this.changevalue}
+                        />
+                      </div>
+                      <div className="form-group col-md-2">
+                        <input
+                          type="submit"
+                          id="search"
+                          className="btn btn-primary btn-block rounded-0 "
+                          value="Search"
+                        />
+                      </div>
+                    </div>
+                  </form>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
-
         {/* <Link to="/Logout">LogOut</Link> */}
       </>
     );

@@ -14,8 +14,9 @@ import LoaderModal from '../util/LoaderModal';
 import LoginModal from '../util/LoginModal';
 import Notify from '../common/Notify';
 import JobSearchModel from '../../Models/JobSearchModel';
-import Pagination from '../util/Pagination';
 import { GridRequest, GridConfig, Op } from '../../Models/GridModel';
+import DesktopGrid from '../util/DesktopGrid';
+import MobileGrid from '../util/MobileGrid';
 const notify = new Notify();
 
 
@@ -24,9 +25,8 @@ class FilterJobs extends React.Component<any, any, any>{
         super(props);
         const token = this.props.system.token
         let loggedIn = this.props.system.loggedIn
-        if (token == null) {
-            loggedIn = false;
-        }
+
+        loggedIn = (token != null && token != "");
 
         this.state = {
             loggedIn,
@@ -39,6 +39,7 @@ class FilterJobs extends React.Component<any, any, any>{
             showLogin: false,
             loader: false,
             isLoaded: false,
+            IsMobileView: (window.outerWidth <= 768) ? true : false, //(window.outerWidth <= 768) ? true : false,
         }
 
         this.findTheJobs = this.findTheJobs.bind(this);
@@ -48,7 +49,45 @@ class FilterJobs extends React.Component<any, any, any>{
         this.onPageChange = this.onPageChange.bind(this);
         this.applyFilter = this.applyFilter.bind(this);
         this.applyForMultipleJobs = this.applyForMultipleJobs.bind(this);
+        this.handleSwitchDisplay = this.handleSwitchDisplay.bind(this);
         //this.FillGridConfig();
+        this.resize = this.resize.bind(this);
+        window.addEventListener("resize", this.resize);
+    }
+
+    componentWillMount() {
+        let keyword = '';
+        let location = '';
+        if (this.props.location.state != undefined) {
+            let keyword = this.props.location.state.keyword;
+            let location = this.props.location.state.location;
+            let sexperience = this.props.location.state.experience;
+            let JSM: any = this.state.jobSearchModel;
+            JSM.Keyword = keyword;
+            JSM.Location = location;
+            JSM.Experience = sexperience;
+            this.setState({
+                jobSearchModel: JSM
+            })
+        }
+    }
+
+    componentDidMount() {
+        this.FillGridConfig();
+        this.setState({ isLoaded: true });
+    }
+
+    resize() {
+    }
+
+    handleSwitchDisplay = (gridRequest: GridRequest, ismobile: boolean, Response: any) => {
+        let GC = this.state.gridConfig;
+        GC.gridRequest = gridRequest
+        GC.responceData = Response
+        this.setState({
+            gridConfig: GC,
+            IsMobileView: ismobile
+        })
     }
 
     FillGridConfig() {
@@ -62,7 +101,7 @@ class FilterJobs extends React.Component<any, any, any>{
                     propValue: ""
                 },
                 {
-                    columnPropertyKey: "Location",
+                    columnPropertyKey: "City",
                     questionType: "text",
                     label: "SLocation",
                     propValue: ""
@@ -150,12 +189,14 @@ class FilterJobs extends React.Component<any, any, any>{
                     }
                 }
             ],
-            gridApiData: { url: "JobSearch/GetJobsGrid", method: "post" },
+            gridApiData: {
+                url: "JobSearch/GetJobsGrid", method: "post", apiCall: this.getJobs,
+            },
             rowIdentityPropertyForManipulations: "",
             isEditable: false,
             isDeleteable: false,
             isExportable: true,
-            isAllowMultiRowSelect:true,
+            isAllowMultiRowSelect: true,
             toolBar: [
                 {
                     buttonText: "Apply",
@@ -166,7 +207,10 @@ class FilterJobs extends React.Component<any, any, any>{
                     buttonEvent: this.addToFaviroteMultipleJobs,
                     params: []
                 }
-            ]
+            ],
+            gridRequest: new GridRequest(),
+            isComingFromHome: false,
+
         };
 
         this.setState({
@@ -174,10 +218,49 @@ class FilterJobs extends React.Component<any, any, any>{
         }, () => this.setSearchCriteria())
     }
 
+
+
     onSubmit = (e: any) => {
         e.preventDefault();
         this.findTheJobs(this.state);
     }
+
+    getJobs = (gridRequest: GridRequest, childEvent: any) => {
+        let responce = null;
+        let Servicecall = new Apiservices();
+        let GC = this.state.gridConfig;
+        GC.gridRequest = gridRequest
+        this.setState({
+            loader: true,
+            gridConfig: GC,
+        })
+        let successCallback = (data: any) => {
+            this.displaySuccessData(data);
+            childEvent();
+        };
+        responce = Servicecall.POST_CALL1(this.state.gridConfig.gridApiData.url, gridRequest, successCallback, this.errorHandle)
+    }
+
+
+    displaySuccessData = (data: any) => {
+        let totalrecords = data.TotalRecords;
+        let GC = this.state.gridConfig;
+        GC.responceData = data.Rows
+        let GR = this.state.gridConfig.gridRequest;
+        let PG = GR.Pagination;
+        let totalpages;
+        PG.TotalPages = Math.ceil(totalrecords / PG.PageSize);
+        GR.Pagination = PG;
+        GC.gridRequest = GR
+
+        this.setState({
+            gridConfig: GC,
+            isLoaded: true,
+            loader: false,
+        })
+    }
+
+
 
     applyForMultipleJobs = (jobidList: any) => {
 
@@ -224,31 +307,13 @@ class FilterJobs extends React.Component<any, any, any>{
         this.setState({ jobSearchModel: JSM }, () => { this.findTheJobs(this.state); })
 
     }
-    componentWillMount() {
-        let keyword = '';
-        let location = '';
-        if (this.props.location.state != undefined) {
-            let keyword = this.props.location.state.keyword;
-            let location = this.props.location.state.location;
-            let sexperience = this.props.location.state.experience;
-            let JSM: any = this.state.jobSearchModel;
-            JSM.Keyword = keyword;
-            JSM.Location = location;
-            JSM.Experience = sexperience;
-            this.setState({
-                jobSearchModel: JSM
-            })
 
-        } else {
-
-        }
-    }
 
     setSearchCriteria() {
         if (this.props.location.state != undefined) {
             let keyword = this.props.location.state.keyword;
             let location = this.props.location.state.location;
-            let sexperience = this.props.location.state.experience;
+            let experience = this.props.location.state.experience;
             let gD: GridConfig = this.state.gridConfig;
             gD.topSearchPanelUi.forEach(searchKey => {
                 if (searchKey.columnPropertyKey == "Keyword")
@@ -256,8 +321,9 @@ class FilterJobs extends React.Component<any, any, any>{
                 else if (searchKey.columnPropertyKey == "Location")
                     searchKey.propValue = location;
                 else if (searchKey.columnPropertyKey == "Experience")
-                    searchKey.propValue = sexperience;
+                    searchKey.propValue = experience;
             });
+            gD.isComingFromHome = true;
             this.setState({
                 gridConfig: gD,
             })
@@ -266,17 +332,7 @@ class FilterJobs extends React.Component<any, any, any>{
     }
 
 
-    componentDidMount() {
 
-        this.FillGridConfig();
-
-
-        this.setState(
-            {
-                isLoaded: true
-            }
-        )
-    }
 
     displayData = (data: any) => {
         let JSM: any = this.state.jobSearchModel;
@@ -319,7 +375,6 @@ class FilterJobs extends React.Component<any, any, any>{
 
     applyjob(paramsArr: any[]) {
         // console.log(paramsArr);
-        //  debugger;
         let jobid: string = "";
         paramsArr.forEach(
             x => {
@@ -422,17 +477,34 @@ class FilterJobs extends React.Component<any, any, any>{
         } else if (this.state.requestType === 'addMultipleFaviroteJobs') {
             this.addToFaviroteMultipleJobs(this.state.multipleJobArray);
         }
-
     }
     applyFilter = () => {
 
     }
+
+    ViewConstructor() {
+
+        console.log(this.state.gridConfig.gridRequest);
+        return (
+            <>
+                {(!this.state.IsMobileView) ?
+                    <DesktopGrid gridConfig={this.state.gridConfig} updateGR={this.handleSwitchDisplay}></DesktopGrid>
+
+                    : <MobileGrid gridConfig={this.state.gridConfig} updateGR={this.handleSwitchDisplay}></MobileGrid>
+                }
+            </>
+        )
+    }
+
     render() {
         return (
             <>
                 {this.state.showLogin ? <LoginModal onLoginModalHide={this.onLoginModalHide} onAfterLogin={this.onAfterLogin} > </LoginModal> : <></ >}
                 {this.state.loader ? <LoaderModal></LoaderModal> : ''}
-                {this.state.isLoaded ? <Pagination gridConfig={this.state.gridConfig}></Pagination> : <LoaderModal></LoaderModal>}
+
+                {this.state.isLoaded ?
+                    this.ViewConstructor()
+                    : <LoaderModal></LoaderModal>}
             </>
         )
     }

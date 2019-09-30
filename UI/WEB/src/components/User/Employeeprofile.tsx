@@ -106,7 +106,7 @@ class Employeeprofile extends React.Component<any, any>{
         })
         notify.Success_notify("Profile Picture Uploaded Succesfully")
     }
-  
+
     _handleImageChange(e: any) {
         e.preventDefault();
         let imgreader = new FileReader();
@@ -143,113 +143,119 @@ class Employeeprofile extends React.Component<any, any>{
                 {this.state.loader ?
                     <LoaderModal></LoaderModal>
                     : ''}
-                <div className="container mt-3">
-                    <h1>Employer Profile</h1>
-                    <div className="mt-5">
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-12">
+                <div className="card  mx-2 h-100 d-block minhight-100">
+                    <div className="card-body">
 
-                                    <div className="card  border rounded pt-2 mb-2 shadow-sm p-3 ">
-                                        <div className="card-text mb-2">
 
-                                            <form onSubmit={this.onSubmit}>
-                                                <div className="form-row">
-                                                    <div className="col-sm-6">
-                                                        <div className="col-sm-7 mx-auto">
-                                                            <div className="text-center">
-                                                                {$imagePreview}
-                                                                <br />
-                                                                <div className="upload-btn-wrapper my-2">
-                                                                    <input type="file" className="btn  btn-lg btn-block rounded-0" onChange={(e) => this._handleImageChange(e)} />
-                                                                    <button className="btn btn-primary">
-                                                                        Upload Profile Image
+                        <div className="container mt-3">
+                            <h1>Employer Profile</h1>
+                            <div className="mt-5">
+                                <div className="container-fluid">
+                                    <div className="row">
+                                        <div className="col-12">
+
+                                            <div className="card  border rounded pt-2 mb-2 shadow-sm p-3 ">
+                                                <div className="card-text mb-2">
+
+                                                    <form onSubmit={this.onSubmit}>
+                                                        <div className="form-row">
+                                                            <div className="col-sm-6">
+                                                                <div className="col-sm-7 mx-auto">
+                                                                    <div className="text-center">
+                                                                        {$imagePreview}
+                                                                        <br />
+                                                                        <div className="upload-btn-wrapper my-2">
+                                                                            <input type="file" className="btn  btn-lg btn-block rounded-0" onChange={(e) => this._handleImageChange(e)} />
+                                                                            <button className="btn btn-primary">
+                                                                                Upload Profile Image
                                                                 </button>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-sm-6">
+
+                                                                <div className="form-group col-md">
+                                                                    <label htmlFor="firstName">First Name</label>
+                                                                    <input
+                                                                        type="text"
+                                                                        className="form-control"
+                                                                        name="firstName"
+                                                                        value={this.state.firstName}
+                                                                        id="firstName"
+                                                                        placeholder="First Name"
+                                                                        onChange={this.onChange}
+                                                                    />
+                                                                </div>
+                                                                <div className="form-group col-md">
+                                                                    <label htmlFor="inputCity">Last Name</label>
+                                                                    <input
+                                                                        type="text"
+                                                                        className="form-control"
+                                                                        id="lastName"
+                                                                        name="lastName"
+                                                                        value={this.state.lastName}
+                                                                        placeholder="Last Name"
+                                                                        onChange={this.onChange}
+                                                                    />
+                                                                </div>
+                                                                <div className="form-group col-md">
+                                                                    <label htmlFor="Email">Email</label>
+                                                                    <input
+                                                                        type="email"
+                                                                        className="form-control"
+                                                                        id="Email"
+                                                                        name="email"
+                                                                        value={this.state.email}
+                                                                        placeholder="Email"
+                                                                        onChange={this.onChange}
+                                                                        readOnly
+                                                                    />
+                                                                </div>
+                                                                <div className="form-group col-md">
+                                                                    <label htmlFor="inputPassword4">Phone Number</label>
+                                                                    <input
+                                                                        type="text"
+                                                                        className="form-control"
+                                                                        id="inputPassword4"
+                                                                        name="phone"
+                                                                        value={this.state.phone}
+                                                                        placeholder="Phone Number"
+                                                                        onChange={this.onChange}
+                                                                    />
                                                                 </div>
 
+                                                                <div className="form-group col-md">
+                                                                    <label htmlFor="inputEmail4">Gender</label>
+                                                                    <select id="inputState"
+                                                                        className="form-control"
+                                                                        value={this.state.gender}
+                                                                        name="gender"
+                                                                        onChange={this.onChange}
+                                                                    >
+                                                                        <option value="" >Gender</option>
+                                                                        <option value="1" >Male</option>
+                                                                        <option value="2">Female</option>
+                                                                        <option value="3">Transgender</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div className="form-group col-md">
+                                                                    <button type="submit" className="btn btn-primary">Update Profile</button>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div className="col-sm-6">
-
-                                                        <div className="form-group col-md">
-                                                            <label htmlFor="firstName">First Name</label>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                name="firstName"
-                                                                value={this.state.firstName}
-                                                                id="firstName"
-                                                                placeholder="First Name"
-                                                                onChange={this.onChange}
-                                                            />
-                                                        </div>
-                                                        <div className="form-group col-md">
-                                                            <label htmlFor="inputCity">Last Name</label>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                id="lastName"
-                                                                name="lastName"
-                                                                value={this.state.lastName}
-                                                                placeholder="Last Name"
-                                                                onChange={this.onChange}
-                                                            />
-                                                        </div>
-                                                        <div className="form-group col-md">
-                                                            <label htmlFor="Email">Email</label>
-                                                            <input
-                                                                type="email"
-                                                                className="form-control"
-                                                                id="Email"
-                                                                name="email"
-                                                                value={this.state.email}
-                                                                placeholder="Email"
-                                                                onChange={this.onChange}
-                                                                readOnly
-                                                            />
-                                                        </div>
-                                                        <div className="form-group col-md">
-                                                            <label htmlFor="inputPassword4">Phone Number</label>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                id="inputPassword4"
-                                                                name="phone"
-                                                                value={this.state.phone}
-                                                                placeholder="Phone Number"
-                                                                onChange={this.onChange}
-                                                            />
-                                                        </div>
-
-                                                        <div className="form-group col-md">
-                                                            <label htmlFor="inputEmail4">Gender</label>
-                                                            <select id="inputState"
-                                                                className="form-control"
-                                                                value={this.state.gender}
-                                                                name="gender"
-                                                                onChange={this.onChange}
-                                                            >
-                                                                <option value="" >Gender</option>
-                                                                <option value="1" >Male</option>
-                                                                <option value="2">Female</option>
-                                                                <option value="3">Transgender</option>
-                                                            </select>
-                                                        </div>
-                                                        <div className="form-group col-md">
-                                                            <button type="submit" className="btn btn-primary">Update Profile</button>
-                                                        </div>
-                                                    </div>
+                                                    </form>
                                                 </div>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
-
             </>
         )
     }

@@ -69,9 +69,9 @@ function Navigation(props: any) {
             )
     }
     return (<>
-        <div className={props.app_prop.appProps.showNav ? "bg-primary" : "d-none"}>
+        <div className={ props.app_prop.appProps.showNav ? "nav-height-8 bg-primary" : "d-none"}>
             <div className="container">
-                <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
+                <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark" className="">
                     <Navbar.Brand href="/">{Title}</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">

@@ -278,152 +278,155 @@ class CandidateProfile extends React.Component<any, any>{
         } else {
             $imagePreview = (<img src={require('../../assets/images/DP.png')} className="rounded-circle img-fluid mt-2" width="100%" style={{ height: "200px" }} alt='' />);
         }
-        
+
         return (
             <>
 
                 {this.state.loader ?
                     <LoaderModal></LoaderModal>
                     : ''}
-                <div className="container mt-3">
-                    <h1>User Profile</h1>
-                    <div className="mt-5">
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-12">
-                                    <div className="card  border rounded mt-2 mb-2 shadow-sm p-3 ">
-                                        <div className="card-text row mx-2 my-2">
-                                            <div className="col-sm-6 text-center">
-                                                {/* <img src={require('../../assets/images/DP.png')} width="100%" height="200" alt='' /> */}
-                                                {$imagePreview}
-                                                <br />
-                                                <div className="upload-btn-wrapper my-2">
-                                                    <input type="file" className="btn  btn-lg btn-block rounded-0" onChange={(e) => this._handleImageChange(e)} />
-                                                    <button className="btn btn-primary">
-                                                        Upload Profile Image
+                <div className="card  mx-2 h-100 d-block minhight-100">
+                    <div className="card-body">
+
+                        {/* <div className="mt-3"> */}
+                            <h1>User Profile</h1>
+                            <div className="mt-5">
+                                <div className="container-fluid">
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <div className="card  border rounded mt-2 mb-2 shadow-sm p-3 ">
+                                                <div className="card-text row mx-2 my-2">
+                                                    <div className="col-sm-6 text-center">
+                                                        {/* <img src={require('../../assets/images/DP.png')} width="100%" height="200" alt='' /> */}
+                                                        {$imagePreview}
+                                                        <br />
+                                                        <div className="upload-btn-wrapper my-2">
+                                                            <input type="file" className="btn  btn-lg btn-block rounded-0" onChange={(e) => this._handleImageChange(e)} />
+                                                            <button className="btn btn-primary">
+                                                                Upload Profile Image
                                                     </button>
-                                                </div>
-                                                {/* <button className="btn btn-primary">
+                                                        </div>
+                                                        {/* <button className="btn btn-primary">
                                                     Remove
                                                 </button> */}
-                                            </div>
-                                            <div className="col-sm-6 text-center">
-                                                <FontAwesomeIcon icon="upload" size="10x" className="mt-5 text-primary" />
-                                                <br />
-                                                <div className="upload-btn-wrapper my-2">
-                                                    <input type="file" className="btn  btn-lg btn-block rounded-0" onChange={(e) => this._handleFileChangeChange(e)} />
-                                                    <button className="btn btn-primary">
-                                                        Upload Resume
+                                                    </div>
+                                                    <div className="col-sm-6 text-center">
+                                                        <FontAwesomeIcon icon="upload" size="10x" className="mt-5 text-primary" />
+                                                        <br />
+                                                        <div className="upload-btn-wrapper my-2">
+                                                            <input type="file" className="btn  btn-lg btn-block rounded-0" onChange={(e) => this._handleFileChangeChange(e)} />
+                                                            <button className="btn btn-primary">
+                                                                Upload Resume
                                                     </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div className="card  border rounded pt-2 mb-2 shadow-sm p-3 ">
-                                        <div className="card-text mb-2">
+                                            <div className="card  border rounded pt-2 mb-2 shadow-sm p-3 ">
+                                                <div className="card-text mb-2">
 
-                                            <form onSubmit={this.SubmitHandle} className="needs-validation" noValidate>
-                                                <div className="form-row">
-                                                    <div className="form-group col-md-6">
-                                                        <label htmlFor="firstName">First Name</label>
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            name="FirstName"
-                                                            value={this.state.UserProfile.FirstName}
-                                                            id="firstName"
-                                                            placeholder="First Name"
-                                                            onChange={this.onChange}
-                                                            required
-                                                        />
-                                                    </div>
+                                                    <form onSubmit={this.SubmitHandle} className="needs-validation" noValidate>
+                                                        <div className="form-row">
+                                                            <div className="form-group col-md-6">
+                                                                <label htmlFor="firstName">First Name</label>
+                                                                <input
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    name="FirstName"
+                                                                    value={this.state.UserProfile.FirstName}
+                                                                    id="firstName"
+                                                                    placeholder="First Name"
+                                                                    onChange={this.onChange}
+                                                                    required
+                                                                />
+                                                            </div>
 
-                                                    <div className="form-group col-md-6">
-                                                        <label htmlFor="inputCity">Last Name</label>
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            id="lastName"
-                                                            name="LastName"
-                                                            value={this.state.UserProfile.LastName}
-                                                            placeholder="Last Name"
-                                                            required
-                                                            onChange={this.onChange}
+                                                            <div className="form-group col-md-6">
+                                                                <label htmlFor="inputCity">Last Name</label>
+                                                                <input
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    id="lastName"
+                                                                    name="LastName"
+                                                                    value={this.state.UserProfile.LastName}
+                                                                    placeholder="Last Name"
+                                                                    required
+                                                                    onChange={this.onChange}
 
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="form-row">
-                                                    <div className="form-group col-md-6">
-                                                        <label htmlFor="Email">Email</label>
-                                                        <input
-                                                            type="email"
-                                                            className="form-control"
-                                                            id="Email"
-                                                            name="Email"
-                                                            value={this.state.UserProfile.Email}
-                                                            placeholder="Email"
-                                                            required
-                                                            onChange={this.onChange}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="form-row">
+                                                            <div className="form-group col-md-6">
+                                                                <label htmlFor="Email">Email</label>
+                                                                <input
+                                                                    type="email"
+                                                                    className="form-control"
+                                                                    id="Email"
+                                                                    name="Email"
+                                                                    value={this.state.UserProfile.Email}
+                                                                    placeholder="Email"
+                                                                    required
+                                                                    onChange={this.onChange}
 
 
-                                                        />
-                                                    </div>
-                                                    <div className="form-group col-md-6">
-                                                        <label htmlFor="inputPassword4">Phone Number</label>
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            id="inputPassword4"
-                                                            name="PhoneNumber"
-                                                            value={this.state.UserProfile.PhoneNumber}
-                                                            placeholder="Phone Number"
-                                                            required
-                                                            onChange={this.onChange}
+                                                                />
+                                                            </div>
+                                                            <div className="form-group col-md-6">
+                                                                <label htmlFor="inputPassword4">Phone Number</label>
+                                                                <input
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    id="inputPassword4"
+                                                                    name="PhoneNumber"
+                                                                    value={this.state.UserProfile.PhoneNumber}
+                                                                    placeholder="Phone Number"
+                                                                    required
+                                                                    onChange={this.onChange}
 
 
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="form-row">
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="form-row">
 
-                                                    <div className="form-group col-md-6">
-                                                        <label htmlFor="inputEmail4">Gender</label>
-                                                        <select id="inputState"
-                                                            className="form-control"
-                                                            value={this.state.UserProfile.Gender_Id}
-                                                            name="Gender_Id"
-                                                            required
-                                                            onChange={this.onChange}
-                                                        >
-                                                            <option value="" >Gender</option>
-                                                            <option value="1" >Male</option>
-                                                            <option value="2">Female</option>
-                                                            <option value="3">Transgender</option>
+                                                            <div className="form-group col-md-6">
+                                                                <label htmlFor="inputEmail4">Gender</label>
+                                                                <select id="inputState"
+                                                                    className="form-control"
+                                                                    value={this.state.UserProfile.Gender_Id}
+                                                                    name="Gender_Id"
+                                                                    required
+                                                                    onChange={this.onChange}
+                                                                >
+                                                                    <option value="" >Gender</option>
+                                                                    <option value="1" >Male</option>
+                                                                    <option value="2">Female</option>
+                                                                    <option value="3">Transgender</option>
 
-                                                        </select>
-                                                    </div>
-                                                    <div className="form-group col-md-6">
-                                                        <label htmlFor="Email">Prefered Location</label>
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            id="preferredLocation"
-                                                            name="PreferredLocation"
-                                                            value={this.state.UserProfile.Profile[0].PreferredLocation}
-                                                            placeholder="Prefered Location"
-                                                            required
-                                                            onChange={this.onChangeProfile}
+                                                                </select>
+                                                            </div>
+                                                            <div className="form-group col-md-6">
+                                                                <label htmlFor="Email">Prefered Location</label>
+                                                                <input
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    id="preferredLocation"
+                                                                    name="PreferredLocation"
+                                                                    value={this.state.UserProfile.Profile[0].PreferredLocation}
+                                                                    placeholder="Prefered Location"
+                                                                    required
+                                                                    onChange={this.onChangeProfile}
 
 
-                                                        />
-                                                    </div>
+                                                                />
+                                                            </div>
 
-                                                </div>
+                                                        </div>
 
-                                                <div className="form-row">
+                                                        <div className="form-row">
 
-                                                    {/* <div className="form-group col-md-6">
+                                                            {/* <div className="form-group col-md-6">
                                                     <label htmlFor="inputEmail4">&nbsp;</label>
 
 
@@ -438,69 +441,69 @@ class CandidateProfile extends React.Component<any, any>{
                                                     </div>
                                                 </div> */}
 
-                                                    <div className="form-group col-md-6">
-                                                        <label htmlFor="txtExperience">Total Experience</label>
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            id="txtExperience"
-                                                            name="TotalExperiance"
-                                                            value={this.state.UserProfile.Profile[0].TotalExperiance}
-                                                            placeholder="Total Experiance"
-                                                            required
-                                                            onChange={this.onChangeProfile}
+                                                            <div className="form-group col-md-6">
+                                                                <label htmlFor="txtExperience">Total Experience</label>
+                                                                <input
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    id="txtExperience"
+                                                                    name="TotalExperiance"
+                                                                    value={this.state.UserProfile.Profile[0].TotalExperiance}
+                                                                    placeholder="Total Experiance"
+                                                                    required
+                                                                    onChange={this.onChangeProfile}
 
-                                                        />
-                                                    </div>
-                                                    <div className="form-group col-md-6">
-                                                        <label htmlFor="languages">Languages</label>
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            id="languages"
-                                                            name="Languages"
-                                                            value={this.state.UserProfile.Profile[0].Languages}
-                                                            placeholder="Languages"
-                                                            required
-                                                            onChange={this.onChangeProfile}
+                                                                />
+                                                            </div>
+                                                            <div className="form-group col-md-6">
+                                                                <label htmlFor="languages">Languages</label>
+                                                                <input
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    id="languages"
+                                                                    name="Languages"
+                                                                    value={this.state.UserProfile.Profile[0].Languages}
+                                                                    placeholder="Languages"
+                                                                    required
+                                                                    onChange={this.onChangeProfile}
 
 
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="form-row">
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="form-row">
 
-                                                    <div className="form-group col-md-6">
-                                                        <label htmlFor="inputPassword4">Skill Set</label>
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            id="inputPassword4"
-                                                            name="skills"
-                                                            value={this.state.UserProfile.Profile[0].skills}
-                                                            placeholder="Skills"
-                                                            required
-                                                            onChange={this.onChangeProfile}
+                                                            <div className="form-group col-md-6">
+                                                                <label htmlFor="inputPassword4">Skill Set</label>
+                                                                <input
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    id="inputPassword4"
+                                                                    name="skills"
+                                                                    value={this.state.UserProfile.Profile[0].skills}
+                                                                    placeholder="Skills"
+                                                                    required
+                                                                    onChange={this.onChangeProfile}
 
-                                                        />
-                                                    </div>
-                                                    <div className="form-group col-md-6">
-                                                        <label htmlFor="Email">Heigher Qualification</label>
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            id="HeighestQualification"
-                                                            name="HeighestQualification"
-                                                            value={this.state.UserProfile.Profile[0].HeighestQualification}
-                                                            placeholder="Heighest Qualification"
-                                                            required
-                                                            onChange={this.onChangeProfile}
+                                                                />
+                                                            </div>
+                                                            <div className="form-group col-md-6">
+                                                                <label htmlFor="Email">Heigher Qualification</label>
+                                                                <input
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    id="HeighestQualification"
+                                                                    name="HeighestQualification"
+                                                                    value={this.state.UserProfile.Profile[0].HeighestQualification}
+                                                                    placeholder="Heighest Qualification"
+                                                                    required
+                                                                    onChange={this.onChangeProfile}
 
-                                                        />
-                                                    </div>
-                                                </div>
+                                                                />
+                                                            </div>
+                                                        </div>
 
-                                                {/* <div className="form-row">
+                                                        {/* <div className="form-row">
                                                 <div className="form-group col-md-4">
                                                     <label htmlFor="firstName">Country</label>
                                                     <input
@@ -535,313 +538,315 @@ class CandidateProfile extends React.Component<any, any>{
                                                 </div>
                                             </div>
                                           */}
-                                                <div className="card-block mb-2">
+                                                        <div className="card-block mb-2">
 
-                                                    <div className="row ">
-                                                        <div className="col-sm-12">
-                                                            <div className="card mt-2">
-                                                                <div className="card-header">
-                                                                    <h4>Experience</h4>
-                                                                </div>
-                                                                <div className="card-body">
-                                                                    
-                                                                    <div>
-                                                                        <div className="display-table">
-                                                                            <div className="row">
-                                                                                <div className="col">Company</div>
-                                                                                <div className="col">Role</div>
-                                                                                <div className="col">Technology</div>
-                                                                                <div className="col">Start Date</div>
-                                                                                <div className="col">End Date</div>
-                                                                                <div className="col">Company</div>
-                                                                                <div className="col">
-                                                                                    <button onClick={this.addExperienceRow} className="btn btn-success"> <span className="mr-sm-2"><FontAwesomeIcon icon="plus-square" size="xs" /></span></button>
-                                                                                </div>
-                                                                            </div>
+                                                            <div className="row ">
+                                                                <div className="col-sm-12">
+                                                                    <div className="card mt-2">
+                                                                        <div className="card-header">
+                                                                            <h4>Experience</h4>
                                                                         </div>
-                                                                        <div className="display-table">
-                                                                            {
-                                                                                this.state.UserProfile.Experience.map((experience: any, index: number) => {
-                                                                                    if (experience.UiStatus != 'D') {
-                                                                                        return (
-                                                                                            <div key={index.toString()}>
+                                                                        <div className="card-body">
+{/* 
+                                                                            <div>
+                                                                                <div className="display-table">
+                                                                                    <div className="row">
+                                                                                        <div className="col">Company</div>
+                                                                                        <div className="col">Role</div>
+                                                                                        <div className="col">Technology</div>
+                                                                                        <div className="col">Start Date</div>
+                                                                                        <div className="col">End Date</div>
+                                                                                        <div className="col">Company</div>
+                                                                                        <div className="col">
+                                                                                            <button onClick={this.addExperienceRow} className="btn btn-success"> <span className="mr-sm-2"><FontAwesomeIcon icon="plus-square" size="xs" /></span></button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div className="display-table">
+                                                                                    {
+                                                                                        this.state.UserProfile.Experience.map((experience: any, index: number) => {
+                                                                                            if (experience.UiStatus != 'D') {
+                                                                                                return (
+                                                                                                    <div key={index.toString()}>
 
-                                                                                                <div>
-                                                                                                    <input
-                                                                                                        type="text"
-                                                                                                        className="form-control"
-                                                                                                        id="CompanyName"
-                                                                                                        name="CompanyName"
-                                                                                                        value={experience.CompanyName}
-                                                                                                        required
-                                                                                                        onChange={(e) => this.handleExperiencechange(e, index)}
-                                                                                                    />
-                                                                                                </div>
-                                                                                                <div>
-                                                                                                    <input
-                                                                                                        type="text"
-                                                                                                        className="form-control"
-                                                                                                        id="Role"
-                                                                                                        name="Role"
-                                                                                                        value={experience.Role}
-                                                                                                        required
+                                                                                                        <div>
+                                                                                                            <input
+                                                                                                                type="text"
+                                                                                                                className="form-control"
+                                                                                                                id="CompanyName"
+                                                                                                                name="CompanyName"
+                                                                                                                value={experience.CompanyName}
+                                                                                                                required
+                                                                                                                onChange={(e) => this.handleExperiencechange(e, index)}
+                                                                                                            />
+                                                                                                        </div>
+                                                                                                        <div>
+                                                                                                            <input
+                                                                                                                type="text"
+                                                                                                                className="form-control"
+                                                                                                                id="Role"
+                                                                                                                name="Role"
+                                                                                                                value={experience.Role}
+                                                                                                                required
 
-                                                                                                        onChange={(e) => this.handleExperiencechange(e, index)}
+                                                                                                                onChange={(e) => this.handleExperiencechange(e, index)}
 
-                                                                                                    />
-                                                                                                </div>
-                                                                                                <div>
-                                                                                                    <input
-                                                                                                        type="text"
-                                                                                                        className="form-control"
-                                                                                                        id="Technology"
-                                                                                                        name="Technology"
-                                                                                                        value={experience.Technology}
-                                                                                                        required
+                                                                                                            />
+                                                                                                        </div>
+                                                                                                        <div>
+                                                                                                            <input
+                                                                                                                type="text"
+                                                                                                                className="form-control"
+                                                                                                                id="Technology"
+                                                                                                                name="Technology"
+                                                                                                                value={experience.Technology}
+                                                                                                                required
 
-                                                                                                        onChange={(e) => this.handleExperiencechange(e, index)}
+                                                                                                                onChange={(e) => this.handleExperiencechange(e, index)}
 
-                                                                                                    />
-                                                                                                </div>
-                                                                                                <div>
-                                                                                                    <input
-                                                                                                        type="text"
-                                                                                                        className="form-control"
-                                                                                                        id="StartDate"
-                                                                                                        name="StartDate"
-                                                                                                        value={experience.StartDate}
-                                                                                                        required
+                                                                                                            />
+                                                                                                        </div>
+                                                                                                        <div>
+                                                                                                            <input
+                                                                                                                type="text"
+                                                                                                                className="form-control"
+                                                                                                                id="StartDate"
+                                                                                                                name="StartDate"
+                                                                                                                value={experience.StartDate}
+                                                                                                                required
 
-                                                                                                        onChange={(e) => this.handleExperiencechange(e, index)}
+                                                                                                                onChange={(e) => this.handleExperiencechange(e, index)}
 
-                                                                                                    />
-                                                                                                </div>
-                                                                                                <div>
-                                                                                                    <input
-                                                                                                        type="text"
-                                                                                                        className="form-control"
-                                                                                                        id="EndDate"
-                                                                                                        name="EndDate"
-                                                                                                        value={experience.EndDate}
-                                                                                                        required
+                                                                                                            />
+                                                                                                        </div>
+                                                                                                        <div>
+                                                                                                            <input
+                                                                                                                type="text"
+                                                                                                                className="form-control"
+                                                                                                                id="EndDate"
+                                                                                                                name="EndDate"
+                                                                                                                value={experience.EndDate}
+                                                                                                                required
 
-                                                                                                        onChange={(e) => this.handleExperiencechange(e, index)}
+                                                                                                                onChange={(e) => this.handleExperiencechange(e, index)}
 
-                                                                                                    />
-                                                                                                </div>
-                                                                                                <div>
-                                                                                                    <button onClick={(e) => this.removeExperienceRow(e, index)} className="btn btn-danger"> <span className="mr-sm-2"><FontAwesomeIcon icon="trash-alt" size="xs" /></span></button>
+                                                                                                            />
+                                                                                                        </div>
+                                                                                                        <div>
+                                                                                                            <button onClick={(e) => this.removeExperienceRow(e, index)} className="btn btn-danger"> <span className="mr-sm-2"><FontAwesomeIcon icon="trash-alt" size="xs" /></span></button>
 
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        )
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                )
+                                                                                            }
+
+                                                                                        })
+
                                                                                     }
+                                                                                </div>
+                                                                            </div> */}
 
-                                                                                })
+                                                                            <table className="table table-bordered table-hover">
+                                                                                <thead>
+                                                                                    <tr className="text-center">
+                                                                                        <th>Company</th>
+                                                                                        <th>Role</th>
+                                                                                        <th>Technology</th>
+                                                                                        <th>Start Date</th>
+                                                                                        <th>End Date</th>
+                                                                                        <th>
+                                                                                            <div>
+                                                                                                <button onClick={this.addExperienceRow} className="btn btn-success"> <span className="mr-sm-2"><FontAwesomeIcon icon="plus-square" size="xs" /></span></button>
+                                                                                            </div>
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
 
-                                                                            }
+                                                                                    {
+                                                                                        this.state.UserProfile.Experience.map((experience: any, index: number) => {
+                                                                                            if (experience.UiStatus != 'D') {
+                                                                                                return (
+                                                                                                    <tr key={index.toString()}>
+                                                                                                        <td>
+                                                                                                            <input
+                                                                                                                type="text"
+                                                                                                                className="form-control"
+                                                                                                                id="CompanyName"
+                                                                                                                name="CompanyName"
+                                                                                                                value={experience.CompanyName}
+                                                                                                                required
+                                                                                                                onChange={(e) => this.handleExperiencechange(e, index)}
+                                                                                                            />
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <input
+                                                                                                                type="text"
+                                                                                                                className="form-control"
+                                                                                                                id="Role"
+                                                                                                                name="Role"
+                                                                                                                value={experience.Role}
+                                                                                                                required
+
+                                                                                                                onChange={(e) => this.handleExperiencechange(e, index)}
+
+                                                                                                            />
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <input
+                                                                                                                type="text"
+                                                                                                                className="form-control"
+                                                                                                                id="Technology"
+                                                                                                                name="Technology"
+                                                                                                                value={experience.Technology}
+                                                                                                                required
+
+                                                                                                                onChange={(e) => this.handleExperiencechange(e, index)}
+
+                                                                                                            />
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <input
+                                                                                                                type="text"
+                                                                                                                className="form-control"
+                                                                                                                id="StartDate"
+                                                                                                                name="StartDate"
+                                                                                                                value={experience.StartDate}
+                                                                                                                required
+
+                                                                                                                onChange={(e) => this.handleExperiencechange(e, index)}
+
+                                                                                                            />
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <input
+                                                                                                                type="text"
+                                                                                                                className="form-control"
+                                                                                                                id="EndDate"
+                                                                                                                name="EndDate"
+                                                                                                                value={experience.EndDate}
+                                                                                                                required
+
+                                                                                                                onChange={(e) => this.handleExperiencechange(e, index)}
+
+                                                                                                            />
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <button onClick={(e) => this.removeExperienceRow(e, index)} className="btn btn-danger"> <span className="mr-sm-2"><FontAwesomeIcon icon="trash-alt" size="xs" /></span></button>
+
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                )
+                                                                                            }
+
+                                                                                        })
+                                                                                    }
+                                                                                </tbody>
+                                                                            </table>
                                                                         </div>
                                                                     </div>
+                                                                </div>
+                                                                <div className="col-sm-12">
+                                                                    <div className="card mt-2">
+                                                                        <div className="card-header">
+                                                                            <h4>Educational Qualification</h4>
+                                                                        </div>
+                                                                        <div className="card-body">
+                                                                            <table className="table table-bordered">
+                                                                                <thead>
+                                                                                    <th>University</th>
+                                                                                    <th>Qualification</th>
+                                                                                    <th>Year Of Pass</th>
+                                                                                    <th>Percentage</th>
+                                                                                    <th>
+                                                                                        <div>
+                                                                                            <button onClick={this.addEducationRow} className="btn btn-success"> <span className="mr-sm-2"><FontAwesomeIcon icon="plus-square" size="xs" /></span></button>
+                                                                                        </div>
+                                                                                    </th>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    {
+                                                                                        this.state.UserProfile.EducationalQualification.map((education: any, index: number) => {
+                                                                                            if (education.UiStatus != 'D') {
+                                                                                                return (
+                                                                                                    <tr key={index.toString()}>
+                                                                                                        <td>
+                                                                                                            <input
+                                                                                                                type="text"
+                                                                                                                className="form-control"
+                                                                                                                id="university"
+                                                                                                                name="Institute"
+                                                                                                                value={education.Institute}
+                                                                                                                required
 
-                                                                    <table className="table table-bordered table-hover">
-                                                                        <thead>
-                                                                            <tr className="text-center">
-                                                                                <th>Company</th>
-                                                                                <th>Role</th>
-                                                                                <th>Technology</th>
-                                                                                <th>Start Date</th>
-                                                                                <th>End Date</th>
-                                                                                <th>
-                                                                                    <div>
-                                                                                        <button onClick={this.addExperienceRow} className="btn btn-success"> <span className="mr-sm-2"><FontAwesomeIcon icon="plus-square" size="xs" /></span></button>
-                                                                                    </div>
-                                                                                </th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
+                                                                                                                onChange={(e) => this.handleEducationchange(e, index)}
+                                                                                                            />
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <input
+                                                                                                                type="text"
+                                                                                                                className="form-control"
+                                                                                                                id="role"
+                                                                                                                name="Qualification"
+                                                                                                                value={education.Qualification}
+                                                                                                                required
 
-                                                                            {
-                                                                                this.state.UserProfile.Experience.map((experience: any, index: number) => {
-                                                                                    if (experience.UiStatus != 'D') {
-                                                                                        return (
-                                                                                            <tr key={index.toString()}>
-                                                                                                <td>
-                                                                                                    <input
-                                                                                                        type="text"
-                                                                                                        className="form-control"
-                                                                                                        id="CompanyName"
-                                                                                                        name="CompanyName"
-                                                                                                        value={experience.CompanyName}
-                                                                                                        required
-                                                                                                        onChange={(e) => this.handleExperiencechange(e, index)}
-                                                                                                    />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <input
-                                                                                                        type="text"
-                                                                                                        className="form-control"
-                                                                                                        id="Role"
-                                                                                                        name="Role"
-                                                                                                        value={experience.Role}
-                                                                                                        required
+                                                                                                                onChange={(e) => this.handleEducationchange(e, index)}
 
-                                                                                                        onChange={(e) => this.handleExperiencechange(e, index)}
+                                                                                                            />
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <input
+                                                                                                                type="text"
+                                                                                                                className="form-control"
+                                                                                                                id="yearOfPass"
+                                                                                                                name="YearOfPass"
+                                                                                                                value={education.YearOfPass}
+                                                                                                                required
 
-                                                                                                    />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <input
-                                                                                                        type="text"
-                                                                                                        className="form-control"
-                                                                                                        id="Technology"
-                                                                                                        name="Technology"
-                                                                                                        value={experience.Technology}
-                                                                                                        required
+                                                                                                                onChange={(e) => this.handleEducationchange(e, index)}
 
-                                                                                                        onChange={(e) => this.handleExperiencechange(e, index)}
+                                                                                                            />
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <input
+                                                                                                                type="text"
+                                                                                                                className="form-control"
+                                                                                                                id="percentage"
+                                                                                                                name="Percentage"
+                                                                                                                value={education.Percentage}
+                                                                                                                required
 
-                                                                                                    />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <input
-                                                                                                        type="text"
-                                                                                                        className="form-control"
-                                                                                                        id="StartDate"
-                                                                                                        name="StartDate"
-                                                                                                        value={experience.StartDate}
-                                                                                                        required
+                                                                                                                onChange={(e) => this.handleEducationchange(e, index)}
 
-                                                                                                        onChange={(e) => this.handleExperiencechange(e, index)}
+                                                                                                            />
+                                                                                                        </td>
 
-                                                                                                    />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <input
-                                                                                                        type="text"
-                                                                                                        className="form-control"
-                                                                                                        id="EndDate"
-                                                                                                        name="EndDate"
-                                                                                                        value={experience.EndDate}
-                                                                                                        required
+                                                                                                        <td>
+                                                                                                            <button onClick={(e) => this.removeEducationRow(e, index)} className="btn btn-danger"> <span className="mr-sm-2"><FontAwesomeIcon icon="trash-alt" size="xs" /></span></button>
 
-                                                                                                        onChange={(e) => this.handleExperiencechange(e, index)}
-
-                                                                                                    />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <button onClick={(e) => this.removeExperienceRow(e, index)} className="btn btn-danger"> <span className="mr-sm-2"><FontAwesomeIcon icon="trash-alt" size="xs" /></span></button>
-
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        )
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                )
+                                                                                            }
+                                                                                        })
                                                                                     }
-
-                                                                                })
-                                                                            }
-                                                                        </tbody>
-                                                                    </table>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="col-sm-12">
-                                                            <div className="card mt-2">
-                                                                <div className="card-header">
-                                                                    <h4>Educational Qualification</h4>
-                                                                </div>
-                                                                <div className="card-body">
-                                                                    <table className="table table-bordered">
-                                                                        <thead>
-                                                                            <th>University</th>
-                                                                            <th>Qualification</th>
-                                                                            <th>Year Of Pass</th>
-                                                                            <th>Percentage</th>
-                                                                            <th>
-                                                                                <div>
-                                                                                    <button onClick={this.addEducationRow} className="btn btn-success"> <span className="mr-sm-2"><FontAwesomeIcon icon="plus-square" size="xs" /></span></button>
-                                                                                </div>
-                                                                            </th>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            {
-                                                                                this.state.UserProfile.EducationalQualification.map((education: any, index: number) => {
-                                                                                    if (education.UiStatus != 'D') {
-                                                                                        return (
-                                                                                            <tr key={index.toString()}>
-                                                                                                <td>
-                                                                                                    <input
-                                                                                                        type="text"
-                                                                                                        className="form-control"
-                                                                                                        id="university"
-                                                                                                        name="Institute"
-                                                                                                        value={education.Institute}
-                                                                                                        required
-
-                                                                                                        onChange={(e) => this.handleEducationchange(e, index)}
-                                                                                                    />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <input
-                                                                                                        type="text"
-                                                                                                        className="form-control"
-                                                                                                        id="role"
-                                                                                                        name="Qualification"
-                                                                                                        value={education.Qualification}
-                                                                                                        required
-
-                                                                                                        onChange={(e) => this.handleEducationchange(e, index)}
-
-                                                                                                    />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <input
-                                                                                                        type="text"
-                                                                                                        className="form-control"
-                                                                                                        id="yearOfPass"
-                                                                                                        name="YearOfPass"
-                                                                                                        value={education.YearOfPass}
-                                                                                                        required
-
-                                                                                                        onChange={(e) => this.handleEducationchange(e, index)}
-
-                                                                                                    />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <input
-                                                                                                        type="text"
-                                                                                                        className="form-control"
-                                                                                                        id="percentage"
-                                                                                                        name="Percentage"
-                                                                                                        value={education.Percentage}
-                                                                                                        required
-
-                                                                                                        onChange={(e) => this.handleEducationchange(e, index)}
-
-                                                                                                    />
-                                                                                                </td>
-
-                                                                                                <td>
-                                                                                                    <button onClick={(e) => this.removeEducationRow(e, index)} className="btn btn-danger"> <span className="mr-sm-2"><FontAwesomeIcon icon="trash-alt" size="xs" /></span></button>
-
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        )
-                                                                                    }
-                                                                                })
-                                                                            }
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                        <button type="submit" className="btn btn-primary">Update Profile</button>
+                                                    </form>
                                                 </div>
-                                                <button type="submit" className="btn btn-primary">Update Profile</button>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        {/* </div> */}
                     </div>
                 </div>
             </>
