@@ -231,7 +231,9 @@
     <Compile Include="Common\BaseController.cs" />
     <Compile Include="Controllers\ApplyJobController.cs" />
     <Compile Include="Controllers\AttachmentController.cs" />
+    <Compile Include="Controllers\BrassringCandidateExportController.cs" />
     <Compile Include="Controllers\BrassringExportController.cs" />
+    <Compile Include="Controllers\BrassringIntegrationController.cs" />
     <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\EmployerController.cs" />
