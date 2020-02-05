@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { Tabs, Tab, Row, Col } from "react-bootstrap";
+import { Tabs, Tab, Row, Col, Navbar, Nav } from "react-bootstrap";
 import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AppState } from "../store/index";
@@ -28,7 +28,7 @@ class Registration extends React.Component<any, any> {
             userRoleId: '',
             redirect: false,
             validemail: true,
-            loading:false,
+            loading: false,
         };
 
         this.submitForm = this.submitForm.bind(this);
@@ -50,7 +50,7 @@ class Registration extends React.Component<any, any> {
             if (this.state.password === this.state.confirmpassword) {
 
                 this.setState({
-                    loading:true,
+                    loading: true,
                 })
                 let body = new URLSearchParams();
                 body.set('FirstName', this.state.firstName);
@@ -67,7 +67,7 @@ class Registration extends React.Component<any, any> {
 
                 const Servicecall = new Apiservices();
 
-                let responce = Servicecall.POST_CALL('Account/Register', body, this.success,this.errorHandle)
+                let responce = Servicecall.POST_CALL('Account/Register', body, this.success, this.errorHandle)
 
 
             } else {
@@ -75,15 +75,15 @@ class Registration extends React.Component<any, any> {
             }
         }
     }
-    errorHandle=(error:any)=>{
+    errorHandle = (error: any) => {
         this.setState({
-            loading:false,
+            loading: false,
         })
 
     }
     success = (data: any) => {
         this.setState({
-            loading:false,
+            loading: false,
         })
         if (data == 1) {
             this.setState({
@@ -115,7 +115,7 @@ class Registration extends React.Component<any, any> {
         this.props.updateSession({
             appProps: { showNav: false }
         });
-    document.getElementById("root-container")!.style.height = "100%";
+        document.getElementById("root-container")!.style.height = "100%";
 
     }
 
@@ -123,7 +123,7 @@ class Registration extends React.Component<any, any> {
         this.props.updateSession({
             appProps: { showNav: true }
         });
-    document.getElementById("root-container")!.style.height = "92%";
+        document.getElementById("root-container")!.style.height = "92%";
 
     }
 
@@ -138,7 +138,7 @@ class Registration extends React.Component<any, any> {
 
     render() {
 
-       
+
         if (this.state.redirect) {
             return <Redirect to={"/Login/" + this.state.loginType} />;
         }
@@ -185,183 +185,211 @@ class Registration extends React.Component<any, any> {
         }
 
         return (<>
-         {this.state.loading? 
-        <LoaderModal></LoaderModal>:""}
-            <Row className="ml-0 mr-0 h-100">
-                <Col className="bg-primary h-100 d-table">
-                    <div className="text-center d-table-cell align-middle"><h1 className="text-white">Ken Jobs</h1></div>
-                </Col>
-                <Col className="h-100 d-table">
-                    <div className="text-center d-table-cell align-middle">
-                        <div className="mb-5" style={styles.userFriendlyNav}>
+            <Navbar fixed="top">
+                <Navbar.Brand className="">
+                    <Link className="nav-link mt-2" to="/">
+                        <h2 className="text-white">{"KEN JOBS"}</h2>
+                    </Link>
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="mr-auto">
+                    </Nav>
+                    <Nav className="float-right">
+                        <Link to="/">
+                            <FontAwesomeIcon icon="search" className="text-primary" />
+                        </Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
 
-                            <Link to="/" className="mr-5" style={styles.roundedCorners}>Home</Link>
-                            {this.state.loginType == "employer" ?
-                                <Link to="/" className=" mr-5" style={styles.roundedCorners}>Post Job</Link>
-                                : <Link to="/" className="mr-5" style={styles.roundedCorners}>Search for Jobs</Link>}
-                        </div>
-                        <div id="container" className="pt-5">
-                            <h4 className="text-uppercase  mt-5">{'Register as ' + this.state.loginType}</h4>
-                            <div className="row text-white pb-5 ">
-                                <div className="col-sm-11 mx-auto pt-5 pb-5">
-                                    <div className="info-form">
-                                        <form onSubmit={this.submitForm} className="needs-validation" noValidate>
-                                            <div className="form-group">
-                                                <label className="sr-only">Firs tName</label>
-                                                <input
-                                                    type="text"
-                                                    id="inputFirstName"
-                                                    className="form-control"
-                                                    placeholder="First Name"
-                                                    name="firstName"
-                                                    value={this.state.firstName}
-                                                    onChange={this.onChange}
-                                                    required
-                                                />
-                                                <div className="invalid-feedback text-left">
-                                                    <h6>
-                                                        Please Provide First Name.
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="sr-only">Lastt Name</label>
-                                                <input
-                                                    type="text"
-                                                    id="inputlastName"
-                                                    className="form-control"
-                                                    placeholder="Last Name"
-                                                    name="lastName"
-                                                    value={this.state.lastName}
-                                                    onChange={this.onChange}
-                                                    required
-                                                />
-                                                <div className="invalid-feedback text-left">
-                                                    <h6>
-                                                        Please Provide Last Name.
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="sr-only">Phone number</label>
-                                                <input
-                                                    type="text"
-                                                    id="inputphone"
-                                                    className="form-control"
-                                                    placeholder="Phone number"
-                                                    name="phone"
-                                                    value={this.state.phone}
-                                                    onChange={this.onChange}
-                                                    required
-                                                    pattern="(?=.*[0-9])(?=.{10,}).*"
-                                                />
-                                                <div className="invalid-feedback text-left">
-                                                    <h6>
-                                                        Please Provide Phone number.
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="sr-only">Email</label>
-                                                <input
-                                                    type="email"
-                                                    id="inputEmail"
-                                                    className="form-control"
-                                                    placeholder="Emaail Address"
-                                                    name="email"
-                                                    value={this.state.username}
-                                                    onChange={this.onChange}
-                                                    required
-                                                />
-                                                <div className="invalid-feedback text-left">
-                                                    <h6>
-                                                        Please Provide Email.
-                                                    </h6>
-                                                </div>
-                                                {
-                                                    this.state.validemail ? "" :
-                                                        <div className="has-error mt-2 text-left text-danger">
-                                                            <h6>
-                                                                Email Already Exists, Please Try Another.
-                                                    </h6>
-                                                        </div>
-                                                }
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="sr-only">Password</label>
-                                                <input
-                                                    type="password"
-                                                    id="inputPassword"
-                                                    className="form-control"
-                                                    placeholder="password"
-                                                    name="password"
-                                                    value={this.state.password}
-                                                    onChange={this.onChange}
-                                                    pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,}).*"
 
-                                                    required
-                                                />
-                                                <div className="invalid-feedback text-left">
-                                                    <h6> Please Provide Valid Password.</h6>
-                                                    <div>* Password Must Contain at least one number and one uppercase and lowercase letter and Special Character,
+            <Row className="ml-0 mr-0 h-100 bg-white">
+                <div className="col-sm login_leftimg text-right">
+                    <div className="login_centered  mr-2">
+                        <h3 className="font-weight-bold text-white">
+                            MAXIMISE
+                        </h3>
+                        <h4 className="font-weight-light text-white" style={{ verticalAlign: "middle" }}>
+                            YOUR CAREER
+                            <p> POTENTIAL</p>
+                        </h4>
+                    </div>
+                </div>
+                <div className="col-sm">
+                    <div className="mt-5 align-middle">
+
+                        <div id="container" className="">
+                            <div className="col-sm-8 mx-auto pt-4 pb-4">
+                                <div className="pl-3 mt-20">
+                                    <span className="text-warning display-4">
+                                        {this.state.loginType === "employer" ? "Employer" : "Jobseeker"}
+                                    </span>
+                                    <h3>Registration</h3>
+
+                                </div>
+                                <div className="info-form">
+                                    <form onSubmit={this.submitForm} className="needs-validation" noValidate>
+                                        <div className="form-group">
+                                            <label className="sr-only">Firs tName</label>
+                                            <input
+                                                type="text"
+                                                id="inputFirstName"
+                                                className="form-control"
+                                                placeholder="First Name"
+                                                name="firstName"
+                                                value={this.state.firstName}
+                                                onChange={this.onChange}
+                                                required
+                                            />
+                                            <div className="invalid-feedback text-left">
+                                                <h6>
+                                                    Please Provide First Name.
+                                                    </h6>
+                                            </div>
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="sr-only">Lastt Name</label>
+                                            <input
+                                                type="text"
+                                                id="inputlastName"
+                                                className="form-control"
+                                                placeholder="Last Name"
+                                                name="lastName"
+                                                value={this.state.lastName}
+                                                onChange={this.onChange}
+                                                required
+                                            />
+                                            <div className="invalid-feedback text-left">
+                                                <h6>
+                                                    Please Provide Last Name.
+                                                    </h6>
+                                            </div>
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="sr-only">Phone number</label>
+                                            <input
+                                                type="text"
+                                                id="inputphone"
+                                                className="form-control"
+                                                placeholder="Phone number"
+                                                name="phone"
+                                                value={this.state.phone}
+                                                onChange={this.onChange}
+                                                required
+                                                pattern="(?=.*[0-9])(?=.{10,}).*"
+                                            />
+                                            <div className="invalid-feedback text-left">
+                                                <h6>
+                                                    Please Provide Phone number.
+                                                    </h6>
+                                            </div>
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="sr-only">Email</label>
+                                            <input
+                                                type="email"
+                                                id="inputEmail"
+                                                className="form-control"
+                                                placeholder="Emaail Address"
+                                                name="email"
+                                                value={this.state.username}
+                                                onChange={this.onChange}
+                                                required
+                                            />
+                                            <div className="invalid-feedback text-left">
+                                                <h6>
+                                                    Please Provide Email.
+                                                    </h6>
+                                            </div>
+                                            {
+                                                this.state.validemail ? "" :
+                                                    <div className="has-error mt-2 text-left text-danger">
+                                                        <h6>
+                                                            Email Already Exists, Please Try Another.
+                                                    </h6>
+                                                    </div>
+                                            }
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="sr-only">Password</label>
+                                            <input
+                                                type="password"
+                                                id="inputPassword"
+                                                className="form-control"
+                                                placeholder="password"
+                                                name="password"
+                                                value={this.state.password}
+                                                onChange={this.onChange}
+                                                pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,}).*"
+
+                                                required
+                                            />
+                                            <div className="invalid-feedback text-left">
+                                                <h6> Please Provide Valid Password.</h6>
+                                                <div>* Password Must Contain at least one number and one uppercase and lowercase letter and Special Character,
                                                          and  at least 8 or more characters</div>
-                                                </div>
                                             </div>
-                                            <div className="form-group">
-                                                <label className="sr-only">Confirm Password</label>
-                                                <input
-                                                    type="password"
-                                                    className="form-control"
-                                                    name="confirmpassword"
-                                                    id="confirmpassword"
-                                                    placeholder="Confirm Password"
-                                                    value={this.state.confirmpassword}
-                                                    onChange={this.onChange}
-                                                    pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,}).*"
-                                                    required
-                                                />
-                                                <div className="invalid-feedback text-left">
-                                                    <h6>
-                                                        {(this.state.password === this.state.confirmpassword) ? '' : 'Password and Confim Password not matched'}
-                                                        Please Provide Confirm Password.
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="sr-only">Confirm Password</label>
+                                            <input
+                                                type="password"
+                                                className="form-control"
+                                                name="confirmpassword"
+                                                id="confirmpassword"
+                                                placeholder="Confirm Password"
+                                                value={this.state.confirmpassword}
+                                                onChange={this.onChange}
+                                                pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,}).*"
+                                                required
+                                            />
+                                            <div className="invalid-feedback text-left">
+                                                <h6>
+                                                    {(this.state.password === this.state.confirmpassword) ? '' : 'Password and Confim Password not matched'}
+                                                    Please Provide Confirm Password.
                                                     </h6>
-                                                </div>
                                             </div>
-                                            {Registeroptions}
-                                            {companyname}
-                                            <div className="form-group">
-                                                <div className="text-left">
-                                                    <label className="text-dark mr-2">Gender :</label>
+                                        </div>
+                                        {Registeroptions}
+                                        {companyname}
+                                        <div className="form-group">
+                                            <div className="text-left">
+                                                <label className="text-dark mr-2">Gender :</label>
 
-                                                    <div className="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" id="gendermale" name="gender" value="1" onChange={this.onChange} className="custom-control-input" required />
-                                                        <label className="custom-control-label text-dark" htmlFor="gendermale">Male</label>
+                                                <div className="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" id="gendermale" name="gender" value="1" onChange={this.onChange} className="custom-control-input" required />
+                                                    <label className="custom-control-label text-dark" htmlFor="gendermale">Male</label>
+                                                </div>
+                                                <div className="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" id="genderfemale" name="gender" value="2" onChange={this.onChange} className="custom-control-input" required />
+                                                    <label className="custom-control-label text-dark" htmlFor="genderfemale">Female</label>
+                                                </div>
+                                                <div className="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" id="genderother" name="gender" value="3" onChange={this.onChange} className="custom-control-input" required />
+                                                    <label className="custom-control-label text-dark" htmlFor="genderother">Others</label>
+                                                    <div className="invalid-feedback ml-5">
+                                                        <h6> Required</h6>
                                                     </div>
-                                                    <div className="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" id="genderfemale" name="gender" value="2" onChange={this.onChange} className="custom-control-input" required />
-                                                        <label className="custom-control-label text-dark" htmlFor="genderfemale">Female</label>
-                                                    </div>
-                                                    <div className="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" id="genderother" name="gender" value="3" onChange={this.onChange} className="custom-control-input" required />
-                                                        <label className="custom-control-label text-dark" htmlFor="genderother">Others</label>
-                                                        <div className="invalid-feedback ml-5">
-                                                            <h6> Required</h6>
-                                                        </div>
-                                                    </div>
-
                                                 </div>
 
                                             </div>
-                                            <input type="submit" value="Register" className="btn btn-primary mb-2" />
-                                            <div className="text-primary">Existing User ? <Link to={"/Login/" + this.state.loginType}><u>click here</u></Link> for Log in.</div>
-                                        </form>
-                                    </div>
+
+                                        </div>
+                                        <input type="submit" value="Register" className="btn btn-primary btn-md btn-block mb-2" />
+                                        {/* <div className="text-primary">Existing User ? <Link to={"/Login/" + this.state.loginType}><u>click here</u></Link> for Log in.</div> */}
+                                        <div className="text-primary text-center mt-4">
+                                            <Link to={"/Login/" + this.state.loginType}> <b>Existing User ?</b></Link>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </Col>
+                </div>
             </Row>
+            {this.state.loading ?
+                <LoaderModal></LoaderModal> : ""}
         </>)
     }
 }

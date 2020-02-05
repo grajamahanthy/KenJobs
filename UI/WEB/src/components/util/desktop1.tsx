@@ -150,6 +150,7 @@ function LoadTopSearchPanelData(data: any): any {
     return (Field);
 }
 const getFilterArray = (data: any): any => {
+    debugger;
     let searchpanel = data;
     let filterArray: Filter[] = [];
     searchpanel.map((item: any, key: any) => {
@@ -159,7 +160,8 @@ const getFilterArray = (data: any): any => {
 
         if (item.questionType == "text") {
             let fltr = new Filter();
-            let fltrVal = (doesExist(filterIdControl) ? filterIdControl.value : "");
+            //let fltrVal = (doesExist(filterIdControl) ? filterIdControl.value : "");
+            let fltrVal = (doesExist(item.propValue) ? item.propValue : "");
 
             fltr.ColumnName = item.columnPropertyKey;
             if (fltrVal.length > 0)
@@ -169,7 +171,8 @@ const getFilterArray = (data: any): any => {
                 filterArray.push(fltr);
         }
         else if (item.questionType == "number") {
-            let fltrVal = (doesExist(filterIdControl) ? filterIdControl.value : "");
+            // let fltrVal = (doesExist(filterIdControl) ? filterIdControl.value : "");
+            let fltrVal = (doesExist(item.propValue) ? item.propValue : "");
 
             let fltr = new Filter();
             fltr.ColumnName = item.columnPropertyKey;
@@ -182,7 +185,8 @@ const getFilterArray = (data: any): any => {
         }
         else if (item.questionType == "numberrange") {
             let fltr = new Filter();
-            let fltrVal = (doesExist(filterIdControl) ? filterIdControl.value : "");
+            // let fltrVal = (doesExist(filterIdControl) ? filterIdControl.value : "");
+            let fltrVal = (doesExist(item.propValue) ? item.propValue : "");
 
             fltr.ColumnName = item.columnPropertyKey;
             if (fltrVal.length > 0)
@@ -413,7 +417,7 @@ function _SortClass(data: any): any {
     }
 }
 
-class DesktopGrid extends React.Component<any, any> {
+class Desktop1 extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
 
@@ -450,7 +454,6 @@ class DesktopGrid extends React.Component<any, any> {
     SelectedListArray: any[] = [];
 
     componentDidMount() {
-
         this.setState({
             GridConfig: this.props.gridConfig,
             GridRequest: this.props.gridConfig.gridRequest,
@@ -462,7 +465,8 @@ class DesktopGrid extends React.Component<any, any> {
     }
 
     componentDidUpdate(prevprops: any) {
-        if (this.props.topSearchPanelUi != prevprops.topSearchPanelUi) {
+
+        if (this.props.gridConfig.topSearchPanelUi != prevprops.gridConfig.topSearchPanelUi) {
             this.setState({
                 GridConfig: this.props.gridConfig,
                 GridRequest: this.props.gridConfig.gridRequest,
@@ -504,7 +508,7 @@ class DesktopGrid extends React.Component<any, any> {
     }
 
     UpdateStateVariables = () => {
-
+        debugger;
         this.setState({
             GridConfig: this.props.gridConfig,
             GridRequest: this.props.gridConfig.gridRequest,
@@ -599,6 +603,7 @@ class DesktopGrid extends React.Component<any, any> {
     }
 
     searchIfCriteriaExistsOnLoad() {
+        // debugger;
         let doesSearchCriteraExist: boolean = false;
         this.state.GridConfig.topSearchPanelUi.forEach((searchKey: FilterUi) => {
             if (this.doesExist(searchKey.propValue) && searchKey.propValue.length > 0) {
@@ -709,7 +714,7 @@ class DesktopGrid extends React.Component<any, any> {
     handleTopSearchSubmit = (e: any) => {
         if (e != null)
             e.preventDefault();
-
+        debugger;
         this.clearFilter();
         let filterArray = getFilterArray(this.state.GridConfig.topSearchPanelUi);
         let gridRequest: GridRequest = this.state.GridRequest;
@@ -1026,40 +1031,22 @@ class DesktopGrid extends React.Component<any, any> {
             <div className="card  mx-2 h-100 d-block">
                 <div className="card-body">
 
-
                     {this.state.loader ? <LoaderModal></LoaderModal> : ''}
                     < div className=" mt-3 mx-5" >
-                        <h1>
-                            {this.state.GridConfig.Title}
-                        </h1>
                         < div className=" col-lg-12 " >
-                            <div className="text-center text-secondary" >
-                                < div className="col-sm-8 mx-auto  mt-3" >
-                                    <form onSubmit={this.handleTopSearchSubmit} className="">
-                                        <div className="form-row" >
-                                            {
-                                                (this.state.isLoaded && this.state.GridConfig.topSearchPanelUi.length > 0) ?
-                                                    <LoadTopSearchPanelData items={this.state.GridConfig.topSearchPanelUi} handleElementChange={this.handleTopPanelElementChange} />
-                                                    : ""
-                                            }
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
                             < div className="mt-4" >
                                 {this.state.showView ?
                                     <div className="row" >
                                         <div className="col-sm-12" >
-                                            {/* {
-                                        this.state.MobileView ?
-                                            this.TileView()
-                                            :
-                                            this.ListData()
-                                    } */}
                                             {this.ListData()}
+
                                         </div>
                                     </div>
-                                    : ""}
+                                    : <div className="row" >
+                                        <div className="col-sm-12" >
+                                            <h2>Oops No Result Found...</h2>
+                                        </div>
+                                    </div>}
                             </div>
                         </div>
                     </div>
@@ -1087,7 +1074,6 @@ class DesktopGrid extends React.Component<any, any> {
                                     </form>
                                 </Col >
                             </Row >
-
                         </Modal.Body>
 
                     </Modal>
@@ -1107,4 +1093,4 @@ const mapStateToProps = (state: AppState) => ({
 export default connect(
     mapStateToProps,
     { updateSession, UpdateSearchSession }
-)(DesktopGrid)
+)(Desktop1)

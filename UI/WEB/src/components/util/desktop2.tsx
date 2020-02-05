@@ -1,11 +1,6 @@
 import React, { CSSProperties } from "react";
 import { Modal, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { AppState } from "../../store/index";
-import { updateSession } from "../../store/auth/actions";
-import { UpdateSearchSession } from "../../store/search/actions";
-import { connect } from 'react-redux';
-import JobSearchModel from '../../Models/JobSearchModel';
 import PaginationModel from "../../Models/PaginationModel";
 import { GridRequest, GridConfig, Column, Filter, Sorting, Op, FilterUi, ButtonProps } from "../../Models/GridModel";
 import Apiservices from "../services/Apiservices";
@@ -85,7 +80,7 @@ function LoadLeftSearchPanelData(data: any): any {
 }
 function LoadTopSearchPanelData(data: any): any {
 
-    let TopPanelData = data.items;
+    let TopPanelData = data.config.topSearchPanelUi;
     let Field: any[] = []
     if (TopPanelData.length > 0) {
         let SearChpanel = TopPanelData;
@@ -93,7 +88,7 @@ function LoadTopSearchPanelData(data: any): any {
         SearChpanel.map((item: any, key: any) => {
             if (item.questionType == "text") {
                 Field.push(
-                    <div className="form-group col-sm" >
+                    <div className="form-group col-md" >
                         <input
                             type="text"
                             name={item.columnPropertyKey}
@@ -119,7 +114,7 @@ function LoadTopSearchPanelData(data: any): any {
 
             } else if (item.questionType == "number") {
                 Field.push(
-                    <div className="form-group col-sm" >
+                    <div className="form-group col-md" >
                         <input type="number"
                             id={item.label}
                             min='0'
@@ -136,7 +131,7 @@ function LoadTopSearchPanelData(data: any): any {
 
         })
         Field.push(
-            <div className="form-group col-sm" >
+            <div className="form-group col-md" >
                 <input
                     type="submit"
                     id="search"
@@ -145,7 +140,6 @@ function LoadTopSearchPanelData(data: any): any {
                 />
             </div>
         )
-
     }
     return (Field);
 }
@@ -159,7 +153,9 @@ const getFilterArray = (data: any): any => {
 
         if (item.questionType == "text") {
             let fltr = new Filter();
-            let fltrVal = (doesExist(filterIdControl) ? filterIdControl.value : "");
+            // let fltrVal = (doesExist(filterIdControl) ? filterIdControl.value : "");
+            let fltrVal = (doesExist(item.propValue) ? item.propValue : "");
+
 
             fltr.ColumnName = item.columnPropertyKey;
             if (fltrVal.length > 0)
@@ -169,7 +165,9 @@ const getFilterArray = (data: any): any => {
                 filterArray.push(fltr);
         }
         else if (item.questionType == "number") {
-            let fltrVal = (doesExist(filterIdControl) ? filterIdControl.value : "");
+            // let fltrVal = (doesExist(filterIdControl) ? filterIdControl.value : "");
+            let fltrVal = (doesExist(item.propValue) ? item.propValue : "");
+
 
             let fltr = new Filter();
             fltr.ColumnName = item.columnPropertyKey;
@@ -182,7 +180,9 @@ const getFilterArray = (data: any): any => {
         }
         else if (item.questionType == "numberrange") {
             let fltr = new Filter();
-            let fltrVal = (doesExist(filterIdControl) ? filterIdControl.value : "");
+            // let fltrVal = (doesExist(filterIdControl) ? filterIdControl.value : "");
+            let fltrVal = (doesExist(item.propValue) ? item.propValue : "");
+
 
             fltr.ColumnName = item.columnPropertyKey;
             if (fltrVal.length > 0)
@@ -213,114 +213,6 @@ const getFilterArray = (data: any): any => {
 function doesExist(el: any) {
     return (el !== null && el !== undefined)
 }
-
-function ListTableHeader(data: any): any {
-    let columns = data.config.column;
-    let isMultiselect = data.config.isAllowMultiRowSelect;
-    let sorting = data.sorting;
-    let th: any[] = [];
-    if (isMultiselect) {
-        th.push(<th>
-            <div className="custom-control custom-checkbox">
-                <input type="checkbox" onChange={(e) => data.isSelectAll(e)} className="custom-control-input cls_selectall" id="customCheck1" />
-                <label className="custom-control-label" htmlFor="customCheck1"></label>
-            </div>
-        </th>)
-    }
-
-    columns.map((item: any, key: any) => {
-
-        if (item.sortable) {
-            if (sorting.SortColumn != "" && sorting.SortColumn == item.columnPropertyKey) {
-                th.push(<th onClick={(e) => data.sortChange(e, item.columnPropertyKey, sorting.SortOrder)}>{item.title}
-                    <FontAwesomeIcon icon={_SortClass(sorting.SortOrder)} size="xs" className="float-right" /></th>)
-            }
-            else {
-                th.push(<th onClick={(e) => data.sortChange(e, item.columnPropertyKey, 0)}>
-                    {item.title}
-                    <FontAwesomeIcon icon={_SortClass(0)} size="xs" className="float-right" /></th>)
-            }
-        }
-        else {
-            th.push(<th>{item.title}
-            </th>)
-
-        }
-    })
-    return (th)
-}
-
-function ListTabledata(data: any): any {
-
-    let columnData = data.config.column;
-    let isMultiselect = data.config.isAllowMultiRowSelect;
-    let rowData = data.item;
-    let event = data.handleCheckChange;
-    let checkedItems = data.setCheckeditems;
-    let gridRowList: any[] = [];
-
-
-    rowData.map((item: any, key: any) => {
-        gridRowList.push(<tr key={key.toString()}>
-            {
-                getColTagsForDesktop(columnData, item, event, checkedItems, isMultiselect)
-            }
-        </tr>)
-    })
-    return (gridRowList)
-}
-
-function getColTagsForDesktop(columnData: Column[], item: any, event: any, checkedItemList: any, isMultiselect: boolean) {
-    let colTagsArr: any = [];
-    if (isMultiselect) {
-        if (checkedItemList.length > 0 && (checkedItemList.indexOf((item.Id).toString()) > -1)) {
-            colTagsArr.push(
-                <td className="text-center">
-                    <div className="custom-control custom-checkbox">
-                        <input type="checkbox" onChange={(e) => event(e)} checked className="custom-control-input cls_select" id={item.Id} value={item.Id} />
-                        <label className="custom-control-label" htmlFor={item.Id}></label>
-                    </div>
-                </td>
-            )
-        } else {
-            colTagsArr.push(
-                <td className="text-center">
-                    <div className="custom-control custom-checkbox">
-                        <input type="checkbox" onChange={(e) => event(e)} className="custom-control-input cls_select" id={item.Id} value={item.Id} />
-                        <label className="custom-control-label" htmlFor={item.Id}></label>
-                    </div>
-                </td>
-            )
-        }
-    }
-    columnData.forEach((col: Column) => {
-
-        if (col.columnType == "button") {
-            colTagsArr.push(<td>
-                <button className="btn btn-primary btn-sm rounded-0 mr-2"
-                    onClick={(e) => CallEvent(item, col.buttonProps)} >{col.buttonProps.buttonText}</button>
-
-                {item[col.columnPropertyKey]}
-            </td>);
-        } else if (col.columnType == "link") {
-            colTagsArr.push(<td>
-                <Link className=""
-                    to={{
-                        pathname: "/" + col.linkUrl,
-                        state: { [col.linkParam]: item.Id }
-                    }}
-                > {item[col.columnPropertyKey]}
-                </Link>
-            </td >);
-        }
-        else {
-            colTagsArr.push(<td>{item[col.columnPropertyKey]}</td>);
-
-        }
-    });
-    return colTagsArr;
-}
-
 function CallEvent(data: any, btnProps: ButtonProps) {
     let paramArr: any[] = [];
     btnProps.params.forEach((param) => {
@@ -329,7 +221,6 @@ function CallEvent(data: any, btnProps: ButtonProps) {
 
     btnProps.buttonEvent(paramArr);
 }
-
 function BlockData(data: any): any {
     let columnData = data.config.column;
     let isMultiselect = data.config.isAllowMultiRowSelect;
@@ -337,24 +228,34 @@ function BlockData(data: any): any {
     let event = data.handleCheckChange;
     let checkedItems = data.setCheckeditems;
     let gridBlock: any[] = [];
-    if (isMultiselect)
-        gridBlock.push(
-            <div className="custom-control custom-checkbox">
-                <input type="checkbox" onChange={(e) => data.isSelectAll(e)} className="custom-control-input cls_selectall" id="customCheck1" />
-                <label className="custom-control-label" htmlFor="customCheck1"> Select All</label>
-            </div>
-        )
-    rowData.map((item: any, key: any) => {
+    // if (isMultiselect)
+    //     gridBlock.push(
+    //         <div className="custom-control custom-checkbox d-inline ml-3 mb-3">
+    //             <input type="checkbox" onChange={(e) => data.isSelectAll(e)} className="custom-control-input cls_selectall" id="customCheck1" />
+    //             <label className="custom-control-label" htmlFor="customCheck1"> &nbsp;Select All</label>
+    //             <br />
+    //         </div>
+    //     )
+    (rowData != undefined && rowData.length != null && rowData.length > 0)
+        ?
+        rowData.map((item: any, key: any) => {
+            gridBlock.push(
+                <div className="card  border rounded-0 pt-2 mb-2 shadow-sm p-3 ">
+                    <div className="card-text mb-2">
+                        {
+                            getColTagsForMobile(columnData, item, event, checkedItems, isMultiselect)
+                        }
+                    </div>
+                </div>
+            )
+        }) :
         gridBlock.push(
             <div className="card  border rounded-0 pt-2 mb-2 shadow-sm p-3 ">
                 <div className="card-text mb-2">
-                    {
-                        getColTagsForMobile(columnData, item, event, checkedItems, isMultiselect)
-                    }
-                </div>
+                    No results available. Please search with different criteria using "Modify Search" link.
+            </div>
             </div>
         )
-    })
     return (gridBlock)
 }
 function getColTagsForMobile(columnData: Column[], item: any, event: any, checkedItemList: any, isMultiselect: boolean) {
@@ -362,14 +263,14 @@ function getColTagsForMobile(columnData: Column[], item: any, event: any, checke
     if (isMultiselect) {
         if (checkedItemList.length > 0 && (checkedItemList.indexOf((item.Id).toString()) > -1)) {
             colTagsArr.push(
-                <div className="custom-control custom-checkbox">
+                <div className="custom-control custom-checkbox d-inline">
                     <input type="checkbox" onChange={(e) => event(e)} checked className="custom-control-input cls_select" id={item.Id} value={item.Id} />
                     <label className="custom-control-label" htmlFor={item.Id}></label>
                 </div>
             )
         } else {
             colTagsArr.push(
-                <div className="custom-control custom-checkbox">
+                <div className="custom-control custom-checkbox d-inline">
                     <input type="checkbox" onChange={(e) => event(e)} className="custom-control-input cls_select" id={item.Id} value={item.Id} />
                     <label className="custom-control-label" htmlFor={item.Id}></label>
                 </div>
@@ -404,19 +305,9 @@ function getColTagsForMobile(columnData: Column[], item: any, event: any, checke
     return colTagsArr;
 }
 
-function _SortClass(data: any): any {
-    switch (data) {
-        case 0: return ("sort");
-        case 1: return ("sort-up");
-        case 2: return ("sort-down");
-        default: return ("")
-    }
-}
-
-class DesktopGrid extends React.Component<any, any> {
+class Mobile1 extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
-
         console.log(props);
         this.state = {
             show: false,
@@ -425,9 +316,11 @@ class DesktopGrid extends React.Component<any, any> {
             ResponceData: {},
             isLoaded: false,
             loader: false,
-            showView: true,
+            showView: false,
             MobileView: (window.outerWidth <= 768) ? true : false,
             exportMenuShow: false,
+            showError: false,
+            showModelType: "",
             temp: ""
         }
 
@@ -442,65 +335,17 @@ class DesktopGrid extends React.Component<any, any> {
         this.handleLeftPanelElementChange = this.handleLeftPanelElementChange.bind(this);
         this.handleMultipleSelectEvent = this.handleMultipleSelectEvent.bind(this);
         this.resize = this.resize.bind(this)
-        window.addEventListener("resize", this.resize);
 
+        window.addEventListener("resize", this.resize);
 
     }
 
     SelectedListArray: any[] = [];
 
-    componentDidMount() {
-
-        this.setState({
-            GridConfig: this.props.gridConfig,
-            GridRequest: this.props.gridConfig.gridRequest,
-            ResponceData: this.props.gridConfig.responceData,
-            isLoaded: true,
-            //showView:true
-            showView: (this.props.gridConfig.responceData !== undefined && this.props.gridConfig.responceData !== null && this.props.gridConfig.responceData.length > 0) ? true : false
-        }, this.searchIfCriteriaExistsOnLoad);
-    }
-
-    componentDidUpdate(prevprops: any) {
-        if (this.props.topSearchPanelUi != prevprops.topSearchPanelUi) {
-            this.setState({
-                GridConfig: this.props.gridConfig,
-                GridRequest: this.props.gridConfig.gridRequest,
-                ResponceData: this.props.gridConfig.responceData,
-                isLoaded: true,
-                showView: (this.props.gridConfig.responceData !== undefined && this.props.gridConfig.responceData !== null && this.props.gridConfig.responceData.length > 0) ? true : false
-            }, this.searchIfCriteriaExistsOnLoad);
-        }
-    }
-
-    // static getDerivedStateFromProps(nextprops: any, previousstate: any) {
-
-    //     return {
-    //         GridRequest: nextprops.gridConfig.gridRequest
-    //     };
-    // }
-
-    // componentWillReceiveProps() {
-    //     this.setState({
-    //         GridConfig: this.props.gridConfig,
-    //         GridRequest: this.props.gridConfig.gridRequest,
-    //         ResponceData: this.props.gridConfig.responceData,
-    //         isLoaded: true,
-    //         //showView:true
-    //         showView: (this.props.gridConfig.responceData !== undefined && this.props.gridConfig.responceData !== null && this.props.gridConfig.responceData.length > 0) ? true : false
-    //     });
-    // }
-
     resize() {
         this.setState({
             MobileView: (window.outerWidth <= 768) ? true : false
         }, this.CallBackGridRequest)
-    }
-
-    CallBackGridRequest() {
-        if (this.state.MobileView) {
-            this.props.updateGR(this.state.GridRequest, this.state.MobileView, this.state.ResponceData)
-        }
     }
 
     UpdateStateVariables = () => {
@@ -511,8 +356,15 @@ class DesktopGrid extends React.Component<any, any> {
             ResponceData: this.props.gridConfig.responceData,
             isLoaded: true,
             //showView:true
+            showError: (this.props.gridConfig.responceData !== undefined && this.props.gridConfig.responceData !== null && this.props.gridConfig.responceData.length > 0) ? false : true,
             showView: (this.props.gridConfig.responceData !== undefined && this.props.gridConfig.responceData !== null && this.props.gridConfig.responceData.length > 0) ? true : false
         });
+    }
+
+    CallBackGridRequest() {
+        if (!this.state.MobileView) {
+            this.props.updateGR(this.state.GridRequest, this.state.MobileView, this.state.ResponceData)
+        }
     }
 
     selectall_change = (e: any) => {
@@ -605,8 +457,8 @@ class DesktopGrid extends React.Component<any, any> {
                 doesSearchCriteraExist = true;
             }
         });
-
         doesSearchCriteraExist = this.state.GridConfig.isComingFromHome;
+
 
         if (doesSearchCriteraExist)
             this.handleTopSearchSubmit(null);
@@ -614,6 +466,45 @@ class DesktopGrid extends React.Component<any, any> {
     }
 
 
+    componentDidMount() {
+        this.setState({
+            GridConfig: this.props.gridConfig,
+            GridRequest: this.props.gridConfig.gridRequest,
+            ResponceData: this.props.gridConfig.responceData,
+            isLoaded: true,
+            // showError:(this.props.gridConfig.responceData !== undefined && this.props.gridConfig.responceData !== null && this.props.gridConfig.responceData.length > 0) ? false : true,
+            showView: (this.props.gridConfig.responceData !== undefined && this.props.gridConfig.responceData !== null && this.props.gridConfig.responceData.length > 0) ? true : false
+
+        }, this.searchIfCriteriaExistsOnLoad);
+    }
+
+    componentDidUpdate(prevprops: any) {
+
+        if (this.props.gridConfig.topSearchPanelUi != prevprops.gridConfig.topSearchPanelUi) {
+            this.setState({
+                GridConfig: this.props.gridConfig,
+                GridRequest: this.props.gridConfig.gridRequest,
+                ResponceData: this.props.gridConfig.responceData,
+                isLoaded: true,
+                // showError:(this.props.gridConfig.responceData !== undefined && this.props.gridConfig.responceData !== null && this.props.gridConfig.responceData.length > 0) ? false : true,
+                showView: (this.props.gridConfig.responceData !== undefined && this.props.gridConfig.responceData !== null && this.props.gridConfig.responceData.length > 0) ? true : false
+
+            }, this.searchIfCriteriaExistsOnLoad);
+        }
+    }
+
+    // componentWillReceiveProps(nextProps:any) {
+    //     console.log(this.props)
+    //     console.log(nextProps.gridConfig.gridRequest)
+    //     this.setState({
+    //         GridConfig: this.props.gridConfig,
+    //         GridRequest: this.props.gridConfig.gridRequest,
+    //         ResponceData: this.props.gridConfig.responceData,
+    //         isLoaded: true,
+    //         //showView:true
+    //         showView: (this.props.gridConfig.responceData !== undefined && this.props.gridConfig.responceData !== null && this.props.gridConfig.responceData.length > 0) ? true : false
+    //     }, this.searchIfCriteriaExistsOnLoad);
+    // }
 
     sortOrder = (e: any, sortColumnName: any, order: any) => {
         e.preventDefault();
@@ -637,7 +528,6 @@ class DesktopGrid extends React.Component<any, any> {
         let responce = null;
 
         responce = this.state.GridConfig.gridApiData.apiCall(this.state.GridRequest, this.UpdateStateVariables);
-
 
         // if (this.state.GridConfig.gridApiData.method == "post")
         //     responce = Servicecall.POST_CALL1(this.state.GridConfig.gridApiData.url, this.state.GridRequest, this.displayData, this.errorHandle)
@@ -711,9 +601,9 @@ class DesktopGrid extends React.Component<any, any> {
             e.preventDefault();
 
         this.clearFilter();
-        let filterArray = getFilterArray(this.state.GridConfig.topSearchPanelUi);
+        let topSearchArray = getFilterArray(this.state.GridConfig.topSearchPanelUi);
         let gridRequest: GridRequest = this.state.GridRequest;
-        gridRequest.TopSearchFilter = filterArray;
+        gridRequest.TopSearchFilter = topSearchArray;
         gridRequest.Pagination.CurrentPage = 1;
         this.setState({
             GridRequest: gridRequest,
@@ -721,7 +611,25 @@ class DesktopGrid extends React.Component<any, any> {
         }, () => this.requestApi());
     }
 
+    getSearchValues() {
+        let filterCriteria: any[] = [];
+        this.state.GridRequest.TopSearchFilter.forEach((item: any) => { filterCriteria = filterCriteria.concat(item.Value); });
+        this.state.GridRequest.LeftSearchFilter.forEach((item: any) => { filterCriteria = filterCriteria.concat(item.Value); });
 
+        let outfilterCriteria: any[] = [];
+        filterCriteria.map((item: any) =>
+
+            outfilterCriteria.push(
+                <span className="badge badge-light">
+                    {item}
+                    {/* <FontAwesomeIcon icon="times" size="sm" className="ml-2"  /> */}
+                </span>
+            )
+
+        );
+        return outfilterCriteria;
+
+    }
 
     handleLeftSearchSubmit = (e: any) => {
         e.preventDefault();
@@ -735,7 +643,6 @@ class DesktopGrid extends React.Component<any, any> {
             show: false
         }, () => this.requestApi());
     }
-
     renderPaginationList = (currentPage: any, totalPages: any) => {
         let li: any[] = [];
         //li.push(<></>);
@@ -843,14 +750,14 @@ class DesktopGrid extends React.Component<any, any> {
                                 {this.state.GridRequest.Pagination.TotalPages > 0 ?
                                     this.renderPaginationList(this.state.GridRequest.Pagination.CurrentPage, Math.ceil(this.state.GridRequest.Pagination.TotalPages)) : ""}
                             </ul>
-                            <span className="float-sm-left  mr-2 ml-2">
+                            {/* <span className="float-sm-left  mr-2 ml-2">
                                 <select className="form-control" onChange={this.recordsPerPage}>
                                     <option>20</option>
                                     <option>50</option>
                                     <option>100</option>
                                     <option>200</option>
                                 </select>
-                            </span>
+                            </span> */}
                         </nav>
                     </div>
                     <div className="col-sm-4">
@@ -865,7 +772,7 @@ class DesktopGrid extends React.Component<any, any> {
                                             ""
                                         }
                                     </span>
-                                    <span onClick={this.setShow} className="btn btn-primary float-sm-right mr-2 float-right ">
+                                    <span onClick={() => this.setShow("FilterModel")} className="btn btn-primary float-sm-right mr-2 float-right ">
                                         <FontAwesomeIcon icon="grip-vertical" size="xs" className="ml-2" />
                                         <FontAwesomeIcon icon="filter" size="xs" className="ml-2" />
                                     </span>
@@ -893,93 +800,73 @@ class DesktopGrid extends React.Component<any, any> {
         )
     }
 
-    ListData = () => {
-        if (this.state.isLoaded && this.state.GridConfig.column.length > 0) {
-            let Columns = this.state.GridConfig.column;
-            return (<>
-                {this.GridHeader()}
-                <div className="table-responsive-lg">
-                    <table className="table  table-hover">
-                        <thead>
-                            <tr>
-                                <ListTableHeader
-                                    config={this.state.GridConfig}
-                                    sorting={this.state.GridRequest.Sorting}
-                                    sortChange={this.sortOrder}
-                                    isSelectAll={this.selectall_change} />
-                            </tr>
-                        </thead>
-                        {
-                            (this.state.ResponceData != undefined && this.state.ResponceData.length != null && this.state.ResponceData.length > 0)
-                                ?
-                                <ListTabledata
-                                    item={this.state.ResponceData}
-                                    config={this.state.GridConfig}
-                                    handleCheckChange={this.handleCheckBoxchange}
-                                    setCheckeditems={this.SelectedListArray}
-                                />
-                                : ""
-                        }
-                    </table>
-                </div>
-            </>)
-        }
-    }
 
     TileView = () => {
         if (this.state.isLoaded && this.state.GridConfig.column.length > 0) {
             let Columns = this.state.GridConfig;
             return (
                 <>
-                    {this.GridHeader()}
+                    {/* {this.GridHeader()} */}
                     {
-                        (this.state.ResponceData != undefined && this.state.ResponceData.length != null && this.state.ResponceData.length > 0)
-                            ?
-                            <>
-                                <BlockData
-                                    item={this.state.ResponceData}
-                                    config={this.state.GridConfig}
-                                    setCheckeditems={this.SelectedListArray}
-                                    handleCheckChange={this.handleCheckBoxchange}
-                                    isSelectAll={this.selectall_change} />
 
-                                <div className="row fixed-bottom position-fixed">
-                                    <div className="col">
-                                        <span onClick={this.setShow} className="btn btn-primary rounded-circle float-sm-right mr-2 mb-1 float-right">
-                                            <FontAwesomeIcon icon="filter" size="xs" className="" />
-                                        </span>
+                        <>
+                            <BlockData
+                                item={this.state.ResponceData}
+                                config={this.state.GridConfig}
+                                setCheckeditems={this.SelectedListArray}
+                                handleCheckChange={this.handleCheckBoxchange}
+                                isSelectAll={this.selectall_change} className="mb-5" />
+                            {
+                                (this.state.ResponceData != undefined && this.state.ResponceData.length != null && this.state.ResponceData.length > 0) ?
+                                    <div className="fixed-bottom position-fixed w-100 overflow-hidden">
+                                        <div className="row">
+                                            <div className="col-sm-11"></div>
+                                            <div className="col-sm-1">
+                                                <span onClick={() => this.setShow("FilterModel")} className="btn btn-primary rounded-circle">
+                                                    <FontAwesomeIcon icon="filter" size="xs" className="" />
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-sm-12  bg-primary ">
+                                                {
+                                                    (this.state.GridConfig.isAllowMultiRowSelect) ?
+                                                        this.state.GridConfig.toolBar.map((item: any, key: any) => {
+                                                            let paramArr: any[] = [];
+                                                            return (
+                                                                <button key={key}
+                                                                    className="btn btn-primary"
+                                                                    onClick={() => this.handleMultipleSelectEvent(item)}>
+                                                                    {item.buttonText}</button>
+                                                            )
+                                                        }) : ""
+                                                }
+                                                {
+                                                    (this.state.GridConfig.isExportable && this.state.GridRequest.Pagination.TotalPages > 0) ?
+                                                        <span onClick={(e) => this.export_data(e, "xls")} className="btn btn-primary">
+                                                            <FontAwesomeIcon icon="file-excel" size="lg" className="" /> Export
+                                                </span> :
+                                                        "jj"
+                                                }
+                                            </div>
+                                        </div>
                                     </div>
+                                    : ""
+                            }
+                        </>
 
-                                    <span className="col-sm-12  bg-primary ">
-                                        {
-                                            (this.state.GridConfig.isAllowMultiRowSelect) ?
-                                                this.state.GridConfig.toolBar.map((item: any, key: any) => {
-                                                    let paramArr: any[] = [];
-                                                    return (
-                                                        <button key={key}
-                                                            className="btn btn-primary"
-                                                            onClick={() => this.handleMultipleSelectEvent(item)}>
-                                                            {item.buttonText}</button>
-                                                    )
-                                                }) : ""
-                                        }
-                                        {
-                                            (this.state.GridConfig.isExportable && this.state.GridRequest.Pagination.TotalPages > 0) ?
-                                                <span onClick={(e) => this.export_data(e, "xls")} className="btn btn-primary float-sm-right mr-2 float-right">
-                                                    <FontAwesomeIcon icon="file-excel" size="lg" className="" /> Excel
-                                            </span> :
-                                                ""
-                                        }
-                                    </span>
-                                </div>
-                            </>
-                            :
-                            ""
                     }
                 </>
             )
 
         }
+        // else if( this.state.showError && !this.state.showView) {
+        //     return (
+        //         <>
+        //             <h4> No Result Found, Please Search for Other... </h4>
+        //         </>
+        //     )
+        // }
     }
 
     handlePageChange = (e: any, index: number) => {
@@ -1007,9 +894,10 @@ class DesktopGrid extends React.Component<any, any> {
     }
 
 
-    setShow = () => {
+    setShow = (ModelName: string) => {
         this.setState({
-            show: !this.state.show
+            show: !this.state.show,
+            showModelType: ModelName
         })
     }
 
@@ -1018,93 +906,151 @@ class DesktopGrid extends React.Component<any, any> {
         return <></>
     }
 
+    SearchUi = () => {
+        return (
+            <div className="text-center text-secondary" >
+                <div className="col-sm-8 mx-auto  mt-3" >
+                    <form onSubmit={this.handleTopSearchSubmit}>
+                        <div className="form-row" >
+                            {
+                                (this.state.isLoaded && this.state.GridConfig.topSearchPanelUi.length > 0) ?
+                                    <LoadTopSearchPanelData config={this.state.GridConfig} handleElementChange={this.handleTopPanelElementChange} />
+                                    : ""
+                            }
+                        </div>
+                    </form>
+                </div>
+            </div>
+        )
+    }
 
     render() {
 
         return (<>
+            {this.state.loader ? <LoaderModal></LoaderModal> : ''}
+            < div>
+                {
+                    // this.props.gridConfig.responceData !== undefined && this.props.gridConfig.responceData !== null && this.props.gridConfig.responceData.length > 0
 
-            <div className="card  mx-2 h-100 d-block">
-                <div className="card-body">
+                    <>
+                        {
+                            this.getSearchValues() == null || this.getSearchValues().length == 0 ? "" :
+                                <div className="row px-2 pt-2"><div className="col-lg-12">
 
 
-                    {this.state.loader ? <LoaderModal></LoaderModal> : ''}
-                    < div className=" mt-3 mx-5" >
-                        <h1>
-                            {this.state.GridConfig.Title}
-                        </h1>
-                        < div className=" col-lg-12 " >
-                            <div className="text-center text-secondary" >
-                                < div className="col-sm-8 mx-auto  mt-3" >
-                                    <form onSubmit={this.handleTopSearchSubmit} className="">
-                                        <div className="form-row" >
-                                            {
-                                                (this.state.isLoaded && this.state.GridConfig.topSearchPanelUi.length > 0) ?
-                                                    <LoadTopSearchPanelData items={this.state.GridConfig.topSearchPanelUi} handleElementChange={this.handleTopPanelElementChange} />
-                                                    : ""
-                                            }
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            < div className="mt-4" >
-                                {this.state.showView ?
-                                    <div className="row" >
-                                        <div className="col-sm-12" >
-                                            {/* {
-                                        this.state.MobileView ?
-                                            this.TileView()
-                                            :
-                                            this.ListData()
-                                    } */}
-                                            {this.ListData()}
+                                    <div className="card">
+                                        <div className="card-body">
+                                            <div className="card-text">
+                                                <div className="row">
+                                                    {this.getSearchValues()}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    : ""}
+                                </div></div>
+                        }
+                        <div className="row px-2 pt-2"><div className="col-lg-12">
+                            <div className="card">
+                                <div className="card-body">
+                                    <div className="card-text">
+                                        <div className="row">
+
+
+                                            {
+
+                                                (this.state.GridConfig.isAllowMultiRowSelect && this.state.showView) ?
+                                                    <>
+                                                        <div className="col-6">
+                                                            <div className="custom-control custom-checkbox d-inline mb-3">
+                                                                <input type="checkbox" onChange={(e) => this.selectall_change(e)} className="custom-control-input cls_selectall" id="customCheck1" />
+                                                                <label className="custom-control-label" htmlFor="customCheck1"> &nbsp;Select All</label>
+                                                                <br />
+                                                            </div>
+                                                        </div>
+                                                        {/* <div className="col-6" onClick={() => this.setShow("SearchModel")} >Modify Search
+                                                                <span className="text-primary"> <FontAwesomeIcon icon="search" size="sm" /></span>
+                                                        </div> */}
+                                                    </>
+                                                    :""
+                                                    // <div className="col-12 text-center" onClick={() => this.setShow("SearchModel")} >Modify Search
+                                                    //         <span className="text-primary"> <FontAwesomeIcon icon="search" size="sm" /></span>
+                                                    // </div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        </div>
+                    </>
+
+                }
+
+
+                <div className="row px-2 pt-2">
+                    < div className=" col-lg-12 " >
+
+                        < div>
+
+                            <div className="row" >
+                                <div className="col-sm-12" >
+                                    {
+                                        this.TileView()
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-
-                    <Modal
-                        size="lg"
-                        show={this.state.show}
-                        className="{styles.loaderCls}"
-                        onHide={this.setShow}
-                        aria-labelledby="contained-modal-title-vcenter"
-                        centered>
-                        <Modal.Header >
-                            <h4 className="text-uppercase mt-20">  Filter</h4>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Row className="ml-0 mr-0 h-100">
-                                <Col className="bg-white h-100 d-table">
-
-                                    <form onSubmit={this.handleLeftSearchSubmit}>
-                                        {(this.state.isLoaded && this.state.GridConfig.column.length > 0)
-                                            ?
-                                            <LoadLeftSearchPanelData items={this.state.GridConfig.leftSearchPanelUi} handleElementChange={this.handleLeftPanelElementChange} />
-
-                                            : ""}
-                                    </form>
-                                </Col >
-                            </Row >
-
-                        </Modal.Body>
-
-                    </Modal>
-
-
                 </div>
             </div>
+
+            <Modal
+                size="lg"
+                show={this.state.show}
+                className="{styles.loaderCls}"
+                onHide={() => this.setShow("")}
+                aria-labelledby="contained-modal-title-vcenter"
+                centered>
+                <Modal.Header >
+                    <h4 className="text-uppercase mt-20">
+                        {
+                            (this.state.showModelType == "SearchModel") ?
+                                this.state.GridConfig.Title
+                                :
+                                "Filter"}
+                    </h4>
+                </Modal.Header>
+                <Modal.Body>
+                    <Row className="ml-0 mr-0 h-100">
+                        <Col className="bg-white h-100 d-table">
+                            {
+
+                                (this.state.showModelType == "SearchModel") ?
+
+                                    this.SearchUi()
+                                    :
+                                    (this.state.showModelType == "FilterModel") ?
+                                        < form onSubmit={this.handleLeftSearchSubmit}>
+                                            {(this.state.isLoaded && this.state.GridConfig.column.length > 0)
+                                                ?
+                                                <LoadLeftSearchPanelData items={this.state.GridConfig.leftSearchPanelUi} handleElementChange={this.handleLeftPanelElementChange} />
+
+                                                : ""}
+                                        </form> : ""
+                            }
+                        </Col >
+                    </Row >
+
+                </Modal.Body>
+
+            </Modal>
+
+
+
 
         </>)
     }
 }
-const mapStateToProps = (state: AppState) => ({
-    system: state.system,
-    search: state.search
-});
-
-export default connect(
-    mapStateToProps,
-    { updateSession, UpdateSearchSession }
-)(DesktopGrid)
+export default Mobile1;

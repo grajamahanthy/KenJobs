@@ -16,7 +16,7 @@ export default class Apiservices {
         //this.UrlPath = 'http://api-kenjobs.com/api/';
         // this.UrlPath = 'http://apikenjobs.com/api/';
         //this.UrlPath = 'http://localhost:50768/api/';
-        this.UrlPath = 'http://api.kenjobs.com/api/';
+       this.UrlPath = 'http://api.kenjobs.com/api/';
 
     }
     //Regular Service Call
@@ -138,7 +138,7 @@ export default class Apiservices {
 
         //let currentUrl = 'http://api-kenjobs.com/' + URL;
         // let currentUrl = 'http://apikenjobs.com/' + URL;
-        //let currentUrl = 'http://localhost:50768/' + URL;
+       // let currentUrl = 'http://localhost:50768/' + URL;
         let currentUrl = 'http://api.kenjobs.com/' + URL;
 
         this.Header = new Headers();

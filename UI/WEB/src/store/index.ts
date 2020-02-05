@@ -1,12 +1,13 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunkMiddleware from "redux-thunk";
-// import { composeWithDevTools } from "redux-devtools-extension";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 import { systemReducer } from "./auth/reducers";
-// import { chatReducer } from "./chat/reducers";
+import { searchReducer } from './search/reducers';
 
 const rootReducer = combineReducers({
-    system: systemReducer
+    system: systemReducer,
+    search: searchReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
@@ -17,7 +18,7 @@ export default function configureStore() {
 
     const store = createStore(
         rootReducer,
-        middleWareEnhancer
+        composeWithDevTools(middleWareEnhancer)
     );
 
     return store;

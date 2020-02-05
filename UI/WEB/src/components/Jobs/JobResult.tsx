@@ -19,10 +19,13 @@ import JobSearchModel from '../../Models/JobSearchModel';
 import { GridRequest, GridConfig, Op } from '../../Models/GridModel';
 import DesktopGrid from '../util/DesktopGrid';
 import MobileGrid from '../util/MobileGrid';
+import Desktop1 from '../util/desktop1';
+import Mobile1 from '../util/desktop2';
+
 const notify = new Notify();
 
 
-class FilterJobs extends React.Component<any, any, any>{
+class JobResult extends React.Component<any, any, any>{
     constructor(props: any) {
         super(props);
         const token = this.props.system.token
@@ -59,18 +62,18 @@ class FilterJobs extends React.Component<any, any, any>{
 
 
     componentDidMount() {
-        console.log(this.props.search)
+        // console.log(this.props.search)
 
-        let keyword = this.props.search.keyword;
-        let location = this.props.search.location;
-        let sexperience = this.props.search.experience;
-        let JSM: any = this.state.jobSearchModel;
-        JSM.Keyword = keyword;
-        JSM.Location = location;
-        JSM.Experience = sexperience;
-        this.setState({
-            jobSearchModel: JSM
-        })
+        // let keyword = this.props.search.keyword;
+        // let location = this.props.search.location;
+        // let sexperience = this.props.search.experience;
+        // let JSM: any = this.state.jobSearchModel;
+        // JSM.Keyword = keyword;
+        // JSM.Location = location;
+        // JSM.Experience = sexperience;
+        // this.setState({
+        //     jobSearchModel: JSM
+        // })
         this.FillGridConfig();
 
         this.setState({ isLoaded: true });
@@ -78,7 +81,6 @@ class FilterJobs extends React.Component<any, any, any>{
     }
 
     componentDidUpdate(prevProps: any) {
-
         if (this.props.search != prevProps.search) {
             let JSM: any = this.state.jobSearchModel;
             JSM.Keyword = this.props.search.keyword;
@@ -330,7 +332,7 @@ class FilterJobs extends React.Component<any, any, any>{
 
 
     setSearchCriteria() {
-        //debugger;
+        // debugger;
         let keyword = this.props.search.keyword;
         let location = this.props.search.location;
         let experience = this.props.search.experience;
@@ -338,7 +340,7 @@ class FilterJobs extends React.Component<any, any, any>{
         gD.topSearchPanelUi.forEach(searchKey => {
             if (searchKey.columnPropertyKey == "Keyword")
                 searchKey.propValue = keyword;
-            else if (searchKey.columnPropertyKey == "Location")
+            else if (searchKey.columnPropertyKey == "City")
                 searchKey.propValue = location;
             else if (searchKey.columnPropertyKey == "Experience")
                 searchKey.propValue = experience;
@@ -505,9 +507,9 @@ class FilterJobs extends React.Component<any, any, any>{
         return (
             <>
                 {(!this.state.IsMobileView) ?
-                    <DesktopGrid gridConfig={this.state.gridConfig} updateGR={this.handleSwitchDisplay}></DesktopGrid>
+                    <Desktop1 gridConfig={this.state.gridConfig} updateGR={this.handleSwitchDisplay}></Desktop1>
 
-                    : <MobileGrid gridConfig={this.state.gridConfig} updateGR={this.handleSwitchDisplay}></MobileGrid>
+                    : <Mobile1 gridConfig={this.state.gridConfig} updateGR={this.handleSwitchDisplay}></Mobile1>
                 }
             </>
         )
@@ -539,4 +541,4 @@ const mapStateToProps = (state: AppState) => ({
 export default connect(
     mapStateToProps,
     { updateSession, UpdateSearchSession }
-)(FilterJobs)
+)(JobResult)

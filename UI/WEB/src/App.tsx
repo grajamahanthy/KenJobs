@@ -29,10 +29,7 @@ import favoritejob from "./components/Jobs/FavoriteJob";
 import EmployerHome from "./components/EmployerHome";
 // import { IsessionState } from "./store/auth/types";
 import { updateSession } from "./store/auth/actions";
-
-
-
-
+import { UpdateSearchSession } from "./store/search/actions";
 //Font ICONS Importing
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -45,10 +42,33 @@ import {
 import { ToastContainer } from "react-toastify";
 import Apiservices from "./components/services/Apiservices";
 import FilterJobs from "./components/Jobs/FilterJobs";
+import LandingForm from "./components/Landingpage";
+import JobResult from "./components/Jobs/JobResult";
 
 library.add(faSuitcase, faMapMarkerAlt, faBuilding, faChessKing, faNewspaper, faWallet, faUserTie, faTransgender,
   faGlobe, faNetworkWired, faTrashAlt, faPlusSquare, faFileAlt, faUser, faEnvelope, faMobileAlt, faUniversity, faLaptopCode,
   faUpload, faDownload, faFilter, faGripVertical, faSort, faSortUp, faSortDown, faFileExcel, faSearch, faTimes)
+
+/*Creating Context*/
+
+export const SearchContext = React.createContext<any>({})
+
+const initialState = { isLandingPage: true, styleClass: "" }
+const reducer = (state: any, action: any) => {
+  switch (action) {
+    case 'SearchPage': return {
+      isLandingPage: false,
+      styleClass: "Search-header "
+    }
+    case 'LandingPage': return {
+      isLandingPage: true,
+      styleClass: "Landing-header"
+    }
+    default: return state
+  }
+}
+
+
 
 class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -65,35 +85,24 @@ class App extends React.Component<any, any> {
     const isAuthenticated = localStorage.getItem("authInfo");
     // console.log(localStorage.getItem("authInfo"));
     if (isAuthenticated) {
-
       this.props.updateSession(JSON.parse(isAuthenticated))
     }
   }
 
-
-  componentDidMount() {
-
-  }
-
   render() {
     return (<>
-      <div className="h-100">
-        <Router>
-          {/* {login_page} */}
-          {/* <div className="row">
-  <div className="col-sm-12">
-    
-  </div>
-  </div> */}
-          < Navigation app_prop={this.props.system}></Navigation>
-          <div className={"row container-height-92"} id="root-container">
-            <div className="col-sm-12">
+      <SearchContext.Provider value={""}>
+        <div className="h-100 theme-1">
+          <Router>
+            < Navigation app_prop={this.props.system}></Navigation>
+            <div className={"row"} id="root-container">
+              <div className="col-sm-12">
                 <Route exact path="/login/:usertype" name="usertype" component={Login} />
                 <Route exact path="/ForgotPassword/:usertype" name="usertype" component={ForgotPassword} />
                 <Route exact path="/Registration/:usertype" name="usertype" component={Registration} />
                 <Route exact path="/ChangePassword/:usertype/:email/:key" name="usertype" component={ChangePassword} />
                 {/* <Route exact path="/ConfirmVerification/:usertype" name="usertype" component={ConfirmVerification} /> */}
-                <Route exact path="/" component={Home} />
+                {/* <Route exact path="/" component={Home} /> */}
                 <Route exact path="/Dashboard" component={Dashboard} />
                 <Route exact path="/editemployee" component={Employeeprofile} />
                 <Route exact path="/Jobs" component={Jobs} />
@@ -111,16 +120,16 @@ class App extends React.Component<any, any> {
                 <Route exact path="/candidate" component={Candidate} />
                 <Route exact path="/Employeer-Dashbord" component={EmployerHome} />
                 <Route exact path="/FilterJobs" component={FilterJobs} />
+                <Route exact path="/Searchresult" component={JobResult} />
+                <Route exact path="/" component={LandingForm} />
 
                 {/* <Route component={NoMatch} /> */}
+              </div>
             </div>
-          </div>
-
-
-
-        </Router>
-        <ToastContainer />
-      </div>
+          </Router>
+          <ToastContainer />
+        </div>
+      </SearchContext.Provider>
     </>
     );
   }
@@ -128,11 +137,13 @@ class App extends React.Component<any, any> {
 };
 
 const mapStateToProps = (state: AppState) => ({
-  system: state.system
+  system: state.system,
+  search: state.search
+
 });
 
 export default connect(
   mapStateToProps,
-  { updateSession }
+  { updateSession, UpdateSearchSession }
 )(App);
 

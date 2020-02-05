@@ -33,11 +33,11 @@ class ProfileImg extends React.Component<any, any> {
     render() {
         return (
             <>
-                <div className="rounded-circle" style={{overflow:"hidden"}} >
+                <div className="rounded-circle " style={{overflow:"hidden"}} >
                     {this.state.Image != "" && this.state.Image != null ?
-                        <img src={this.state.Image} className="img-fluid" style={{ height: "40px"  }} alt='' />
+                        <img src={this.state.Image} className="img-fluid img-rounded" style={{ height: "40px"  }} alt='' />
                         :
-                        <img src={require('../../assets/images/DP_white.png')} className="img-fluid" style={{ height: "40px" }} alt='' />
+                        <img src={require('../../assets/images/DP_white.png')} className="img-fluid img-rounded" style={{ height: "40px" }} alt='' />
 
                     }
                 </div>
