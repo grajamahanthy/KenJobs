@@ -4,7 +4,8 @@ import { GridRequest } from '../../Models/GridModel'
 const initialSearchState: Isearchsession = {
     keyword: '',
     location: '',
-    experience: ''
+    experience: '',
+    islandingPage:true
 }
 
 

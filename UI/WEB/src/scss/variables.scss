@@ -12,8 +12,8 @@
      }
  }
  
- @include font('NeueHaasDisplay-XXThin', '/fonts/NeueHaasDisplay-XXThin');
- //  @include font('NeueHaasDisplay-Thin', '/fonts/NeueHaasDisplay-Thin');
+ //  @include font('NeueHaasDisplay-XXThin', '/fonts/NeueHaasDisplay-XXThin');
+ @include font('NeueHaasDisplay-Thin', '/fonts/NeueHaasDisplay-Thin');
  $theme-colors: ( "primary": #083DAD, "danger": #ff4136);
  @mixin themable($theme-name, $primeryColor, $white) {
      // $theme-colors: ( "primary": #083DAD, "danger": #ff4136);
@@ -74,25 +74,27 @@
              font-style: normal;
              font-size: 69px;
          }
+         footer {
+             position: absolute;
+             bottom: 0;
+             width: 100%;
+             height: 100px;
+             color: #ffffff;
+         }
          //NavBar
          .Landing-header {
              width: 100%;
              height: 80vh;
-             background: url(../assets/images/bg1.jpg) no-repeat 50% 50%;
+             background: linear-gradient(rgba(0, 0, 0, 0.288), rgba(0, 0, 0, 0.226)), url(../assets/images/kenjobs_Background.png) no-repeat 100% 00%;
+             //  background: linear-gradient(rgba(0, 0, 0, 0.288), rgba(0, 0, 0, 0.226)), url(../assets/images/coverimg.jpg) no-repeat 80% 20%;
              background-size: cover;
          }
          .Search-header {
              width: 100%;
-             height: 40vh;
+             height: 35vh;
              background-color: #083DAD;
              background-size: cover;
          }
-         //  .employee-header {
-         //      width: 100%;
-         //      height: 15vh;
-         //      background-color: #083DAD;
-         //      background-size: cover;
-         //  }
          .content {
              width: 94%;
              margin: 4em auto;
@@ -109,6 +111,20 @@
              letter-spacing: 0;
              color: #FFFFFF;
              opacity: 1;
+         }
+         .ljobcategories {
+             text-align: center;
+             color: #083DAD;
+         }
+         .ljobcategories img {
+             text-align: center;
+             padding: 5px;
+             width: 100px;
+             height: 100px;
+         }
+         .ljobcategories h3 {
+             text-align: center;
+             color: #083DAD;
          }
          .navbar {
              padding: 0px 70px;
@@ -145,10 +161,11 @@
              border-radius: 5px;
          }
          .mobileSearchbar {
-             display: none
+             display: none;
+             overflow: visible;
          }
          .searchbar {
-             display: block
+             display: block;
          }
          // Extra small devices (portrait phones, less than 576px)
          // No media query since this is the default in Bootstrap

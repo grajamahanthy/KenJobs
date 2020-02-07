@@ -47,6 +47,11 @@ class JobResult extends React.Component<any, any, any>{
             IsMobileView: (window.outerWidth <= 768) ? true : false, //(window.outerWidth <= 768) ? true : false,
         }
 
+        props.UpdateSearchSession({
+            ...props.search,
+            islandingPage: false
+        })
+
         this.findTheJobs = this.findTheJobs.bind(this);
         this.applyjob = this.applyjob.bind(this);
         this.onLoginModalHide = this.onLoginModalHide.bind(this);

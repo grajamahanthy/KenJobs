@@ -124,12 +124,33 @@ class App extends React.Component<any, any> {
                 <Route exact path="/" component={LandingForm} />
 
                 {/* <Route component={NoMatch} /> */}
+
               </div>
-            </div>
+              </div>
+              {/* Footer */}
+              {/* {this.props.system.appProps.showNav ? <div className="row">
+                <div className="col-sm-12">
+                <footer className="bg-primary text-white">
+                  <div className="container">
+                    <div className="">
+                      <p>Kenjobs © 2020</p>
+                    </div>
+
+                  </div>
+                </footer>
+              </div></div> : ''} */}
+
+            
+
+
+
           </Router>
+
           <ToastContainer />
         </div>
+
       </SearchContext.Provider>
+
     </>
     );
   }

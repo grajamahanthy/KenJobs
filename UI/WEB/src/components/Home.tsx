@@ -19,6 +19,7 @@ class Home extends React.Component<any, any> {
     if (token == null) {
       loggedIn = false;
     }
+    console.log(props.displayType != undefined)
     this.state = {
       loggedIn,
       keyword: '',
@@ -37,7 +38,8 @@ class Home extends React.Component<any, any> {
     this.props.UpdateSearchSession({
       keyword: this.state.keyword,
       location: this.state.location,
-      experience: this.state.experience
+      experience: this.state.experience,
+      islandingPage: false,
     })
     // console.log("clicked On submit props completed")
 
@@ -69,7 +71,17 @@ class Home extends React.Component<any, any> {
                 <div className="col-md-12">
                   <div className="card acik-renk-form">
                     <div className="card-body">
-                      <p>Currently 37,599 jobs in Hyderabad</p>
+                      {this.props.search.islandingPage
+                        ?
+                        <div className="text-center mb-5" style={{marginTop:"200px"}}>
+                          <h1 className="text-white">
+                            <b> Right job for the Right candidate</b>
+                          </h1>
+                          <h4 className="text-white">We find a passion for people and not job</h4>
+                        </div>
+                        :
+                        <p>Currently 37,599 jobs in Hyderabad</p>
+                      }
                       <div className="row">
                         <form className="col-sm-12" onSubmit={this.onSubmit}>
 
@@ -77,7 +89,7 @@ class Home extends React.Component<any, any> {
                             <div className="col-sm-4">
                               <label className="sr-only" htmlFor="inlineFormInput">Job Title</label>
                               <div className="input-group mb-3">
-                                <input  type="text"
+                                <input type="text"
                                   id="tptcat"
                                   placeholder="Your right job"
                                   className="form-control "
@@ -103,7 +115,7 @@ class Home extends React.Component<any, any> {
                                   name="location"
                                   value={this.state.location}
                                   onChange={this.changevalue}
-                                  aria-label="Recipient's username" aria-describedby="basic-addon2" 
+                                  aria-label="Recipient's username" aria-describedby="basic-addon2"
                                 />
                                 <div className="input-group-append">
                                   <span className="input-group-text bg-white" id="basic-addon2">
@@ -145,7 +157,9 @@ class Home extends React.Component<any, any> {
                           </div>
                         </form>
                       </div>
-                      <p>Advanced Search</p>
+                      {this.props.search.islandingPage
+                        ? "" :
+                        <p>Advanced Search</p>}
                     </div>
                   </div>
                 </div>

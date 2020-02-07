@@ -133,7 +133,6 @@ function LoadTopSearchPanelData(data: any): any {
                     </div>
                 )
             }
-
         })
         Field.push(
             <div className="form-group col-sm" >
@@ -150,7 +149,7 @@ function LoadTopSearchPanelData(data: any): any {
     return (Field);
 }
 const getFilterArray = (data: any): any => {
-    debugger;
+    // debugger;
     let searchpanel = data;
     let filterArray: Filter[] = [];
     searchpanel.map((item: any, key: any) => {
@@ -508,7 +507,6 @@ class Desktop1 extends React.Component<any, any> {
     }
 
     UpdateStateVariables = () => {
-        debugger;
         this.setState({
             GridConfig: this.props.gridConfig,
             GridRequest: this.props.gridConfig.gridRequest,
@@ -714,7 +712,7 @@ class Desktop1 extends React.Component<any, any> {
     handleTopSearchSubmit = (e: any) => {
         if (e != null)
             e.preventDefault();
-        debugger;
+        // debugger;
         this.clearFilter();
         let filterArray = getFilterArray(this.state.GridConfig.topSearchPanelUi);
         let gridRequest: GridRequest = this.state.GridRequest;

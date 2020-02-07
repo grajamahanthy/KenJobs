@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, NavItem, NavDropdown, Button, Accordion, Card } from 'react-bootstrap';
 import { AppState } from '../../store';
@@ -13,16 +13,23 @@ import Home from '../Home';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
-function Navigation(props: any) {
+const Navigation: React.FC<any> = (props) => {
+
+    const handleDisplayType = (isLandingPage: boolean) => {
+        props.UpdateSearchSession({
+            ...props.search,
+            islandingPage: isLandingPage
+        })
+    }
+
+
     let loginInfo;
     let Title = (props.app_prop.loggedIn === true) ? "KEN JOBS" : "KEN JOBS";
 
     let imgdata = new ImageModel();
 
-
     if (props.app_prop.loggedIn === true) {
         loginInfo = (<>
-
             <NavDropdown title={props.app_prop.userName} id="nav-dropdown">
                 <NavDropdown.Item eventKey="4.1">
                     <Link className="nav-link" to="/Logout">
@@ -66,12 +73,19 @@ function Navigation(props: any) {
     }
     return (<>
 
-        <div className={props.app_prop.appProps.showNav ? "bg-primary" : "d-none"}>
-            <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark" className="navbar">
+        <div className={props.app_prop.appProps.showNav ? (props.search.islandingPage && props.app_prop.loginType !== "employer") ? "Landing-header" : (props.app_prop.loginType !== "employer") ? "Search-header" : "bg-primary" : "d-none"}>
+            <Navbar collapseOnSelect expand="lg" variant="dark" className="navbar">
                 <Navbar.Brand className="">
-                    <Link className="nav-link mt-2" to="/">
-                        <h2 className="text-white">{Title}</h2>
-                    </Link>
+                    {props.app_prop.loginType == "employer" ?
+                        <Link className="nav-link mt-2" to="/Employeer-Dashbord">
+                            <h2 className="text-white">{Title}</h2>
+                         </Link>
+                        :
+                        <Link className="nav-link mt-2" onClick={() => handleDisplayType(true)} to="/">
+                            <h2 className="text-white">{Title}</h2>
+                        </Link>
+                    }
+
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
@@ -87,7 +101,7 @@ function Navigation(props: any) {
                             </NavItem>
                             :
                             <NavItem>
-                                <Link className="nav-link" to="/">
+                                <Link className="nav-link" onClick={() => handleDisplayType(true)} to="/">
                                     Home
                              </Link>
                             </NavItem>
@@ -104,7 +118,7 @@ function Navigation(props: any) {
                                         {/* <Link className="nav-link" to="/filterjobs">
                                             Search Job
                                     </Link> */}
-                                        <Link className="nav-link" to="/Searchresult">
+                                        <Link className="nav-link" onClick={() => handleDisplayType(false)} to="/Searchresult">
                                             Search Jobs
                                     </Link>
                                     </NavItem>
@@ -120,7 +134,7 @@ function Navigation(props: any) {
                                         {/* <Link className="nav-link" to="/filterjobs">
                                             Search Jobs
                                     </Link> */}
-                                        <Link className="nav-link" to="/Searchresult">
+                                        <Link className="nav-link" onClick={() => handleDisplayType(false)} to="/Searchresult">
                                             Search Jobs
                                     </Link>
                                     </NavItem>
@@ -148,6 +162,7 @@ function Navigation(props: any) {
             </Accordion>
 
             <div className="searchbar">
+
                 {(props.system.loginType === "employer") ? "" : <Home />}
             </div>
 

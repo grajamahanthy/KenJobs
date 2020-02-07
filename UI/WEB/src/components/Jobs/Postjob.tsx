@@ -161,7 +161,7 @@ class Postjob extends React.Component<any, any> {
         return (
             <>
                 {this.state.loader ? <LoaderModal></LoaderModal> : ''}
-                <div className="card  mx-2 h-100 d-block minhight-100">
+                <div className="card  mx-2 h-100 d-block minhight-100" style={{overflow:"auto"}}>
                     <div className="card-body">
 
                         <div className="mt-3">
